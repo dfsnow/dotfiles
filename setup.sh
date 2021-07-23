@@ -39,6 +39,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     if [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
 	git clone https://github.com/neovim/neovim.git build_neovim
 	cd build_neovim || exit
+	git checkout tags/stable
 	make CMAKE_BUILD_TYPE=RelWithDebInfo
 	sudo make install
 	cd ..
