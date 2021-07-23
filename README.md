@@ -30,6 +30,11 @@ Tmux prefix is `Ctrl + a`
 
 ## Vim
 
+### Comment
+
+ * `gcc` comment out a single line
+ * `gc` comment out the target of a motion or visual selection
+
 ### Surround
 
  * `cs"'` to change `"` to `'`
