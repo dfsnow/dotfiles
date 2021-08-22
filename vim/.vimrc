@@ -411,6 +411,8 @@ nmap <leader>fh :History<CR>
 nmap <leader>fl :BLines<CR>
 nmap <leader>fm :Maps<CR>
 nmap <leader>fc :Commits<CR>
+nmap <leader>fr :Rg<CR>
+nmap <leader>? :Rg<CR>
 
 " WhichKey
 nnoremap <silent> <leader><leader> :<c-u>WhichKey  ','<CR>
@@ -421,7 +423,7 @@ let g:which_key_map = {
     \ 'c' : ['Commentary'                      , 'Toggle comment']            ,
     \ 'v' : [':setlocal paste!'                , 'Paste mode']                ,
     \ 'r' : [':e ~/dotfiles/README.md'         , 'Open README']               ,
-    \ '?' : ['Rg'                              , 'Search in files']           ,
+    \ '?' : ['Files'                           , 'Search all files']          ,
     \ 'h' : ['<C-W><C-H>'                      , 'which_key_ignore']          ,
     \ 'j' : ['<C-W><C-J>'                      , 'which_key_ignore']          ,
     \ 'k' : ['<C-W><C-K>'                      , 'which_key_ignore']          ,

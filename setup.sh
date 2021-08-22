@@ -13,7 +13,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
     # Install basic utilities
     sudo apt install -y \
-	curl stow rename git bash-completion libssl-dev fd-find
+	curl stow rename git bash-completion libssl-dev fd-find ripgrep
 
     # Install build dependencies if building from source
     if [[ "$source_answer_tmux" =~ ^[Yy]$ ]] || [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then

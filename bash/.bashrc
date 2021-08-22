@@ -130,7 +130,7 @@ fi
 
 # For Debian systems add alias for fd, since fd is fdfind in apt
 if echo "$DISTRO" | grep -q "debian"; then alias fd=fdfind; fi
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git . $HOME"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
 
