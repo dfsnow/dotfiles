@@ -90,12 +90,12 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
-# Git bash completion
+# Add git bash completion
 if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 fi
 
-# Alias definitions
+# Add alias definitions
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -108,9 +108,6 @@ export EDITOR="$VISUAL"
 if [ -n "$TMUX" ]; then
     alias nvim="TERM=screen-256color nvim"
 fi
-
-# Add fzf support
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
@@ -128,18 +125,18 @@ if [ "$UNAME" == "linux" ]; then
     fi
 fi
 
+# Add fzf support
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # For Debian systems add alias for fd, since fd is fdfind in apt
 if echo "$DISTRO" | grep -q "debian"; then alias fd=fdfind; fi
-unset UNAME
-
-# Add fd support to fzf
-if echo "$DISTRO" | grep -q "debian"; then
-    export FZF_DEFAULT_COMMAND="fdfind --type f --follow --hidden --exclude .git . $HOME"
-else
-    export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git . $HOME"
-fi
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
 
-# GPG integration
+# Unset setup variables
+unset UNAME
+unset DISTRO
+
+# Enable proper GPG integration
 export GPG_TTY=$(tty)
