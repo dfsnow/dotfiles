@@ -13,7 +13,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
     # Install basic utilities
     sudo apt install -y \
-	curl stow rename git bash-completion libssl-dev fd-find ripgrep
+	curl stow rename git bash-completion libssl-dev fd-find
 
     # Install build dependencies if building from source
     if [[ "$source_answer_tmux" =~ ^[Yy]$ ]] || [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
@@ -69,16 +69,18 @@ for pkg in tmux bash git vim nvim; do
 done
 echo "Config files stowed"
 
-# Install packer and plugins if neovim is installed
-if [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
-    if [ ! -d ~/.local/share/nvim/site/autoload/plug.vim ]; then
-        echo "Installing vim-plug"
-        curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        echo "vim-plug installed!"
-    fi
+# Install vim-plug and plugins
+if [ ! -d ~/.local/share/nvim/site/autoload/plug.vim ]; then
+   echo "Installing vim-plug"
+   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+   echo "vim-plug installed!"
+fi
 
+if [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
     nvim +PlugInstall +PlugUpdate +qall
+else
+    vim +PlugInstall +PlugUpdate +qall
 fi
 
 # Reset inputrc and bashrc
