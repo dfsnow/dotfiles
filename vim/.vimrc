@@ -1,3 +1,27 @@
+call plug#begin('~/.vim/vim-plug')
+
+" UI and colors
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'liuchengxu/vim-which-key'
+Plug 'dracula/vim',{'as':'dracula'}
+
+" Git integration
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+
+" Formatting
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-commentary'
+
+" Movement and search
+Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Table of Contents
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -12,8 +36,6 @@
 "    -> Spell Checkings
 "    -> Helper Functions
 "    -> Miscellaneous
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -64,9 +86,6 @@ endif
 
 "Always show current position
 set ruler
-
-" Height of the command bar
-set cmdheight=2
 
 " A buffer becomes hidden when it is abandoned
 set hidden
@@ -126,14 +145,6 @@ set guifont=DejaVu_Sans_Mono:h14
 
 " Set background color
 set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -212,7 +223,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Delete trailing white space on save, useful for some filetypes ;)
+" Delete trailing white space on save
 fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
@@ -254,7 +265,7 @@ function! HasPaste()
     return ''
 endfunction
 
-" Don't close window, when deleting a buffer
+" Don't close window when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
    let l:currentBufNum = bufnr("%")
@@ -334,3 +345,138 @@ vnoremap S "_d"0P"
 
 " Decrease update time
 set updatetime=100
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugin Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Commentary
+nnoremap <leader>c :Commentary<cr>
+vnoremap <leader>c :Commentary<cr>
+
+" Signify
+nmap <leader>gg :SignifyToggle<CR>
+nmap <leader>gu :SignifyHunkUndo<CR>
+nmap <leader>gd :SignifyHunkDiff<CR>
+nmap <leader>gn <plug>(signify-next-hunk)
+nmap <leader>gp <plug>(signify-prev-hunk)
+
+" Git Fugitive
+nmap <leader>gs :Git<CR>
+nmap <leader>gb :Git blame<CR>
+nmap <leader>gc :Git commit<CR>
+
+" Dracula
+let g:dracula_colorterm = 0
+let g:dracula_italic = 0
+colorscheme dracula
+
+" Lightline
+set laststatus=2
+set noshowmode
+let g:lightline = {
+    \ 'colorscheme'         : 'dracula',
+    \ 'component_function'  : {'gitbranch': 'fugitive#head'}                  ,
+    \ }
+
+let g:lightline.tabline = {
+    \ 'left'                : [['buffers']]                                   ,
+    \ 'right'               : [['close']]                                     ,
+    \ }
+
+let g:lightline.component_expand = {
+    \ 'buffers'             : 'lightline#bufferline#buffers'                  ,
+    \ }
+
+let g:lightline.component_type = {
+    \ 'buffers'             : 'tabsel'                                        ,
+    \ }
+
+let g:lightline.active = {
+    \ 'right' : [
+    \   ['percent', 'line']                                                   ,
+    \   ['fileformat', 'fileencoding', 'filetype'] ]                          ,
+    \ 'left'  : [
+    \   ['mode', 'paste']                                                     ,
+    \   ['gitbranch']                                                         ,
+    \   ['readonly', 'filename', 'modified'] ]                                ,
+    \ }
+
+" FZF
+nnoremap ? :Files<CR>
+nmap <leader>ff :Files<CR>
+nmap <leader>fg :GFiles<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>fh :History<CR>
+nmap <leader>fl :BLines<CR>
+nmap <leader>fm :Maps<CR>
+nmap <leader>fc :Commits<CR>
+
+" WhichKey
+nnoremap <silent> <leader><leader> :<c-u>WhichKey  ','<CR>
+call which_key#register(',', "g:which_key_map")
+
+" WhichKey defaults
+let g:which_key_map = {
+    \ 'c' : ['Commentary'                      , 'Toggle comment']            ,
+    \ 'v' : [':setlocal paste!'                , 'Paste mode']                ,
+    \ 'r' : [':e ~/dotfiles/README.md'         , 'Open README']               ,
+    \ '?' : ['Rg'                              , 'Search in files']           ,
+    \ 'h' : ['<C-W><C-H>'                      , 'which_key_ignore']          ,
+    \ 'j' : ['<C-W><C-J>'                      , 'which_key_ignore']          ,
+    \ 'k' : ['<C-W><C-K>'                      , 'which_key_ignore']          ,
+    \ 'l' : ['<C-W><C-L>'                      , 'which_key_ignore']          ,
+    \ 'Q' : ['q!'                              , 'which_key_ignore']          ,
+    \ 'w' : ['w!'                              , 'which_key_ignore']          ,
+    \ 'q' : ['q'                               , 'which_key_ignore']          ,
+    \ 'll': ['bnext'                           , 'Next buffer']               ,
+    \ 'hh': ['bprevious'                       , 'Previous buffer']           ,
+    \ }
+
+" WhichKey buffer
+let g:which_key_map.b = {
+    \ 'name' : '+buffer' ,
+    \ 'b' : ['new'                             , 'New buffer (horizontal)']   ,
+    \ 'v' : ['vnew'                            , 'New buffer (vertical)']     ,
+    \ 'n' : ['enew'                            , 'New buffer (no split)']     ,
+    \ 'd' : ['Bclose'                          , 'Close buffer']              ,
+    \ 'c' : ['Bclose'                          , 'Close buffer']              ,
+    \ 'l' : ['bnext'                           , 'Next buffer']               ,
+    \ 'h' : ['bprevious'                       , 'Previous buffer']           ,
+    \ 'a' : ['bufdo bd'                        , 'Close all buffers']         ,
+    \ }
+
+" WhichKey fzf
+let g:which_key_map.f = {
+    \ 'name' : '+fzf' ,
+    \ 'g' : ['GFiles'                          , 'Search git files']          ,
+    \ 'f' : ['Files'                           , 'Search all files']          ,
+    \ 'b' : ['Buffers'                         , 'Search buffers']            ,
+    \ 'l' : ['BLines'                          , 'Search lines']              ,
+    \ 'h' : ['History'                         , 'Search history']            ,
+    \ 'm' : ['Maps'                            , 'Search mappings']           ,
+    \ 'c' : ['Commits'                         , 'Search commits']            ,
+    \ 'r' : ['Rg'                              , 'Search in files']           ,
+    \ }
+
+" WhichKey git
+let g:which_key_map.g = {
+    \ 'name' : '+git' ,
+    \ 's' : [':Git'                            , 'Open git']                  ,
+    \ 'b' : [':Git blame'                      , 'View blame']                ,
+    \ 'c' : [':Git commit'                     , 'Create commit']             ,
+    \ 'd' : [':SignifyHunkDiff'                , 'View diff']                 ,
+    \ 'n' : ['<plug>(signify-next-hunk)'       , 'Next hunk']                 ,
+    \ 'p' : ['<plug>(signify-prev-hunk)'       , 'Previous hunk']             ,
+    \ 'u' : [':SignifyHunkUndo'                , 'Undo hunk']                 ,
+    \ }
+
+" WhichKey spellcheck
+let g:which_key_map.s = {
+    \ 'name' : '+spell' ,
+    \ 's' : [':setlocal spell!'                , 'Toggle spell check']        ,
+    \ 'n' : [']s'                              , 'Next misspelling']          ,
+    \ 'p' : ['[s'                              , 'Previous misspelling']      ,
+    \ 'a' : ['zg'                              , 'Add to dictionary']         ,
+    \ '?' : ['z='                              , 'Search in dictionary']      ,
+    \ }
