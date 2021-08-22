@@ -40,5 +40,15 @@ alias .....='cd ../../../..'
 # Fzf aliases
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# Neovim aliases 
-alias nv='nvim'
+# Vim/neovim conditional aliases 
+if type vim >/dev/null 2>/dev/null; then
+    alias v='vim'
+    alias vi='vim'
+fi
+
+if type nvim >/dev/null 2>/dev/null; then
+    alias v='nvim'
+    alias vi='nvim'
+    alias vim='nvim'
+    alias nv='nvim'
+fi
