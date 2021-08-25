@@ -15,6 +15,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 
 " Movement and search
+Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -317,7 +318,6 @@ endfunction
 set foldcolumn=1
 set foldmethod=indent
 set foldlevel=99
-nnoremap <space> za
 
 " Open README file with helpful tips
 map <leader>r :e ~/dotfiles/README.md<CR>
@@ -353,6 +353,13 @@ set updatetime=100
 " Commentary
 nnoremap <leader>c :Commentary<cr>
 vnoremap <leader>c :Commentary<cr>
+
+" Sneak
+let g:sneak#label = 1
+let g:sneak#use_ic_scs = 1
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map <space> <Plug>Sneak_s
 
 " Signify
 nmap <leader>gg :SignifyToggle<CR>
@@ -481,4 +488,15 @@ let g:which_key_map.s = {
     \ 'p' : ['[s'                              , 'Previous misspelling']      ,
     \ 'a' : ['zg'                              , 'Add to dictionary']         ,
     \ '?' : ['z='                              , 'Search in dictionary']      ,
+    \ }
+
+" WhichKey folding
+let g:which_key_map.z = {
+    \ 'name' : '+fold' ,
+    \ 'a' : ['za'                      , 'Toggle current fold']               ,
+    \ 'A' : ['zA'                      , 'Toggle all folds under cursor']     ,
+    \ 'r' : ['zr'                      , 'Open one fold level in buffer']     ,
+    \ 'R' : ['zR'                      , 'Open all folds']                    ,
+    \ 'm' : ['zm'                      , 'Close one fold level in buffer']    ,
+    \ 'M' : ['zM'                      , 'Close all folds']                   ,
     \ }
