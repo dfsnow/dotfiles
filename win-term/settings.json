@@ -1,0 +1,80 @@
+{
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": 
+    [
+        {
+            "command": 
+            {
+                "action": "copy"
+            },
+            "keys": "ctrl+shift+c"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+shift+v"
+        },
+        {
+            "command": 
+            {
+                "action": "newTab",
+                "index": 1
+            },
+            "keys": "ctrl+shift+t"
+        }
+    ],
+    "copyOnSelect": false,
+    "copyFormatting": false,
+    "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+    "profiles": {
+        "defaults": {
+            "colorScheme": "Dracula",
+            "fontFace": "Fira Code",
+            "fontSize": 14
+        },
+        "list": [
+            {
+                "commandline": "powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "commandline": "cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "cmd"
+            },
+            {
+                "commandline": "wsl.exe ~",
+                "guid": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
+                "hidden": false,
+                "name": "Debian",
+                "source": "Windows.Terminal.Wsl"
+            }
+        ]
+    },
+    "schemes": [
+        {
+          "name": "Dracula",
+          "background": "#282A36",
+          "black": "#21222C",
+          "blue": "#BD93F9",
+          "brightBlack": "#6272A4",
+          "brightBlue": "#D6ACFF",
+          "brightCyan": "#A4FFFF",
+          "brightGreen": "#69FF94",
+          "brightPurple": "#FF92DF",
+          "brightRed": "#FF6E6E",
+          "brightWhite": "#FFFFFF",
+          "brightYellow": "#FFFFA5",
+          "cyan": "#8BE9FD",
+          "foreground": "#F8F8F2",
+          "green": "#50FA7B",
+          "purple": "#FF79C6",
+          "red": "#FF5555",
+          "white": "#F8F8F2",
+          "yellow": "#F1FA8C"
+        }
+    ],
+    "theme": "dark"
+}
