@@ -52,3 +52,10 @@ if type nvim >/dev/null 2>/dev/null; then
     alias vim='nvim'
     alias nv='nvim'
 fi
+
+if type hugo >/dev/null 2>/dev/null; then
+    alias h='hugo'
+    alias hs='hugo server'
+    alias hss='hugo server --disableFastRender'
+    alias hv='hugo version'
+fi
