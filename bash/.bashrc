@@ -100,6 +100,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Shorten dir depth displayed in prompt
+PROMPT_DIRTRIM=2
+
 # Set editor to vim and edit mode to vim
 export VISUAL=nvim
 export EDITOR="$VISUAL"
@@ -140,3 +143,6 @@ unset DISTRO
 
 # Enable proper GPG integration
 export GPG_TTY=$(tty)
+
+# Enable z jumping
+. ~/dotfiles/z/z.sh
