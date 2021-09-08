@@ -3,7 +3,18 @@ alias c='clear'
 alias ld='du -h -d 1'
 alias o='open .'
 
-# Proper color handling for coreutils
+# Enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# Proper color handling for coreutils ls
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     alias l='ls -hG --color=auto'
     alias ls='ls -hG --color=auto'
@@ -40,7 +51,7 @@ alias .....='cd ../../../..'
 # Fzf aliases
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# Vim/neovim conditional aliases 
+# Vim/neovim aliases if each installed
 if type vim >/dev/null 2>/dev/null; then
     alias v='vim'
     alias vi='vim'
@@ -53,10 +64,7 @@ if type nvim >/dev/null 2>/dev/null; then
     alias nv='nvim'
 fi
 
-# Open and search notes in vim
-alias nv='vim +NV'
-
-# Hugo conditional aliases
+# Hugo aliases if installed
 if type hugo >/dev/null 2>/dev/null; then
     alias h='hugo'
     alias hs='hugo server'
