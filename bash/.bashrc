@@ -146,3 +146,6 @@ export GPG_TTY=$(tty)
 
 # Enable z jumping
 . ~/dotfiles/z/z.sh
+
+# Search paths of note directories in vim
+export NOTE_PATHS='~/win/Drive/Notes ~/notes ~/Google\ Drive/Notes'

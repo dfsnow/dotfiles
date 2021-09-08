@@ -421,6 +421,25 @@ nmap <leader>fc :Commits<CR>
 nmap <leader>fr :Rg<CR>
 nmap <leader>? :Rg<CR>
 
+" Obsidian note search clone. <Ctrl-T> or :NV will fuzzy search 
+" the files (by name) of any directories specified by $NOTE_PATHS
+nnoremap <silent> <C-t> :NV<CR>
+nmap <leader>fn :NV<CR>
+command! -bang -nargs=? -complete=dir NV
+    \ call fzf#vim#files(
+        \ '',
+        \ fzf#vim#with_preview({
+            \ 'source': join([
+                \ 'rg --files ' . $NOTE_PATHS,
+                \ <q-args>
+                \ ]), 
+            \ 'options': join([
+                \ '--delimiter "/"',
+                \ '--with-nth -2,-1',
+                \ '--prompt Notes\>\ '
+            \ ])
+        \ }), <bang>0)
+
 " WhichKey
 nnoremap <silent> <leader><leader> :<c-u>WhichKey  ','<CR>
 call which_key#register(',', "g:which_key_map")
@@ -466,6 +485,7 @@ let g:which_key_map.f = {
     \ 'm' : ['Maps'                            , 'Search mappings']           ,
     \ 'c' : ['Commits'                         , 'Search commits']            ,
     \ 'r' : ['Rg'                              , 'Search in files']           ,
+    \ 'n' : ['NV'                              , 'Search all notes']          ,
     \ }
 
 " WhichKey git

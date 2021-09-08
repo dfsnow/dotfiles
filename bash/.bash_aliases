@@ -53,6 +53,10 @@ if type nvim >/dev/null 2>/dev/null; then
     alias nv='nvim'
 fi
 
+# Open and search notes in vim
+alias nv='vim +NV'
+
+# Hugo conditional aliases
 if type hugo >/dev/null 2>/dev/null; then
     alias h='hugo'
     alias hs='hugo server'
