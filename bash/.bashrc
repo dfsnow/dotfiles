@@ -104,7 +104,7 @@ fi
 PROMPT_DIRTRIM=2
 
 # Set editor to vim and edit mode to vim
-export VISUAL=nvim
+export VISUAL=vim
 export EDITOR="$VISUAL"
 
 # Fix nvim colors inside tmux
@@ -149,3 +149,6 @@ export GPG_TTY=$(tty)
 
 # Search paths of note directories in vim
 export NOTE_PATHS='~/win/Drive/Notes ~/notes ~/Google\ Drive/Notes'
+
+# Use Dracula theme for bat
+export BAT_THEME='Dracula'
