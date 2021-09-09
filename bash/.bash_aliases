@@ -71,3 +71,6 @@ if type hugo >/dev/null 2>/dev/null; then
     alias hss='hugo server --disableFastRender'
     alias hv='hugo version'
 fi
+
+# Open wiki.wim
+alias nv='vim +WikiFzfPages'

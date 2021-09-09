@@ -135,10 +135,21 @@ export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
 export GPG_TTY=$(tty)
 
 # Use Dracula theme for bat
-export BAT_THEME='Dracula'
+export BAT_THEME="Dracula"
 
 # Remove bash deprecation warning message on OSX
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Get wiki directory by looping through possible dirs and taking the first
+# one that exists
+for dir in \
+    "${HOME}/win/Drive/Notes" \
+    "${HOME}/Google\ Drive/Notes" \
+    "${HOME}/notes" \
+    "${HOME}/dotfiles"
+do
+    [ -d "${dir}" ] && export WIKI_DIR="${dir}" && break
+done
 
 # Unset setup variables
 unset color_prompt force_color_prompt UNAME DISTRO
