@@ -143,10 +143,10 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Get wiki directory by looping through possible dirs and taking the first
 # one that exists
 for dir in \
-    "${HOME}/win/Drive/Notes" \
-    "${HOME}/Google\ Drive/Notes" \
-    "${HOME}/notes" \
-    "${HOME}/dotfiles"
+    "${HOME}"/win/Drive/Notes \
+    "${HOME}"/Google\ Drive/Notes \
+    "${HOME}"/notes \
+    "${HOME}"/dotfiles
 do
     [ -d "${dir}" ] && export WIKI_DIR="${dir}" && break
 done
