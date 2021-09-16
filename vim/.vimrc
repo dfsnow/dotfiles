@@ -15,7 +15,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 
 " Movement and search
-Plug 'justinmk/vim-sneak'
+Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -355,12 +355,12 @@ set updatetime=100
 nnoremap <leader>c :Commentary<cr>
 vnoremap <leader>c :Commentary<cr>
 
-" Sneak
-let g:sneak#label = 1
-let g:sneak#use_ic_scs = 1
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map <space> <Plug>Sneak_s
+" EasyMotion
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_smartsign_us = 1
+map <space> <plug>(easymotion-bd-f)
+nmap <space> <plug>(easymotion-overwin-f)
 
 " Signify
 nmap <leader>gg :SignifyToggle<CR>
@@ -473,7 +473,7 @@ call which_key#register(',', "g:which_key_map")
 " WhichKey defaults
 let g:which_key_map = {
     \ 'c' : ['Commentary'                      , 'Toggle comment']            ,
-    \ 'v' : [':setlocal paste!'                , 'Paste mode']                ,
+    \ 'v' : [':setlocal paste!'                , 'Toggle paste mode']         ,
     \ 'r' : [':e ~/dotfiles/README.md'         , 'Open README']               ,
     \ '?' : ['Rg'                              , 'Search in all files']       ,
     \ 'h' : ['<C-W><C-H>'                      , 'which_key_ignore']          ,
