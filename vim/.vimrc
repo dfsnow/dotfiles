@@ -438,9 +438,9 @@ let g:wiki_mappings_use_defaults = 'none'
 command! -bang -nargs=* NRg
   \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 
   \ 1, fzf#vim#with_preview({'dir': g:wiki_root}), <bang>0)
-nnoremap <C-m> :NRg<CR>
+nnoremap <C-j> :NRg<CR>
 nnoremap <C-n> :WikiFzfPages<CR>
-nnoremap <leader>fm :NRg<CR>
+nnoremap <leader>fj :NRg<CR>
 nnoremap <leader>fn :WikiFzfPages<CR>
 nnoremap <leader>nts :WikiFzfTags<CR>
 let g:wiki_mappings_global = {
@@ -507,11 +507,12 @@ let g:which_key_map.f = {
     \ 'f' : ['Files'                           , 'Search all files']          ,
     \ 'b' : ['Buffers'                         , 'Search buffers']            ,
     \ 'l' : ['BLines'                          , 'Search lines']              ,
+    \ 'm' : ['Maps'                            , 'Search mappings']           ,
     \ 'h' : ['History'                         , 'Search history']            ,
     \ 'c' : ['Commits'                         , 'Search commits']            ,
     \ 'r' : ['Rg'                              , 'Search in files']           ,
     \ 'n' : ['WikiFzfPages'                    , 'Search note titles']        ,
-    \ 'm' : ['NRg'                             , 'Search in notes']           ,
+    \ 'j' : ['NRg'                             , 'Search in notes']           ,
     \ }
 
 " WhichKey git
