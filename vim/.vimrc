@@ -411,7 +411,6 @@ let g:lightline.active = {
     \ }
 
 " FZF
-nnoremap ? :Files<CR>
 nmap <leader>ff :Files<CR>
 nmap <leader>fg :GFiles<CR>
 nmap <leader>fb :Buffers<CR>
@@ -420,9 +419,11 @@ nmap <leader>fl :BLines<CR>
 nmap <leader>fm :Maps<CR>
 nmap <leader>fc :Commits<CR>
 nmap <leader>fr :Rg<CR>
-nmap <leader>? :Rg<CR>
+nnoremap <C-t> :Files<CR>
+nnoremap ? :Rg<CR>
 
 " wiki.vim
+" Plugin settings
 let g:wiki_root = $WIKI_DIR
 let g:wiki_filetypes = ['md']
 let g:wiki_link_extension = '.md'
@@ -431,15 +432,23 @@ let s:tag_parser = deepcopy(g:wiki#tags#default_parser)
 let s:tag_parser.re_match = '\v%(^|\s)#\zs[^# ]+'
 let s:tag_parser.re_findstart = '\v%(^|\s)#\zs[^# ]+'
 let g:wiki_tag_parsers = [s:tag_parser]
-
 let g:wiki_mappings_use_defaults = 'none'
-nnoremap <silent> <C-t> :WikiFzfPages<CR>
-nnoremap <silent> <C-f> :WikiFzfTags<CR>
-nmap <leader>nts :WikiFzfTags<CR>
+
+" Global mappings
+command! -bang -nargs=* NRg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 
+  \ 1, fzf#vim#with_preview({'dir': g:wiki_root}), <bang>0)
+nnoremap <C-m> :NRg<CR>
+nnoremap <C-n> :WikiFzfPages<CR>
+nnoremap <leader>fm :NRg<CR>
+nnoremap <leader>fn :WikiFzfPages<CR>
+nnoremap <leader>nts :WikiFzfTags<CR>
 let g:wiki_mappings_global = {
     \ '<plug>(wiki-index)'                 : '<leader>nw'                     ,
     \ '<plug>(wiki-open)'                  : '<leader>no'                     ,
     \ }
+
+" Mappings that only work in wiki_root
 let g:wiki_mappings_local = {
     \ '<plug>(wiki-graph-find-backlinks)'  : '<leader>ncb'                    ,
     \ '<plug>(wiki-graph-check-links)'     : '<leader>ncl'                    ,
@@ -466,7 +475,7 @@ let g:which_key_map = {
     \ 'c' : ['Commentary'                      , 'Toggle comment']            ,
     \ 'v' : [':setlocal paste!'                , 'Paste mode']                ,
     \ 'r' : [':e ~/dotfiles/README.md'         , 'Open README']               ,
-    \ '?' : ['Files'                           , 'Search all files']          ,
+    \ '?' : ['Rg'                              , 'Search in all files']       ,
     \ 'h' : ['<C-W><C-H>'                      , 'which_key_ignore']          ,
     \ 'j' : ['<C-W><C-J>'                      , 'which_key_ignore']          ,
     \ 'k' : ['<C-W><C-K>'                      , 'which_key_ignore']          ,
@@ -499,10 +508,10 @@ let g:which_key_map.f = {
     \ 'b' : ['Buffers'                         , 'Search buffers']            ,
     \ 'l' : ['BLines'                          , 'Search lines']              ,
     \ 'h' : ['History'                         , 'Search history']            ,
-    \ 'm' : ['Maps'                            , 'Search mappings']           ,
     \ 'c' : ['Commits'                         , 'Search commits']            ,
     \ 'r' : ['Rg'                              , 'Search in files']           ,
-    \ 'n' : ['NV'                              , 'Search all notes']          ,
+    \ 'n' : ['WikiFzfPages'                    , 'Search note titles']        ,
+    \ 'm' : ['NRg'                             , 'Search in notes']           ,
     \ }
 
 " WhichKey git
