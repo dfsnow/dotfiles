@@ -105,9 +105,6 @@ fi
 # Add fzf support
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# Add z jumping
-[ -f ~/dotfiles/z/z.sh ] && source ~/dotfiles/z/z.sh
-
 # Add git bash completion
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
 
