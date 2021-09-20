@@ -116,7 +116,7 @@ fi
 # => Exports env vars
 ###############################################################
 # Shorten dir depth displayed in prompt
-PROMPT_DIRTRIM=2
+PROMPT_DIRTRIM=1
 
 # Set editor to vim and edit mode to vim
 export VISUAL=vim
