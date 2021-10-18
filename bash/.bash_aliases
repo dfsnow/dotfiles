@@ -72,5 +72,6 @@ if type hugo >/dev/null 2>/dev/null; then
     alias hv='hugo version'
 fi
 
-# Open wiki.wim
+# Open wiki.vim and journal
 alias nv='vim +WikiFzfPages'
+alias nj='vim +WikiJournal'

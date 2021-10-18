@@ -446,6 +446,16 @@ nnoremap <leader>nts :WikiFzfTags<CR>
 let g:wiki_mappings_global = {
     \ '<plug>(wiki-index)'                 : '<leader>nw'                     ,
     \ '<plug>(wiki-open)'                  : '<leader>no'                     ,
+    \ '<plug>(wiki-journal)'               : '<leader>nj'                     ,
+    \ }
+let g:wiki_journal = {
+    \ 'name'                               : 'journal'                        ,
+    \ 'frequency'                          : 'daily'                          ,
+    \ 'date_format'                        : {
+    \   'daily'   : '%Y-%m-%d' ,
+    \   'weekly'  : '%Y_w%V'   ,
+    \   'monthly' : '%Y_m%m'   ,
+    \   }
     \ }
 
 " Mappings that only work in wiki_root
