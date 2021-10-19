@@ -150,3 +150,6 @@ done
 
 # Unset setup variables
 unset color_prompt force_color_prompt UNAME DISTRO
+
+# Set cargo env vars
+. "$HOME/.cargo/env"
