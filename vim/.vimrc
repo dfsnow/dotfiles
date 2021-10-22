@@ -474,6 +474,8 @@ let g:wiki_mappings_local = {
     \ '<plug>(wiki-link-prev)'             : '<leader>np'                     ,
     \ '<plug>(wiki-link-follow)'           : '<tab>'                          ,
     \ '<plug>(wiki-link-return)'           : '<s-tab>'                        ,
+    \ '<plug>(wiki-journal-next)'          : '<leader>njn'                    ,
+    \ '<plug>(wiki-journal-prev)'          : '<leader>njp'                    ,
     \ }
 
 " WhichKey
