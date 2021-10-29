@@ -69,20 +69,6 @@ for pkg in tmux bash git vim nvim; do
 done
 echo "Config files stowed"
 
-# Install vim-plug and plugins
-if [ ! -d ~/.local/share/nvim/site/autoload/plug.vim ]; then
-   echo "Installing vim-plug"
-   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-   echo "vim-plug installed!"
-fi
-
-if [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
-    nvim +PlugInstall +PlugUpdate +qall
-else
-    vim +PlugInstall +PlugUpdate +qall
-fi
-
 # Reset inputrc and bashrc
 bind -f  ~/.inputrc
 source "$HOME"/.bashrc
