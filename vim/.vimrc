@@ -451,7 +451,7 @@ nnoremap <leader>nts :WikiFzfTags<CR>
 let g:wiki_mappings_global = {
     \ '<plug>(wiki-index)'                 : '<leader>nw'                     ,
     \ '<plug>(wiki-open)'                  : '<leader>no'                     ,
-    \ '<plug>(wiki-journal)'               : '<leader>nj'                     ,
+    \ '<plug>(wiki-journal)'               : '<leader>njj'                    ,
     \ }
 let g:wiki_journal = {
     \ 'name'                               : 'journal'                        ,
@@ -542,6 +542,7 @@ let g:which_key_map.g = {
     \ 'n' : ['<plug>(signify-next-hunk)'       , 'Next hunk']                 ,
     \ 'p' : ['<plug>(signify-prev-hunk)'       , 'Previous hunk']             ,
     \ 'u' : [':SignifyHunkUndo'                , 'Undo hunk']                 ,
+    \ 'g' : [':SignifyToggle'                  , 'Toggle git signs']          ,
     \ }
 
 " WhichKey wiki.vim
@@ -557,6 +558,12 @@ let g:which_key_map.n = {
     \ 'l'  : ['<plug>(wiki-link-show)'            , 'Show link info']         ,
     \ 'n'  : ['<plug>(wiki-link-next)'            , 'Go to next link']        ,
     \ 'p'  : ['<plug>(wiki-link-prev)'            , 'Go to previous link']    ,
+    \ 'j'  : {
+      \ 'name' : '+journal' ,
+      \ 'j' : ['<plug>(wiki-journal)'             , 'Open daily journal']     ,
+      \ 'p' : ['<plug>(wiki-journal-prev)'        , 'Previous journal entry'] ,
+      \ 'n' : ['<plug>(wiki-journal-next)'        , 'Next journal entry']     ,
+      \ },
     \ 'c'  : {
       \ 'name' : '+links' ,
       \ 'b' : ['<plug>(wiki-graph-find-backlinks)', 'Show backlinks']         ,
