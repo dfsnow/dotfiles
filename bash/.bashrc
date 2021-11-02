@@ -152,4 +152,4 @@ done
 unset color_prompt force_color_prompt UNAME DISTRO
 
 # Set cargo env vars
-[ -f ~/.cargo/env ] && . ~/cargo/env
+[ -f ~/.cargo/env ] && . ~/.cargo/env
