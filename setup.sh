@@ -64,7 +64,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Create symlinks to all files and folders using GNU stow
-for pkg in tmux bash git vim nvim; do
+for pkg in tmux bash git vim nvim gpg; do
     stow "$pkg"
 done
 echo "Config files stowed"
