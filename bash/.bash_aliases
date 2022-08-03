@@ -48,9 +48,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-# Fzf aliases
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
 # Vim/neovim aliases if each installed
 if type vim >/dev/null 2>/dev/null; then
     alias v='vim'
@@ -63,15 +60,3 @@ if type nvim >/dev/null 2>/dev/null; then
     alias vim='nvim'
     alias nv='nvim'
 fi
-
-# Hugo aliases if installed
-if type hugo >/dev/null 2>/dev/null; then
-    alias h='hugo'
-    alias hs='hugo server'
-    alias hss='hugo server --disableFastRender'
-    alias hv='hugo version'
-fi
-
-# Open wiki.vim and journal
-alias nv='vim +WikiFzfPages'
-alias nj='vim +WikiJournal'

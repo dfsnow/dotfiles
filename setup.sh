@@ -13,7 +13,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
     # Install basic utilities
     sudo apt install -y \
-	curl stow rename git bash-completion libssl-dev fd-find ripgrep
+	curl stow rename git bash-completion libssl-dev fd-find ripgrep zstd gnupg
 
     # Install build dependencies if building from source
     if [[ "$source_answer_tmux" =~ ^[Yy]$ ]] || [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
@@ -58,10 +58,17 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	fi
     }
 
-    for pkg in stow neovim tmux git bash-completion fd ripgrep; do
+    for pkg in stow neovim tmux git bash-completion fzf fd ripgrep zstd gpg; do
 	install_or_upgrade "$pkg"
     done
+
+    # Install fzf
+    $(brew --prefix)/opt/fzf/install
 fi
+
+# Install vim-plug
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Create symlinks to all files and folders using GNU stow
 for pkg in tmux bash git vim nvim gpg; do

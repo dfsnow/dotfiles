@@ -95,8 +95,9 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	fi
     fi
 
-# Enable programmable completion features (mac)
+# Enable homebrew and programmable completion features (mac)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+    eval $(/opt/homebrew/bin/brew shellenv)
     if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
 	. $(brew --prefix)/etc/profile.d/bash_completion.sh
     fi
@@ -137,19 +138,5 @@ export BAT_THEME="Dracula"
 # Remove bash deprecation warning message on OSX
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-# Get wiki directory by looping through possible dirs and taking the first
-# one that exists
-for dir in \
-    "${HOME}"/win/Drive/Notes \
-    "${HOME}"/Google\ Drive/Notes \
-    "${HOME}"/notes \
-    "${HOME}"/dotfiles
-do
-    [ -d "${dir}" ] && export WIKI_DIR="${dir}" && break
-done
-
 # Unset setup variables
 unset color_prompt force_color_prompt UNAME DISTRO
-
-# Set cargo env vars
-[ -f ~/.cargo/env ] && . ~/.cargo/env
