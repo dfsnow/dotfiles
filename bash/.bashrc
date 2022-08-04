@@ -105,6 +105,7 @@ fi
 
 # Add fzf support
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # Add git bash completion
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
