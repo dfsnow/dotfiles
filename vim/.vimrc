@@ -20,11 +20,12 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Wiki and markdown
+" Wiki, writing, and markdown
 Plug 'lervag/wiki.vim'
 Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -194,6 +195,8 @@ nnoremap <leader>j <C-W><C-J>
 nnoremap <leader>k <C-W><C-K>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
+nnoremap <Tab>   <c-W>w
+nnoremap <S-Tab> <c-W>W
 
 " Open new buffers
 map <leader>bb :new<cr>
@@ -427,6 +430,15 @@ nmap <leader>fr :Rg<CR>
 nnoremap <C-t> :Files<CR>
 nnoremap ? :Rg<CR>
 
+" Markdown
+nmap <leader>mm <Plug>MarkdownPreviewToggle
+nmap <leader>mx <Plug>Markdown_OpenUrlUnderCursor
+nmap <leader>me <Plug>Markdown_EditUrlUnderCursor
+nmap <leader>mi :HeaderIncrease<CR>
+nmap <leader>md :HeaderDecrease<CR>
+nmap <leader>mt :Toc<CR>
+nmap <leader>i :Goyo<CR>
+
 " wiki.vim
 " Plugin settings
 let g:wiki_root = $WIKI_DIR
@@ -477,8 +489,8 @@ let g:wiki_mappings_local = {
     \ '<plug>(wiki-link-show)'             : '<leader>nl'                     ,
     \ '<plug>(wiki-link-next)'             : '<leader>nn'                     ,
     \ '<plug>(wiki-link-prev)'             : '<leader>np'                     ,
-    \ '<plug>(wiki-link-follow)'           : '<tab>'                          ,
-    \ '<plug>(wiki-link-return)'           : '<s-tab>'                        ,
+    \ '<plug>(wiki-link-follow)'           : '<leader><tab>'                  ,
+    \ '<plug>(wiki-link-return)'           : '<leader><s-tab>'                ,
     \ '<plug>(wiki-journal-next)'          : '<leader>njn'                    ,
     \ '<plug>(wiki-journal-prev)'          : '<leader>njp'                    ,
     \ }
@@ -502,6 +514,9 @@ let g:which_key_map = {
     \ 'q' : ['q'                               , 'which_key_ignore']          ,
     \ 'll': ['bnext'                           , 'Next buffer']               ,
     \ 'hh': ['bprevious'                       , 'Previous buffer']           ,
+    \ 'i' : [':Goyo'                           , 'Enable focus mode']         ,
+    \ '<S-Tab>': ['<plug>(wiki-link-return)'   , 'which_key_ignore']          ,
+    \ '<Tab>' : ['<C-W>w'                      , 'Change window']             ,
     \ }
 
 " WhichKey buffer
@@ -596,4 +611,15 @@ let g:which_key_map.z = {
     \ 'R' : ['zR'                      , 'Open all folds']                    ,
     \ 'm' : ['zm'                      , 'Close one fold level in buffer']    ,
     \ 'M' : ['zM'                      , 'Close all folds']                   ,
+    \ }
+
+" WhichKey markdown
+let g:which_key_map.m = {
+    \ 'name' : '+markdown' ,
+    \ 'm' : ['<Plug>MarkdownPreviewToggle'      , 'Preview markdown']         ,
+    \ 'x' : ['<Plug>Markdown_OpenUrlUnderCursor', 'Open URL under cursor']    ,
+    \ 'e' : ['<Plug>Markdown_EditUrlUnderCursor', 'Edit file under cursor']   ,
+    \ 'i' : [':HeaderIncrease'         , 'Increase header sizes']             ,
+    \ 'd' : [':HeaderDecrease'         , 'Decrease header sizes']             ,
+    \ 't' : [':Toc'                    , 'Open table of contents']            ,
     \ }
