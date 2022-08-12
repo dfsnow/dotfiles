@@ -20,6 +20,12 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" Wiki and markdown
+Plug 'lervag/wiki.vim'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+
 call plug#end()
 
 
@@ -421,6 +427,62 @@ nmap <leader>fr :Rg<CR>
 nnoremap <C-t> :Files<CR>
 nnoremap ? :Rg<CR>
 
+" wiki.vim
+" Plugin settings
+let g:wiki_root = $WIKI_DIR
+let g:wiki_filetypes = ['md']
+let g:wiki_link_extension = '.md'
+let g:wiki_fzf_pages_opts = '--preview "bat --style=numbers,changes --wrap never --color always {1} || cat {1}"'
+let s:tag_parser = deepcopy(g:wiki#tags#default_parser)
+let s:tag_parser.re_match = '\v%(^|\s)#\zs[^# ]+'
+let s:tag_parser.re_findstart = '\v%(^|\s)#\zs[^# ]+'
+let g:wiki_tag_parsers = [s:tag_parser]
+let g:wiki_mappings_use_defaults = 'none'
+
+" Global mappings
+command! -bang -nargs=* NRg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 
+  \ 1, fzf#vim#with_preview({'dir': g:wiki_root}), <bang>0)
+nnoremap <C-j> :NRg<CR>
+nnoremap <C-n> :WikiFzfPages<CR>
+nnoremap <leader>fj :NRg<CR>
+nnoremap <leader>fn :WikiFzfPages<CR>
+nnoremap <leader>nts :WikiFzfTags<CR>
+let g:wiki_mappings_global = {
+    \ '<plug>(wiki-index)'                 : '<leader>nw'                     ,
+    \ '<plug>(wiki-open)'                  : '<leader>no'                     ,
+    \ '<plug>(wiki-journal)'               : '<leader>njj'                    ,
+    \ }
+let g:wiki_journal = {
+    \ 'name'                               : 'journal'                        ,
+    \ 'frequency'                          : 'daily'                          ,
+    \ 'date_format'                        : {
+    \   'daily'   : '%Y-%m-%d' ,
+    \   'weekly'  : '%Y_w%V'   ,
+    \   'monthly' : '%Y_m%m'   ,
+    \   }
+    \ }
+
+" Mappings that only work in wiki_root
+let g:wiki_mappings_local = {
+    \ '<plug>(wiki-graph-find-backlinks)'  : '<leader>ncb'                    ,
+    \ '<plug>(wiki-graph-check-links)'     : '<leader>ncl'                    ,
+    \ '<plug>(wiki-graph-in)'              : '<leader>ng'                     ,
+    \ '<plug>(wiki-graph-out)'             : '<leader>nG'                     ,
+    \ '<plug>(wiki-page-delete)'           : '<leader>nd'                     ,
+    \ '<plug>(wiki-page-rename)'           : '<leader>nr'                     ,
+    \ '<plug>(wiki-tag-list)'              : '<leader>ntl'                    ,
+    \ '<plug>(wiki-tag-reload)'            : '<leader>ntr'                    ,
+    \ '<plug>(wiki-link-toggle)'           : '<leader>nf'                     ,
+    \ '<plug>(wiki-link-show)'             : '<leader>nl'                     ,
+    \ '<plug>(wiki-link-next)'             : '<leader>nn'                     ,
+    \ '<plug>(wiki-link-prev)'             : '<leader>np'                     ,
+    \ '<plug>(wiki-link-follow)'           : '<tab>'                          ,
+    \ '<plug>(wiki-link-return)'           : '<s-tab>'                        ,
+    \ '<plug>(wiki-journal-next)'          : '<leader>njn'                    ,
+    \ '<plug>(wiki-journal-prev)'          : '<leader>njp'                    ,
+    \ }
+
 " WhichKey
 nnoremap <silent> <leader><leader> :<c-u>WhichKey ','<CR>
 call which_key#register(',', "g:which_key_map")
@@ -466,6 +528,8 @@ let g:which_key_map.f = {
     \ 'h' : ['History'                         , 'Search history']            ,
     \ 'c' : ['Commits'                         , 'Search commits']            ,
     \ 'r' : ['Rg'                              , 'Search in files']           ,
+    \ 'n' : ['WikiFzfPages'                    , 'Search note titles']        ,
+    \ 'j' : ['NRg'                             , 'Search in notes']           ,
     \ }
 
 " WhichKey git
@@ -479,6 +543,38 @@ let g:which_key_map.g = {
     \ 'p' : ['<plug>(signify-prev-hunk)'       , 'Previous hunk']             ,
     \ 'u' : [':SignifyHunkUndo'                , 'Undo hunk']                 ,
     \ 'g' : [':SignifyToggle'                  , 'Toggle git signs']          ,
+    \ }
+
+" WhichKey wiki.vim
+let g:which_key_map.n = {
+    \ 'name' : '+note' ,
+    \ 'w'  : ['<plug>(wiki-index)'                , 'Open notes index']       ,
+    \ 'o'  : ['<plug>(wiki-open)'                 , 'New note page']          ,
+    \ 'g'  : ['<plug>(wiki-graph-in)'             , 'Show graph to page']     ,
+    \ 'G'  : ['<plug>(wiki-graph-out)'            , 'Show graph from page']   ,
+    \ 'd'  : ['<plug>(wiki-page-delete)'          , 'Delete current page']    ,
+    \ 'r'  : ['<plug>(wiki-page-rename)'          , 'Rename current page']    ,
+    \ 'f'  : ['<plug>(wiki-link-toggle)'          , 'Toggle link style']      ,
+    \ 'l'  : ['<plug>(wiki-link-show)'            , 'Show link info']         ,
+    \ 'n'  : ['<plug>(wiki-link-next)'            , 'Go to next link']        ,
+    \ 'p'  : ['<plug>(wiki-link-prev)'            , 'Go to previous link']    ,
+    \ 'j'  : {
+      \ 'name' : '+journal' ,
+      \ 'j' : ['<plug>(wiki-journal)'             , 'Open daily journal']     ,
+      \ 'p' : ['<plug>(wiki-journal-prev)'        , 'Previous journal entry'] ,
+      \ 'n' : ['<plug>(wiki-journal-next)'        , 'Next journal entry']     ,
+      \ },
+    \ 'c'  : {
+      \ 'name' : '+links' ,
+      \ 'b' : ['<plug>(wiki-graph-find-backlinks)', 'Show backlinks']         ,
+      \ 'l' : ['<plug>(wiki-graph-check-links)'   , 'Check for broken links'] ,
+      \ },
+    \ 't'  : {
+      \ 'name' : '+tags' ,
+      \ 'l' : ['<plug>(wiki-tag-list)'            , 'List all tags']          ,
+      \ 'r' : ['<plug>(wiki-tag-reload)'          , 'Reload tags']            ,
+      \ 's' : [':WikiFzfTags'                     , 'Search tags']            ,
+      \ }
     \ }
 
 " WhichKey spellcheck

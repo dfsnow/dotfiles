@@ -142,5 +142,14 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
 
+for dir in \
+    "${HOME}"/win/Drive/Notes \
+    "${HOME}"/iCloud/Notes \
+    "${HOME}"/notes \
+    "${HOME}"
+do
+    [ -d "${dir}" ] && export WIKI_DIR="${dir}" && break
+done
+
 # Unset setup variables
 unset color_prompt force_color_prompt UNAME DISTRO

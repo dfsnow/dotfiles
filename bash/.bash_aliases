@@ -59,4 +59,9 @@ if type nvim >/dev/null 2>/dev/null; then
     alias vi='nvim'
     alias vim='nvim'
     alias nv='nvim'
+
+    # Open wiki.vim and journal
+    alias nv='vim +WikiFzfPages'
+    alias nj='vim +WikiJournal'
 fi
+
