@@ -139,5 +139,8 @@ export BAT_THEME="Dracula"
 # Remove bash deprecation warning message on OSX
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+# Disable Homebrew analytics
+export HOMEBREW_NO_ANALYTICS=1
+
 # Unset setup variables
 unset color_prompt force_color_prompt UNAME DISTRO
