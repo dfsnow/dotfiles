@@ -4,7 +4,7 @@ call plug#begin('~/.vim/vim-plug')
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'liuchengxu/vim-which-key'
-Plug 'dracula/vim',{'as':'dracula'}
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Git integration
 Plug 'tpope/vim-fugitive'
@@ -13,6 +13,7 @@ Plug 'mhinz/vim-signify'
 " Formatting
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
+Plug 'godlygeek/tabular'
 
 " Movement and search
 Plug 'easymotion/vim-easymotion'
@@ -22,10 +23,10 @@ Plug 'junegunn/fzf.vim'
 
 " Wiki, writing, and markdown
 Plug 'lervag/wiki.vim'
-Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 
@@ -437,7 +438,15 @@ nmap <leader>me <Plug>Markdown_EditUrlUnderCursor
 nmap <leader>mi :HeaderIncrease<CR>
 nmap <leader>md :HeaderDecrease<CR>
 nmap <leader>mt :Toc<CR>
+
+" Goyo and Limelight
 nmap <leader>i :Goyo<CR>
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 " wiki.vim
 " Plugin settings
@@ -514,7 +523,7 @@ let g:which_key_map = {
     \ 'q' : ['q'                               , 'which_key_ignore']          ,
     \ 'll': ['bnext'                           , 'Next buffer']               ,
     \ 'hh': ['bprevious'                       , 'Previous buffer']           ,
-    \ 'i' : [':Goyo'                           , 'Enable focus mode']         ,
+    \ 'i' : [':Goyo'                           , 'Toggle focus mode']         ,
     \ '<S-Tab>': ['<plug>(wiki-link-return)'   , 'which_key_ignore']          ,
     \ '<Tab>' : ['<C-W>w'                      , 'Change window']             ,
     \ }
