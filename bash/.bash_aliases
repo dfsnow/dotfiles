@@ -1,7 +1,6 @@
 # Alias common navigation commands
 alias c='clear'
 alias ld='du -h -d 1'
-alias o='open .'
 
 # Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -16,13 +15,16 @@ fi
 
 # Proper color handling for coreutils ls
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    alias l='ls -hG --color=auto'
-    alias ls='ls -hG --color=auto'
-    alias ll='ls -lahG --color=auto'
+    alias l='ls -hGF --color=auto'
+    alias ls='ls -hGF --color=auto'
+    alias ll='ls -lahGF --color=auto'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    alias l='ls -hG'
-    alias ls='ls -hG'
-    alias ll='ls -lahG'
+    alias l='ls -hGF'
+    alias ls='ls -hGF'
+    alias ll='ls -lahGF'
+    o() {
+      open --reveal "${1:-.}"
+    }
 fi
 
 # Git related aliases automatically added by .gitconfig
