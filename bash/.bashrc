@@ -132,6 +132,7 @@ export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
 
 # Enable proper GPG integration
 export GPG_TTY=$(tty)
+export PINENTRY_USER_DATA="USE_CURSES=1"
 
 # Use Dracula theme for bat
 export BAT_THEME="Dracula"
