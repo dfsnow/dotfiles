@@ -438,6 +438,7 @@ nmap <leader>me <Plug>Markdown_EditUrlUnderCursor
 nmap <leader>mi :HeaderIncrease<CR>
 nmap <leader>md :HeaderDecrease<CR>
 nmap <leader>mt :Toc<CR>
+let g:vim_markdown_new_list_item_indent = 0
 
 " Goyo and Limelight
 nmap <leader>i :Goyo<CR>
