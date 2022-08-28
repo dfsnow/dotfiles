@@ -130,9 +130,7 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/nul
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
 
-# Enable proper GPG integration
-export GPG_TTY=$(tty)
-export PINENTRY_USER_DATA="USE_CURSES=1"
+# Enable SSH key signing 
 if [[ "$OSTYPE" == "darwin"* ]]; then export SSH_AUTH_SOCK="/Users/dfsnow/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"; fi
 
 # Use Dracula theme for bat
