@@ -133,6 +133,7 @@ export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
 # Enable proper GPG integration
 export GPG_TTY=$(tty)
 export PINENTRY_USER_DATA="USE_CURSES=1"
+if [[ "$OSTYPE" == "darwin"* ]]; then export SSH_AUTH_SOCK="/Users/dfsnow/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"; fi
 
 # Use Dracula theme for bat
 export BAT_THEME="Dracula"
