@@ -1,9 +1,19 @@
 [user]
 	name = Dan Snow
 	email = snow.dfs@gmail.com
+	signingkey = /Users/dfsnow/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/PublicKeys/313d0161189e80c4749ec03021c66947.pub
 
 [core]
 	autocrlf = false
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
 
 [alias]
 	a = add
