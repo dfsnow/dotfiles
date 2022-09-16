@@ -1,7 +1,7 @@
 [user]
 	name = Dan Snow
 	email = snow.dfs@gmail.com
-	signingkey = /Users/dfsnow/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/PublicKeys/313d0161189e80c4749ec03021c66947.pub
+	signingkey = /Users/dfsnow/.ssh/dfsnow-signing-key.pub
 
 [core]
 	autocrlf = false
