@@ -1,0 +1,36 @@
+theme = "dracula"
+
+[editor]
+mouse = true
+rulers = [80, 120]
+cursorline = true
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+git-ignore = false
+
+[keys.normal]
+"backspace" = ["goto_prev_paragraph", "collapse_selection"]
+"ret" = ["goto_next_paragraph", "collapse_selection"]
+0 = "goto_line_start"
+"$" = "goto_line_end"
+G = "goto_file_end"
+V = ["select_mode", "extend_to_line_bounds"]
+
+[keys.select]
+"backspace" = ["goto_prev_paragraph"] 
+"ret" = ["goto_next_paragraph"]
+0 = "goto_line_start"
+"$" = "goto_line_end"
+G = "goto_file_end"
+esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
+k = ["extend_line_up", "extend_to_line_bounds"]
+j = ["extend_line_down", "extend_to_line_bounds"]
+
+# - easymotion
+# - buffer bar
+# - change inside word
