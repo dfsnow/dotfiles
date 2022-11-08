@@ -63,3 +63,8 @@
 	lc = "!git ls-files | while read f; do git blame -w --line-porcelain -- \"$f\" | grep -I '^author-mail '; done | sed 's/@.*//g'| sed 's/<//g' | sort -f | uniq -ic | sort -nr"
 
 	lh = "!git log --numstat --pretty=\"%ae %H\" | sed 's/@.*//g' | awk '{ if (NF == 1){ name = $1}; if(NF == 3) {plus[name] += $1; minus[name] += $2}} END { for (name in plus) {print name\": +\"plus[name]\" -\"minus[name]}}' | sort -k2 -gr"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

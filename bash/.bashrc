@@ -10,7 +10,7 @@ case $- in
       *) return;;
 esac
 
-# Don't put duplicate lines or lines starting with space in the history.
+# Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
 
 # Append to the history file, don't overwrite it
@@ -28,6 +28,7 @@ shopt -s checkwinsize
 ###############################################################
 # => TERM setup 
 ###############################################################
+
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 
@@ -85,6 +86,7 @@ esac
 ###############################################################
 # => Source additional scripts
 ###############################################################
+
 # Enable programmable completion features (linux)
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     if ! shopt -oq posix; then
@@ -113,10 +115,14 @@ fi
 # Add alias definitions
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 
+# Add cargo support
+[ -f ~/.cargo/env ] && source ~/.cargo/env
+
 
 ###############################################################
 # => Exports env vars
 ###############################################################
+
 # Shorten dir depth displayed in prompt
 PROMPT_DIRTRIM=1
 
@@ -130,28 +136,19 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/nul
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
 
-# Enable SSH key signing 
+# Enable SSH key signing on mac
 if [[ "$OSTYPE" == "darwin"* ]]; then export SSH_AUTH_SOCK="/Users/dfsnow/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"; fi
 
 # Use Dracula theme for bat
 export BAT_THEME="Dracula"
 
-# Remove bash deprecation warning message on OSX
+# Remove bash deprecation warning message on mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
 
-for dir in \
-    "${HOME}"/win/Drive/Notes \
-    "${HOME}"/iCloud/Notes \
-    "${HOME}"/notes \
-    "${HOME}"
-do
-    [ -d "${dir}" ] && export WIKI_DIR="${dir}" && break
-done
-
-# Setup Z
+# Setup Z with fzf
 source $HOME/dotfiles/z.sh
 unalias z 2> /dev/null
 z() {

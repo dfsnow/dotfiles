@@ -13,7 +13,6 @@ Plug 'mhinz/vim-signify'
 " Formatting
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
-Plug 'godlygeek/tabular'
 
 " Movement and search
 Plug 'easymotion/vim-easymotion'
