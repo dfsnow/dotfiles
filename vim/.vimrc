@@ -20,8 +20,7 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Wiki, writing, and markdown
-Plug 'lervag/wiki.vim'
+" Writing and markdown
 Plug 'preservim/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'junegunn/goyo.vim'
@@ -33,6 +32,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Table of Contents
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Sections:
 "    -> General
 "    -> VIM User Interface
@@ -49,6 +49,7 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Sets how many lines of history VIM has to remember
 set history=500
 
@@ -78,6 +79,7 @@ command Q :q!
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -145,6 +147,7 @@ set colorcolumn=80
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Enable syntax highlighting
 syntax enable
 
@@ -164,6 +167,7 @@ set ffs=unix,dos,mac
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, Backups and Undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Turn backup off, since most stuff is in SVN, git, etc anyway...
 set nobackup
 set nowb
@@ -173,6 +177,7 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, Tab and Indent Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Enable smart auto indent and line wrapping
 set ai
 set si
@@ -186,6 +191,7 @@ vnoremap > >gv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, Tabs, Windows and Buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Split new buffers to the right
 set splitright
 set splitbelow
@@ -230,6 +236,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
@@ -250,6 +257,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell Checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -267,6 +275,7 @@ set spellfile=$HOME/dotfiles/spell/en.utf-8.add
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -323,6 +332,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Miscellaneous
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Enable folding
 set foldcolumn=1
 set foldmethod=indent
@@ -359,6 +369,7 @@ set updatetime=100
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Commentary
 nnoremap <leader>c :Commentary<cr>
 vnoremap <leader>c :Commentary<cr>
@@ -448,62 +459,6 @@ let g:limelight_conceal_guifg = '#777777'
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
-" wiki.vim
-" Plugin settings
-let g:wiki_root = $WIKI_DIR
-let g:wiki_filetypes = ['md']
-let g:wiki_link_extension = '.md'
-let g:wiki_fzf_pages_opts = '--preview "bat --style=numbers,changes --wrap never --color always {1} || cat {1}"'
-let s:tag_parser = deepcopy(g:wiki#tags#default_parser)
-let s:tag_parser.re_match = '\v%(^|\s)#\zs[^# ]+'
-let s:tag_parser.re_findstart = '\v%(^|\s)#\zs[^# ]+'
-let g:wiki_tag_parsers = [s:tag_parser]
-let g:wiki_mappings_use_defaults = 'none'
-
-" Global mappings
-command! -bang -nargs=* NRg
-  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 
-  \ 1, fzf#vim#with_preview({'dir': g:wiki_root}), <bang>0)
-nnoremap <C-j> :NRg<CR>
-nnoremap <C-n> :WikiFzfPages<CR>
-nnoremap <leader>fj :NRg<CR>
-nnoremap <leader>fn :WikiFzfPages<CR>
-nnoremap <leader>nts :WikiFzfTags<CR>
-let g:wiki_mappings_global = {
-    \ '<plug>(wiki-index)'                 : '<leader>nw'                     ,
-    \ '<plug>(wiki-open)'                  : '<leader>no'                     ,
-    \ '<plug>(wiki-journal)'               : '<leader>njj'                    ,
-    \ }
-let g:wiki_journal = {
-    \ 'name'                               : 'journal'                        ,
-    \ 'frequency'                          : 'daily'                          ,
-    \ 'date_format'                        : {
-    \   'daily'   : '%Y-%m-%d' ,
-    \   'weekly'  : '%Y_w%V'   ,
-    \   'monthly' : '%Y_m%m'   ,
-    \   }
-    \ }
-
-" Mappings that only work in wiki_root
-let g:wiki_mappings_local = {
-    \ '<plug>(wiki-graph-find-backlinks)'  : '<leader>ncb'                    ,
-    \ '<plug>(wiki-graph-check-links)'     : '<leader>ncl'                    ,
-    \ '<plug>(wiki-graph-in)'              : '<leader>ng'                     ,
-    \ '<plug>(wiki-graph-out)'             : '<leader>nG'                     ,
-    \ '<plug>(wiki-page-delete)'           : '<leader>nd'                     ,
-    \ '<plug>(wiki-page-rename)'           : '<leader>nr'                     ,
-    \ '<plug>(wiki-tag-list)'              : '<leader>ntl'                    ,
-    \ '<plug>(wiki-tag-reload)'            : '<leader>ntr'                    ,
-    \ '<plug>(wiki-link-toggle)'           : '<leader>nf'                     ,
-    \ '<plug>(wiki-link-show)'             : '<leader>nl'                     ,
-    \ '<plug>(wiki-link-next)'             : '<leader>nn'                     ,
-    \ '<plug>(wiki-link-prev)'             : '<leader>np'                     ,
-    \ '<plug>(wiki-link-follow)'           : '<leader><tab>'                  ,
-    \ '<plug>(wiki-link-return)'           : '<leader><s-tab>'                ,
-    \ '<plug>(wiki-journal-next)'          : '<leader>njn'                    ,
-    \ '<plug>(wiki-journal-prev)'          : '<leader>njp'                    ,
-    \ }
-
 " WhichKey
 nnoremap <silent> <leader><leader> :<c-u>WhichKey ','<CR>
 call which_key#register(',', "g:which_key_map")
@@ -524,8 +479,7 @@ let g:which_key_map = {
     \ 'll': ['bnext'                           , 'Next buffer']               ,
     \ 'hh': ['bprevious'                       , 'Previous buffer']           ,
     \ 'i' : [':Goyo'                           , 'Toggle focus mode']         ,
-    \ '<S-Tab>': ['<plug>(wiki-link-return)'   , 'which_key_ignore']          ,
-    \ '<Tab>' : ['<C-W>w'                      , 'Change window']             ,
+    \ '<Tab>' : ['<C-W>w'                      , 'Next window']               ,
     \ }
 
 " WhichKey buffer
@@ -552,8 +506,6 @@ let g:which_key_map.f = {
     \ 'h' : ['History'                         , 'Search history']            ,
     \ 'c' : ['Commits'                         , 'Search commits']            ,
     \ 'r' : ['Rg'                              , 'Search in files']           ,
-    \ 'n' : ['WikiFzfPages'                    , 'Search note titles']        ,
-    \ 'j' : ['NRg'                             , 'Search in notes']           ,
     \ }
 
 " WhichKey git
@@ -567,38 +519,6 @@ let g:which_key_map.g = {
     \ 'p' : ['<plug>(signify-prev-hunk)'       , 'Previous hunk']             ,
     \ 'u' : [':SignifyHunkUndo'                , 'Undo hunk']                 ,
     \ 'g' : [':SignifyToggle'                  , 'Toggle git signs']          ,
-    \ }
-
-" WhichKey wiki.vim
-let g:which_key_map.n = {
-    \ 'name' : '+note' ,
-    \ 'w'  : ['<plug>(wiki-index)'                , 'Open notes index']       ,
-    \ 'o'  : ['<plug>(wiki-open)'                 , 'New note page']          ,
-    \ 'g'  : ['<plug>(wiki-graph-in)'             , 'Show graph to page']     ,
-    \ 'G'  : ['<plug>(wiki-graph-out)'            , 'Show graph from page']   ,
-    \ 'd'  : ['<plug>(wiki-page-delete)'          , 'Delete current page']    ,
-    \ 'r'  : ['<plug>(wiki-page-rename)'          , 'Rename current page']    ,
-    \ 'f'  : ['<plug>(wiki-link-toggle)'          , 'Toggle link style']      ,
-    \ 'l'  : ['<plug>(wiki-link-show)'            , 'Show link info']         ,
-    \ 'n'  : ['<plug>(wiki-link-next)'            , 'Go to next link']        ,
-    \ 'p'  : ['<plug>(wiki-link-prev)'            , 'Go to previous link']    ,
-    \ 'j'  : {
-      \ 'name' : '+journal' ,
-      \ 'j' : ['<plug>(wiki-journal)'             , 'Open daily journal']     ,
-      \ 'p' : ['<plug>(wiki-journal-prev)'        , 'Previous journal entry'] ,
-      \ 'n' : ['<plug>(wiki-journal-next)'        , 'Next journal entry']     ,
-      \ },
-    \ 'c'  : {
-      \ 'name' : '+links' ,
-      \ 'b' : ['<plug>(wiki-graph-find-backlinks)', 'Show backlinks']         ,
-      \ 'l' : ['<plug>(wiki-graph-check-links)'   , 'Check for broken links'] ,
-      \ },
-    \ 't'  : {
-      \ 'name' : '+tags' ,
-      \ 'l' : ['<plug>(wiki-tag-list)'            , 'List all tags']          ,
-      \ 'r' : ['<plug>(wiki-tag-reload)'          , 'Reload tags']            ,
-      \ 's' : [':WikiFzfTags'                     , 'Search tags']            ,
-      \ }
     \ }
 
 " WhichKey spellcheck
