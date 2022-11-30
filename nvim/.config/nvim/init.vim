@@ -1,4 +1,3 @@
-" Load settings from ..vimrc
-set runtimepath^=/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
+" Load settings from .vimrc
+set rtp^=/.vim rtp+=~/.vim/after
 source ~/.vimrc

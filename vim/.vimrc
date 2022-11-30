@@ -26,6 +26,16 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
+" Neovim language support. Don't use on systems with only vim
+if has('nvim-0.7.0')
+    " LSP integration
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'simrat39/rust-tools.nvim'
+
+    " Treesitter and syntax stuff
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+endif
+
 call plug#end()
 
 
@@ -44,6 +54,8 @@ call plug#end()
 "    -> Spell Checkings
 "    -> Helper Functions
 "    -> Miscellaneous
+"    -> Plugin Settings
+"    -> LSP and Language Settings
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -552,3 +564,88 @@ let g:which_key_map.m = {
     \ 'd' : [':HeaderDecrease'         , 'Decrease header sizes']             ,
     \ 't' : [':Toc'                    , 'Open table of contents']            ,
     \ }
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => LSP and Language Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Only setup LSP and language support on machines with neovim
+" This lets this config remain useable on remote machines where
+" Installing a ton of dependencies is undesirable
+if has('nvim-0.7.0')
+
+lua <<EOF
+
+---------------------------------------------------------------
+-- Rust integration
+---------------------------------------------------------------
+
+-- Load rust-tools and LSP integration
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      vim.keymap.set("n", "<Leader>r", rt.hover_actions.hover_actions, { buffer = bufnr })
+      vim.keymap.set("n", "<leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  }
+})
+
+
+---------------------------------------------------------------
+-- Diagnostic windows
+---------------------------------------------------------------
+
+-- Add floating windows for diagnostics
+local sign = function(opts)
+  vim.fn.sign_define(opts.name, {
+    texthl = opts.name,
+    text = opts.text,
+    numhl = ''
+  })
+end
+
+sign({name = 'DiagnosticSignError', text = ''})
+sign({name = 'DiagnosticSignWarn', text = ''})
+sign({name = 'DiagnosticSignHint', text = ''})
+sign({name = 'DiagnosticSignInfo', text = ''})
+
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    update_in_insert = true,
+    underline = true,
+    severity_sort = false,
+    float = {
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = ''
+    }
+})
+
+
+---------------------------------------------------------------
+-- Treesitter and syntax
+---------------------------------------------------------------
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = { 
+      "lua", "rust", "toml", "r", "markdown",
+      "html", "css", "javascript", "bash"
+  },
+  auto_install = true,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false
+  }
+}
+
+EOF
+
+" Add diagnostic column and floating windows
+set signcolumn=yes
+autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+
+endif
