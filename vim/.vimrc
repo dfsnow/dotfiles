@@ -22,9 +22,13 @@ Plug 'junegunn/fzf.vim'
 
 " Neovim-specific stuff. Don't use on systems with only vim
 if has('nvim-0.7.0')
-    " LSP setup and treesitter setup
+
+    " LSP and treesitter setup
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+    " Neovim which-key
+    Plug 'folke/which-key.nvim'
 
     " Completion frameworks
     Plug 'hrsh7th/nvim-cmp'
@@ -459,88 +463,6 @@ nmap <leader>fr :Rg<CR>
 nnoremap <C-t> :Files<CR>
 nnoremap ? :Rg<CR>
 
-" WhichKey
-nnoremap <silent> <leader><leader> :<c-u>WhichKey ','<CR>
-call which_key#register(',', "g:which_key_map")
-
-" WhichKey defaults
-let g:which_key_map = {
-    \ 'c' : ['Commentary'                      , 'Toggle comment']            ,
-    \ 'v' : [':setlocal paste!'                , 'Toggle paste mode']         ,
-    \ '?' : ['Rg'                              , 'Search in all files']       ,
-    \ 'h' : ['<C-W><C-H>'                      , 'which_key_ignore']          ,
-    \ 'j' : ['<C-W><C-J>'                      , 'which_key_ignore']          ,
-    \ 'k' : ['<C-W><C-K>'                      , 'which_key_ignore']          ,
-    \ 'l' : ['<C-W><C-L>'                      , 'which_key_ignore']          ,
-    \ 'Q' : ['q!'                              , 'which_key_ignore']          ,
-    \ 'w' : ['w!'                              , 'which_key_ignore']          ,
-    \ 'q' : ['q'                               , 'which_key_ignore']          ,
-    \ 'll': ['bnext'                           , 'Next buffer']               ,
-    \ 'hh': ['bprevious'                       , 'Previous buffer']           ,
-    \ '<Space>': ['za'                         , 'Toggle current fold']       ,
-    \ '<Tab>'  : ['<C-W>w'                     , 'Next window']               ,
-    \ }
-
-" WhichKey buffer
-let g:which_key_map.b = {
-    \ 'name' : '+buffer' ,
-    \ 'b' : ['new'                             , 'New buffer (horizontal)']   ,
-    \ 'v' : ['vnew'                            , 'New buffer (vertical)']     ,
-    \ 'n' : ['enew'                            , 'New buffer (no split)']     ,
-    \ 'd' : ['Bclose'                          , 'Close buffer']              ,
-    \ 'c' : ['Bclose'                          , 'Close buffer']              ,
-    \ 'l' : ['bnext'                           , 'Next buffer']               ,
-    \ 'h' : ['bprevious'                       , 'Previous buffer']           ,
-    \ 'a' : ['bufdo bd'                        , 'Close all buffers']         ,
-    \ }
-
-" WhichKey fzf
-let g:which_key_map.f = {
-    \ 'name' : '+fzf' ,
-    \ 'g' : ['GFiles'                          , 'Search git files']          ,
-    \ 'f' : ['Files'                           , 'Search all files']          ,
-    \ 'b' : ['Buffers'                         , 'Search buffers']            ,
-    \ 'l' : ['BLines'                          , 'Search lines']              ,
-    \ 'm' : ['Maps'                            , 'Search mappings']           ,
-    \ 'h' : ['History'                         , 'Search history']            ,
-    \ 'c' : ['Commits'                         , 'Search commits']            ,
-    \ 'r' : ['Rg'                              , 'Search in files']           ,
-    \ }
-
-" WhichKey git
-let g:which_key_map.g = {
-    \ 'name' : '+git' ,
-    \ 's' : [':Git'                            , 'Open git']                  ,
-    \ 'b' : [':Git blame'                      , 'View blame']                ,
-    \ 'c' : [':Git commit'                     , 'Create commit']             ,
-    \ 'd' : [':SignifyHunkDiff'                , 'View diff']                 ,
-    \ 'n' : ['<plug>(signify-next-hunk)'       , 'Next hunk']                 ,
-    \ 'p' : ['<plug>(signify-prev-hunk)'       , 'Previous hunk']             ,
-    \ 'u' : [':SignifyHunkUndo'                , 'Undo hunk']                 ,
-    \ 'g' : [':SignifyToggle'                  , 'Toggle git signs']          ,
-    \ }
-
-" WhichKey spellcheck
-let g:which_key_map.s = {
-    \ 'name' : '+spell' ,
-    \ 's' : [':setlocal spell!'                , 'Toggle spell check']        ,
-    \ 'n' : [']s'                              , 'Next misspelling']          ,
-    \ 'p' : ['[s'                              , 'Previous misspelling']      ,
-    \ 'a' : ['zg'                              , 'Add to dictionary']         ,
-    \ '?' : ['z='                              , 'Search in dictionary']      ,
-    \ }
-
-" WhichKey folding
-let g:which_key_map.z = {
-    \ 'name' : '+fold' ,
-    \ 'a' : ['za'                      , 'Toggle current fold']               ,
-    \ 'A' : ['zA'                      , 'Toggle all folds under cursor']     ,
-    \ 'r' : ['zr'                      , 'Open one fold level in buffer']     ,
-    \ 'R' : ['zR'                      , 'Open all folds']                    ,
-    \ 'm' : ['zm'                      , 'Close one fold level in buffer']    ,
-    \ 'M' : ['zM'                      , 'Close all folds']                   ,
-    \ }
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Neovim Settings
@@ -554,27 +476,144 @@ if has('nvim-0.7.0')
 lua <<EOF
 
 ---------------------------------------------------------------
--- Diagnostic Configuration
+-- WhichKey
+---------------------------------------------------------------
+
+-- Configure which-key mappings
+local wk = require("which-key")
+wk.register(mappings, opts)
+wk.setup {
+  plugins = {
+    marks = true,
+    registers = false,
+    spelling = {
+      enabled = true,
+      suggestions = 10,
+    },
+    presets = {
+      operators = false,
+      motions = false,
+      text_objects = false,
+      windows = true,
+      nav = false,
+      z = true,
+      g = true,
+    },
+  },
+  key_labels = {
+    ["<space>"] = "SPACE",
+    ["<cr>"]    = "ENTER",
+    ["<Tab>"]   = "TAB",
+  },
+}
+
+wk.register({
+  ["<leader>"] = {
+    c = { "<cmd>Commentary<cr>"                , "Toggle comment"            },
+    v = { "<cmd>setlocal paste!<cr>"           , "Toggle paste mode"         },
+    h = { "<C-W><C-H>"                         , "which_key_ignore"          },
+    j = { "<C-W><C-J>"                         , "which_key_ignore"          },
+    k = { "<C-W><C-K>"                         , "which_key_ignore"          },
+    l = { "<C-W><C-L>"                         , "which_key_ignore"          },
+    q = { "<cmd>q<cr>"                         , "which_key_ignore"          },
+    Q = { "<cmd>q!<cr>"                        , "which_key_ignore"          },
+    w = { "<cmd>w!<cr>"                        , "which_key_ignore"          },
+["?"]       = { "<cmd>Rg<cr>"                  , "Search in all files"       },
+["ll"]      = { "<cmd>bnext<cr>"               , "Next buffer"               },
+["hh"]      = { "<cmd>bprevious<cr>"           , "Previous buffer"           },
+["<Tab>"]   = { "<C-W>w"                       , "Next window"               },
+["<Space>"] = { "za"                           , "Toggle current fold"       },
+  },
+}) 
+
+wk.register({
+  b = {
+    name = "buffer",
+    b = { "<cmd>new<cr>"                       , "New buffer (horizontal)"   },
+    v = { "<cmd>vnew<cr>"                      , "New buffer (vertica)"     },
+    n = { "<cmd>enew<cr>"                      , "New buffer (no split)"     },
+    d = { "<cmd>Bclose<cr>"                    , "Close buffer"              },
+    c = { "<cmd>Bclose<cr>"                    , "Close buffer"              },
+    l = { "<cmd>bnext<cr>"                     , "Next buffer"               },
+    h = { "<cmd>bprevious<cr>"                 , "Previous buffer"           },
+    a = { "<cmd>bufdo bd<cr>"                  , "Close all buffers"         },
+  },
+}, { prefix = "<leader>" })
+
+wk.register({
+  f = {
+    name = "search",
+    g = { "<cmd>GFiles<cr>"                    , "Search git files"          },
+    f = { "<cmd>Files<cr>"                     , "Search all files"          },
+    b = { "<cmd>Buffers<cr>"                   , "Search buffers"            },
+    l = { "<cmd>BLines<cr>"                    , "Search lines"              },
+    m = { "<cmd>Maps<cr>"                      , "Search mappings"           },
+    h = { "<cmd>History<cr>"                   , "Search history"            },
+    c = { "<cmd>Commits<cr>"                   , "Search commits"            },
+    r = { "<cmd>Rg<cr>"                        , "Search in files"           },
+  },
+}, { prefix = "<leader>" })
+
+wk.register({
+  g = {
+    name = "git",
+    s = { "<cmd>Git<cr>"                       , "Open git"                  },
+    b = { "<cmd>Git blame<cr>"                 , "View blame"                },
+    c = { "<cmd>Git commit<cr>"                , "Create commit"             },
+    d = { "<cmd>SignifyHunkDiff<cr>"           , "View diff"                 },
+    n = { "<plug>(signify-next-hunk)"          , "Next hunk"                 },
+    p = { "<plug>(signify-prev-hunk)"          , "Previous hunk"             },
+    u = { "<cmd>SignifyHunkUndo<cr>"           , "Undo hunk"                 },
+    g = { "<cmd>SignifyToggle<cr>"             , "Toggle git gutter"         },
+  },
+}, { prefix = "<leader>" })
+
+wk.register({
+  s = {
+    name = "spell",
+    s = { "<cmd>setlocal spell!<cr>"           , "Toggle spell check"        },
+    n = { "]s"                                 , "Next misspelling"          },
+    p = { "[s"                                 , "Previous misspelling"      },
+    a = { "zg"                                 , "Add to dictionary"         },
+["?"] = { "z="                                 , "Search in dictionary"      },
+  },
+}, { prefix = "<leader>" })
+
+wk.register({
+  z = {
+    name = "fold",
+    a = { "za"                            , "Toggle current fold"            },
+    A = { "zA"                            , "Toggle all folds under cursor"  },
+    r = { "zr"                            , "Open one fold level in buffer"  },
+    R = { "zR"                            , "Open all folds"                 },
+    m = { "zm"                            , "Close one fold level in buffer" },
+    M = { "zM"                            , "Close all folds"                },
+  },
+}, { prefix = "<leader>" })
+
+
+---------------------------------------------------------------
+-- Diagnostic
 ---------------------------------------------------------------
 
 -- Add floating windows for diagnostics
 vim.diagnostic.config({
-    virtual_text = false,
-    signs = true,
-    update_in_insert = true,
-    underline = true,
-    severity_sort = false,
-    float = {
-        border = 'rounded',
-        source = 'always',
-        header = '',
-        prefix = ''
-    }
+  virtual_text = false,
+  signs = true,
+  update_in_insert = true,
+  underline = true,
+  severity_sort = false,
+  float = {
+    border = 'rounded',
+    source = 'always',
+    header = '',
+    prefix = ''
+  },
 })
 
 
 ---------------------------------------------------------------
--- Treesitter Configuration
+-- Treesitter
 ---------------------------------------------------------------
 
 require('nvim-treesitter.configs').setup {
@@ -583,12 +622,12 @@ require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false
-  }
+  },
 }
 
 
 ---------------------------------------------------------------
--- Completion Configuration 
+-- Completion
 ---------------------------------------------------------------
 
 local cmp = require'cmp'
@@ -596,13 +635,13 @@ cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
-  }
+  },
 })
 
 cmp.setup({
   snippet = {
     expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
+      vim.fn["vsnip#anonymous"](args.body)
     end,
   },
   mapping = {
@@ -627,22 +666,22 @@ cmp.setup({
     { name = 'calc'}                                -- source for math calculation
   },
   window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   formatting = {
-      fields = {'menu', 'abbr', 'kind'},
-      format = function(entry, item)
-          local menu_icon ={
-              nvim_lsp = 'λ',
-              vsnip = '⋗',
-              buffer = 'Ω',
-              path = './',
-          }
-          item.menu = menu_icon[entry.source.name]
-          return item
-      end,
-  }
+    fields = {'menu', 'abbr', 'kind'},
+    format = function(entry, item)
+      local menu_icon = {
+        nvim_lsp = 'λ',
+        vsnip = '⋗',
+        buffer = 'Ω',
+        path = './',
+      }
+      item.menu = menu_icon[entry.source.name]
+      return item
+    end,
+  },
 })
 
 
@@ -658,7 +697,7 @@ rt.setup({
       vim.keymap.set("n", "<Leader>r", rt.hover_actions.hover_actions, { buffer = bufnr })
       vim.keymap.set("n", "<leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
     end,
-  }
+  },
 })
 
 EOF
@@ -674,8 +713,11 @@ set shortmess+=c
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
+" Show which-key faster
+set timeoutlen=300
+
 endif
 
-" Fix which_key (errors, toggle autocomplete add shortcuts, space folding, floating term)
+" Fix which_key (toggle autocomplete, add shortcuts, floating term)
 " Add floating terminal
 " Add R support
