@@ -20,20 +20,26 @@ Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Writing and markdown
-Plug 'preservim/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-
-" Neovim language support. Don't use on systems with only vim
+" Neovim-specific stuff. Don't use on systems with only vim
 if has('nvim-0.7.0')
-    " LSP integration
+    " LSP setup and treesitter setup
     Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+    " Completion frameworks
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/vim-vsnip'
+
+    " Completion sources
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-vsnip'                             
+    Plug 'hrsh7th/cmp-path'                              
+    Plug 'hrsh7th/cmp-buffer'                            
+    Plug 'hrsh7th/cmp-cmdline'
+    
+    " Language-specific packages
     Plug 'simrat39/rust-tools.nvim'
 
-    " Treesitter and syntax stuff
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 
 call plug#end()
@@ -55,7 +61,7 @@ call plug#end()
 "    -> Helper Functions
 "    -> Miscellaneous
 "    -> Plugin Settings
-"    -> LSP and Language Settings
+"    -> Neovim Settings
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -154,6 +160,9 @@ set cursorline
 
 " Show the 80 char column
 set colorcolumn=80
+
+" Show sign/diagnostic column
+set signcolumn=yes
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -350,9 +359,6 @@ set foldcolumn=1
 set foldmethod=indent
 set foldlevel=99
 
-" Open README file with helpful tips
-map <leader>r :e ~/dotfiles/README.md<CR>
-
 " Toggle paste mode on and off
 map <leader>v :setlocal paste!<cr>
 
@@ -453,24 +459,6 @@ nmap <leader>fr :Rg<CR>
 nnoremap <C-t> :Files<CR>
 nnoremap ? :Rg<CR>
 
-" Markdown
-nmap <leader>mm <Plug>MarkdownPreviewToggle
-nmap <leader>mx <Plug>Markdown_OpenUrlUnderCursor
-nmap <leader>me <Plug>Markdown_EditUrlUnderCursor
-nmap <leader>mi :HeaderIncrease<CR>
-nmap <leader>md :HeaderDecrease<CR>
-nmap <leader>mt :Toc<CR>
-let g:vim_markdown_new_list_item_indent = 0
-
-" Goyo and Limelight
-nmap <leader>i :Goyo<CR>
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-let g:limelight_conceal_guifg = 'DarkGray'
-let g:limelight_conceal_guifg = '#777777'
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
 " WhichKey
 nnoremap <silent> <leader><leader> :<c-u>WhichKey ','<CR>
 call which_key#register(',', "g:which_key_map")
@@ -479,7 +467,6 @@ call which_key#register(',', "g:which_key_map")
 let g:which_key_map = {
     \ 'c' : ['Commentary'                      , 'Toggle comment']            ,
     \ 'v' : [':setlocal paste!'                , 'Toggle paste mode']         ,
-    \ 'r' : [':e ~/dotfiles/README.md'         , 'Open README']               ,
     \ '?' : ['Rg'                              , 'Search in all files']       ,
     \ 'h' : ['<C-W><C-H>'                      , 'which_key_ignore']          ,
     \ 'j' : ['<C-W><C-J>'                      , 'which_key_ignore']          ,
@@ -490,8 +477,8 @@ let g:which_key_map = {
     \ 'q' : ['q'                               , 'which_key_ignore']          ,
     \ 'll': ['bnext'                           , 'Next buffer']               ,
     \ 'hh': ['bprevious'                       , 'Previous buffer']           ,
-    \ 'i' : [':Goyo'                           , 'Toggle focus mode']         ,
-    \ '<Tab>' : ['<C-W>w'                      , 'Next window']               ,
+    \ '<Space>': ['za'                         , 'Toggle current fold']       ,
+    \ '<Tab>'  : ['<C-W>w'                     , 'Next window']               ,
     \ }
 
 " WhichKey buffer
@@ -554,63 +541,23 @@ let g:which_key_map.z = {
     \ 'M' : ['zM'                      , 'Close all folds']                   ,
     \ }
 
-" WhichKey markdown
-let g:which_key_map.m = {
-    \ 'name' : '+markdown' ,
-    \ 'm' : ['<Plug>MarkdownPreviewToggle'      , 'Preview markdown']         ,
-    \ 'x' : ['<Plug>Markdown_OpenUrlUnderCursor', 'Open URL under cursor']    ,
-    \ 'e' : ['<Plug>Markdown_EditUrlUnderCursor', 'Edit file under cursor']   ,
-    \ 'i' : [':HeaderIncrease'         , 'Increase header sizes']             ,
-    \ 'd' : [':HeaderDecrease'         , 'Decrease header sizes']             ,
-    \ 't' : [':Toc'                    , 'Open table of contents']            ,
-    \ }
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => LSP and Language Settings
+" => Neovim Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Only setup LSP and language support on machines with neovim
 " This lets this config remain useable on remote machines where
-" Installing a ton of dependencies is undesirable
+" installing a ton of dependencies is undesirable
 if has('nvim-0.7.0')
 
 lua <<EOF
 
 ---------------------------------------------------------------
--- Rust integration
----------------------------------------------------------------
-
--- Load rust-tools and LSP integration
-local rt = require("rust-tools")
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      vim.keymap.set("n", "<Leader>r", rt.hover_actions.hover_actions, { buffer = bufnr })
-      vim.keymap.set("n", "<leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-  }
-})
-
-
----------------------------------------------------------------
--- Diagnostic windows
+-- Diagnostic Configuration
 ---------------------------------------------------------------
 
 -- Add floating windows for diagnostics
-local sign = function(opts)
-  vim.fn.sign_define(opts.name, {
-    texthl = opts.name,
-    text = opts.text,
-    numhl = ''
-  })
-end
-
-sign({name = 'DiagnosticSignError', text = ''})
-sign({name = 'DiagnosticSignWarn', text = ''})
-sign({name = 'DiagnosticSignHint', text = ''})
-sign({name = 'DiagnosticSignInfo', text = ''})
-
 vim.diagnostic.config({
     virtual_text = false,
     signs = true,
@@ -627,14 +574,11 @@ vim.diagnostic.config({
 
 
 ---------------------------------------------------------------
--- Treesitter and syntax
+-- Treesitter Configuration
 ---------------------------------------------------------------
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 
-      "lua", "rust", "toml", "r", "markdown",
-      "html", "css", "javascript", "bash"
-  },
+  ensure_installed = { "lua", "rust", "r", "python", "javascript" },
   auto_install = true,
   highlight = {
     enable = true,
@@ -642,10 +586,96 @@ require('nvim-treesitter.configs').setup {
   }
 }
 
+
+---------------------------------------------------------------
+-- Completion Configuration 
+---------------------------------------------------------------
+
+local cmp = require'cmp'
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-n>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true
+    })
+  },
+  sources = {
+    { name = 'path' },                              -- file paths
+    { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
+    { name = 'nvim_lsp_signature_help'},            -- display function signatures
+    { name = 'buffer', keyword_length = 2 },        -- source current buffer
+    { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip 
+    { name = 'cmdline' },                           -- command and search
+    { name = 'calc'}                                -- source for math calculation
+  },
+  window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+  },
+  formatting = {
+      fields = {'menu', 'abbr', 'kind'},
+      format = function(entry, item)
+          local menu_icon ={
+              nvim_lsp = 'λ',
+              vsnip = '⋗',
+              buffer = 'Ω',
+              path = './',
+          }
+          item.menu = menu_icon[entry.source.name]
+          return item
+      end,
+  }
+})
+
+
+---------------------------------------------------------------
+-- Rust Integration
+---------------------------------------------------------------
+
+-- Load rust-tools and LSP integration
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      vim.keymap.set("n", "<Leader>r", rt.hover_actions.hover_actions, { buffer = bufnr })
+      vim.keymap.set("n", "<leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  }
+})
+
 EOF
 
-" Add diagnostic column and floating windows
-set signcolumn=yes
+" Add diagnostic floating window
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
+" Completion options
+set completeopt=menuone,noselect,noinsert
+set shortmess+=c
+
+" Treesitter folding
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+
 endif
+
+" Fix which_key (errors, toggle autocomplete add shortcuts, space folding, floating term)
+" Add floating terminal
+" Add R support
