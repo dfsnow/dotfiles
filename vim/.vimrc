@@ -509,6 +509,7 @@ wk.setup {
 
 wk.register({
   ["<leader>"] = {
+    x = { "<cmd>lua toggleAutoCmp()<cr>"             , "Toggle completion"         },
     c = { "<cmd>Commentary<cr>"                , "Toggle comment"            },
     v = { "<cmd>setlocal paste!<cr>"           , "Toggle paste mode"         },
     h = { "<C-W><C-H>"                         , "which_key_ignore"          },
@@ -684,6 +685,32 @@ cmp.setup({
   },
 })
 
+-- Toggle autocompletion
+vim.g.cmp_toggle_flag = true
+function toggleAutoCmp()
+  local next_cmp_toggle_flag = not vim.g.cmp_toggle_flag
+  if next_cmp_toggle_flag then
+    print("Completion on")
+  else
+    print("Completion off")
+  end
+  if next_cmp_toggle_flag then
+    cmp.setup({
+      completion = {
+        autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }
+      }
+    })
+    vim.g.cmp_toggle_flag = next_cmp_toggle_flag
+  else
+    cmp.setup({
+      completion = {
+        autocomplete = false
+      }
+    })
+    vim.g.cmp_toggle_flag = next_cmp_toggle_flag
+  end
+end
+
 
 ---------------------------------------------------------------
 -- Rust Integration
@@ -718,6 +745,6 @@ set timeoutlen=300
 
 endif
 
-" Fix which_key (toggle autocomplete, add shortcuts, floating term)
+" Fix which_key (add shortcuts, floating term)
 " Add floating terminal
 " Add R support
