@@ -5,6 +5,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'liuchengxu/vim-which-key'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'voldikss/vim-floaterm'
 
 " Git integration
 Plug 'tpope/vim-fugitive'
@@ -463,6 +464,11 @@ nmap <leader>fr :Rg<CR>
 nnoremap <C-t> :Files<CR>
 nnoremap ? :Rg<CR>
 
+" Floaterm
+nmap <leader>t :FloatermToggle term<CR>
+nmap <leader>tk :FloatermKill!<CR>
+tmap <Esc> <C-\><C-n>:q<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Neovim Settings
@@ -509,8 +515,9 @@ wk.setup {
 
 wk.register({
   ["<leader>"] = {
-    x = { "<cmd>lua toggleAutoCmp()<cr>"             , "Toggle completion"         },
+    x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     c = { "<cmd>Commentary<cr>"                , "Toggle comment"            },
+    t = { "<cmd>FloatermToggle term<cr>"       , "Open terminal"             },
     v = { "<cmd>setlocal paste!<cr>"           , "Toggle paste mode"         },
     h = { "<C-W><C-H>"                         , "which_key_ignore"          },
     j = { "<C-W><C-J>"                         , "which_key_ignore"          },
@@ -619,7 +626,7 @@ vim.diagnostic.config({
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = { "lua", "rust", "r", "python", "javascript" },
-  auto_install = true,
+  auto_install = false,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false
@@ -723,6 +730,12 @@ rt.setup({
     on_attach = function(_, bufnr)
       vim.keymap.set("n", "<Leader>r", rt.hover_actions.hover_actions, { buffer = bufnr })
       vim.keymap.set("n", "<leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+      wk.register({
+        ["<leader>"] = {
+          a = { "<cmd>lua rt.hover_actions.hover_actions<cr>", "View code actions" },
+          r = { "<cmd>lua rt.code_action_group.code_action_group<cr>", "View hover actions" },
+        },
+      })
     end,
   },
 })
@@ -745,6 +758,7 @@ set timeoutlen=300
 
 endif
 
-" Fix which_key (add shortcuts, floating term)
-" Add floating terminal
+" Fix rust-tools hover/code actions
+" Setup rust vsnips
 " Add R support
+" Make floaterm larger
