@@ -749,6 +749,11 @@ end
 -- Load rust-tools and LSP integration
 local rt = require("rust-tools")
 rt.setup({
+  tools = {
+    hover_actions = {
+      auto_focus = true,
+    },
+  },
   server = {
     on_attach = function(_, bufnr)
       vim.keymap.set(
@@ -829,5 +834,3 @@ set timeoutlen=300
 tmap <Esc> <C-\><C-n>:q<CR>
 
 endif
-
-" Fix rust-tools hover/code actions (windows size, weird menu interaction)
