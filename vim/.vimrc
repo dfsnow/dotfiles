@@ -547,10 +547,14 @@ wk.register({
 
 wk.register({
   d = {
-    name = "diag",
+    name = "lsp",
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
-    n = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Next diagnostic"     },
+    n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
     d = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Show diagnostic"     },
+    f = { 
+      "<cmd>lua vim.lsp.buf.format {timeout_ms = 20000 }<cr>",
+      "Format buffer"
+    },
   },
 }, { prefix = "<leader>" })
 
@@ -748,12 +752,24 @@ local rt = require("rust-tools")
 rt.setup({
   server = {
     on_attach = function(_, bufnr)
-      vim.keymap.set("n", "<Leader>r", rt.hover_actions.hover_actions, { buffer = bufnr })
-      vim.keymap.set("n", "<leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+      vim.keymap.set(
+        "n", "<Leader>r",
+        rt.hover_actions.hover_actions, { buffer = bufnr }
+      )
+      vim.keymap.set(
+        "n", "<leader>a",
+        rt.code_action_group.code_action_group, { buffer = bufnr }
+      )
       wk.register({
         ["<leader>"] = {
-          a = { "<cmd>lua rt.hover_actions.hover_actions<cr>", "View code actions" },
-          r = { "<cmd>lua rt.code_action_group.code_action_group<cr>", "View hover actions" },
+          a = {
+            "<cmd>lua rt.hover_actions.hover_actions<cr>",
+            "View code actions"
+          },
+          r = {
+            "<cmd>lua rt.code_action_group.code_action_group<cr>",
+            "View hover actions"
+          },
         },
       })
     end,
@@ -762,10 +778,10 @@ rt.setup({
 
 
 ---------------------------------------------------------------
--- R Integration
+-- Other Language Integration
 ---------------------------------------------------------------
 require'lspconfig'.r_language_server.setup{}
-
+require'lspconfig'.pyright.setup{}
 
 EOF
 
@@ -789,5 +805,4 @@ tmap <Esc> <C-\><C-n>:q<CR>
 endif
 
 " Fix rust-tools hover/code actions
-" Python integration
-" Rust, python, R formatters
+" Add python formatters
