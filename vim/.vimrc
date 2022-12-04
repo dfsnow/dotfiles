@@ -9,13 +9,12 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 
-" Formatting
+" Movement and formatting
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
-
-" Movement and search
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
+
+" Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -26,9 +25,10 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " Neovim which-key and terminal 
+    " UI and movement
     Plug 'folke/which-key.nvim'
     Plug 'voldikss/vim-floaterm'
+    Plug 'phaazon/hop.nvim'
 
     " Completion frameworks and snippets
     Plug 'hrsh7th/nvim-cmp'
@@ -400,13 +400,6 @@ set updatetime=100
 nnoremap <leader>c :Commentary<cr>
 vnoremap <leader>c :Commentary<cr>
 
-" EasyMotion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_use_smartsign_us = 1
-map <space> <plug>(easymotion-bd-f)
-nmap <space> <plug>(easymotion-overwin-f)
-
 " Signify
 nmap <leader>gg :SignifyToggle<CR>
 nmap <leader>gu :SignifyHunkUndo<CR>
@@ -622,7 +615,7 @@ wk.register({
 
 
 ---------------------------------------------------------------
--- Diagnostic
+-- Diagnostics
 ---------------------------------------------------------------
 
 -- Add floating windows for diagnostics
@@ -655,6 +648,12 @@ require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false
+  },
+  ident = { enable = true }, 
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
   },
 }
 
@@ -780,8 +779,35 @@ rt.setup({
 ---------------------------------------------------------------
 -- Other Language Integration
 ---------------------------------------------------------------
+
 require'lspconfig'.r_language_server.setup{}
 require'lspconfig'.pyright.setup{}
+require'lspconfig'.html.setup{}
+require'lspconfig'.cssls.setup{}
+
+---------------------------------------------------------------
+-- Other Plugins 
+---------------------------------------------------------------
+
+-- Hop mappings
+require'hop'.setup()
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
+vim.keymap.set("n", "<space>", "<cmd>HopWord<cr>")
+
+vim.keymap.set('', 'f', function()
+  hop.hint_char1({
+    direction = directions.AFTER_CURSOR,
+    current_line_only = true
+  })
+end, {remap=true})
+
+vim.keymap.set('', 'F', function()
+  hop.hint_char1({ 
+    direction = directions.BEFORE_CURSOR,
+    current_line_only = true
+  })
+end, {remap=true})
 
 EOF
 
@@ -804,5 +830,4 @@ tmap <Esc> <C-\><C-n>:q<CR>
 
 endif
 
-" Fix rust-tools hover/code actions
-" Add python formatters
+" Fix rust-tools hover/code actions (windows size, weird menu interaction)
