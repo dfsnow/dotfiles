@@ -3,7 +3,6 @@ call plug#begin('~/.vim/vim-plug')
 " UI and colors
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'liuchengxu/vim-which-key'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Git integration
@@ -44,6 +43,7 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'hrsh7th/cmp-path'                              
     Plug 'hrsh7th/cmp-buffer'                            
     Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-calc'
     
     " Language-specific packages
     Plug 'simrat39/rust-tools.nvim'
@@ -515,7 +515,6 @@ wk.register({
   ["<leader>"] = {
     x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     c = { "<cmd>Commentary<cr>"                , "Toggle comment"            },
-    t = { "<cmd>FloatermToggle term<cr>"       , "Open terminal"             },
     v = { "<cmd>setlocal paste!<cr>"           , "Toggle paste mode"         },
     h = { "<C-W><C-H>"                         , "which_key_ignore"          },
     j = { "<C-W><C-J>"                         , "which_key_ignore"          },
@@ -529,7 +528,7 @@ wk.register({
 ["hh"]      = { "<cmd>bprevious<cr>"           , "Previous buffer"           },
 ["<Tab>"]   = { "<C-W>w"                       , "Next window"               },
 ["<Space>"] = { "za"                           , "Toggle current fold"       },
-  },
+  }
 }) 
 
 wk.register({
@@ -543,6 +542,15 @@ wk.register({
     l = { "<cmd>bnext<cr>"                     , "Next buffer"               },
     h = { "<cmd>bprevious<cr>"                 , "Previous buffer"           },
     a = { "<cmd>bufdo bd<cr>"                  , "Close all buffers"         },
+  },
+}, { prefix = "<leader>" })
+
+wk.register({
+  d = {
+    name = "diag",
+    p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
+    n = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Next diagnostic"     },
+    d = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Show diagnostic"     },
   },
 }, { prefix = "<leader>" })
 
@@ -584,6 +592,17 @@ wk.register({
 ["?"] = { "z="                                 , "Search in dictionary"      },
   },
 }, { prefix = "<leader>" })
+
+wk.register({
+  t = {
+    name = "term",
+    t = { "<cmd>FloatermToggle term<cr>"       , "Toggle terminal"           },
+    k = { "<cmd>FloatermKill term<cr>"         , "Kill terminal"             },
+    q = { "<cmd>FloatermKill!<cr>"             , "Kill all terminals"        },
+    n = {
+  "<cmd>FloatermNew --name=term --height=0.9 --width=0.8 --autoclose=2 <cr>"  ,
+  "Open new terminal"                                                        },
+}}, { prefix = "<leader>" })
 
 wk.register({
   z = {
@@ -667,13 +686,12 @@ cmp.setup({
     })
   },
   sources = {
-    { name = 'path' },                              -- file paths
-    { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
-    { name = 'nvim_lsp_signature_help' },           -- display function signatures
-    { name = 'buffer', keyword_length = 2 },        -- source current buffer
-    { name = 'vsnip' },                             -- nvim-cmp source for vim-vsnip 
-    { name = 'cmdline' },                           -- command and search
-    { name = 'calc' }                               -- source for math calculation
+    { name = 'path',       max_item_count = 4, keyword_length = 2 },
+    { name = 'nvim_lsp',   max_item_count = 9, keyword_length = 3 },
+    { name = 'buffer',     max_item_count = 9, keyword_length = 2 },
+    { name = 'vsnip',      max_item_count = 5 },
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'calc' },
   },
   window = {
     completion = cmp.config.window.bordered(),
@@ -766,13 +784,10 @@ set foldexpr=nvim_treesitter#foldexpr()
 set timeoutlen=300
 
 " Floaterm
-nmap <leader>t :FloatermToggle term<CR>
-nmap <leader>tk :FloatermKill!<CR>
 tmap <Esc> <C-\><C-n>:q<CR>
 
 endif
 
 " Fix rust-tools hover/code actions
-" Conditional treesitter
-" Navigate between diagnostic
-" Make floaterm larger
+" Python integration
+" Rust, python, R formatters
