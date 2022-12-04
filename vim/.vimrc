@@ -31,11 +31,14 @@ if has('nvim-0.7.0')
     " Neovim which-key
     Plug 'folke/which-key.nvim'
 
-    " Completion frameworks
+    " Completion frameworks and snippets
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/vim-vsnip-integ'
+    Plug 'rafamadriz/friendly-snippets'
 
     " Completion sources
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-vsnip'                             
     Plug 'hrsh7th/cmp-path'                              
@@ -538,7 +541,7 @@ wk.register({
   b = {
     name = "buffer",
     b = { "<cmd>new<cr>"                       , "New buffer (horizontal)"   },
-    v = { "<cmd>vnew<cr>"                      , "New buffer (vertica)"     },
+    v = { "<cmd>vnew<cr>"                      , "New buffer (vertical)"     },
     n = { "<cmd>enew<cr>"                      , "New buffer (no split)"     },
     d = { "<cmd>Bclose<cr>"                    , "Close buffer"              },
     c = { "<cmd>Bclose<cr>"                    , "Close buffer"              },
@@ -625,7 +628,11 @@ vim.diagnostic.config({
 ---------------------------------------------------------------
 
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { "lua", "rust", "r", "python", "javascript" },
+  ensure_installed = { 
+    "lua", "rust", "r", "python", "javascript", "json",
+    "dockerfile", "gitcommit", "gitignore", "gitattributes",
+    "toml", "yaml", "bash", "vim", "awk"
+  },
   auto_install = false,
   highlight = {
     enable = true,
@@ -667,11 +674,11 @@ cmp.setup({
   sources = {
     { name = 'path' },                              -- file paths
     { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
-    { name = 'nvim_lsp_signature_help'},            -- display function signatures
+    { name = 'nvim_lsp_signature_help' },           -- display function signatures
     { name = 'buffer', keyword_length = 2 },        -- source current buffer
-    { name = 'vsnip', keyword_length = 2 },         -- nvim-cmp source for vim-vsnip 
+    { name = 'vsnip' },                             -- nvim-cmp source for vim-vsnip 
     { name = 'cmdline' },                           -- command and search
-    { name = 'calc'}                                -- source for math calculation
+    { name = 'calc' }                               -- source for math calculation
   },
   window = {
     completion = cmp.config.window.bordered(),
@@ -740,6 +747,13 @@ rt.setup({
   },
 })
 
+
+---------------------------------------------------------------
+-- R Integration
+---------------------------------------------------------------
+require'lspconfig'.r_language_server.setup{}
+
+
 EOF
 
 " Add diagnostic floating window
@@ -759,6 +773,5 @@ set timeoutlen=300
 endif
 
 " Fix rust-tools hover/code actions
-" Setup rust vsnips
-" Add R support
+" Navigate between diagnostic
 " Make floaterm larger
