@@ -5,7 +5,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'liuchengxu/vim-which-key'
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'voldikss/vim-floaterm'
 
 " Git integration
 Plug 'tpope/vim-fugitive'
@@ -22,14 +21,15 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Neovim-specific stuff. Don't use on systems with only vim
-if has('nvim-0.7.0')
+if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
     " LSP and treesitter setup
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " Neovim which-key
+    " Neovim which-key and terminal 
     Plug 'folke/which-key.nvim'
+    Plug 'voldikss/vim-floaterm'
 
     " Completion frameworks and snippets
     Plug 'hrsh7th/nvim-cmp'
@@ -467,11 +467,6 @@ nmap <leader>fr :Rg<CR>
 nnoremap <C-t> :Files<CR>
 nnoremap ? :Rg<CR>
 
-" Floaterm
-nmap <leader>t :FloatermToggle term<CR>
-nmap <leader>tk :FloatermKill!<CR>
-tmap <Esc> <C-\><C-n>:q<CR>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Neovim Settings
@@ -480,7 +475,7 @@ tmap <Esc> <C-\><C-n>:q<CR>
 " Only setup LSP and language support on machines with neovim
 " This lets this config remain useable on remote machines where
 " installing a ton of dependencies is undesirable
-if has('nvim-0.7.0')
+if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
 lua <<EOF
 
@@ -770,8 +765,14 @@ set foldexpr=nvim_treesitter#foldexpr()
 " Show which-key faster
 set timeoutlen=300
 
+" Floaterm
+nmap <leader>t :FloatermToggle term<CR>
+nmap <leader>tk :FloatermKill!<CR>
+tmap <Esc> <C-\><C-n>:q<CR>
+
 endif
 
 " Fix rust-tools hover/code actions
+" Conditional treesitter
 " Navigate between diagnostic
 " Make floaterm larger
