@@ -1,7 +1,12 @@
 {
+    "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": 
     [
+        {
+            "command": "paste",
+            "keys": "ctrl+shift+v"
+        },
         {
             "command": 
             {
@@ -10,36 +15,43 @@
             "keys": "ctrl+shift+c"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+shift+v"
+            "command": 
+            {
+                "action": "newTab",
+                "index": 1
+            }
         },
         {
             "command": 
             {
                 "action": "newTab",
-                "index": 1
+                "index": 2
             },
             "keys": "ctrl+shift+t"
         }
     ],
+    "copyFormatting": "none",
     "copyOnSelect": false,
-    "copyFormatting": false,
     "defaultProfile": "{58ad8b0c-3ef8-5f4d-bc6f-13e4c00f2530}",
-    "profiles": {
-        "defaults": {
+    "profiles": 
+    {
+        "defaults": 
+        {
             "colorScheme": "Dracula",
-            "fontFace": "Fira Code",
-            "fontSize": 14
-        },
-        "list": [
+            "font": 
             {
-                "commandline": "powershell.exe",
+                "face": "Fira Code",
+                "size": 14
+            }
+        },
+        "list": 
+        [
+            {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell"
             },
             {
-                "commandline": "cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "cmd"
