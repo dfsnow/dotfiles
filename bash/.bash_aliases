@@ -25,6 +25,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     o() {
       open --reveal "${1:-.}"
     }
+    alias y='open -a Yoink'
 fi
 
 # Git related aliases automatically added by .gitconfig
