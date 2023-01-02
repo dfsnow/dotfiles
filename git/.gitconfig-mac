@@ -1,6 +1,6 @@
 [user]
 	name = Dan Snow
-	email = snow.dfs@gmail.com
+	email = dan@sno.ws
 	signingkey = /Users/dfsnow/.ssh/dfsnow-signing-key.pub
 
 [core]
