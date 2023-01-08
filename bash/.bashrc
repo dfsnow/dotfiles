@@ -134,7 +134,7 @@ export EDITOR="$VISUAL"
 if echo "$DISTRO" | grep -q "debian"; then alias fd=fdfind; fi
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type d --follow --hidden . $HOME"
+export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/Library' --exclude '**/.tldrc' --exclude '**/.cargo' --exclude '**/.local' --exclude '**/.git' . $HOME"
 
 # Enable SSH key signing on mac
 if [[ "$OSTYPE" == "darwin"* ]]; then export SSH_AUTH_SOCK="/Users/dfsnow/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"; fi
