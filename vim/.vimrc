@@ -93,6 +93,7 @@ let g:mapleader = ","
 
 " Fast quitting and saving
 nmap <leader>w :w!<cr>
+nmap <leader>W :x<cr>
 nmap <leader>q :q<cr>
 nmap <leader>Q :q!<cr>
 
@@ -181,7 +182,7 @@ set signcolumn=yes
 syntax enable
 
 " Set the default font
-set guifont=DejaVu_Sans_Mono:h14
+set guifont=Fira\ Code:h14
 
 " Set background color
 set background=dark
@@ -516,6 +517,7 @@ wk.register({
     q = { "<cmd>q<cr>"                         , "which_key_ignore"          },
     Q = { "<cmd>q!<cr>"                        , "which_key_ignore"          },
     w = { "<cmd>w!<cr>"                        , "which_key_ignore"          },
+    W = { "<cmd>x<cr>"                         , "which_key_ignore"          },
 ["?"]       = { "<cmd>Rg<cr>"                  , "Search in all files"       },
 ["ll"]      = { "<cmd>bnext<cr>"               , "Next buffer"               },
 ["hh"]      = { "<cmd>bprevious<cr>"           , "Previous buffer"           },
@@ -789,6 +791,7 @@ require'lspconfig'.r_language_server.setup{}
 require'lspconfig'.pyright.setup{}
 require'lspconfig'.html.setup{}
 require'lspconfig'.cssls.setup{}
+
 
 ---------------------------------------------------------------
 -- Other Plugins 
