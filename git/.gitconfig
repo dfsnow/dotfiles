@@ -10,6 +10,7 @@
 
 [alias]
 	a = add
+	r = reset
 	aa = add .
 	ac = !git add -A && git commit -m
 
@@ -34,10 +35,10 @@
 	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 	lg = "!git log --graph --pretty=oneline --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
+	b = branch
 	# List branches sorted by last modified
 	bl = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-	b = branch
-	# Delete local branchs with no remote
+	# Delete local branches with no remote
 	bd = "!git branch --v | grep 'gone]' | awk '{print $1}' | xargs git branch -D"
 
 	# List aliases
