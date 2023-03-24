@@ -2,19 +2,14 @@
 alias c='clear'
 alias ld='du -h -d 1'
 
-# Enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
 # Proper color handling for coreutils ls
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    # Enable color support of ls and also add handy aliases
+    if [ -x /usr/bin/dircolors ]; then
+        test -r ~/.dircolors && \
+            eval "$(dircolors -b ~/.dircolors)" || \
+            eval "$(dircolors -b)"
+    fi
     alias l='ls -hGF --color=auto'
     alias ls='ls -hGF --color=auto'
     alias ll='ls -lahGF --color=auto'
@@ -22,10 +17,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias l='ls -hGF'
     alias ls='ls -hGF'
     alias ll='ls -lahGF'
+    alias y='open -a Yoink'
     o() {
       open --reveal "${1:-.}"
     }
-    alias y='open -a Yoink'
 fi
 
 # Git related aliases automatically added by .gitconfig
@@ -52,15 +47,13 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # Vim/neovim aliases if each installed
-if type vim >/dev/null 2>/dev/null; then
-    alias v='vim'
-    alias vi='vim'
-fi
-
 if type nvim >/dev/null 2>/dev/null; then
     alias v='nvim'
     alias vi='nvim'
     alias vim='nvim'
     alias nv='nvim'
+elif type vim >/dev/null 2>/dev/null; then
+    alias v='vim'
+    alias vi='vim'
 fi
 

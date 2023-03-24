@@ -16,12 +16,12 @@ HISTCONTROL=ignoreboth
 # Append to the history file, don't overwrite it
 shopt -s histappend
 
-# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# For setting history length see HISTSIZE and HISTFILESIZE in bash
 HISTSIZE=10000
 HISTFILESIZE=20000
 
 # Check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# update the values of LINES and COLUMNS
 shopt -s checkwinsize
 
 
@@ -97,7 +97,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	fi
     fi
 
-# Enable homebrew and programmable completion features (mac)
+# Enable homebrew and programmable completion features (Mac)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     eval $(/opt/homebrew/bin/brew shellenv)
     if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
@@ -126,8 +126,14 @@ fi
 # Shorten dir depth displayed in prompt
 PROMPT_DIRTRIM=1
 
-# Set editor to vim and edit mode to vim
-export VISUAL=vim
+# Set editor to best available
+if type nvim >/dev/null 2>/dev/null; then
+    export VISUAL=nvim
+elif type vim >/dev/null 2>/dev/null; then
+    export VISUAL=vim
+else
+    export VISUAL=vi
+fi
 export EDITOR="$VISUAL"
 
 # For Debian systems add alias for fd, since fd is fdfind in apt
@@ -136,18 +142,6 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/nul
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/Library' --exclude '**/.tldrc' --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.local' --exclude '**/.git' --exclude '**/.cache' --exclude '**/.vim' . $HOME"
 
-# Enable SSH key signing on mac
-if [[ "$OSTYPE" == "darwin"* ]]; then export SSH_AUTH_SOCK="/Users/dfsnow/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh"; fi
-
-# Use Dracula theme for bat
-export BAT_THEME="Dracula"
-
-# Remove bash deprecation warning message on mac
-export BASH_SILENCE_DEPRECATION_WARNING=1
-
-# Disable Homebrew analytics
-export HOMEBREW_NO_ANALYTICS=1
-
 # Setup Z with fzf
 source $HOME/dotfiles/z.sh
 unalias z 2> /dev/null
@@ -155,6 +149,15 @@ z() {
   [ $# -gt 0 ] && _z "$*" && return
   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
+
+# Use Dracula theme for bat
+export BAT_THEME="Dracula"
+
+# Remove bash deprecation warning message on Mac
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Disable Homebrew analytics
+export HOMEBREW_NO_ANALYTICS=1
 
 # Unset setup variables
 unset color_prompt force_color_prompt UNAME DISTRO
