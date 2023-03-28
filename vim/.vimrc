@@ -35,6 +35,7 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
     Plug 'rafamadriz/friendly-snippets'
+    Plug 'onsails/lspkind.nvim'
 
     " Completion sources
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
@@ -48,7 +49,7 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     " Language-specific packages
     Plug 'simrat39/rust-tools.nvim'
 
-    " Copilot
+    " GitHub Copilot
     Plug 'zbirenbaum/copilot.lua'
     Plug 'zbirenbaum/copilot-cmp'
 
@@ -674,7 +675,12 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
 end
 
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
 local cmp = require'cmp'
+local lspkind = require'lspkind'
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
@@ -689,21 +695,31 @@ cmp.setup({
     end,
   },
   mapping = {
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ["<Tab>"] = vim.schedule_wrap(function(fallback)
-      if cmp.visible() and has_words_before() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif vim.fn["vsnip#available"](1) == 1 then
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
-    end),
+    end, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
+      end
+    end, { "i", "s" }),
     ['<C-p>'] = cmp.mapping.scroll_docs(-4),
     ['<C-n>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false
     })
   },
   sources = {
@@ -720,18 +736,13 @@ cmp.setup({
     documentation = cmp.config.window.bordered(),
   },
   formatting = {
-    fields = {'menu', 'abbr', 'kind'},
-    format = function(entry, item)
-      local menu_icon = {
-        nvim_lsp = 'λ',
-        vsnip = '⋗',
-        buffer = 'Ω',
-        path = './',
-      }
-      item.menu = menu_icon[entry.source.name]
-      return item
-    end,
-  },
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      maxwidth = 50,
+      ellipsis_char = '...',
+      symbol_map = { Copilot = "" }
+    })
+  }
 })
 
 -- Toggle autocompletion
@@ -814,7 +825,7 @@ require'lspconfig'.cssls.setup{}
 -- Other Plugins 
 ---------------------------------------------------------------
 
--- Copilot
+-- GitHub Copilot
 require'copilot'.setup({
   suggestion = { enabled = false },
   panel = { enabled = false },
