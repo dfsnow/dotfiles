@@ -40,8 +40,9 @@ if [ "$UNAME" == "linux" ]; then
         export DISTRO=$(lsb_release -i | cut -d: -f2 | sed s/'^\t'//)
 
     # Otherwise, use release info file
-    else
-        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+    release_files="$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]*)"
+    elif [ ! -z $release_files ]; then
+        export DISTRO=$($release_files | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
     fi
 fi
 
