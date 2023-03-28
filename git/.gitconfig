@@ -5,6 +5,9 @@
 [core]
 	autocrlf = false
 
+[includeIf "gitdir:/Users"]
+	path = ~/.gitconfig-mac
+
 [color]
 	ui = auto
 
