@@ -48,6 +48,10 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     " Language-specific packages
     Plug 'simrat39/rust-tools.nvim'
 
+    " Copilot
+    Plug 'zbirenbaum/copilot.lua'
+    Plug 'zbirenbaum/copilot-cmp'
+
 endif
 
 call plug#end()
@@ -664,6 +668,12 @@ require('nvim-treesitter.configs').setup {
 -- Completion
 ---------------------------------------------------------------
 
+local has_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+end
+
 local cmp = require'cmp'
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -680,7 +690,13 @@ cmp.setup({
   },
   mapping = {
     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ["<Tab>"] = vim.schedule_wrap(function(fallback)
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end),
     ['<C-p>'] = cmp.mapping.scroll_docs(-4),
     ['<C-n>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
@@ -694,6 +710,7 @@ cmp.setup({
     { name = 'path',       max_item_count = 4, keyword_length = 2 },
     { name = 'nvim_lsp',   max_item_count = 9, keyword_length = 3 },
     { name = 'buffer',     max_item_count = 9, keyword_length = 2 },
+    { name = "copilot",    max_item_count = 4 },
     { name = 'vsnip',      max_item_count = 5 },
     { name = 'nvim_lsp_signature_help' },
     { name = 'calc' },
@@ -796,6 +813,13 @@ require'lspconfig'.cssls.setup{}
 ---------------------------------------------------------------
 -- Other Plugins 
 ---------------------------------------------------------------
+
+-- Copilot
+require'copilot'.setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+require'copilot_cmp'.setup()
 
 -- Hop mappings
 require'hop'.setup()
