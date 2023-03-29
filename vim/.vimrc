@@ -7,7 +7,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Git integration
 Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
 
 " Movement and formatting
 Plug 'tpope/vim-sleuth'
@@ -406,15 +406,19 @@ set updatetime=100
 nnoremap <leader>c :Commentary<cr>
 vnoremap <leader>c :Commentary<cr>
 
-" Signify
-nmap <leader>gg :SignifyToggle<CR>
-nmap <leader>gu :SignifyHunkUndo<CR>
-nmap <leader>gd :SignifyHunkDiff<CR>
-nmap <leader>gn <plug>(signify-next-hunk)
-nmap <leader>gp <plug>(signify-prev-hunk)
+" GitGutter
+let g:gitgutter_map_keys = 0
+nmap <leader>gg :GitGutterToggle<CR>
+nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
+nmap <leader>gd :GitGutterDiff<CR>
+nmap <leader>gf :GitGutterFold<CR>
+nmap <leader>gu <Plug>(GitGutterUndoHunk)
+nmap <leader>gs <Plug>(GitGutterStageHunk)
+nmap <leader>gn <Plug>(GitGutterNextHunk)
+nmap <leader>gp <Plug>(GitGutterPrevHunk) 
 
 " Git Fugitive
-nmap <leader>gs :Git<CR>
+nmap <leader>go :Git<CR>
 nmap <leader>gb :Git blame<CR>
 nmap <leader>gc :Git commit<CR>
 
@@ -424,11 +428,21 @@ let g:dracula_italic = 0
 colorscheme dracula
 
 " Lightline
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  if FugitiveHead() == ''
+    return ''
+  else
+    return printf('+%d ~%d -%d', a, m, r)
+endfunction
+
 set laststatus=2
 set noshowmode
 let g:lightline = {
     \ 'colorscheme'         : 'dracula',
-    \ 'component_function'  : {'gitbranch': 'fugitive#head'}                  ,
+    \ 'component_function'  : {
+    \    'gitbranch': 'FugitiveHead',
+    \    'gitstatus': 'GitStatus' }
     \ }
 
 let g:lightline.tabline = {
@@ -446,11 +460,11 @@ let g:lightline.component_type = {
 
 let g:lightline.active = {
     \ 'right' : [
-    \   ['percent', 'line']                                                   ,
+    \   ['percent', 'lineinfo']                                               ,
     \   ['fileformat', 'fileencoding', 'filetype'] ]                          ,
     \ 'left'  : [
     \   ['mode', 'paste']                                                     ,
-    \   ['gitbranch']                                                         ,
+    \   ['gitbranch', 'gitstatus']                                            ,
     \   ['readonly', 'filename', 'modified'] ]                                ,
     \ }
 
@@ -575,14 +589,17 @@ wk.register({
 wk.register({
   g = {
     name = "git",
-    s = { "<cmd>Git<cr>"                       , "Open git"                  },
+    o = { "<cmd>Git<cr>"                       , "Open git"                  },
     b = { "<cmd>Git blame<cr>"                 , "View blame"                },
     c = { "<cmd>Git commit<cr>"                , "Create commit"             },
-    d = { "<cmd>SignifyHunkDiff<cr>"           , "View diff"                 },
-    n = { "<plug>(signify-next-hunk)"          , "Next hunk"                 },
-    p = { "<plug>(signify-prev-hunk)"          , "Previous hunk"             },
-    u = { "<cmd>SignifyHunkUndo<cr>"           , "Undo hunk"                 },
-    g = { "<cmd>SignifyToggle<cr>"             , "Toggle git gutter"         },
+    g = { "<cmd>GitGutterToggle<cr>"           , "Toggle git signs"          },
+    d = { "<cmd>GitGutterDiff<cr>"             , "View diff"                 },
+    f = { "<cmd>GitGutterFold<cr>"             , "View modified lines"       },
+    n = { "<Plug>(GitGutterNextHunk)"          , "Next hunk"                 },
+    p = { "<Plug>(GitGutterPrevHunk)"          , "Previous hunk"             },
+    u = { "<Plug>(GitGutterUndoHunk)"          , "Undo hunk"                 },
+    s = { "<Plug>(GitGutterStageHunk)"         , "Stage hunk"                },
+    h = { "<cmd>GitGutterLineHighlightsToggle<cr>", "Toggle line highlights" },
   },
 }, { prefix = "<leader>" })
 
