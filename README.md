@@ -15,67 +15,73 @@ Tmux prefix is `Ctrl + a`
 
 ### Windows
 
- * `prefix + c` open new window
- * `prefix + &` close current window
- * `prefix + ,` rename current window
- * `prefix + n` next window
- * `prefix + p` previous window
+* `prefix + c` open new window
+* `prefix + &` close current window
+* `prefix + ,` rename current window
+* `prefix + n` next window
+* `prefix + p` previous window
 
 ### Panes
 
- * `prefix + -` split window horizontally
- * `prefix + _` split window vertically
- * `prefix + x` close current pane
- * `prefix + q` kill current session
+* `prefix + -` split window horizontally
+* `prefix + _` split window vertically
+* `prefix + x` close current pane
+* `prefix + q` kill current session
 
 ## Vim
 
 ### Comment
 
- * `gcc` comment out a single line
- * `gc` comment out the target of a motion or visual selection
+* `gcc` comment out a single line
+* `gc` comment out the target of a motion or visual selection
 
 ### Surround
 
- * `cs"'` change `"` to `'`
- * `cs"<q>` change `"` to `<q>`
- * `ds"` entirely delete  `"`
- * `yss"` wrap an entire line in `"`
- * Use linewise visual mode followed by `S` to surround your selection
+* `cs"'` change `"` to `'`
+* `cs"<q>` change `"` to `<q>`
+* `ds"` entirely delete  `"`
+* `yss"` wrap an entire line in `"`
+* Use linewise visual mode followed by `S` to surround your selection
 
 ### Movement
 
- * `*` and  `#` search for the word under the cursor forward/backward
- * `w` move to next word
- * `W` move to next space-separated word
- * `b` / `e` move begin/end of the current word. (`B` / `E` for space separated only)
- * `gg` / `G` jump to the begin/end of the file
- * `%` jump to the matching { .. } or ( .. ), etc.
- * `'.` jump back to last edited line
- * `g;` jump back to last edited position
+* `*` and  `#` search for the word under the cursor forward/backward
+* `w` move to next word
+* `W` move to next space-separated word
+* `b` / `e` move begin/end of the current word. (`B` / `E` for space separated only)
+* `gg` / `G` jump to the begin/end of the file
+* `%` jump to the matching { .. } or ( .. ), etc.
+* `'.` jump back to last edited line
+* `g;` jump back to last edited position
 
 ### Handy Tricks
 
- * `S` replace the current word with last yank
- * `ci(` = change text between ( .. )
- * `J` join two lines
- * `Ctrl+A` / `Ctrl+X` increment/decrement a number
- * `.` repeat last command (a simple macro)
- * `==` fix line indent
- * `>` indent block (in visual mode)
- * `<` unindent block (in visual mode)
- * `:'<,'>s/old/new/g` replace within visual selection
- * `:g/regex/ex` run the given command on the matching regex
- * `~` toggle case under cursor/in selection
+* `S` replace the current word with last yank
+* `ci(` = change text between ( .. )
+* `J` join two lines
+* `Ctrl+A` / `Ctrl+X` increment/decrement a number
+* `.` repeat last command (a simple macro)
+* `==` fix line indent
+* `>` indent block (in visual mode)
+* `<` unindent block (in visual mode)
+* `:'<,'>s/old/new/g` replace within visual selection
+* `:g/regex/ex` run the given command on the matching regex
+* `~` toggle case under cursor/in selection
 
 ### Macros
 
- 1. Press `q[ key ]` to start recording
- 2. Then hit `q` to stop recording
- 3. The macro can be played with `@[ key ]`
+1. Press `q[ key ]` to start recording
+2. Then hit `q` to stop recording
+3. The macro can be played with `@[ key ]`
+
+### Marks
+
+1. Press `m[ key ]` to set a mark
+2. Press `'[ key ]` to jump to the marked line
+3. Or use `,fm` to search all marks
 
 ### Multiline Changes
 
- 1. Select current word with `*` (go back with `N`)
- 2. Change word with `gn` motion. e.g. `cgnfoo<esc>`
- 3. Repeat via `.` command
+1. Select current word with `*` (go back with `N`)
+2. Change word with `gn` motion. e.g. `cgnfoo<esc>`
+3. Repeat via `.` command
