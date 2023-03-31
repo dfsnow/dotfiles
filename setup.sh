@@ -81,3 +81,6 @@ echo "Config files stowed"
 bind -f  ~/.inputrc
 source "$HOME"/.bashrc
 echo "Bash configs installed"
+
+# Install vim plugins
+vi --noplugin +PlugInstall +qa
