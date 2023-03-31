@@ -23,13 +23,12 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
     " UI and movement
     Plug 'folke/which-key.nvim'
-    Plug 'voldikss/vim-floaterm'
+    Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
     Plug 'phaazon/hop.nvim'
     Plug 'lukas-reineke/indent-blankline.nvim'
 
     " Fuzzy search
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
     Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
     " Completion and snippets
@@ -240,6 +239,12 @@ nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
 nnoremap <Tab>   <c-W>w
 nnoremap <S-Tab> <c-W>W
+
+" Terminal escaping
+tmap <leader><Esc> <C-\><C-n>:q<CR>
+tmap <leader>q <C-\><C-n>:q<CR>
+tmap <leader><Tab> <C-\><C-n><c-W>w
+tmap <leader><S-Tab> <C-\><C-n><c-W>W
 
 " Open new buffers
 map <leader>bh :new<cr>
@@ -590,10 +595,11 @@ wk.register({
 wk.register({
   t = {
     name = "term",
-    t = { "<cmd>FloatermToggle term<cr>"       , "Toggle current"            },
-    k = { "<cmd>FloatermKill term<cr>"         , "Kill current"              },
-    q = { "<cmd>FloatermKill!<cr>"             , "Kill all"                  },
-    n = { "<cmd>FloatermNew --name=term<cr>"   , "Open new"                  },
+    t = { "<cmd>ToggleTerm<cr>"                     , "Toggle current"       },
+    v = { "<cmd>ToggleTerm direction=vertical<cr>"  , "New (vertical)"       },
+    h = { "<cmd>ToggleTerm direction=horizontal<cr>", "New (horizontal)"     },
+    f = { "<cmd>ToggleTerm direction=float<cr>"     , "New (float)"          },
+    a = { "<cmd>ToggleTermToggleAll<cr>"            , "Toggle all"           },
 }}, { prefix = "<leader>" })
 
 wk.register({
@@ -857,6 +863,22 @@ vim.keymap.set('', 'F', function()
   })
 end, {remap=true})
 
+-- ToggleTerm
+require("toggleterm").setup({
+  size = function(term)
+    if term.direction == "horizontal" then
+      return math.floor(vim.o.lines * 0.4)
+    elseif term.direction == "vertical" then
+      return math.floor(vim.o.columns * 0.4)
+    end
+  end,
+  float_opts = {
+    border = 'curved',
+    height = math.floor(vim.o.lines * 0.85),
+    width = math.floor(vim.o.columns * 0.80)
+  }
+})
+
 EOF
 
 " Add diagnostic floating window
@@ -873,16 +895,14 @@ set foldexpr=nvim_treesitter#foldexpr()
 " Show which-key faster
 set timeoutlen=300
 
-" Floaterm
-tmap <leader><Esc> <C-\><C-n>:q<CR>
-tmap <leader>q <C-\><C-n>:q<CR>
-let g:floaterm_height = 0.85
-let g:floaterm_width = 0.80
-let g:floaterm_borderchars = '─│─│╭╮╯╰'
-
 " fzf-lua
 nnoremap <C-t> :FzfLua files<CR>
 nnoremap ? :FzfLua grep_curbuf<CR>
 nnoremap <leader>? :FzfLua grep_project<CR>
+
+" ToggleTerm
+nnoremap <C-Space> :ToggleTermSendCurrentLine<CR><CR>
+xnoremap <C-Space> :ToggleTermSendVisualLines<CR>`><CR>
+vnoremap <C-Space> :ToggleTermSendVisualSelection<CR>`><CR>
 
 endif
