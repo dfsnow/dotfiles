@@ -531,13 +531,12 @@ wk.register({
 wk.register({
   d = {
     name = "lsp",
-    l = { "<cmd>bnext<cr>"                     , "which_key_ignore"          },
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
     d = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Show diagnostic"     },
     s = { "<cmd>FzfLua lsp_finder<cr>"               , "Search LSP options"  },
     f = { 
-      "<cmd>lua vim.lsp.buf.format {timeout_ms = 20000 }<cr>",
+      "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"
     },
   },
