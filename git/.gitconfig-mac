@@ -1,15 +1,15 @@
 [user]
-	signingkey = ~/.ssh/dfsnow-signing-key.pub
+        signingkey = ~/.ssh/dfsnow-signing-key.pub
 
 [commit]
-	gpgsign = true
+        gpgsign = true
 
 [gpg]
-	format = ssh
+        format = ssh
 
 [gpg "ssh"]
-	allowedSignersFile = ~/.ssh/allowed_signers
+        allowedSignersFile = ~/.ssh/allowed_signers
 
 [tag]
-	gpgSign = true
-	forceSignAnnotated = true
+        gpgSign = true
+        forceSignAnnotated = true

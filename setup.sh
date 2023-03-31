@@ -13,38 +13,38 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
     # Install basic utilities
     sudo apt install -y \
-	curl stow rename git libssl-dev fd-find \
-	ripgrep zstd bash-completion mosh
+        curl stow rename git libssl-dev fd-find \
+        ripgrep zstd bash-completion mosh
 
     # Install build dependencies if building from source
     if [[ "$source_answer_tmux" =~ ^[Yy]$ ]] || [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
-	sudo apt install -y \
-	    libevent-dev libncurses5-dev byacc \
-	    ninja-build gettext libtool libtool-bin \
-	    autoconf automake cmake g++ pkg-config unzip
+        sudo apt install -y \
+            libevent-dev libncurses5-dev byacc \
+            ninja-build gettext libtool libtool-bin \
+            autoconf automake cmake g++ pkg-config unzip
     fi
 
     # Install the latest version of tmux
     if [[ "$source_answer_tmux" =~ ^[Yy]$ ]]; then
-	git clone https://github.com/tmux/tmux.git build_tmux
-	cd build_tmux || exit
-	sh autogen.sh
-	./configure && make && sudo make install
-	cd ..
-	rm -rf build_tmux
+        git clone https://github.com/tmux/tmux.git build_tmux
+        cd build_tmux || exit
+        sh autogen.sh
+        ./configure && make && sudo make install
+        cd ..
+        rm -rf build_tmux
     else
-	sudo apt install -y tmux
+        sudo apt install -y tmux
     fi
 
     # Install the latest version of neovim
     if [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
-	git clone https://github.com/neovim/neovim.git build_neovim
-	cd build_neovim || exit
-	git checkout tags/stable
-	make CMAKE_BUILD_TYPE=RelWithDebInfo
-	sudo make install
-	cd ..
-	rm -rf build_neovim
+        git clone https://github.com/neovim/neovim.git build_neovim
+        cd build_neovim || exit
+        git checkout tags/stable
+        make CMAKE_BUILD_TYPE=RelWithDebInfo
+        sudo make install
+        cd ..
+        rm -rf build_neovim
     fi
 
 # Install script for mac-based systems
@@ -52,15 +52,15 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
     # Install brew package if not exists, else upgrade
     function install_or_upgrade {
-	if brew ls --versions "$1" >/dev/null; then
-	    HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
-	else
-	    HOMEBREW_NO_AUTO_UPDATE=1 brew install "$1"
-	fi
+        if brew ls --versions "$1" >/dev/null; then
+            HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
+        else
+            HOMEBREW_NO_AUTO_UPDATE=1 brew install "$1"
+        fi
     }
 
     for pkg in stow neovim tmux git fzf fd ripgrep zstd bash bash-completion mosh; do
-	install_or_upgrade "$pkg"
+        install_or_upgrade "$pkg"
     done
 
     # Install fzf
