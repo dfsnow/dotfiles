@@ -29,6 +29,7 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'folke/which-key.nvim'
     Plug 'voldikss/vim-floaterm'
     Plug 'phaazon/hop.nvim'
+    Plug 'lukas-reineke/indent-blankline.nvim'
 
     " Completion frameworks and snippets
     Plug 'hrsh7th/nvim-cmp'
@@ -848,6 +849,16 @@ require'copilot'.setup({
   panel = { enabled = false },
 })
 require'copilot_cmp'.setup()
+
+-- indent-blankline
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
+vim.opt.listchars:append "space:⋅"
+require'indent_blankline'.setup {
+    show_current_context = true,
+    show_end_of_line = true,
+    space_char_blankline = " ",
+}
 
 -- Hop mappings
 require'hop'.setup()
