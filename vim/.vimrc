@@ -14,14 +14,10 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
-" Search
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-" Neovim-specific stuff. Don't use on systems with only vim
+" Neovim-specific stuff. Not used on systems with only vim
 if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
-    " LSP and treesitter setup
+    " LSP and treesitter
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -31,7 +27,11 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'phaazon/hop.nvim'
     Plug 'lukas-reineke/indent-blankline.nvim'
 
-    " Completion frameworks and snippets
+    " Search
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+
+    " Completion and snippets
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
@@ -65,24 +65,24 @@ call plug#end()
 
 " Sections:
 "    -> General
-"    -> VIM User Interface
+"    -> Vim User Interface
 "    -> Colors and Fonts
 "    -> Files and Backups
-"    -> Text, Tab and Indent Related
-"    -> Moving Around, Tabs and Buffers
+"    -> Text, Tab, and Indent Related
+"    -> Moving Around, Tabs, and Buffers
 "    -> Editing Mappings
-"    -> Spell Checkings
+"    -> Spell Checking
 "    -> Helper Functions
 "    -> Miscellaneous
-"    -> Plugin Settings
-"    -> Neovim Settings
+"    -> Vim Plugin Settings
+"    -> Neovim Plugin Settings
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Sets how many lines of history VIM has to remember
+" How many lines of history vim has to remember
 set history=500
 
 " Enable filetype plugins
@@ -110,7 +110,7 @@ command Q :q!
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM User Interface
+" => Vim User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -127,7 +127,7 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
-"Always show current position
+" Always show current position
 set ruler
 
 " A buffer becomes hidden when it is abandoned
@@ -146,13 +146,13 @@ set smartcase
 " Highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
+" Make search act like search in modern browsers
 set incsearch
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
-" For regular expressions turn magic on
+" Turn magic on for regular expressions 
 set magic
 
 " Show matching brackets when text indicator is over them
@@ -188,7 +188,7 @@ set signcolumn=yes
 syntax enable
 
 " Set the default font
-set guifont=Fira\ Code:h14
+set guifont=JetBrainsMono\ Nerd\ Font:h14
 
 " Set background color
 set background=dark
@@ -204,14 +204,14 @@ set ffs=unix,dos,mac
 " => Files, Backups and Undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Turn backup off, since most stuff is in SVN, git, etc anyway...
+" Turn backup off, since most stuff is in SVN, git, etc anyway
 set nobackup
 set nowb
 set noswapfile
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, Tab and Indent Related
+" => Text, Tab, and Indent Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable smart auto indent and line wrapping
@@ -225,7 +225,7 @@ vnoremap > >gv
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, Tabs, Windows and Buffers
+" => Moving Around, Tabs, and Buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Split new buffers to the right
@@ -273,7 +273,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " => Editing Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Remap VIM 0 to first non-blank character
+" Remap Vim 0 to first non-blank character
 map 0 ^
 
 " Delete trailing white space on save
@@ -341,29 +341,6 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Miscellaneous
@@ -400,7 +377,7 @@ set updatetime=100
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugin Settings
+" => Vim Plugin Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Commentary
@@ -469,21 +446,9 @@ let g:lightline.active = {
     \   ['readonly', 'filename', 'modified'] ]                                ,
     \ }
 
-" FZF
-nmap <leader>ff :Files<CR>
-nmap <leader>fg :GFiles<CR>
-nmap <leader>fb :Buffers<CR>
-nmap <leader>fh :History<CR>
-nmap <leader>fl :BLines<CR>
-nmap <leader>fm :Maps<CR>
-nmap <leader>fc :Commits<CR>
-nmap <leader>fr :Rg<CR>
-nnoremap <C-t> :Files<CR>
-nnoremap ? :Rg<CR>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Neovim Settings
+" => Neovim Plugin Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Only setup LSP and language support on machines with neovim
@@ -663,7 +628,7 @@ vim.diagnostic.config({
 -- Treesitter
 ---------------------------------------------------------------
 
-require('nvim-treesitter.configs').setup {
+require("nvim-treesitter.configs").setup {
   ensure_installed = { 
     "lua", "rust", "r", "python", "javascript", "json",
     "dockerfile", "gitcommit", "gitignore", "gitattributes",
@@ -697,8 +662,8 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-local cmp = require'cmp'
-local lspkind = require'lspkind'
+local cmp = require("cmp")
+local lspkind = require("lspkind")
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
@@ -775,7 +740,7 @@ function toggleAutoCmp()
   if next_cmp_toggle_flag then
     cmp.setup({
       completion = {
-        autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged }
+        autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged }
       }
     })
     vim.g.cmp_toggle_flag = next_cmp_toggle_flag
@@ -833,10 +798,10 @@ rt.setup({
 -- Other Language Integration
 ---------------------------------------------------------------
 
-require'lspconfig'.r_language_server.setup{}
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.html.setup{}
-require'lspconfig'.cssls.setup{}
+require("lspconfig").r_language_server.setup{}
+require("lspconfig").pyright.setup{}
+require("lspconfig").html.setup{}
+require("lspconfig").cssls.setup{}
 
 
 ---------------------------------------------------------------
@@ -844,26 +809,26 @@ require'lspconfig'.cssls.setup{}
 ---------------------------------------------------------------
 
 -- GitHub Copilot
-require'copilot'.setup({
+require("copilot").setup({
   suggestion = { enabled = false },
   panel = { enabled = false },
 })
-require'copilot_cmp'.setup()
+require("copilot_cmp").setup()
 
 -- indent-blankline
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
 vim.opt.listchars:append "space:⋅"
-require'indent_blankline'.setup {
+require("indent_blankline").setup {
     show_current_context = true,
     show_end_of_line = true,
     space_char_blankline = " ",
 }
 
--- Hop mappings
-require'hop'.setup()
-local hop = require('hop')
-local directions = require('hop.hint').HintDirection
+-- Hop
+require("hop").setup()
+local hop = require("hop")
+local directions = require("hop.hint").HintDirection
 vim.keymap.set("n", "<space>", "<cmd>HopWord<cr>")
 
 vim.keymap.set('', 'f', function()
@@ -898,5 +863,17 @@ set timeoutlen=300
 
 " Floaterm
 tmap <Esc> <C-\><C-n>:q<CR>
+
+" fzf-lua
+nmap <leader>ff :Files<CR>
+nmap <leader>fg :GFiles<CR>
+nmap <leader>fb :Buffers<CR>
+nmap <leader>fh :History<CR>
+nmap <leader>fl :BLines<CR>
+nmap <leader>fm :Maps<CR>
+nmap <leader>fc :Commits<CR>
+nmap <leader>fr :Rg<CR>
+nnoremap <C-t> :Files<CR>
+nnoremap ? :Rg<CR>
 
 endif
