@@ -242,8 +242,10 @@ nnoremap <Tab>   <c-W>w
 nnoremap <S-Tab> <c-W>W
 
 " Open new buffers
-map <leader>bb :new<cr>
+map <leader>bh :new<cr>
+map <leader>b_ :new<cr>
 map <leader>bv :vnew<cr>
+map <leader>b- :vnew<cr>
 map <leader>bn :enew<cr>
 
 " Close the current buffer
@@ -255,8 +257,6 @@ map <leader>ba :bufdo bd<cr>
 
 " Switch between buffers in windows
 map <leader>ll :bnext<cr>
-map <leader>bl :bnext<cr>
-map <leader>bh :bprevious<cr>
 map <leader>hh :bprevious<cr>
 
 " Specify the behavior when switching between buffers
@@ -516,14 +516,15 @@ wk.register({
 wk.register({
   b = {
     name = "buffer",
-    b = { "<cmd>new<cr>"                       , "New (horizontal)"          },
+    ["-"] = { "<cmd>new<cr>"                   , "which_key_ignore"          },
+    ["_"] = { "<cmd>vnew<cr>"                  , "which_key_ignore"          },
+    h = { "<cmd>new<cr>"                       , "New (horizontal)"          },
     v = { "<cmd>vnew<cr>"                      , "New (vertical)"            },
     n = { "<cmd>enew<cr>"                      , "New (no split)"            },
     c = { "<cmd>Bclose<cr>"                    , "Close"                     },
     d = { "<cmd>Bclose<cr>"                    , "which_key_ignore"          },
-    l = { "<cmd>bnext<cr>"                     , "Next"                      },
-    h = { "<cmd>bprevious<cr>"                 , "Previous"                  },
     a = { "<cmd>bufdo bd<cr>"                  , "Close all"                 },
+    s = { "<cmd>FzfLua buffers<cr>"            , "Search buffers"            },
   },
 }, { prefix = "<leader>" })
 
