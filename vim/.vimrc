@@ -27,9 +27,10 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'phaazon/hop.nvim'
     Plug 'lukas-reineke/indent-blankline.nvim'
 
-    " Search
+    " Fuzzy search
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
+    Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
     " Completion and snippets
     Plug 'hrsh7th/nvim-cmp'
@@ -503,7 +504,8 @@ wk.register({
     Q = { "<cmd>q!<cr>"                        , "which_key_ignore"          },
     w = { "<cmd>w!<cr>"                        , "which_key_ignore"          },
     W = { "<cmd>x<cr>"                         , "which_key_ignore"          },
-["?"]       = { "<cmd>Rg<cr>"                  , "Search in all files"       },
+["?"]       = { "<cmd>FzfLua grep_project<cr>" , "Ripgrep files"             },
+["/"]       = { "<cmd>FzfLua grep_curbuf<cr>"  , "Search current buffer"     },
 ["ll"]      = { "<cmd>bnext<cr>"               , "Next buffer"               },
 ["hh"]      = { "<cmd>bprevious<cr>"           , "Previous buffer"           },
 ["<Tab>"]   = { "<C-W>w"                       , "Next window"               },
@@ -514,23 +516,25 @@ wk.register({
 wk.register({
   b = {
     name = "buffer",
-    b = { "<cmd>new<cr>"                       , "New buffer (horizontal)"   },
-    v = { "<cmd>vnew<cr>"                      , "New buffer (vertical)"     },
-    n = { "<cmd>enew<cr>"                      , "New buffer (no split)"     },
-    d = { "<cmd>Bclose<cr>"                    , "Close buffer"              },
-    c = { "<cmd>Bclose<cr>"                    , "Close buffer"              },
-    l = { "<cmd>bnext<cr>"                     , "Next buffer"               },
-    h = { "<cmd>bprevious<cr>"                 , "Previous buffer"           },
-    a = { "<cmd>bufdo bd<cr>"                  , "Close all buffers"         },
+    b = { "<cmd>new<cr>"                       , "New (horizontal)"          },
+    v = { "<cmd>vnew<cr>"                      , "New (vertical)"            },
+    n = { "<cmd>enew<cr>"                      , "New (no split)"            },
+    c = { "<cmd>Bclose<cr>"                    , "Close"                     },
+    d = { "<cmd>Bclose<cr>"                    , "which_key_ignore"          },
+    l = { "<cmd>bnext<cr>"                     , "Next"                      },
+    h = { "<cmd>bprevious<cr>"                 , "Previous"                  },
+    a = { "<cmd>bufdo bd<cr>"                  , "Close all"                 },
   },
 }, { prefix = "<leader>" })
 
 wk.register({
   d = {
     name = "lsp",
+    l = { "<cmd>bnext<cr>"                     , "which_key_ignore"          },
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
     d = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Show diagnostic"     },
+    s = { "<cmd>FzfLua lsp_finder<cr>"               , "Search LSP options"  },
     f = { 
       "<cmd>lua vim.lsp.buf.format {timeout_ms = 20000 }<cr>",
       "Format buffer"
@@ -541,14 +545,17 @@ wk.register({
 wk.register({
   f = {
     name = "search",
-    g = { "<cmd>GFiles<cr>"                    , "Search git files"          },
-    f = { "<cmd>Files<cr>"                     , "Search all files"          },
-    b = { "<cmd>Buffers<cr>"                   , "Search buffers"            },
-    l = { "<cmd>BLines<cr>"                    , "Search lines"              },
-    m = { "<cmd>Maps<cr>"                      , "Search mappings"           },
-    h = { "<cmd>History<cr>"                   , "Search history"            },
-    c = { "<cmd>Commits<cr>"                   , "Search commits"            },
-    r = { "<cmd>Rg<cr>"                        , "Search in files"           },
+    g = { "<cmd>FzfLua git_files<cr>"                 , "Git files"          },
+    f = { "<cmd>FzfLua files<cr>"                     , "All files"          },
+    b = { "<cmd>FzfLua buffers<cr>"                   , "Buffers"            },
+    l = { "<cmd>FzfLua grep_curbuf<cr>"               , "Current buffer"     },
+    m = { "<cmd>FzfLua marks<cr>"                     , "Marks"              },
+    h = { "<cmd>FzfLua command_history<cr>"           , "History"            },
+    c = { "<cmd>FzfLua git_commits<cr>"               , "Commits"            },
+    r = { "<cmd>FzfLua grep_project<cr>"              , "Ripgrep files"      },
+    a = { "<cmd>FzfLua grep_project<cr>"              , "which_key_ignore"   },
+    d = { "<cmd>FzfLua lsp_finder<cr>"                , "LSP options"        },
+    s = { "<cmd>FzfLua spell_suggest<cr>"             , "Spellings"          },
   },
 }, { prefix = "<leader>" })
 
@@ -576,30 +583,28 @@ wk.register({
     n = { "]s"                                 , "Next misspelling"          },
     p = { "[s"                                 , "Previous misspelling"      },
     a = { "zg"                                 , "Add to dictionary"         },
-["?"] = { "z="                                 , "Search in dictionary"      },
-  },
+["?"] = { "<cmd>FzfLua spell_suggest<cr>"      , "Search in dictionary"      },
+  }
 }, { prefix = "<leader>" })
 
 wk.register({
   t = {
     name = "term",
-    t = { "<cmd>FloatermToggle term<cr>"       , "Toggle terminal"           },
-    k = { "<cmd>FloatermKill term<cr>"         , "Kill terminal"             },
-    q = { "<cmd>FloatermKill!<cr>"             , "Kill all terminals"        },
-    n = {
-  "<cmd>FloatermNew --name=term --height=0.9 --width=0.8 --autoclose=2 <cr>"  ,
-  "Open new terminal"                                                        },
+    t = { "<cmd>FloatermToggle term<cr>"       , "Toggle current"            },
+    k = { "<cmd>FloatermKill term<cr>"         , "Kill current"              },
+    q = { "<cmd>FloatermKill!<cr>"             , "Kill all"                  },
+    n = { "<cmd>FloatermNew --name=term<cr>"   , "Open new"                  },
 }}, { prefix = "<leader>" })
 
 wk.register({
   z = {
     name = "fold",
-    a = { "za"                            , "Toggle current fold"            },
-    A = { "zA"                            , "Toggle all folds under cursor"  },
-    r = { "zr"                            , "Open one fold level in buffer"  },
-    R = { "zR"                            , "Open all folds"                 },
-    m = { "zm"                            , "Close one fold level in buffer" },
-    M = { "zM"                            , "Close all folds"                },
+    a = { "za"                            , "Toggle current"                 },
+    A = { "zA"                            , "Toggle all under cursor"        },
+    r = { "zr"                            , "Open one level in buffer"       },
+    R = { "zR"                            , "Open all"                       },
+    m = { "zm"                            , "Close one level in buffer"      },
+    M = { "zM"                            , "Close all"                      },
   },
 }, { prefix = "<leader>" })
 
@@ -825,6 +830,13 @@ require("indent_blankline").setup {
     space_char_blankline = " ",
 }
 
+-- fzf-lua
+require("fzf-lua").setup({
+  fzf_opts = {
+    ['--layout'] = 'default'
+  }
+})
+
 -- Hop
 require("hop").setup()
 local hop = require("hop")
@@ -862,18 +874,15 @@ set foldexpr=nvim_treesitter#foldexpr()
 set timeoutlen=300
 
 " Floaterm
-tmap <Esc> <C-\><C-n>:q<CR>
+tmap <leader><Esc> <C-\><C-n>:q<CR>
+tmap <leader>q <C-\><C-n>:q<CR>
+let g:floaterm_height = 0.85
+let g:floaterm_width = 0.80
+let g:floaterm_borderchars = '─│─│╭╮╯╰'
 
 " fzf-lua
-nmap <leader>ff :Files<CR>
-nmap <leader>fg :GFiles<CR>
-nmap <leader>fb :Buffers<CR>
-nmap <leader>fh :History<CR>
-nmap <leader>fl :BLines<CR>
-nmap <leader>fm :Maps<CR>
-nmap <leader>fc :Commits<CR>
-nmap <leader>fr :Rg<CR>
-nnoremap <C-t> :Files<CR>
-nnoremap ? :Rg<CR>
+nnoremap <C-t> :FzfLua files<CR>
+nnoremap ? :FzfLua grep_curbuf<CR>
+nnoremap <leader>? :FzfLua grep_project<CR>
 
 endif
