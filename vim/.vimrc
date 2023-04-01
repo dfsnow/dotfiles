@@ -541,8 +541,10 @@ wk.register({
     name = "lsp",
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
-    d = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Show diagnostic"     },
-    s = { "<cmd>FzfLua lsp_finder<cr>"               , "Search LSP options"  },
+    e = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Expand diagnostic"   },
+    r = { "<cmd>FzfLua lsp_references<cr>"           , "Search references"   },
+    d = { "<cmd>FzfLua lsp_definitions<cr>"          , "Search definitions"  },
+    s = { "<cmd>FzfLua lsp_workspace_symbols<cr>" , "Search all symbols"},
     f = { 
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"
@@ -784,25 +786,26 @@ rt.setup({
   server = {
     on_attach = function(_, bufnr)
       vim.keymap.set(
-        "n", "<Leader>r",
+        "n", "<leader>dh",
         rt.hover_actions.hover_actions, { buffer = bufnr }
       )
       vim.keymap.set(
-        "n", "<leader>a",
+        "n", "<leader>da",
         rt.code_action_group.code_action_group, { buffer = bufnr }
       )
       wk.register({
-        ["<leader>"] = {
+        d = {
+          name = "lsp",
           a = {
             "<cmd>lua rt.hover_actions.hover_actions<cr>",
             "View code actions"
           },
-          r = {
-            "<cmd>lua rt.code_action_group.code_action_group<cr>",
+          h = {
+            "<cmd>lua rt.code_action_group.code_action_group",
             "View hover actions"
           },
         },
-      })
+      }, { prefix = "<leader>" })
     end,
   },
 })
@@ -900,6 +903,7 @@ set timeoutlen=300
 
 " fzf-lua
 nnoremap <C-t> :FzfLua files<CR>
+nnoremap <C-r> :FzfLua command_history<CR>
 nnoremap ? :FzfLua grep_curbuf<CR>
 nnoremap <leader>? :FzfLua grep_project<CR>
 
