@@ -28,6 +28,7 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
     Plug 'phaazon/hop.nvim'
     Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'kosayoda/nvim-lightbulb'
 
     " Fuzzy search
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -495,6 +496,7 @@ wk.setup {
       g = true,
     },
   },
+  window = { border = "single" },
   key_labels = {
     ["<space>"] = "SPACE",
     ["<cr>"]    = "ENTER",
@@ -545,13 +547,30 @@ wk.register({
     name = "lsp",
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
-    e = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Expand diagnostic"   },
-    r = { "<cmd>FzfLua lsp_references<cr>"           , "Search references"   },
-    d = { "<cmd>FzfLua lsp_definitions<cr>"          , "Search definitions"  },
-    s = { "<cmd>FzfLua lsp_workspace_symbols<cr>"    , "Search all symbols"  },
+    r = { "<cmd>lua vim.lsp.buf.references()<cr>"    , "Show references"     },
+    R = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename references"   },
+    d = { "<cmd>lua vim.lsp.buf.definition()<cr>"    , "Goto definition"     },
+    D = { "<cmd>lua vim.lsp.buf.declaration()<cr>"   , "Goto declaration"    },
+    i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Show implementations"},
+    k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
+    K = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
+    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
     f = { 
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"
+    },
+    s = {
+      name = "search",
+      r = { "<cmd>FzfLua lsp_references<cr>"          , "References"         },
+      d = { "<cmd>FzfLua lsp_definitions<cr>"         , "Definitions"        },
+      D = { "<cmd>FzfLua lsp_declarations<cr>"        , "Declarations"       },
+      i = { "<cmd>FzfLua lsp_implementations<cr>"     , "Implementations"    },
+      s = { "<cmd>FzfLua lsp_document_symbols<cr>"    , "Document symbols"   },
+      S = { "<cmd>FzfLua lsp_workspace_symbols<cr>"   , "Workspace symbols"  },
+      n = {
+        "<cmd>FzfLua lsp_document_diagnostics<cr>",
+        "Document diagnostics"
+      },
     },
   },
 }, { prefix = "<leader>" })
@@ -625,7 +644,7 @@ wk.register({
 
 
 ---------------------------------------------------------------
--- Diagnostics
+-- Diagnostics and LSP
 ---------------------------------------------------------------
 
 -- Add floating windows for diagnostics
@@ -642,6 +661,19 @@ vim.diagnostic.config({
     prefix = ''
   },
 })
+
+-- Enable LSP hover info
+vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+
+-- Add borders to floating windows
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = 'rounded' }
+)
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  { border = 'rounded' }
+)
 
 
 ---------------------------------------------------------------
@@ -691,6 +723,15 @@ cmp.setup.cmdline('/', {
   },
 })
 
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -726,8 +767,8 @@ cmp.setup({
     })
   },
   sources = {
-    { name = 'path',       max_item_count = 4, keyword_length = 2 },
-    { name = 'nvim_lsp',   max_item_count = 9, keyword_length = 3 },
+    { name = 'path',       max_item_count = 4},
+    { name = 'nvim_lsp',   max_item_count = 9, keyword_length = 1 },
     { name = 'buffer',     max_item_count = 9, keyword_length = 2 },
     { name = "copilot",    max_item_count = 4 },
     { name = 'vsnip',      max_item_count = 5 },
@@ -788,9 +829,14 @@ rt.setup({
     },
   },
   server = {
+    -- These will overwrite the default actions on load
     on_attach = function(_, bufnr)
       vim.keymap.set(
-        "n", "<leader>dh",
+        "n", "K",
+        rt.hover_actions.hover_actions, { buffer = bufnr }
+      )
+      vim.keymap.set(
+        "n", "<leader>dK",
         rt.hover_actions.hover_actions, { buffer = bufnr }
       )
       vim.keymap.set(
@@ -801,11 +847,11 @@ rt.setup({
         d = {
           name = "lsp",
           a = {
-            "<cmd>lua rt.hover_actions.hover_actions<cr>",
+            "<cmd>lua rt.code_action_group.code_action_group<cr>",
             "View code actions"
           },
-          h = {
-            "<cmd>lua rt.code_action_group.code_action_group",
+          K = {
+            "<cmd>lua rt.hover_actions.hover_actions<cr>",
             "View hover actions"
           },
         },
@@ -840,11 +886,11 @@ require("copilot_cmp").setup()
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
 vim.opt.listchars:append "space:⋅"
-require("indent_blankline").setup {
+require("indent_blankline").setup({
     show_current_context = true,
     show_end_of_line = true,
     space_char_blankline = " ",
-}
+})
 
 -- fzf-lua
 require("fzf-lua").setup({
@@ -853,19 +899,28 @@ require("fzf-lua").setup({
   }
 })
 
+-- nvim-lightbulb
+vim.fn.sign_define('LightBulbSign', {
+  text = "A",
+  texthl = "A",
+  linehl="A",
+  numhl="A"
+})
+require('nvim-lightbulb').setup({
+  autocmd = { enabled = true },
+})
+
 -- Hop
 require("hop").setup()
 local hop = require("hop")
 local directions = require("hop.hint").HintDirection
 vim.keymap.set("n", "<space>", "<cmd>HopWord<cr>")
-
 vim.keymap.set('', 'f', function()
   hop.hint_char1({
     direction = directions.AFTER_CURSOR,
     current_line_only = true
   })
 end, {remap=true})
-
 vim.keymap.set('', 'F', function()
   hop.hint_char1({ 
     direction = directions.BEFORE_CURSOR,
