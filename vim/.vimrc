@@ -503,6 +503,7 @@ wk.register({
     x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     c = { "<cmd>Commentary<cr>"                , "Toggle comment"            },
     v = { "<cmd>setlocal paste!<cr>"           , "Toggle paste mode"         },
+    n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
     h = { "<C-W><C-H>"                         , "which_key_ignore"          },
     j = { "<C-W><C-J>"                         , "which_key_ignore"          },
     k = { "<C-W><C-K>"                         , "which_key_ignore"          },
