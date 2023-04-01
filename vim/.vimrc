@@ -682,9 +682,14 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 
 require("nvim-treesitter.configs").setup {
   ensure_installed = { 
-    "lua", "rust", "r", "python", "javascript", "json",
-    "dockerfile", "gitcommit", "gitignore", "gitattributes",
-    "toml", "yaml", "bash", "vim", "awk"
+    "lua", "vim", "vimdoc",
+    "rust", "c", "cpp", "go",
+    "r", "python", "julia",
+    "javascript", "html", "typescript",
+    "toml", "yaml", "json",
+    "bash", "awk", "jq",
+    "gitcommit", "gitignore", "gitattributes",
+    "dockerfile", "sql", "comment"
   },
   auto_install = false,
   highlight = {
