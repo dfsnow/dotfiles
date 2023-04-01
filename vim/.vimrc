@@ -365,9 +365,6 @@ map <leader>v :setlocal paste!<cr>
 " Better line joins
 set formatoptions+=j
 
-" Fix R indentation 
-let r_indent_align_args = 0
-
 " Remap enter and backspace in Normal mode
 nnoremap <BS> {
 onoremap <BS> {
@@ -382,6 +379,13 @@ vnoremap R "_d"0P"
 
 " Decrease update time
 set updatetime=100
+
+" Language-specific fixes
+let r_indent_align_args = 0
+let g:loaded_python3_provider = 0
+let g:loaded_ruby_provider = 0
+let g:loaded_node_provider = 0
+let g:loaded_perl_provider = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -544,7 +548,7 @@ wk.register({
     e = { "<cmd>lua vim.diagnostic.open_float()<cr>" , "Expand diagnostic"   },
     r = { "<cmd>FzfLua lsp_references<cr>"           , "Search references"   },
     d = { "<cmd>FzfLua lsp_definitions<cr>"          , "Search definitions"  },
-    s = { "<cmd>FzfLua lsp_workspace_symbols<cr>" , "Search all symbols"},
+    s = { "<cmd>FzfLua lsp_workspace_symbols<cr>"    , "Search all symbols"  },
     f = { 
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"
