@@ -13,6 +13,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
 
 " Neovim-specific stuff. Not used on systems with only vim
 if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
@@ -375,8 +377,8 @@ onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
 vnoremap <CR> }
 
 " Replace word with last yank
-nnoremap S diw"0P
-vnoremap S "_d"0P"
+nnoremap R diw"0P
+vnoremap R "_d"0P"
 
 " Decrease update time
 set updatetime=100
