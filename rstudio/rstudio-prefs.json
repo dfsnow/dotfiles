@@ -1,0 +1,65 @@
+{
+    "load_workspace": false,
+    "initial_working_directory": "~",
+    "always_save_history": false,
+    "editor_keybindings": "vim",
+    "posix_terminal_shell": "bash",
+    "editor_theme": "Dracula",
+    "font_size_points": 12,
+    "terminal_bell_style": "none",
+    "cran_mirror": {
+        "name": "Global (CDN)",
+        "host": "RStudio",
+        "url": "https://cran.rstudio.com/",
+        "country": "us",
+        "ok": 1,
+        "secondary": ""
+    },
+    "jobs_tab_visibility": "shown",
+    "default_project_location": "~",
+    "source_with_echo": true,
+    "rainbow_parentheses": true,
+    "auto_append_newline": true,
+    "strip_trailing_whitespace": true,
+    "use_tinytex": true,
+    "custom_shell_command": "/bin/bash",
+    "reduced_motion": true,
+    "panes": {
+        "quadrants": [
+            "Source",
+            "Console",
+            "TabSet1",
+            "TabSet2"
+        ],
+        "tabSet1": [
+            "Environment",
+            "History",
+            "Connections",
+            "Build",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Files",
+            "Plots",
+            "Help",
+            "Viewer",
+            "Presentations"
+        ],
+        "hiddenTabSet": [
+            "Packages",
+            "VCS",
+            "Tutorial",
+            "Presentations"
+        ],
+        "console_left_on_top": false,
+        "console_right_on_top": true,
+        "additional_source_columns": 0
+    },
+    "remove_history_duplicates": true,
+    "show_terminal_tab": false,
+    "enable_snippets": false,
+    "syntax_color_console": true,
+    "auto_detect_indentation": true,
+    "packages_pane_enabled": false,
+    "save_workspace": "never"
+}
