@@ -682,7 +682,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 
 require("nvim-treesitter.configs").setup {
   ensure_installed = { 
-    "lua", "vim", "vimdoc",
+    "lua", "vim",
     "rust", "c", "cpp", "go",
     "r", "python", "julia",
     "javascript", "html", "typescript",
@@ -908,8 +908,8 @@ require("fzf-lua").setup({
 vim.fn.sign_define('LightBulbSign', {
   text = "A",
   texthl = "A",
-  linehl="A",
-  numhl="A"
+  linehl = "A",
+  numhl = "A"
 })
 require('nvim-lightbulb').setup({
   autocmd = { enabled = true },
