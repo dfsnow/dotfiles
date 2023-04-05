@@ -8,6 +8,18 @@
 [includeIf "gitdir:/Users/"]
     path = ~/.mac.gitconfig
 
+[includeIf "gitdir:C:/"]
+    path = ~/.ccao.gitconfig
+
+[includeIf "gitdir:/mnt/c/"]
+    path = ~/.ccao.gitconfig
+
+[includeIf "gitdir:/mnt/c/"]
+    path = ~/.ccao.gitconfig
+
+[includeIf "gitdir:/home/dsnow/"]
+    path = ~/.ccao.gitconfig
+
 [color]
     ui = auto
 
