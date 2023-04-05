@@ -1,55 +1,55 @@
 [user]
-        name = Dan Snow
-        email = dan@sno.ws
+    name = Dan Snow
+    email = dan@sno.ws
 
 [core]
-        autocrlf = false
+    autocrlf = false
 
-[includeIf "gitdir:/Users"]
-        path = ~/.gitconfig-mac
+[includeIf "gitdir:/Users/"]
+    path = ~/.mac.gitconfig
 
 [color]
-        ui = auto
+    ui = auto
 
 [alias]
-        a = add
-        r = reset
-        aa = add .
-        ac = !git add -A && git commit -m
+    a = add
+    r = reset
+    aa = add .
+    ac = !git add -A && git commit -m
 
-        c = commit
-        cm = commit -m
-        ca = commit --amend --verbose
+    c = commit
+    cm = commit -m
+    ca = commit --amend --verbose
 
-        d = diff
-        ds = diff --stat
+    d = diff
+    ds = diff --stat
 
-        s = status -s -b
-        co = checkout
-        cob = checkout -b
+    s = status -s -b
+    co = checkout
+    cob = checkout -b
 
-        pu = push
-        pl = !git pull --rebase --prune && git submodule update --init --recursive
+    pu = push
+    pl = !git pull --rebase --prune && git submodule update --init --recursive
 
-        f = fetch --prune --verbose
-        cl = clone
+    f = fetch --prune --verbose
+    cl = clone
 
-        # Show pretty logs
-        l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-        lg = "!git log --graph --pretty=oneline --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+    # Show pretty logs
+    l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    lg = "!git log --graph --pretty=oneline --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
-        b = branch
-        # List branches sorted by last modified
-        bl = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-        # Delete local branches with no remote
-        bd = "!git branch --v | grep 'gone]' | awk '{print $1}' | xargs git branch -D"
+    b = branch
+    # List branches sorted by last modified
+    bl = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+    # Delete local branches with no remote
+    bd = "!git branch --v | grep 'gone]' | awk '{print $1}' | xargs git branch -D"
 
-        # List aliases
-        la = "!git config -l | grep alias | cut -c 7-"
+    # List aliases
+    la = "!git config -l | grep alias | cut -c 7-"
 
-        # How many commits have been made by different authors
-        lw = shortlog -n -s --no-merges
+    # How many commits have been made by different authors
+    lw = shortlog -n -s --no-merges
 
-        lc = "!git ls-files | while read f; do git blame -w --line-porcelain -- \"$f\" | grep -I '^author-mail '; done | sed 's/@.*//g'| sed 's/<//g' | sort -f | uniq -ic | sort -nr"
+    lc = "!git ls-files | while read f; do git blame -w --line-porcelain -- \"$f\" | grep -I '^author-mail '; done | sed 's/@.*//g'| sed 's/<//g' | sort -f | uniq -ic | sort -nr"
 
-        lh = "!git log --numstat --pretty=\"%ae %H\" | sed 's/@.*//g' | awk '{ if (NF == 1){ name = $1}; if(NF == 3) {plus[name] += $1; minus[name] += $2}} END { for (name in plus) {print name\": +\"plus[name]\" -\"minus[name]}}' | sort -k2 -gr"
+    lh = "!git log --numstat --pretty=\"%ae %H\" | sed 's/@.*//g' | awk '{ if (NF == 1){ name = $1}; if(NF == 3) {plus[name] += $1; minus[name] += $2}} END { for (name in plus) {print name\": +\"plus[name]\" -\"minus[name]}}' | sort -k2 -gr"
