@@ -14,9 +14,11 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     alias ls='ls -hGF --color=auto'
     alias ll='ls -lahGF --color=auto'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+    export CLICOLOR=1
     alias l='ls -hGF'
     alias ls='ls -hGF'
     alias ll='ls -lahGF'
+    # Add mac-specific aliases
     alias y='open -a Yoink'
     o() {
       open --reveal "${1:-.}"
@@ -57,3 +59,10 @@ elif type vim >/dev/null 2>/dev/null; then
     alias vi='vim'
 fi
 
+# Setup Z with fzf
+source $HOME/dotfiles/z.sh
+unalias z 2> /dev/null
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
