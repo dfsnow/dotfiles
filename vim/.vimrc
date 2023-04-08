@@ -871,7 +871,6 @@ rt.setup({
 ---------------------------------------------------------------
 
 local lspconfig = require("lspconfig")
-lspconfig.rust_analyzer.setup{}
 lspconfig.r_language_server.setup{}
 lspconfig.pyright.setup{}
 lspconfig.html.setup{}
@@ -893,7 +892,7 @@ lspconfig.efm.setup{
     "typescriptreact",
   },
   settings = {
-    rootMarkers = {".git/"},
+    rootMarkers = { ".git/" },
     languages = {
       sh = {
         {
@@ -952,9 +951,7 @@ require("indent_blankline").setup({
 
 -- fzf-lua
 require("fzf-lua").setup({
-  fzf_opts = {
-    ['--layout'] = 'default'
-  }
+  fzf_opts = { ['--layout'] = 'default' }
 })
 
 -- nvim-lightbulb
@@ -964,7 +961,7 @@ vim.fn.sign_define('LightBulbSign', {
   linehl = "A",
   numhl = "A"
 })
-require('nvim-lightbulb').setup({
+require("nvim-lightbulb").setup({
   autocmd = { enabled = true },
 })
 
