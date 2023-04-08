@@ -1,4 +1,5 @@
 set completion-ignore-case on
+set show-all-if-ambiguous on
 set expand-tilde off
 set convert-meta off
 set input-meta on
