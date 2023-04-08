@@ -13,3 +13,6 @@
 [tag]
     gpgSign = true
     forceSignAnnotated = true
+
+[credential]
+    helper = osxkeychain

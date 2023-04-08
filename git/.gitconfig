@@ -20,6 +20,12 @@
 [includeIf "gitdir:/home/dsnow/"]
     path = ~/.ccao.gitconfig
 
+[init]
+    defaultBranch = main
+
+[push]
+    autoSetupRemote = true
+
 [color]
     ui = auto
 
@@ -45,6 +51,7 @@
 
     f = fetch --prune --verbose
     cl = clone
+    m = merge
 
     # Show pretty logs
     l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
