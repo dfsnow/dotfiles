@@ -870,10 +870,63 @@ rt.setup({
 -- Other Language Integration
 ---------------------------------------------------------------
 
-require("lspconfig").r_language_server.setup{}
-require("lspconfig").pyright.setup{}
-require("lspconfig").html.setup{}
-require("lspconfig").cssls.setup{}
+local lspconfig = require("lspconfig")
+lspconfig.rust_analyzer.setup{}
+lspconfig.r_language_server.setup{}
+lspconfig.pyright.setup{}
+lspconfig.html.setup{}
+lspconfig.cssls.setup{}
+lspconfig.efm.setup{
+  init_options = { documentFormatting = true },
+  root_dir = require("lspconfig").util.root_pattern{ ".git/", "." },
+  filetypes = {
+    "sh",
+    "json",
+    "html",
+    "css",
+    "python",
+    "yaml",
+    "markdown",
+    "javascriptreact",
+    "javascript",
+    "typescript",
+    "typescriptreact",
+  },
+  settings = {
+    rootMarkers = {".git/"},
+    languages = {
+      sh = {
+        {
+          formatCommand = "shfmt -i 4 -bn -sr -p -ci",
+          formatStdin = true,
+          lintCommand = "shellcheck -f gcc -x",
+          lintSource = "shellcheck",
+          lintFormats = {
+            "%f:%l:%c: %trror: %m",
+            "%f:%l:%c: %tarning: %m",
+            "%f:%l:%c: %tote: %m",
+          },
+        },
+      },
+      json = {
+        {
+          formatCommand = "prettier ${--tab-width:tabWidth} --parser json",
+          lintCommand = "jq .",
+          lintStdin = true,
+        },
+      },
+      html = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser html" }},
+      css = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser css" }},
+      python = {{ formatCommand = "autopep8 -", formatStdin = true }},
+      yaml = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
+      markdown = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
+      javascript = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
+      javascriptreact = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
+      typescript = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
+      typescriptreact = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
+    }
+  }
+}
 
 
 ---------------------------------------------------------------
