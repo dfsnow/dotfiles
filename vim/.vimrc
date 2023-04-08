@@ -72,6 +72,7 @@ call plug#end()
 "    -> Colors and Fonts
 "    -> Files and Backups
 "    -> Text, Tab, and Indent Related
+"    -> Clipboard Integration
 "    -> Moving Around, Tabs, and Buffers
 "    -> Editing Mappings
 "    -> Spell Checking
@@ -225,6 +226,23 @@ set wrap
 " Keep text selected on indent
 vnoremap < <gv
 vnoremap > >gv
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Clipboard Integration
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Copy to system clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy "+yy
+
+" Paste from system clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -518,6 +536,12 @@ wk.register({
     Q = { "<cmd>q!<cr>"                        , "which_key_ignore"          },
     w = { "<cmd>w!<cr>"                        , "which_key_ignore"          },
     W = { "<cmd>x<cr>"                         , "which_key_ignore"          },
+    p = { '"+p'                                , "Paste from clipboard"      },
+    P = { '"+P'                                , "which_key_ignore"          },
+    y = { '"+y'                                , "Copy to clipboard"         },
+    Y = { '"+yg_'                              , "which_key_ignore"          },
+    Y = { '"+yg_'                              , "which_key_ignore"          },
+    yy = { '"+yy'                              , "which_key_ignore"          },
 ["?"]       = { "<cmd>FzfLua grep_project<cr>" , "Ripgrep files"             },
 ["/"]       = { "<cmd>FzfLua grep_curbuf<cr>"  , "Search current buffer"     },
 ["ll"]      = { "<cmd>bnext<cr>"               , "Next buffer"               },
