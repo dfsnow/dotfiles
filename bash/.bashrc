@@ -5,16 +5,16 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+[[ $- != *i* ]] && return
 
 # Don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
 
 # Append to the history file, don't overwrite it
 shopt -s histappend
+
+# Multi-line command uses single history entry
+shopt -s cmdhist
 
 # For setting history length see HISTSIZE and HISTFILESIZE in bash
 HISTSIZE=10000
@@ -42,37 +42,45 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# Set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
+# Check if colours are supported
+__colour_enabled() {
+    local -i colors=$(tput colors 2>/dev/null)
+    [[ $? -eq 0 ]] && [[ $colors -gt 2 ]]
+}
+unset __colourise_prompt && __colour_enabled && __colourise_prompt=1
 
-force_color_prompt=yes
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
+# Create custom bash prompt: https://stackoverflow.com/a/38758377
+__set_bash_prompt()
+{
+    local PreGitPS1="${debian_chroot:+($debian_chroot)}"
+    local PostGitPS1=""
+
+    if [[ $__colourise_prompt ]]; then
+        export GIT_PS1_SHOWCOLORHINTS=1
+        local BGre='\[\e[1;32m\]';
+        local BBlu='\[\e[1;34m\]';
+        local None='\[\e[0m\]' # Return to default colour
+        PreGitPS1+="$BGre\u@\h$None:$BBlu\w$None"
     else
-        color_prompt=
+        unset GIT_PS1_SHOWCOLORHINTS
+        PreGitPS1="${debian_chroot:+($debian_chroot)}\u@\h:\w"
     fi
-fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
+    PostGitPS1+="$None"'\$ '"$None"
+    __git_ps1 "$PreGitPS1" "$PostGitPS1" '(%s)'
+}
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+PROMPT_COMMAND=__set_bash_prompt
+PROMPT_DIRTRIM=1
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWSTASHSTATE=1
+
+# Fallback if git-prompt.sh is not available
+if [ "$(type -t __git_ps1)" != function ]; then
+    function __git_ps1 {
+        :
+    }
+fi
 
 
 ###############################################################
@@ -103,6 +111,7 @@ fi
 
 # Add git bash completion
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
+[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh __git_complete g __git_main
 
 # Add alias definitions
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
@@ -114,9 +123,6 @@ fi
 ###############################################################
 # => Exports env vars
 ###############################################################
-
-# Shorten dir depth displayed in prompt
-PROMPT_DIRTRIM=1
 
 # Set editor to best available
 if type nvim >/dev/null 2>/dev/null; then
@@ -134,14 +140,6 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/nul
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/Library' --exclude '**/.tldrc' --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.local' --exclude '**/.git' --exclude '**/.cache' --exclude '**/.vim' . $HOME"
 
-# Setup Z with fzf
-source $HOME/dotfiles/z.sh
-unalias z 2> /dev/null
-z() {
-  [ $# -gt 0 ] && _z "$*" && return
-  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-}
-
 # Use Dracula theme for bat
 export BAT_THEME="Dracula"
 
@@ -152,4 +150,4 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export HOMEBREW_NO_ANALYTICS=1
 
 # Unset setup variables
-unset color_prompt force_color_prompt UNAME DISTRO
+unset UNAME DISTRO
