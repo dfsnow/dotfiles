@@ -51,8 +51,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 
     # Install brew package if not exists, else upgrade
-    function install_or_upgrade {
-        if brew ls --versions "$1" >/dev/null; then
+    __install_or_upgrade() {
+        if brew ls --versions "$1" > /dev/null; then
             HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
         else
             HOMEBREW_NO_AUTO_UPDATE=1 brew install "$1"
@@ -60,7 +60,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     }
 
     for pkg in stow neovim tmux git fzf fd ripgrep zstd bash bash-completion mosh; do
-        install_or_upgrade "$pkg"
+        __install_or_upgrade "$pkg"
     done
 
     # Install fzf
@@ -81,8 +81,8 @@ done
 echo "Config files stowed"
 
 # Reset inputrc and bashrc
-bind -f  ~/.inputrc
-source "$HOME"/.bashrc
+bind -f ~/.inputrc
+source ~/.bashrc
 echo "Bash configs installed"
 
 # Install vim plugins

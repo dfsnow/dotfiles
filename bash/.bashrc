@@ -99,9 +99,9 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
 # Enable homebrew and programmable completion features (Mac)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    eval $(/opt/homebrew/bin/brew shellenv)
-    if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
-        . $(brew --prefix)/etc/profile.d/bash_completion.sh
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    if [ -f "$(brew --prefix)"/etc/profile.d/bash_completion.sh ]; then
+        . "$(brew --prefix)"/etc/profile.d/bash_completion.sh
     fi
 fi
 
