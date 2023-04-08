@@ -67,7 +67,7 @@ __set_bash_prompt()
     fi
 
     PostGitPS1+="$None"'\$ '"$None"
-    __git_ps1 "$PreGitPS1" "$PostGitPS1" '(%s)'
+    __git_ps1 "$PreGitPS1" "$PostGitPS1" ' (%s)'
 }
 
 PROMPT_COMMAND=__set_bash_prompt
