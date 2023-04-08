@@ -64,7 +64,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     done
 
     # Install fzf
-    $(brew --prefix)/opt/fzf/install
+    "$(brew --prefix)"/opt/fzf/install
+
+    # Hush login message
+    touch ~/.hushlogin
 fi
 
 # Install vim-plug
