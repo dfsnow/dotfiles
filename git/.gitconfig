@@ -46,6 +46,12 @@
     co = checkout
     cob = checkout -b
 
+    ss = stash
+    sl = stash list
+    sd = stash drop
+    sp = stash pop
+    sc = stash clear
+
     pu = push
     pl = !git pull --rebase --prune && git submodule update --init --recursive
 
