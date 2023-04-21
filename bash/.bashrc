@@ -149,5 +149,12 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
 
+# Add Go and efm support
+[ -d /usr/local/go/bin ] && export PATH=$PATH:/usr/local/go/bin
+if type go >/dev/null 2>/dev/null; then
+    PATH=$PATH:$(go env GOPATH)/bin
+    export PATH
+fi
+
 # Unset setup variables
 unset UNAME DISTRO
