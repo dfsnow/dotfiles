@@ -999,13 +999,13 @@ vim.keymap.set('', 'f', function()
     direction = directions.AFTER_CURSOR,
     current_line_only = true
   })
-end, {remap=true})
+end, { remap = true })
 vim.keymap.set('', 'F', function()
   hop.hint_char1({ 
     direction = directions.BEFORE_CURSOR,
     current_line_only = true
   })
-end, {remap=true})
+end, { remap = true })
 
 -- ToggleTerm
 require("toggleterm").setup({
@@ -1022,6 +1022,38 @@ require("toggleterm").setup({
     width = math.floor(vim.o.columns * 0.80)
   }
 })
+
+-- Useful snippets
+-- Proper empty line insertion
+vim.keymap.set("x", "i", function()
+    if #vim.fn.getline(".") == 0 then
+        return [["_cc]]
+    else
+        return "i"
+    end
+end, { expr = true })
+
+-- No empty line yank to default register
+vim.keymap.set("n", "dd", function()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
+end, { expr = true })
+
+-- Better line joins
+vim.keymap.set("n", "J", function()
+  vim.cmd("normal! mzJ")
+  local col     = vim.fn.col(".")
+  local context = string.sub(vim.fn.getline("."), col - 1, col + 1)
+  if context == ") ." or context == ") :" or context:match("%( .") or context:match(". ,") or context:match("%w %.") then
+    vim.cmd("undojoin | normal! x")
+  elseif context == ",)" then
+    vim.cmd("undojoin | normal! hx")
+  end
+  vim.cmd("normal! `z")
+end, { expr = true })
 
 EOF
 
