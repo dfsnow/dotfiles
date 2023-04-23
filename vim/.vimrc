@@ -17,7 +17,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 
 " Neovim-specific stuff. Not used on systems with only vim
-if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
+if has("nvim-0.7.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
     " LSP and treesitter
     Plug 'neovim/nvim-lspconfig'
@@ -44,9 +44,9 @@ if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     " Completion sources
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-vsnip'                             
-    Plug 'hrsh7th/cmp-path'                              
-    Plug 'hrsh7th/cmp-buffer'                            
+    Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-calc'
     
@@ -68,37 +68,35 @@ call plug#end()
 
 " Sections:
 "    -> General
-"    -> Vim User Interface
-"    -> Colors and Fonts
-"    -> Files and Backups
-"    -> Text, Tab, and Indent Related
+"    -> User Interface
 "    -> Clipboard Integration
 "    -> Moving Around, Tabs, and Buffers
-"    -> Editing Mappings
+"    -> Remaps
 "    -> Spell Checking
 "    -> Helper Functions
-"    -> Miscellaneous
 "    -> Vim Plugin Settings
-"    -> Neovim Plugin Settings
+"    -> Neovim Settings
+"       -- WhichKey
+"       -- Diagnostics and LSP
+"       -- Treesitter
+"       -- Completion
+"       -- Rust Integration
+"       -- Other Language Integration
+"       -- Other Plugins 
+"       -- Additional Remaps
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" How many lines of history vim has to remember
+" Remember more command history
 set history=500
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
 
 " With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
 let g:mapleader = ","
 
 " Fast quitting and saving
@@ -108,28 +106,45 @@ nmap <leader>q :q<cr>
 nmap <leader>Q :q!<cr>
 
 " :W sudo saves the file
-" (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 command Q :q!
 
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Turn backup off, since most stuff is in SVN, git, etc anyway
+set nobackup nowb noswapfile
+
+" Decrease update time
+set updatetime=100
+
+" Language-specific fixes
+let g:r_indent_align_args = 0
+let g:loaded_python3_provider = 0
+let g:loaded_ruby_provider = 0
+let g:loaded_node_provider = 0
+let g:loaded_perl_provider = 0
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim User Interface
+" => User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
-" Turn on the WiLd menu
+" Turn on the Wild menu
 set wildmenu
 
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
+" Ignore files
+set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+
+" Completion options
+set completeopt=menuone,noselect,noinsert
+set shortmess+=c
 
 " Always show current position
 set ruler
@@ -142,16 +157,10 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " Ignore case when searching
-set ignorecase
+set ic sc
 
-" When searching try to be smart about cases
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Make search act like search in modern browsers
-set incsearch
+" Highlight search results and search incrementally
+set hlsearch incsearch
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -166,10 +175,7 @@ set showmatch
 set mat=2
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
+set noerrorbells novisualbell t_vb= tm=500
 
 " Show the line number
 set number
@@ -183,49 +189,23 @@ set colorcolumn=80
 " Show sign/diagnostic column
 set signcolumn=yes
 
+" Enable smart auto indent and line wrapping
+set ai si wrap
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable folding
+set foldcolumn=1
+set foldmethod=indent
+set foldlevel=99
+
+" Always show the status bar
+set laststatus=2
+set noshowmode
 
 " Enable syntax highlighting
 syntax enable
 
-" Set the default font
-set guifont=JetBrainsMono\ Nerd\ Font:h14
-
-" Set background color
-set background=dark
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, Backups and Undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Turn backup off, since most stuff is in SVN, git, etc anyway
-set nobackup
-set nowb
-set noswapfile
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, Tab, and Indent Related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Enable smart auto indent and line wrapping
-set ai
-set si
-set wrap
-
-" Keep text selected on indent
-vnoremap < <gv
-vnoremap > >gv
+" Show leader menus faster
+set timeoutlen=300
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,31 +277,34 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing Mappings
+" => Remaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Remap Vim 0 to first non-blank character
+" Remap 0 to first non-blank character
 map 0 ^
 
-" Delete trailing white space on save
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
+" Remap enter and backspace in Normal mode
+nnoremap <BS> {
+onoremap <BS> {
+vnoremap <BS> {
+nnoremap <expr> <CR> empty(&buftype) ? '}' : "<CR>"
+onoremap <expr> <CR> empty(&buftype) ? '}' : "<CR>"
+vnoremap <CR> }
 
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.md,*.R,*.Rmd,*.qmd,*.css,*.html,*.yaml,*.toml :call CleanExtraSpaces()
-endif
+" Replace word with last yank
+nnoremap R diw"0P
+vnoremap R "_d"0P"
+
+" Keep text selected on indent
+vnoremap < <gv
+vnoremap > >gv
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell Checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Pressing ,ss will toggle and untoggle spell checking
+" Toggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
 " Shortcuts using <leader>
@@ -338,14 +321,6 @@ set spellfile=$HOME/dotfiles/spell/en.utf-8.add
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
 
 " Don't close window when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
@@ -368,43 +343,18 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+" Delete trailing white space on save
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg("/")
+    silent! %s/\s\+$//e
+    call setpos(".", save_cursor)
+    call setreg("/", old_query)
+endfun
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Miscellaneous
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Enable folding
-set foldcolumn=1
-set foldmethod=indent
-set foldlevel=99
-
-" Toggle paste mode on and off
-map <leader>v :setlocal paste!<cr>
-
-" Better line joins
-set formatoptions+=j
-
-" Remap enter and backspace in Normal mode
-nnoremap <BS> {
-onoremap <BS> {
-vnoremap <BS> {
-nnoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
-onoremap <expr> <CR> empty(&buftype) ? '}' : '<CR>'
-vnoremap <CR> }
-
-" Replace word with last yank
-nnoremap R diw"0P
-vnoremap R "_d"0P"
-
-" Decrease update time
-set updatetime=100
-
-" Language-specific fixes
-let r_indent_align_args = 0
-let g:loaded_python3_provider = 0
-let g:loaded_ruby_provider = 0
-let g:loaded_node_provider = 0
-let g:loaded_perl_provider = 0
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.md,*.R,*.Rmd,*.qmd,*.css,*.html,*.yaml,*.toml :call CleanExtraSpaces()
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -439,14 +389,12 @@ colorscheme dracula
 " Lightline
 function! GitStatus()
   let [a,m,r] = GitGutterGetHunkSummary()
-  if FugitiveHead() == ''
-    return ''
+  if FugitiveHead() == ""
+    return ""
   else
-    return printf('+%d ~%d -%d', a, m, r)
+    return printf("+%d ~%d -%d", a, m, r)
 endfunction
 
-set laststatus=2
-set noshowmode
 let g:lightline = {
     \ 'colorscheme'         : 'dracula',
     \ 'component_function'  : {
@@ -479,13 +427,13 @@ let g:lightline.active = {
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Neovim Plugin Settings
+" => Neovim Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Only setup LSP and language support on machines with neovim
 " This lets this config remain useable on remote machines where
 " installing a ton of dependencies is undesirable
-if has('nvim-0.7.0') && ($NVIM_EDITOR_CONFIG == "ADVANCED")
+if has("nvim-0.7.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
 lua <<EOF
 
@@ -679,24 +627,24 @@ vim.diagnostic.config({
   underline = true,
   severity_sort = false,
   float = {
-    border = 'rounded',
-    source = 'always',
-    header = '',
-    prefix = ''
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = ""
   },
 })
 
 -- Enable LSP hover info
-vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
 
 -- Add borders to floating windows
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
   vim.lsp.handlers.hover,
-  { border = 'rounded' }
+  { border = "rounded" }
 )
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
-  { border = 'rounded' }
+  { border = "rounded" }
 )
 
 
@@ -745,19 +693,19 @@ end
 
 local cmp = require("cmp")
 local lspkind = require("lspkind")
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline("/", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'buffer' }
+    { name = "buffer" }
   },
 })
 
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = 'path' }
+    { name = "path" }
   }, {
-    { name = 'cmdline' }
+    { name = "cmdline" }
   })
 })
 
@@ -786,23 +734,23 @@ cmp.setup({
         feedkey("<Plug>(vsnip-jump-prev)", "")
       end
     end, { "i", "s" }),
-    ['<C-p>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-n>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({
+    ["<C-p>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-n>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = false
     })
   },
   sources = {
-    { name = 'path',       max_item_count = 4},
-    { name = 'nvim_lsp',   max_item_count = 9, keyword_length = 1 },
-    { name = 'buffer',     max_item_count = 9, keyword_length = 2 },
+    { name = "path",       max_item_count = 4},
+    { name = "nvim_lsp",   max_item_count = 9, keyword_length = 1 },
+    { name = "buffer",     max_item_count = 9, keyword_length = 2 },
     { name = "copilot",    max_item_count = 4 },
-    { name = 'vsnip',      max_item_count = 5 },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'calc' },
+    { name = "vsnip",      max_item_count = 5 },
+    { name = "nvim_lsp_signature_help" },
+    { name = "calc" },
   },
   window = {
     completion = cmp.config.window.bordered(),
@@ -810,9 +758,9 @@ cmp.setup({
   },
   formatting = {
     format = lspkind.cmp_format({
-      mode = 'symbol_text',
+      mode = "symbol_text",
       maxwidth = 50,
-      ellipsis_char = '...',
+      ellipsis_char = "...",
       symbol_map = { Copilot = "" }
     })
   }
@@ -974,19 +922,19 @@ require("indent_blankline").setup({
 })
 
 -- fzf-lua
-require("fzf-lua").setup({
-  fzf_opts = { ['--layout'] = 'default' }
-})
+require("fzf-lua").setup({ fzf_opts = { ["--layout"] = "default" } })
+vim.keymap.set("n", "<C-t>", "<cmd>FzfLua files<cr>")
+vim.keymap.set("n", "<C-r>", "<cmd>FzfLua command_history<cr>")
+vim.keymap.set("n", "?", "<cmd>FzfLua grep_curbuf<cr>")
+vim.keymap.set("n", "<leader>?", "<cmd>FzfLua grep_project<cr>")
 
 -- nvim-lightbulb
-vim.fn.sign_define('LightBulbSign', {
+require("nvim-lightbulb").setup({ autocmd = { enabled = true }, })
+vim.fn.sign_define("LightBulbSign", {
   text = "A",
   texthl = "A",
   linehl = "A",
   numhl = "A"
-})
-require("nvim-lightbulb").setup({
-  autocmd = { enabled = true },
 })
 
 -- Hop
@@ -994,13 +942,13 @@ require("hop").setup()
 local hop = require("hop")
 local directions = require("hop.hint").HintDirection
 vim.keymap.set("n", "<space>", "<cmd>HopWord<cr>")
-vim.keymap.set('', 'f', function()
+vim.keymap.set("", "f", function()
   hop.hint_char1({
     direction = directions.AFTER_CURSOR,
     current_line_only = true
   })
 end, { remap = true })
-vim.keymap.set('', 'F', function()
+vim.keymap.set("", "F", function()
   hop.hint_char1({ 
     direction = directions.BEFORE_CURSOR,
     current_line_only = true
@@ -1017,23 +965,27 @@ require("toggleterm").setup({
     end
   end,
   float_opts = {
-    border = 'curved',
+    border = "curved",
     height = math.floor(vim.o.lines * 0.85),
     width = math.floor(vim.o.columns * 0.80)
   }
 })
 
--- Useful snippets
--- Proper empty line insertion
-vim.keymap.set("x", "i", function()
-    if #vim.fn.getline(".") == 0 then
-        return [["_cc]]
-    else
-        return "i"
-    end
+
+---------------------------------------------------------------
+-- Additional Remaps
+---------------------------------------------------------------
+
+-- Proper indentation on empty lines
+vim.keymap.set("n", "i", function()
+  if #vim.fn.getline(".") == 0 then
+    return [["_cc]]
+  else
+    return "i"
+  end
 end, { expr = true })
 
--- No empty line yank to default register
+-- No yanking empty lines
 vim.keymap.set("n", "dd", function()
   if vim.api.nvim_get_current_line():match("^%s*$") then
     return '"_dd'
@@ -1042,10 +994,10 @@ vim.keymap.set("n", "dd", function()
   end
 end, { expr = true })
 
--- Better line joins
+-- Better, space-aware line joins
 vim.keymap.set("n", "J", function()
   vim.cmd("normal! mzJ")
-  local col     = vim.fn.col(".")
+  local col = vim.fn.col(".")
   local context = string.sub(vim.fn.getline("."), col - 1, col + 1)
   if context == ") ." or context == ") :" or context:match("%( .") or context:match(". ,") or context:match("%w %.") then
     vim.cmd("undojoin | normal! x")
@@ -1053,33 +1005,15 @@ vim.keymap.set("n", "J", function()
     vim.cmd("undojoin | normal! hx")
   end
   vim.cmd("normal! `z")
-end, { expr = true })
+end)
 
 EOF
 
 " Add diagnostic floating window
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
-" Completion options
-set completeopt=menuone,noselect,noinsert
-set shortmess+=c
-
 " Treesitter folding
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-
-" Show which-key faster
-set timeoutlen=300
-
-" fzf-lua
-nnoremap <C-t> :FzfLua files<CR>
-nnoremap <C-r> :FzfLua command_history<CR>
-nnoremap ? :FzfLua grep_curbuf<CR>
-nnoremap <leader>? :FzfLua grep_project<CR>
-
-" ToggleTerm
-nnoremap <C-Space> :ToggleTermSendCurrentLine<CR><CR>
-xnoremap <C-Space> :ToggleTermSendVisualLines<CR>`><CR>
-vnoremap <C-Space> :ToggleTermSendVisualSelection<CR>`><CR>
 
 endif
