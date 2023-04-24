@@ -76,7 +76,6 @@ call plug#end()
 "    -> Helper Functions
 "    -> Vim Plugin Settings
 "    -> Neovim Settings
-"       -- WhichKey
 "       -- Diagnostics and LSP
 "       -- Treesitter
 "       -- Completion
@@ -84,6 +83,7 @@ call plug#end()
 "       -- Other Language Integration
 "       -- Other Plugins 
 "       -- Additional Remaps
+"       -- WhichKey
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -234,12 +234,12 @@ set splitright
 set splitbelow
 
 " Window movement with leader
-nnoremap <leader>j <C-W><C-J>
-nnoremap <leader>k <C-W><C-K>
-nnoremap <leader>l <C-W><C-L>
-nnoremap <leader>h <C-W><C-H>
-nnoremap <Tab>   <c-W>w
-nnoremap <S-Tab> <c-W>W
+nmap <leader>j <C-W><C-J>
+nmap <leader>k <C-W><C-K>
+nmap <leader>l <C-W><C-L>
+nmap <leader>h <C-W><C-H>
+nmap <Tab>   <C-W>w
+nmap <S-Tab> <C-W>W
 
 " Terminal escaping
 tmap <leader><Esc> <C-\><C-n>:q<CR>
@@ -248,22 +248,22 @@ tmap <leader><Tab> <C-\><C-n><c-W>w
 tmap <leader><S-Tab> <C-\><C-n><c-W>W
 
 " Open new buffers
-map <leader>bh :new<cr>
-map <leader>b_ :new<cr>
-map <leader>bv :vnew<cr>
-map <leader>b- :vnew<cr>
-map <leader>bn :enew<cr>
+nmap <leader>bh :new<cr>
+nmap <leader>b_ :new<cr>
+nmap <leader>bv :vnew<cr>
+nmap <leader>b- :vnew<cr>
+nmap <leader>bn :enew<cr>
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
-map <leader>bc :Bclose<cr>
+nmap <leader>bd :Bclose<cr>
+nmap <leader>bc :Bclose<cr>
 
 " Close all the buffers
-map <leader>ba :bufdo bd<cr>
+nmap <leader>ba :bufdo bd<cr>
 
 " Switch between buffers in windows
-map <leader>ll :bnext<cr>
-map <leader>hh :bprevious<cr>
+nmap <leader>ll :bnext<cr>
+nmap <leader>hh :bprevious<cr>
 
 " Specify the behavior when switching between buffers
 try
@@ -281,7 +281,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Remap 0 to first non-blank character
-map 0 ^
+nmap 0 ^
 
 " Remap enter and backspace in Normal mode
 nnoremap <BS> {
@@ -305,13 +305,13 @@ vnoremap > >gv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Toggle spell checking
-map <leader>ss :setlocal spell!<cr>
+nmap <leader>ss :setlocal spell!<cr>
 
 " Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
+nmap <leader>sn ]s
+nmap <leader>sp [s
+nmap <leader>sa zg
+nmap <leader>s? z=
 
 " Spellfile language and location
 set spelllang=en
@@ -362,8 +362,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Commentary
-nnoremap <leader>c :Commentary<cr>
-vnoremap <leader>c :Commentary<cr>
+nmap <leader>c :Commentary<cr>
+vmap <leader>c :Commentary<cr>
 
 " GitGutter
 let g:gitgutter_map_keys = 0
@@ -438,184 +438,6 @@ if has("nvim-0.7.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 lua <<EOF
 
 ---------------------------------------------------------------
--- WhichKey
----------------------------------------------------------------
-
--- Configure which-key mappings
-local wk = require("which-key")
-wk.register(mappings, opts)
-wk.setup {
-  plugins = {
-    marks = true,
-    registers = false,
-    spelling = {
-      enabled = true,
-      suggestions = 10,
-    },
-    presets = {
-      operators = false,
-      motions = false,
-      text_objects = false,
-      windows = true,
-      nav = false,
-      z = true,
-      g = true,
-    },
-  },
-  window = { border = "single" },
-  key_labels = {
-    ["<space>"] = "SPACE",
-    ["<cr>"]    = "ENTER",
-    ["<Tab>"]   = "TAB",
-  },
-}
-
-wk.register({
-  ["<leader>"] = {
-    x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
-    c = { "<cmd>Commentary<cr>"                , "Toggle comment"            },
-    v = { "<cmd>setlocal paste!<cr>"           , "Toggle paste mode"         },
-    n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
-    h = { "<C-W><C-H>"                         , "which_key_ignore"          },
-    j = { "<C-W><C-J>"                         , "which_key_ignore"          },
-    k = { "<C-W><C-K>"                         , "which_key_ignore"          },
-    l = { "<C-W><C-L>"                         , "which_key_ignore"          },
-    q = { "<cmd>q<cr>"                         , "which_key_ignore"          },
-    Q = { "<cmd>q!<cr>"                        , "which_key_ignore"          },
-    w = { "<cmd>w!<cr>"                        , "which_key_ignore"          },
-    W = { "<cmd>x<cr>"                         , "which_key_ignore"          },
-    p = { '"+p'                                , "Paste from clipboard"      },
-    P = { '"+P'                                , "which_key_ignore"          },
-    y = { '"+y'                                , "Copy to clipboard"         },
-    Y = { '"+yg_'                              , "which_key_ignore"          },
-    Y = { '"+yg_'                              , "which_key_ignore"          },
-    yy = { '"+yy'                              , "which_key_ignore"          },
-["?"]       = { "<cmd>FzfLua grep_project<cr>" , "Ripgrep files"             },
-["/"]       = { "<cmd>FzfLua grep_curbuf<cr>"  , "Search current buffer"     },
-["ll"]      = { "<cmd>bnext<cr>"               , "Next buffer"               },
-["hh"]      = { "<cmd>bprevious<cr>"           , "Previous buffer"           },
-["<Tab>"]   = { "<C-W>w"                       , "Next window"               },
-["<Space>"] = { "za"                           , "Toggle current fold"       },
-  }
-}) 
-
-wk.register({
-  b = {
-    name = "buffer",
-    ["-"] = { "<cmd>new<cr>"                   , "which_key_ignore"          },
-    ["_"] = { "<cmd>vnew<cr>"                  , "which_key_ignore"          },
-    h = { "<cmd>new<cr>"                       , "New (horizontal)"          },
-    v = { "<cmd>vnew<cr>"                      , "New (vertical)"            },
-    n = { "<cmd>enew<cr>"                      , "New (no split)"            },
-    c = { "<cmd>Bclose<cr>"                    , "Close"                     },
-    d = { "<cmd>Bclose<cr>"                    , "which_key_ignore"          },
-    a = { "<cmd>bufdo bd<cr>"                  , "Close all"                 },
-    s = { "<cmd>FzfLua buffers<cr>"            , "Search buffers"            },
-  },
-}, { prefix = "<leader>" })
-
-wk.register({
-  d = {
-    name = "lsp",
-    p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
-    n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
-    r = { "<cmd>lua vim.lsp.buf.references()<cr>"    , "Show references"     },
-    R = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename references"   },
-    d = { "<cmd>lua vim.lsp.buf.definition()<cr>"    , "Goto definition"     },
-    D = { "<cmd>lua vim.lsp.buf.declaration()<cr>"   , "Goto declaration"    },
-    i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Show implementations"},
-    k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
-    K = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
-    f = { 
-      "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
-      "Format buffer"
-    },
-    s = {
-      name = "search",
-      r = { "<cmd>FzfLua lsp_references<cr>"          , "References"         },
-      d = { "<cmd>FzfLua lsp_definitions<cr>"         , "Definitions"        },
-      D = { "<cmd>FzfLua lsp_declarations<cr>"        , "Declarations"       },
-      i = { "<cmd>FzfLua lsp_implementations<cr>"     , "Implementations"    },
-      s = { "<cmd>FzfLua lsp_document_symbols<cr>"    , "Document symbols"   },
-      S = { "<cmd>FzfLua lsp_workspace_symbols<cr>"   , "Workspace symbols"  },
-      n = {
-        "<cmd>FzfLua lsp_document_diagnostics<cr>",
-        "Document diagnostics"
-      },
-    },
-  },
-}, { prefix = "<leader>" })
-
-wk.register({
-  f = {
-    name = "search",
-    g = { "<cmd>FzfLua git_files<cr>"                 , "Git files"          },
-    f = { "<cmd>FzfLua files<cr>"                     , "All files"          },
-    b = { "<cmd>FzfLua buffers<cr>"                   , "Buffers"            },
-    l = { "<cmd>FzfLua grep_curbuf<cr>"               , "Current buffer"     },
-    m = { "<cmd>FzfLua marks<cr>"                     , "Marks"              },
-    h = { "<cmd>FzfLua command_history<cr>"           , "History"            },
-    c = { "<cmd>FzfLua git_commits<cr>"               , "Commits"            },
-    r = { "<cmd>FzfLua grep_project<cr>"              , "Ripgrep files"      },
-    a = { "<cmd>FzfLua grep_project<cr>"              , "which_key_ignore"   },
-    d = { "<cmd>FzfLua lsp_finder<cr>"                , "LSP options"        },
-    s = { "<cmd>FzfLua spell_suggest<cr>"             , "Spellings"          },
-  },
-}, { prefix = "<leader>" })
-
-wk.register({
-  g = {
-    name = "git",
-    o = { "<cmd>Git<cr>"                       , "Open git"                  },
-    b = { "<cmd>Git blame<cr>"                 , "View blame"                },
-    c = { "<cmd>Git commit<cr>"                , "Create commit"             },
-    g = { "<cmd>GitGutterToggle<cr>"           , "Toggle git signs"          },
-    d = { "<cmd>GitGutterDiff<cr>"             , "View diff"                 },
-    f = { "<cmd>GitGutterFold<cr>"             , "View modified lines"       },
-    n = { "<Plug>(GitGutterNextHunk)"          , "Next hunk"                 },
-    p = { "<Plug>(GitGutterPrevHunk)"          , "Previous hunk"             },
-    u = { "<Plug>(GitGutterUndoHunk)"          , "Undo hunk"                 },
-    s = { "<Plug>(GitGutterStageHunk)"         , "Stage hunk"                },
-    h = { "<cmd>GitGutterLineHighlightsToggle<cr>", "Toggle line highlights" },
-  },
-}, { prefix = "<leader>" })
-
-wk.register({
-  s = {
-    name = "spell",
-    s = { "<cmd>setlocal spell!<cr>"           , "Toggle spell check"        },
-    n = { "]s"                                 , "Next misspelling"          },
-    p = { "[s"                                 , "Previous misspelling"      },
-    a = { "zg"                                 , "Add to dictionary"         },
-["?"] = { "<cmd>FzfLua spell_suggest<cr>"      , "Search in dictionary"      },
-  }
-}, { prefix = "<leader>" })
-
-wk.register({
-  t = {
-    name = "term",
-    t = { "<cmd>ToggleTerm<cr>"                     , "Toggle current"       },
-    v = { "<cmd>ToggleTerm direction=vertical<cr>"  , "New (vertical)"       },
-    h = { "<cmd>ToggleTerm direction=horizontal<cr>", "New (horizontal)"     },
-    f = { "<cmd>ToggleTerm direction=float<cr>"     , "New (float)"          },
-    a = { "<cmd>ToggleTermToggleAll<cr>"            , "Toggle all"           },
-}}, { prefix = "<leader>" })
-
-wk.register({
-  z = {
-    name = "fold",
-    a = { "za"                            , "Toggle current"                 },
-    A = { "zA"                            , "Toggle all under cursor"        },
-    r = { "zr"                            , "Open one level in buffer"       },
-    R = { "zR"                            , "Open all"                       },
-    m = { "zm"                            , "Close one level in buffer"      },
-    M = { "zM"                            , "Close all"                      },
-  },
-}, { prefix = "<leader>" })
-
-
----------------------------------------------------------------
 -- Diagnostics and LSP
 ---------------------------------------------------------------
 
@@ -633,9 +455,6 @@ vim.diagnostic.config({
     prefix = ""
   },
 })
-
--- Enable LSP hover info
-vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>")
 
 -- Add borders to floating windows
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -923,10 +742,6 @@ require("indent_blankline").setup({
 
 -- fzf-lua
 require("fzf-lua").setup({ fzf_opts = { ["--layout"] = "default" } })
-vim.keymap.set("n", "<C-t>", "<cmd>FzfLua files<cr>")
-vim.keymap.set("n", "<C-r>", "<cmd>FzfLua command_history<cr>")
-vim.keymap.set("n", "?", "<cmd>FzfLua grep_curbuf<cr>")
-vim.keymap.set("n", "<leader>?", "<cmd>FzfLua grep_project<cr>")
 
 -- nvim-lightbulb
 require("nvim-lightbulb").setup({ autocmd = { enabled = true }, })
@@ -941,19 +756,6 @@ vim.fn.sign_define("LightBulbSign", {
 require("hop").setup()
 local hop = require("hop")
 local directions = require("hop.hint").HintDirection
-vim.keymap.set("n", "<space>", "<cmd>HopWord<cr>")
-vim.keymap.set("", "f", function()
-  hop.hint_char1({
-    direction = directions.AFTER_CURSOR,
-    current_line_only = true
-  })
-end, { remap = true })
-vim.keymap.set("", "F", function()
-  hop.hint_char1({ 
-    direction = directions.BEFORE_CURSOR,
-    current_line_only = true
-  })
-end, { remap = true })
 
 -- ToggleTerm
 require("toggleterm").setup({
@@ -1006,6 +808,71 @@ vim.keymap.set("n", "J", function()
   end
   vim.cmd("normal! `z")
 end)
+
+
+---------------------------------------------------------------
+-- WhichKey
+---------------------------------------------------------------
+
+local wk = require("which-key")
+wk.register(mappings, opts)
+wk.setup {
+  plugins = {
+    marks = true,
+    registers = true,
+    spelling = {
+      enabled = true,
+      suggestions = 10,
+    },
+    presets = {
+      operators = false,
+      motions = false,
+      text_objects = false,
+      windows = true,
+      nav = false,
+      z = true,
+      g = true,
+    },
+  },
+  window = { border = "single" },
+  key_labels = {
+    ["<space>"]    = "SPC",
+    ["<cr>"]       = "RET",
+    ["<CR>"]       = "RET",
+    ["<Tab>"]      = "TAB",
+    ["<S-Tab>"]    = "S-TAB",
+    ["<leader>"]   = "LDR",
+    ["<c-w>"]      = "C-w",
+    ["<C-R>"]      = "C-r",
+    ["<C-T>"]      = "C-f",
+    ["<C-A>"]      = "C-a",
+    ["<C-X>"]      = "C-x",
+  },
+}
+
+wk.register({
+  f = { 
+    function()
+      hop.hint_char1({
+        direction = directions.AFTER_CURSOR,
+        current_line_only = true
+      })
+    end
+    , "Hop forward"
+  },
+  F = { 
+    function()
+      hop.hint_char1({
+        direction = directions.BEFORE_CURSOR,
+        current_line_only = true
+      })
+    end
+    , "Hop backward"
+  },
+})
+
+-- Load custom which-key mappings
+require("mappings")
 
 EOF
 
