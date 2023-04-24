@@ -19,6 +19,8 @@ wk.register({
 ["~"]       = { "Toggle current case"                                        },
 ["%"]       = { "Go to matching bracket"                                     },
 ["R"]       = { "Replace with last yank"                                     },
+["u"]       = { "Undo"                                                       },
+["U"]       = { "Undo line"                                                  },
 [">"]       = { "which_key_ignore"                                           },
 ["<"]       = { "which_key_ignore"                                           },
 ["&"]       = { "which_key_ignore"                                           },
@@ -41,8 +43,14 @@ wk.register({
 ["<SNR>"]   = { "which_key_ignore"                                           },
 })
 
-wk.register({ g = { name = "+misc", c = { "which_key_ignore" } } })
 wk.register({ z = { name = "+fold" } })
+wk.register({
+  g = {
+    name = "+misc",
+    c = { "which_key_ignore"                                                 }, 
+[";"] = { "Go to last edited postition"                                      }, 
+  } 
+})
 
 -- Leader mappings
 wk.register({
@@ -50,18 +58,18 @@ wk.register({
     name = "+leader",
     x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
+    c = { "Toggle comment"                                                   },
+    p = { "Paste from clipboard"                                             },
+    y = { "Copy to clipboard"                                                },
     h = { "which_key_ignore"                                                 },
     j = { "which_key_ignore"                                                 },
     k = { "which_key_ignore"                                                 },
     l = { "which_key_ignore"                                                 },
-    c = { "Toggle comment"                                                   },
     q = { "which_key_ignore"                                                 },
     Q = { "which_key_ignore"                                                 },
     w = { "which_key_ignore"                                                 },
     W = { "which_key_ignore"                                                 },
-    p = { "Paste from clipboard"                                             },
     P = { "which_key_ignore"                                                 },
-    y = { "Copy to clipboard"                                                },
     Y = { "which_key_ignore"                                                 },
     Y = { "which_key_ignore"                                                 },
     yy = { "which_key_ignore"                                                },
