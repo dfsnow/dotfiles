@@ -213,10 +213,10 @@ set timeoutlen=300
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Copy to system clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy "+yy
+vnoremap <leader>y  "+y
+nnoremap <leader>Y  "+yg_
+nnoremap <leader>y  "+y
+nnoremap <leader>yy "+yy
 
 " Paste from system clipboard
 nnoremap <leader>p "+p
@@ -374,7 +374,7 @@ nmap <leader>gf :GitGutterFold<CR>
 nmap <leader>gu <Plug>(GitGutterUndoHunk)
 nmap <leader>gs <Plug>(GitGutterStageHunk)
 nmap <leader>gn <Plug>(GitGutterNextHunk)
-nmap <leader>gp <Plug>(GitGutterPrevHunk) 
+nmap <leader>gp <Plug>(GitGutterPrevHunk)
 
 " Git Fugitive
 nmap <leader>go :Git<CR>
@@ -471,7 +471,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 -- Treesitter
 ---------------------------------------------------------------
 
-require("nvim-treesitter.configs").setup {
+require("nvim-treesitter.configs").setup{
   ensure_installed = { 
     "lua", "vim",
     "rust", "c", "cpp", "go",
@@ -816,7 +816,7 @@ end)
 
 local wk = require("which-key")
 wk.register(mappings, opts)
-wk.setup {
+wk.setup{
   plugins = {
     marks = true,
     registers = true,
