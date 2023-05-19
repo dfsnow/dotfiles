@@ -671,6 +671,7 @@ lspconfig.efm.setup{
   root_dir = require("lspconfig").util.root_pattern{ ".git/", "." },
   filetypes = {
     "sh",
+    "sql",
     "json",
     "html",
     "css",
@@ -696,6 +697,12 @@ lspconfig.efm.setup{
             "%f:%l:%c: %tarning: %m",
             "%f:%l:%c: %tote: %m",
           },
+        },
+      },
+      sql = {
+        {
+          formatCommand = "sql-formatter -c $HOME/dotfiles/config/sql-formatter.json | head -c -1",
+          formatStdin = true,
         },
       },
       json = {
