@@ -699,12 +699,6 @@ lspconfig.efm.setup{
           },
         },
       },
-      sql = {
-        {
-          formatCommand = "sql-formatter -c $HOME/dotfiles/config/sql-formatter.json | head -c -1",
-          formatStdin = true,
-        },
-      },
       json = {
         {
           formatCommand = "prettier ${--tab-width:tabWidth} --parser json",
@@ -712,9 +706,10 @@ lspconfig.efm.setup{
           lintStdin = true,
         },
       },
+      python = {{ formatCommand = "autopep8 -", formatStdin = true }},
+      sql = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser bigquery", }},
       html = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser html" }},
       css = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser css" }},
-      python = {{ formatCommand = "autopep8 -", formatStdin = true }},
       yaml = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
       markdown = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
       javascript = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
