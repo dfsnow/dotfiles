@@ -707,7 +707,7 @@ lspconfig.efm.setup{
         },
       },
       python = {{ formatCommand = "autopep8 -", formatStdin = true }},
-      sql = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser bigquery", }},
+      sql = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser sql --language trino" }},
       html = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser html" }},
       css = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser css" }},
       yaml = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
