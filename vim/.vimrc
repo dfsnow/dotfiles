@@ -5,10 +5,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
-" Git integration
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-
 " Movement and formatting
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
@@ -17,7 +13,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 
 " Neovim-specific stuff. Not used on systems with only vim
-if has("nvim-0.7.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
+if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
+
+    " Git integration
+    Plug 'tpope/vim-fugitive'
+    Plug 'lewis6991/gitsigns.nvim'
 
     " LSP and treesitter
     Plug 'neovim/nvim-lspconfig'
@@ -78,6 +78,7 @@ call plug#end()
 "    -> Helper Functions
 "    -> Vim Plugin Settings
 "    -> Neovim Settings
+"       -- Git Integration
 "       -- Diagnostics and LSP
 "       -- Treesitter
 "       -- Completion
@@ -240,7 +241,7 @@ nmap <leader>j <C-W><C-J>
 nmap <leader>k <C-W><C-K>
 nmap <leader>l <C-W><C-L>
 nmap <leader>h <C-W><C-H>
-nmap <Tab>   <C-W>w
+nmap <Tab> <C-W>w
 nmap <S-Tab> <C-W>W
 
 " Terminal escaping
@@ -367,22 +368,6 @@ endif
 nmap <leader>c :Commentary<cr>
 vmap <leader>c :Commentary<cr>
 
-" GitGutter
-let g:gitgutter_map_keys = 0
-nmap <leader>gg :GitGutterToggle<CR>
-nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
-nmap <leader>gd :GitGutterDiff<CR>
-nmap <leader>gf :GitGutterFold<CR>
-nmap <leader>gu <Plug>(GitGutterUndoHunk)
-nmap <leader>gs <Plug>(GitGutterStageHunk)
-nmap <leader>gn <Plug>(GitGutterNextHunk)
-nmap <leader>gp <Plug>(GitGutterPrevHunk)
-
-" Git Fugitive
-nmap <leader>go :Git<CR>
-nmap <leader>gb :Git blame<CR>
-nmap <leader>gc :Git commit<CR>
-
 " Dracula
 let g:dracula_colorterm = 0
 let g:dracula_italic = 0
@@ -390,11 +375,15 @@ colorscheme dracula
 
 " Lightline
 function! GitStatus()
-  let [a,m,r] = GitGutterGetHunkSummary()
-  if FugitiveHead() == ""
-    return ""
+  if exists("b:gitsigns_status_dict")
+    let dict = b:gitsigns_status_dict
+    let added = get(dict, 'added', '')
+    let changed = get(dict, 'changed', '')
+    let removed = get(dict, 'removed', '')
+    return printf("+%d ~%d -%d", added, changed, removed)
   else
-    return printf("+%d ~%d -%d", a, m, r)
+    return ""
+  endif
 endfunction
 
 let g:lightline = {
@@ -435,9 +424,25 @@ let g:lightline.active = {
 " Only setup LSP and language support on machines with neovim
 " This lets this config remain useable on remote machines where
 " installing a ton of dependencies is undesirable
-if has("nvim-0.7.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
+if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
 lua <<EOF
+
+---------------------------------------------------------------
+-- Git Integration
+---------------------------------------------------------------
+
+require('gitsigns').setup {
+  signs = {
+    add          = { text = '+' },
+    change       = { text = '~' },
+    delete       = { text = '-' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '_' },
+    untracked    = { text = '┆' },
+  },
+}
+
 
 ---------------------------------------------------------------
 -- Diagnostics and LSP

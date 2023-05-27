@@ -150,17 +150,20 @@ wk.register({
 wk.register({
   g = {
     name = "git",
-    o = { "Open git"                                                         },
-    b = { "View blame"                                                       },
-    c = { "Create commit"                                                    },
-    g = { "Toggle git signs"                                                 },
-    d = { "View diff"                                                        },
-    f = { "View modified lines"                                              },
-    n = { "Next hunk"                                                        },
-    p = { "Previous hunk"                                                    },
-    u = { "Undo hunk"                                                        },
-    s = { "Stage hunk"                                                       },
-    h = { "Toggle line highlights"                                           },
+    b = { "<cmd>lua require'gitsigns'.blame_line{}<CR>", "View line blame"   },
+    o = { "<cmd>Git<cr>"                              , "Open git"           },
+    B = { "<cmd>Git blame<cr>"                        , "View full blame"    },
+    c = { "<cmd>Git commit<cr>"                       , "Create commit"      },
+    g = { "<cmd>Gitsigns toggle_signs<cr>"            , "Toggle git signs"   },
+    d = { "<cmd>Gitsigns diffthis<cr>"                , "View diff"          },
+    f = { "<cmd>Gitsigns preview_hunk<cr>"            , "Preview hunk"       },
+    n = { "<cmd>Gitsigns next_hunk<cr>"               , "Next hunk"          },
+    p = { "<cmd>Gitsigns prev_hunk<cr>"               , "Previous hunk"      },
+    u = { "<cmd>Gitsigns reset_hunk<cr>"              , "Undo hunk"          },
+    U = { "<cmd>Gitsigns undo_stage_hunk<cr>"         , "Undo stage hunk"    },
+    s = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
+    S = { "<cmd>Gitsigns stage_buffer<cr>"            , "Stage buffer"       },
+    h = { "<cmd>Gitsigns toggle_linehl<cr>"           , "Toggle highlights"  },
   },
 }, { prefix = "<leader>" })
 
@@ -171,6 +174,7 @@ wk.register({
     n = { "]s"                                 , "Next misspelling"          },
     p = { "[s"                                 , "Previous misspelling"      },
     a = { "zg"                                 , "Add to dictionary"         },
+    ["?"] = { "Lookup in dictionary"                                         },
   }
 }, { prefix = "<leader>" })
 
