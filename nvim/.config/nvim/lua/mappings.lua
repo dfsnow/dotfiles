@@ -109,7 +109,7 @@ wk.register({
     i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Show implementations"},
     k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
     K = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
+    a = { "<cmd>FzfLua lsp_code_actions<cr>"         , "Show code actions"   },
     f = { 
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"

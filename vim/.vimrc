@@ -24,11 +24,11 @@ if has("nvim-0.7.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " UI and movement
-    Plug 'folke/which-key.nvim'
-    Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
     Plug 'phaazon/hop.nvim'
-    Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'folke/which-key.nvim'
     Plug 'kosayoda/nvim-lightbulb'
+    Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+    Plug 'lukas-reineke/indent-blankline.nvim'
 
     " Fuzzy search
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -51,6 +51,8 @@ if has("nvim-0.7.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'hrsh7th/cmp-calc'
     
     " Language-specific packages
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
     Plug 'simrat39/rust-tools.nvim'
 
     " GitHub Copilot
@@ -635,17 +637,9 @@ rt.setup({
         "n", "<leader>dK",
         rt.hover_actions.hover_actions, { buffer = bufnr }
       )
-      vim.keymap.set(
-        "n", "<leader>da",
-        rt.code_action_group.code_action_group, { buffer = bufnr }
-      )
       wk.register({
         d = {
           name = "lsp",
-          a = {
-            "<cmd>lua rt.code_action_group.code_action_group<cr>",
-            "View code actions"
-          },
           K = {
             "<cmd>lua rt.hover_actions.hover_actions<cr>",
             "View hover actions"
@@ -666,59 +660,25 @@ lspconfig.r_language_server.setup{}
 lspconfig.pyright.setup{}
 lspconfig.html.setup{}
 lspconfig.cssls.setup{}
-lspconfig.efm.setup{
-  init_options = { documentFormatting = true },
-  root_dir = require("lspconfig").util.root_pattern{ ".git/", "." },
-  filetypes = {
-    "sh",
-    "sql",
-    "json",
-    "html",
-    "css",
-    "python",
-    "yaml",
-    "markdown",
-    "javascriptreact",
-    "javascript",
-    "typescript",
-    "typescriptreact",
-  },
-  settings = {
-    rootMarkers = { ".git/" },
-    languages = {
-      sh = {
-        {
-          formatCommand = "shfmt -i 4 -bn -sr -p -ci",
-          formatStdin = true,
-          lintCommand = "shellcheck -f gcc -x",
-          lintSource = "shellcheck",
-          lintFormats = {
-            "%f:%l:%c: %trror: %m",
-            "%f:%l:%c: %tarning: %m",
-            "%f:%l:%c: %tote: %m",
-          },
-        },
-      },
-      json = {
-        {
-          formatCommand = "prettier ${--tab-width:tabWidth} --parser json",
-          lintCommand = "jq .",
-          lintStdin = true,
-        },
-      },
-      python = {{ formatCommand = "autopep8 -", formatStdin = true }},
-      sql = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser sql --language trino" }},
-      html = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser html" }},
-      css = {{ formatCommand = "prettier ${--tab-width:tabWidth} --parser css" }},
-      yaml = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
-      markdown = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
-      javascript = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
-      javascriptreact = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
-      typescript = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
-      typescriptreact = {{ formatCommand = "prettier --stdin-filepath ${INPUT}", formatStdin = true }},
-    }
-  }
-}
+
+local null_ls = require("null-ls")
+null_ls.register({ 
+  null_ls.builtins.code_actions.shellcheck,
+  null_ls.builtins.diagnostics.shellcheck,
+  null_ls.builtins.formatting.shfmt.with({
+    extra_args = { "-i", "4", "-bn", "-sr", "-p", "-ci" }
+  })
+})
+null_ls.register({ 
+  null_ls.builtins.diagnostics.sqlfluff,
+  null_ls.builtins.formatting.sqlfluff
+})
+null_ls.register({ 
+  null_ls.builtins.formatting.prettier,
+  null_ls.builtins.formatting.autopep8,
+  null_ls.builtins.formatting.styler,
+  null_ls.builtins.formatting.jq
+})
 
 
 ---------------------------------------------------------------
