@@ -328,35 +328,35 @@ set spellfile=$HOME/dotfiles/spell/en.utf-8.add
 " Don't close window when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+  if bufnr("%") == l:currentBufNum
+    new
+  endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+  if buflisted(l:currentBufNum)
+    execute("bdelete! ".l:currentBufNum)
+  endif
 endfunction
 
 " Delete trailing white space on save
 fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg("/")
-    silent! %s/\s\+$//e
-    call setpos(".", save_cursor)
-    call setreg("/", old_query)
+  let save_cursor = getpos(".")
+  let old_query = getreg("/")
+  silent! %s/\s\+$//e
+  call setpos(".", save_cursor)
+  call setreg("/", old_query)
 endfun
 
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.md,*.R,*.Rmd,*.qmd,*.css,*.html,*.yaml,*.toml :call CleanExtraSpaces()
+  autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.md,*.R,*.Rmd,*.qmd,*.css,*.html,*.yaml,*.toml :call CleanExtraSpaces()
 endif
 
 
@@ -387,34 +387,34 @@ function! GitStatus()
 endfunction
 
 let g:lightline = {
-    \ 'colorscheme'         : 'dracula',
-    \ 'component_function'  : {
-    \    'gitbranch': 'FugitiveHead',
-    \    'gitstatus': 'GitStatus' }
-    \ }
+  \ 'colorscheme'         : 'dracula',
+  \ 'component_function'  : {
+  \    'gitbranch': 'FugitiveHead',
+  \    'gitstatus': 'GitStatus' }
+  \ }
 
 let g:lightline.tabline = {
-    \ 'left'                : [['buffers']]                                   ,
-    \ 'right'               : [['close']]                                     ,
-    \ }
+  \ 'left'                : [['buffers']]                                   ,
+  \ 'right'               : [['close']]                                     ,
+  \ }
 
 let g:lightline.component_expand = {
-    \ 'buffers'             : 'lightline#bufferline#buffers'                  ,
-    \ }
+  \ 'buffers'             : 'lightline#bufferline#buffers'                  ,
+  \ }
 
 let g:lightline.component_type = {
-    \ 'buffers'             : 'tabsel'                                        ,
-    \ }
+  \ 'buffers'             : 'tabsel'                                        ,
+  \ }
 
 let g:lightline.active = {
-    \ 'right' : [
-    \   ['percent', 'lineinfo']                                               ,
-    \   ['fileformat', 'fileencoding', 'filetype'] ]                          ,
-    \ 'left'  : [
-    \   ['mode', 'paste']                                                     ,
-    \   ['gitbranch', 'gitstatus']                                            ,
-    \   ['readonly', 'filename', 'modified'] ]                                ,
-    \ }
+  \ 'right' : [
+  \   ['percent', 'lineinfo']                                               ,
+  \   ['fileformat', 'fileencoding', 'filetype'] ]                          ,
+  \ 'left'  : [
+  \   ['mode', 'paste']                                                     ,
+  \   ['gitbranch', 'gitstatus']                                            ,
+  \   ['readonly', 'filename', 'modified'] ]                                ,
+  \ }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -702,9 +702,9 @@ vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
 vim.opt.listchars:append "space:⋅"
 require("indent_blankline").setup({
-    show_current_context = true,
-    show_end_of_line = true,
-    space_char_blankline = " ",
+  show_current_context = true,
+  show_end_of_line = true,
+  space_char_blankline = " ",
 })
 
 -- fzf-lua
