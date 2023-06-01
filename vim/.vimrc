@@ -1,4 +1,4 @@
-call plug#begin('~/.vim/vim-plug')
+call plug#begin("~/.vim/vim-plug")
 
 " UI and colors
 Plug 'itchyny/lightline.vim'
@@ -377,9 +377,9 @@ colorscheme dracula
 function! GitStatus()
   if exists("b:gitsigns_status_dict")
     let dict = b:gitsigns_status_dict
-    let added = get(dict, 'added', '')
-    let changed = get(dict, 'changed', '')
-    let removed = get(dict, 'removed', '')
+    let added = get(dict, "added", "")
+    let changed = get(dict, "changed", "")
+    let removed = get(dict, "removed", "")
     return printf("+%d ~%d -%d", added, changed, removed)
   else
     return ""
@@ -387,33 +387,33 @@ function! GitStatus()
 endfunction
 
 let g:lightline = {
-  \ 'colorscheme'         : 'dracula',
-  \ 'component_function'  : {
-  \    'gitbranch': 'FugitiveHead',
-  \    'gitstatus': 'GitStatus' }
+  \ "colorscheme"         : "dracula",
+  \ "component_function"  : {
+  \    "gitbranch": "FugitiveHead",
+  \    "gitstatus": "GitStatus" }
   \ }
 
 let g:lightline.tabline = {
-  \ 'left'                : [['buffers']]                                   ,
-  \ 'right'               : [['close']]                                     ,
+  \ "left"                : [["buffers"]]                                     ,
+  \ "right"               : [["close"]]                                       ,
   \ }
 
 let g:lightline.component_expand = {
-  \ 'buffers'             : 'lightline#bufferline#buffers'                  ,
+  \ "buffers"             : "lightline#bufferline#buffers"                    ,
   \ }
 
 let g:lightline.component_type = {
-  \ 'buffers'             : 'tabsel'                                        ,
+  \ "buffers"             : "tabsel"                                          ,
   \ }
 
 let g:lightline.active = {
-  \ 'right' : [
-  \   ['percent', 'lineinfo']                                               ,
-  \   ['fileformat', 'fileencoding', 'filetype'] ]                          ,
-  \ 'left'  : [
-  \   ['mode', 'paste']                                                     ,
-  \   ['gitbranch', 'gitstatus']                                            ,
-  \   ['readonly', 'filename', 'modified'] ]                                ,
+  \ "right" : [
+  \   ["percent", "lineinfo"]                                                 ,
+  \   ["fileformat", "fileencoding", "filetype"] ]                            ,
+  \ "left"  : [
+  \   ["mode", "paste"]                                                       ,
+  \   ["gitbranch", "gitstatus"]                                              ,
+  \   ["readonly", "filename", "modified"] ]                                  ,
   \ }
 
 
@@ -432,16 +432,16 @@ lua <<EOF
 -- Git Integration
 ---------------------------------------------------------------
 
-require('gitsigns').setup {
+require("gitsigns").setup({
   signs = {
-    add          = { text = '+' },
-    change       = { text = '~' },
-    delete       = { text = '-' },
-    topdelete    = { text = '‾' },
-    changedelete = { text = '_' },
-    untracked    = { text = '┆' },
+    add          = { text = "+" },
+    change       = { text = "~" },
+    delete       = { text = "-" },
+    topdelete    = { text = "‾" },
+    changedelete = { text = "_" },
+    untracked    = { text = "┆" },
   },
-}
+})
 
 
 ---------------------------------------------------------------
@@ -486,13 +486,14 @@ require("nvim-treesitter.configs").setup{
     "javascript", "html", "typescript",
     "toml", "yaml", "json",
     "bash", "awk", "jq",
+    "markdown", "markdown_inline",
     "gitcommit", "gitignore", "gitattributes",
     "dockerfile", "sql", "comment"
   },
   auto_install = false,
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = false
+    additional_vim_regex_highlighting = { "markdown" }
   },
   ident = { enable = true }, 
   rainbow = {
