@@ -216,9 +216,8 @@ set timeoutlen=300
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Copy to system clipboard
-vnoremap <leader>y  "+y
-nnoremap <leader>Y  "+yg_
-nnoremap <leader>y  "+y
+vmap <leader>y "+ygv<esc>
+nnoremap <leader>y "+y
 nnoremap <leader>yy "+yy
 
 " Paste from system clipboard
@@ -301,6 +300,7 @@ vnoremap R "_d"0P"
 " Keep text selected on indent
 vnoremap < <gv
 vnoremap > >gv
+vmap y ygv<esc>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
