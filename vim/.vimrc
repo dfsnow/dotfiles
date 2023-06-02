@@ -825,6 +825,9 @@ EOF
 " Add diagnostic floating window
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
+" Automatically highlight yanked text
+autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
+
 " Treesitter folding
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
