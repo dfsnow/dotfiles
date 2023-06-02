@@ -1,18 +1,5 @@
 call plug#begin("~/.vim/vim-plug")
 
-" UI and colors
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'dracula/vim', { 'as': 'dracula' }
-
-" Movement and formatting
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
-
-" Neovim-specific stuff. Not used on systems with only vim
 if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
     " Git integration
@@ -23,12 +10,16 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " UI and movement
+    " UI and colors
+    Plug 'Mofiqul/dracula.nvim'
+    Plug 'nvim-lualine/lualine.nvim'
+    Plug 'kosayoda/nvim-lightbulb'
+    Plug 'lukas-reineke/indent-blankline.nvim'
+
+    " Movement and integrations
     Plug 'phaazon/hop.nvim'
     Plug 'folke/which-key.nvim'
-    Plug 'kosayoda/nvim-lightbulb'
     Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
-    Plug 'lukas-reineke/indent-blankline.nvim'
 
     " Fuzzy search
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -59,7 +50,19 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'zbirenbaum/copilot.lua'
     Plug 'zbirenbaum/copilot-cmp'
 
+else
+
+  " Use vim dracula as a backup for nvim version
+  Plug 'dracula/vim', { 'as': 'dracula' }
+
 endif
+
+" tpope base for only-vim systems
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
 
 call plug#end()
 
@@ -87,6 +90,7 @@ call plug#end()
 "       -- Other Plugins 
 "       -- Additional Remaps
 "       -- WhichKey
+"       -- Buffer and Status Lines
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -358,63 +362,6 @@ endfun
 if has("autocmd")
   autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.md,*.R,*.Rmd,*.qmd,*.css,*.html,*.yaml,*.toml :call CleanExtraSpaces()
 endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vim Plugin Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Commentary
-nmap <leader>c :Commentary<cr>
-vmap <leader>c :Commentary<cr>
-
-" Dracula
-let g:dracula_colorterm = 0
-let g:dracula_italic = 0
-colorscheme dracula
-
-" Lightline
-function! GitStatus()
-  if exists("b:gitsigns_status_dict")
-    let dict = b:gitsigns_status_dict
-    let added = get(dict, "added", "")
-    let changed = get(dict, "changed", "")
-    let removed = get(dict, "removed", "")
-    return printf("+%d ~%d -%d", added, changed, removed)
-  else
-    return ""
-  endif
-endfunction
-
-let g:lightline = {
-  \ "colorscheme"         : "dracula",
-  \ "component_function"  : {
-  \    "gitbranch": "FugitiveHead",
-  \    "gitstatus": "GitStatus" }
-  \ }
-
-let g:lightline.tabline = {
-  \ "left"                : [["buffers"]]                                     ,
-  \ "right"               : [["close"]]                                       ,
-  \ }
-
-let g:lightline.component_expand = {
-  \ "buffers"             : "lightline#bufferline#buffers"                    ,
-  \ }
-
-let g:lightline.component_type = {
-  \ "buffers"             : "tabsel"                                          ,
-  \ }
-
-let g:lightline.active = {
-  \ "right" : [
-  \   ["percent", "lineinfo"]                                                 ,
-  \   ["fileformat", "fileencoding", "filetype"] ]                            ,
-  \ "left"  : [
-  \   ["mode", "paste"]                                                       ,
-  \   ["gitbranch", "gitstatus"]                                              ,
-  \   ["readonly", "filename", "modified"] ]                                  ,
-  \ }
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -820,16 +767,56 @@ wk.setup{
 -- Load custom which-key mappings
 require("mappings")
 
+
+---------------------------------------------------------------
+-- Buffer and Status Lines
+---------------------------------------------------------------
+
+local dracula = require("dracula")
+dracula.setup({
+  overrides = {
+    WhichKeyDesc = { fg = dracula.colors().bright_white },
+    WhichKeyGroup = { fg = dracula.colors().pink },
+    FloatBorder = { fg = dracula.colors().comment },
+    FoldColumn = { fg = dracula.colors().comment },
+    ColorColumn = { bg = dracula.colors().black },
+  }
+})
+
+require("lualine").setup({
+  options = { icons_enabled = false },
+  extensions = { "toggleterm", "fugitive" },
+  tabline = {
+    lualine_a = {
+      { "buffers", symbols = { modified = "[+]", alternate_file = "" } }
+    }
+  }
+})
+
 EOF
 
 " Add diagnostic floating window
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
 " Automatically highlight yanked text
-autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=700 }
+autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
 
 " Treesitter folding
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Plugin Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Commentary
+nmap <leader>c :Commentary<cr>
+vmap <leader>c :Commentary<cr>
+
+" Dracula
+let g:dracula_colorterm = 0
+let g:dracula_italic = 0
+colorscheme dracula
