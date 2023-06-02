@@ -723,8 +723,6 @@ vim.fn.sign_define("LightBulbSign", {
 
 -- Hop
 require("hop").setup()
-local hop = require("hop")
-local directions = require("hop.hint").HintDirection
 
 -- ToggleTerm
 require("toggleterm").setup({
@@ -818,27 +816,6 @@ wk.setup{
     ["<C-X>"]      = "C-x",
   },
 }
-
-wk.register({
-  f = { 
-    function()
-      hop.hint_char1({
-        direction = directions.AFTER_CURSOR,
-        current_line_only = true
-      })
-    end
-    , "Hop forward"
-  },
-  F = { 
-    function()
-      hop.hint_char1({
-        direction = directions.BEFORE_CURSOR,
-        current_line_only = true
-      })
-    end
-    , "Hop backward"
-  },
-})
 
 -- Load custom which-key mappings
 require("mappings")

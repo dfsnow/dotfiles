@@ -4,7 +4,6 @@ wk.register(mappings, opts)
 -- Non-leader mappings
 wk.register({
 ["K"]       = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show hover info"        },
-["<Space>"] = { "<cmd>HopWord<cr>"                , "Hop anywhere"           },
 ["?"]       = { "<cmd>FzfLua grep_curbuf<cr>"     , "Search in buffer"       },
 ["<C-t>"]   = { "<cmd>FzfLua files<cr>"           , "Search files"           },
 ["<C-r>"]   = { "<cmd>FzfLua command_history<cr>" , "Search command history" },
@@ -42,6 +41,31 @@ wk.register({
 ["y"]       = { "which_key_ignore"                                           },
 ["<SNR>"]   = { "which_key_ignore"                                           },
 })
+
+-- Hop mappings
+local hop = require("hop")
+local directions = require("hop.hint").HintDirection
+wk.register({
+  ["<Space>"] = { "<cmd>HopWord<cr>"                , "Hop anywhere"         },
+  f = { 
+    function()
+      hop.hint_char1({
+        direction = directions.AFTER_CURSOR,
+        current_line_only = true
+      })
+    end
+    , "Hop forward"
+  },
+  F = { 
+    function()
+      hop.hint_char1({
+        direction = directions.BEFORE_CURSOR,
+        current_line_only = true
+      })
+    end
+    , "Hop backward"
+  },
+}, { mode = { "n", "v", "o" } })
 
 wk.register({ z = { name = "+fold" } })
 wk.register({
