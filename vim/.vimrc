@@ -370,11 +370,13 @@ dracula.setup({
   overrides = {
     WhichKeyDesc = { fg = dracula.colors().bright_white },
     WhichKeyGroup = { fg = dracula.colors().pink },
-    FloatBorder = { fg = dracula.colors().comment },
+    FloatBorder = { fg = dracula.colors().bright_white },
     FoldColumn = { fg = dracula.colors().comment },
     ColorColumn = { bg = dracula.colors().black },
+    CmpItemAbbr = { fg = dracula.colors().bright_white, bg = nil },
     CmpItemAbbrMatch = { fg = dracula.colors().bright_green },
-    CmpItemAbbr = { bg = nil },
+    GitSignsChange = { fg = dracula.colors().orange },
+    GitSignsChangeLn = { fg = dracula.colors().orange },
   }
 })
 
