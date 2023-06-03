@@ -72,8 +72,7 @@ call plug#end()
 " Sections:
 "    -> General
 "    -> User Interface
-"    -> Clipboard Integration
-"    -> Moving Around, Tabs, and Buffers
+"    -> Windows and Buffers
 "    -> Remaps
 "    -> Spell Checking
 "    -> Helper Functions
@@ -93,16 +92,7 @@ call plug#end()
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Remember more command history
-set history=500
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" With a map leader it's possible to do extra key combinations
 let g:mapleader = ","
-
-" Fast quitting and saving
 nmap <leader>w :w!<cr>
 nmap <leader>W :x<cr>
 nmap <leader>q :q<cr>
@@ -112,19 +102,13 @@ nmap <leader>Q :q!<cr>
 command W w !sudo tee % > /dev/null
 command Q :q!
 
-" Set utf8 as standard encoding and en_US as the standard language
+set history=500
+set autoread
 set encoding=utf8
-
-" Use Unix as the standard file type
 set ffs=unix,dos,mac
-
-" Turn backup off, since most stuff is in SVN, git, etc anyway
 set nobackup nowb noswapfile
-
-" Decrease update time
 set updatetime=100
 
-" Language-specific fixes
 let g:r_indent_align_args = 0
 let g:loaded_python3_provider = 0
 let g:loaded_ruby_provider = 0
@@ -136,106 +120,44 @@ let g:loaded_perl_provider = 0
 " => User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
-
-" Turn on the Wild menu
 set wildmenu
-
-" Ignore files
 set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-
-" Completion options
 set completeopt=menuone,noselect,noinsert
 set shortmess+=c
-
-" Always show current position
 set ruler
-
-" A buffer becomes hidden when it is abandoned
 set hidden
-
-" Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-
-" Ignore case when searching
 set ic sc
-
-" Highlight search results and search incrementally
 set hlsearch incsearch
-
-" Don't redraw while executing macros (good performance config)
 set lazyredraw
-
-" Turn magic on for regular expressions 
 set magic
-
-" Show matching brackets when text indicator is over them
 set showmatch
-
-" How many tenths of a second to blink when matching brackets
 set mat=2
-
-" No annoying sound on errors
 set noerrorbells novisualbell t_vb= tm=500
-
-" Show the line number
 set number
-
-" Show a highlight on the cursorline
 set cursorline
-
-" Show the 80 char column
 set colorcolumn=80
-
-" Show sign/diagnostic column
 set signcolumn=yes
-
-" Enable smart auto indent and line wrapping
 set ai si wrap
-
-" Enable folding
 set foldcolumn=1
 set foldmethod=indent
 set foldlevel=99
-
-" Always show the status bar
 set laststatus=2
 set noshowmode
-
-" Enable syntax highlighting
+set timeoutlen=300
 syntax enable
 
-" Show leader menus faster
-set timeoutlen=300
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Clipboard Integration
+" => Windows and Buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Copy to system clipboard
-vmap <leader>y "+ygv<esc>
-nnoremap <leader>y "+y
-nnoremap <leader>yy "+yy
-
-" Paste from system clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving Around, Tabs, and Buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Split new buffers to the right
 set splitright
 set splitbelow
 
-" Window movement with leader
 nmap <leader>j <C-W><C-J>
 nmap <leader>k <C-W><C-K>
 nmap <leader>l <C-W><C-L>
@@ -243,27 +165,21 @@ nmap <leader>h <C-W><C-H>
 nmap <Tab> <C-W>w
 nmap <S-Tab> <C-W>W
 
-" Terminal escaping
 tmap <leader><Esc> <C-\><C-n>:q<CR>
 tmap <leader>q <C-\><C-n>:q<CR>
 tmap <leader><Tab> <C-\><C-n><c-W>w
 tmap <leader><S-Tab> <C-\><C-n><c-W>W
 
-" Open new buffers
 nmap <leader>bh :new<cr>
 nmap <leader>b_ :new<cr>
 nmap <leader>bv :vnew<cr>
 nmap <leader>b- :vnew<cr>
 nmap <leader>bn :enew<cr>
 
-" Close the current buffer
 nmap <leader>bd :Bclose<cr>
 nmap <leader>bc :Bclose<cr>
-
-" Close all the buffers
 nmap <leader>ba :bufdo bd<cr>
 
-" Switch between buffers in windows
 nmap <leader>ll :bnext<cr>
 nmap <leader>hh :bprevious<cr>
 
@@ -282,10 +198,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " => Remaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Remap 0 to first non-blank character
 nmap 0 ^
-
-" Remap enter and backspace in Normal mode
 nnoremap <BS> {
 onoremap <BS> {
 vnoremap <BS> {
@@ -302,21 +215,26 @@ vnoremap < <gv
 vnoremap > >gv
 vmap y ygv<esc>
 
+" Copy and paste to system clipboard
+vmap <leader>y "+ygv<esc>
+nnoremap <leader>y "+y
+nnoremap <leader>yy "+yy
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell Checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Toggle spell checking
 nmap <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
 nmap <leader>sn ]s
 nmap <leader>sp [s
 nmap <leader>sa zg
 nmap <leader>s? z=
 
-" Spellfile language and location
 set spelllang=en
 set spellfile=$HOME/dotfiles/spell/en.utf-8.add
 
