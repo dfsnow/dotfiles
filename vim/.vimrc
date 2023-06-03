@@ -2,37 +2,34 @@ call plug#begin("~/.vim/vim-plug")
 
 if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
-    " Git integration
+    " Git Integration
     Plug 'tpope/vim-fugitive'
     Plug 'lewis6991/gitsigns.nvim'
 
-    " LSP and treesitter
-    Plug 'neovim/nvim-lspconfig'
+    " Diagnostics and Treesitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " UI and colors
+    " UI and Colors
     Plug 'Mofiqul/dracula.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'kosayoda/nvim-lightbulb'
     Plug 'lukas-reineke/indent-blankline.nvim'
-
-    " Movement and integrations
-    Plug 'phaazon/hop.nvim'
-    Plug 'folke/which-key.nvim'
     Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 
-    " Fuzzy search
+    " Movement and Search
+    Plug 'phaazon/hop.nvim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
-    " Completion and snippets
+    " Completion and Snippets
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'onsails/lspkind.nvim'
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
     Plug 'rafamadriz/friendly-snippets'
-    Plug 'onsails/lspkind.nvim'
+    Plug 'zbirenbaum/copilot.lua'
 
-    " Completion sources
+    " Completion Sources
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-vsnip'
@@ -40,15 +37,16 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-calc'
+    Plug 'zbirenbaum/copilot-cmp'
     
-    " Language-specific packages
+    " Language Integration
+    Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'jose-elias-alvarez/null-ls.nvim'
     Plug 'simrat39/rust-tools.nvim'
 
-    " GitHub Copilot
-    Plug 'zbirenbaum/copilot.lua'
-    Plug 'zbirenbaum/copilot-cmp'
+    " WhichKey
+    Plug 'folke/which-key.nvim'
 
 else
 
@@ -79,18 +77,16 @@ call plug#end()
 "    -> Remaps
 "    -> Spell Checking
 "    -> Helper Functions
-"    -> Vim Plugin Settings
 "    -> Neovim Settings
 "       -- Git Integration
-"       -- Diagnostics and LSP
-"       -- Treesitter
-"       -- Completion
-"       -- Rust Integration
-"       -- Other Language Integration
-"       -- Other Plugins 
+"       -- LSP and Treesitter
+"       -- UI and Colors
+"       -- Movement and Search
+"       -- Completion and Snippets
+"       -- Language Integration
+"       -- WhichKey Remaps
 "       -- Additional Remaps
-"       -- WhichKey
-"       -- Buffer and Status Lines
+"    -> Vim Plugin Settings
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -293,8 +289,8 @@ nmap 0 ^
 nnoremap <BS> {
 onoremap <BS> {
 vnoremap <BS> {
-nnoremap <expr> <CR> empty(&buftype) ? '}' : "<CR>"
-onoremap <expr> <CR> empty(&buftype) ? '}' : "<CR>"
+nnoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
+onoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
 vnoremap <CR> }
 
 " Replace word with last yank
@@ -368,9 +364,9 @@ endif
 " => Neovim Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Only setup LSP and language support on machines with neovim
-" This lets this config remain useable on remote machines where
-" installing a ton of dependencies is undesirable
+" Only setup on machines with neovim. This lets this config
+" remain useable on remote machines where installing a ton
+" of dependencies is undesirable
 if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
 lua <<EOF
@@ -392,7 +388,7 @@ require("gitsigns").setup({
 
 
 ---------------------------------------------------------------
--- Diagnostics and LSP
+-- Diagnostics and Treesitter
 ---------------------------------------------------------------
 
 -- Add floating windows for diagnostics
@@ -410,7 +406,7 @@ vim.diagnostic.config({
   },
 })
 
--- Add borders to floating windows
+-- Add rounded borders to floating windows
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
   vim.lsp.handlers.hover,
   { border = "rounded" }
@@ -419,11 +415,6 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
   { border = "rounded" }
 )
-
-
----------------------------------------------------------------
--- Treesitter
----------------------------------------------------------------
 
 require("nvim-treesitter.configs").setup{
   ensure_installed = { 
@@ -452,7 +443,77 @@ require("nvim-treesitter.configs").setup{
 
 
 ---------------------------------------------------------------
--- Completion
+-- UI and Colors
+---------------------------------------------------------------
+
+local dracula = require("dracula")
+dracula.setup({
+  colors = { nontext = "#474e57" }, -- default is too low contrast
+  overrides = {
+    WhichKeyDesc = { fg = dracula.colors().bright_white },
+    WhichKeyGroup = { fg = dracula.colors().pink },
+    FloatBorder = { fg = dracula.colors().comment },
+    FoldColumn = { fg = dracula.colors().comment },
+    ColorColumn = { bg = dracula.colors().black },
+    CmpItemAbbrMatch = { fg = dracula.colors().bright_green },
+    CmpItemAbbr = { bg = nil },
+  }
+})
+
+require("lualine").setup({
+  options = { icons_enabled = false },
+  extensions = { "toggleterm", "fugitive" },
+  tabline = {
+    lualine_a = {
+      { "buffers", symbols = { modified = "[+]", alternate_file = "" } }
+    }
+  }
+})
+
+require("nvim-lightbulb").setup({ autocmd = { enabled = true }, })
+vim.fn.sign_define("LightBulbSign", {
+  text = "A",
+  texthl = "A",
+  linehl = "A",
+  numhl = "A"
+})
+
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
+vim.opt.listchars:append "space:⋅"
+require("indent_blankline").setup({
+  show_current_context = true,
+  show_end_of_line = true,
+  space_char_blankline = " ",
+})
+
+require("toggleterm").setup({
+  size = function(term)
+    if term.direction == "horizontal" then
+      return math.floor(vim.o.lines * 0.4)
+    elseif term.direction == "vertical" then
+      return math.floor(vim.o.columns * 0.4)
+    end
+  end,
+  float_opts = {
+    border = "curved",
+    height = math.floor(vim.o.lines * 0.85),
+    width = math.floor(vim.o.columns * 0.80)
+  }
+})
+
+
+---------------------------------------------------------------
+-- Movement and Search
+---------------------------------------------------------------
+
+require("hop").setup()
+
+require("fzf-lua").setup({ fzf_opts = { ["--layout"] = "default" } })
+
+
+---------------------------------------------------------------
+-- Completion and Snippets
 ---------------------------------------------------------------
 
 local has_words_before = function()
@@ -566,46 +627,15 @@ function toggleAutoCmp()
   end
 end
 
-
----------------------------------------------------------------
--- Rust Integration
----------------------------------------------------------------
-
--- Load rust-tools and LSP integration
-local rt = require("rust-tools")
-rt.setup({
-  tools = {
-    hover_actions = {
-      auto_focus = true,
-    },
-  },
-  server = {
-    -- These will overwrite the default actions on load
-    on_attach = function(_, bufnr)
-      vim.keymap.set(
-        "n", "K",
-        rt.hover_actions.hover_actions, { buffer = bufnr }
-      )
-      vim.keymap.set(
-        "n", "<leader>dK",
-        rt.hover_actions.hover_actions, { buffer = bufnr }
-      )
-      wk.register({
-        d = {
-          name = "lsp",
-          K = {
-            "<cmd>lua rt.hover_actions.hover_actions<cr>",
-            "View hover actions"
-          },
-        },
-      }, { prefix = "<leader>" })
-    end,
-  },
-})
+-- require("copilot").setup({
+--   suggestion = { enabled = false },
+--   panel = { enabled = false },
+-- })
+-- require("copilot_cmp").setup()
 
 
 ---------------------------------------------------------------
--- Other Language Integration
+-- Language Integration
 ---------------------------------------------------------------
 
 local lspconfig = require("lspconfig")
@@ -634,98 +664,40 @@ null_ls.register({
   null_ls.builtins.formatting.jq
 })
 
-
----------------------------------------------------------------
--- Other Plugins 
----------------------------------------------------------------
-
--- GitHub Copilot
--- require("copilot").setup({
---   suggestion = { enabled = false },
---   panel = { enabled = false },
--- })
--- require("copilot_cmp").setup()
-
--- indent-blankline
-vim.opt.list = true
-vim.opt.listchars:append "eol:↴"
-vim.opt.listchars:append "space:⋅"
-require("indent_blankline").setup({
-  show_current_context = true,
-  show_end_of_line = true,
-  space_char_blankline = " ",
-})
-
--- fzf-lua
-require("fzf-lua").setup({ fzf_opts = { ["--layout"] = "default" } })
-
--- nvim-lightbulb
-require("nvim-lightbulb").setup({ autocmd = { enabled = true }, })
-vim.fn.sign_define("LightBulbSign", {
-  text = "A",
-  texthl = "A",
-  linehl = "A",
-  numhl = "A"
-})
-
--- Hop
-require("hop").setup()
-
--- ToggleTerm
-require("toggleterm").setup({
-  size = function(term)
-    if term.direction == "horizontal" then
-      return math.floor(vim.o.lines * 0.4)
-    elseif term.direction == "vertical" then
-      return math.floor(vim.o.columns * 0.4)
-    end
-  end,
-  float_opts = {
-    border = "curved",
-    height = math.floor(vim.o.lines * 0.85),
-    width = math.floor(vim.o.columns * 0.80)
-  }
+local rt = require("rust-tools")
+rt.setup({
+  tools = {
+    hover_actions = {
+      auto_focus = true,
+    },
+  },
+  server = {
+    -- These will overwrite the default mappings on load
+    on_attach = function(_, bufnr)
+      vim.keymap.set(
+        "n", "K",
+        rt.hover_actions.hover_actions, { buffer = bufnr }
+      )
+      vim.keymap.set(
+        "n", "<leader>dK",
+        rt.hover_actions.hover_actions, { buffer = bufnr }
+      )
+      wk.register({
+        d = {
+          name = "lsp",
+          K = {
+            "<cmd>lua rt.hover_actions.hover_actions<cr>",
+            "View hover actions"
+          },
+        },
+      }, { prefix = "<leader>" })
+    end,
+  },
 })
 
 
 ---------------------------------------------------------------
--- Additional Remaps
----------------------------------------------------------------
-
--- Proper indentation on empty lines
-vim.keymap.set("n", "i", function()
-  if #vim.fn.getline(".") == 0 then
-    return [["_cc]]
-  else
-    return "i"
-  end
-end, { expr = true })
-
--- No yanking empty lines
-vim.keymap.set("n", "dd", function()
-  if vim.api.nvim_get_current_line():match("^%s*$") then
-    return '"_dd'
-  else
-    return "dd"
-  end
-end, { expr = true })
-
--- Better, space-aware line joins
-vim.keymap.set("n", "J", function()
-  vim.cmd("normal! mzJ")
-  local col = vim.fn.col(".")
-  local context = string.sub(vim.fn.getline("."), col - 1, col + 1)
-  if context == ") ." or context == ") :" or context:match("%( .") or context:match(". ,") or context:match("%w %.") then
-    vim.cmd("undojoin | normal! x")
-  elseif context == ",)" then
-    vim.cmd("undojoin | normal! hx")
-  end
-  vim.cmd("normal! `z")
-end)
-
-
----------------------------------------------------------------
--- WhichKey
+-- WhichKey Remaps
 ---------------------------------------------------------------
 
 local wk = require("which-key")
@@ -764,34 +736,44 @@ wk.setup{
   },
 }
 
--- Load custom which-key mappings
+-- Load custom which-key mappings from file
 require("mappings")
 
 
 ---------------------------------------------------------------
--- Buffer and Status Lines
+-- Additional Remaps
 ---------------------------------------------------------------
 
-local dracula = require("dracula")
-dracula.setup({
-  overrides = {
-    WhichKeyDesc = { fg = dracula.colors().bright_white },
-    WhichKeyGroup = { fg = dracula.colors().pink },
-    FloatBorder = { fg = dracula.colors().comment },
-    FoldColumn = { fg = dracula.colors().comment },
-    ColorColumn = { bg = dracula.colors().black },
-  }
-})
+-- Proper indentation on empty lines
+vim.keymap.set("n", "i", function()
+  if #vim.fn.getline(".") == 0 then
+    return [["_cc]]
+  else
+    return "i"
+  end
+end, { expr = true })
 
-require("lualine").setup({
-  options = { icons_enabled = false },
-  extensions = { "toggleterm", "fugitive" },
-  tabline = {
-    lualine_a = {
-      { "buffers", symbols = { modified = "[+]", alternate_file = "" } }
-    }
-  }
-})
+-- No yanking empty lines
+vim.keymap.set("n", "dd", function()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
+end, { expr = true })
+
+-- Better, space-aware line joins
+vim.keymap.set("n", "J", function()
+  vim.cmd("normal! mzJ")
+  local col = vim.fn.col(".")
+  local context = string.sub(vim.fn.getline("."), col - 1, col + 1)
+  if context == ") ." or context == ") :" or context:match("%( .") or context:match(". ,") or context:match("%w %.") then
+    vim.cmd("undojoin | normal! x")
+  elseif context == ",)" then
+    vim.cmd("undojoin | normal! hx")
+  end
+  vim.cmd("normal! `z")
+end)
 
 EOF
 
@@ -801,7 +783,7 @@ autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 " Automatically highlight yanked text
 autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
 
-" Treesitter folding
+" Replace indent folding with treesitter folding
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
@@ -812,11 +794,9 @@ endif
 " => Vim Plugin Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Commentary
 nmap <leader>c :Commentary<cr>
 vmap <leader>c :Commentary<cr>
 
-" Dracula
 let g:dracula_colorterm = 0
 let g:dracula_italic = 0
-colorscheme dracula
+colorscheme dracula " must load after the nvim plugin
