@@ -419,6 +419,12 @@ require("toggleterm").setup({
     border = "curved",
     height = math.floor(vim.o.lines * 0.85),
     width = math.floor(vim.o.columns * 0.80)
+  },
+  shade_terminals = false,
+  highlights = {
+    Normal = {
+      guibg = dracula.colors().bg
+    }
   }
 })
 
