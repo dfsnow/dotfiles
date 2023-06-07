@@ -462,10 +462,11 @@ require("telescope").setup({
     },
     mappings = {
       i = {
-        ["<esc>"] = actions.close,
+        ["<C-u>"] = false,
+        ["<Esc>"] = actions.close,
         ["<C-j>"] = { actions.move_selection_previous, type = "action" },
         ["<C-k>"] = { actions.move_selection_next, type = "action" }
-      },
+      }
     },
     hidden = true
   },

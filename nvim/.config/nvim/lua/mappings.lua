@@ -104,14 +104,23 @@ wk.register({
     Y = { "which_key_ignore"                                                 },
     Y = { "which_key_ignore"                                                 },
     yy = { "which_key_ignore"                                                },
-    ["ll"]      = { "Next buffer"                                            },
-    ["hh"]      = { "Previous buffer"                                        },
-    ["<Tab>"]   = { "Next window"                                            },
-    ["?"]       = {
+    ["ll"]       = { "Next buffer"                                           },
+    ["hh"]       = { "Previous buffer"                                       },
+    ["<Tab>"]    = { "Next window"                                           },
+    ["<Space>"]  = { "<cmd>Telescope resume<cr>", "Open Telescope"           },
+    ["<CR>"]     = {
+      "<cmd>Telescope find_files<cr>",
+      "which_key_ignore"
+    },
+    ["<leader>"] = {
+      "<cmd>Telescope find_files<cr>",
+      "Search files"
+    },
+    ["?"]        = {
       "<cmd>Telescope live_grep<cr>",
       "Grep in project"
     },
-    ["/"]       = {
+    ["/"]        = {
       "<cmd>Telescope current_buffer_fuzzy_find<cr>",
       "Search current buffer"
     }
