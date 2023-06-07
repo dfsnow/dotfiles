@@ -107,7 +107,6 @@ wk.register({
     ["ll"]      = { "Next buffer"                                            },
     ["hh"]      = { "Previous buffer"                                        },
     ["<Tab>"]   = { "Next window"                                            },
-    ["<Space>"] = { "za"                       , "Toggle current fold"       },
     ["?"]       = {
       "<cmd>Telescope live_grep<cr>",
       "Grep in project"
@@ -234,6 +233,8 @@ wk.register({
 wk.register({
   z = {
     name = "fold",
+    t = { "zi"                            , "Toggle folding"                 },
+    i = { "zi"                            , "which_key_ignore"               },
     a = { "za"                            , "Toggle current"                 },
     A = { "zA"                            , "Toggle all under cursor"        },
     r = { "zr"                            , "Open one level in buffer"       },

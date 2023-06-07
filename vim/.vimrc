@@ -762,6 +762,7 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup = "IncSearch"
 " Replace indent folding with treesitter folding
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable
 
 endif
 
