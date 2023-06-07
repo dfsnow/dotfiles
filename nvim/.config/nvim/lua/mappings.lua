@@ -108,10 +108,6 @@ wk.register({
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
     ["<Space>"]  = { "<cmd>Telescope resume<cr>", "Open Telescope"           },
-    ["<CR>"]     = {
-      "<cmd>Telescope find_files<cr>",
-      "which_key_ignore"
-    },
     ["<leader>"] = {
       "<cmd>Telescope find_files<cr>",
       "Search files"
@@ -130,7 +126,7 @@ wk.register({
 wk.register({
   b = {
     name = "buffer",
-    s = { "<cmd>Telescope buffers<cr>"         , "Search buffers"            },
+    f = { "<cmd>Telescope buffers<cr>"         , "Search buffers"            },
     h = { "New (horizontal)"                                                 },
     v = { "New (vertical)"                                                   },
     n = { "New (no split)"                                                   },
@@ -155,11 +151,11 @@ wk.register({
     k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
     K = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
-    f = { 
+    F = { 
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"
     },
-    s = {
+    f = {
       name = "search",
       r = { "<cmd>Telescope lsp_references<cr>"       , "References"         },
       d = { "<cmd>Telescope lsp_definitions<cr>"      , "Definitions"        },
@@ -183,7 +179,7 @@ wk.register({
   f = {
     name = "search",
     g = { "<cmd>Telescope git_files<cr>"              , "Git files"          },
-    G = { "<cmd>Telescope git_status<cr>"             , "Git changes"        },
+    G = { "<cmd>Telescope git_status<cr>"             , "Git status"         },
     f = { "<cmd>Telescope find_files<cr>"             , "All files"          },
     b = { "<cmd>Telescope buffers<cr>"                , "Buffers"            },
     w = { "<cmd>Telescope grep_string<cr>"            , "Grep current word"  },
@@ -206,7 +202,7 @@ wk.register({
     c = { "<cmd>Git commit<cr>"                       , "Create commit"      },
     g = { "<cmd>Gitsigns toggle_signs<cr>"            , "Toggle git signs"   },
     d = { "<cmd>Gitsigns diffthis<cr>"                , "View diff"          },
-    f = { "<cmd>Gitsigns preview_hunk<cr>"            , "Preview hunk"       },
+    P = { "<cmd>Gitsigns preview_hunk<cr>"            , "Preview hunk"       },
     n = { "<cmd>Gitsigns next_hunk<cr>"               , "Next hunk"          },
     p = { "<cmd>Gitsigns prev_hunk<cr>"               , "Previous hunk"      },
     u = { "<cmd>Gitsigns reset_hunk<cr>"              , "Undo hunk"          },
@@ -214,6 +210,14 @@ wk.register({
     s = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
     S = { "<cmd>Gitsigns stage_buffer<cr>"            , "Stage buffer"       },
     h = { "<cmd>Gitsigns toggle_linehl<cr>"           , "Toggle highlights"  },
+    f = {
+      name = "search",
+      c = { "<cmd>Telescope git_commits<cr>"          , "Commits"            },
+      C = { "<cmd>Telescope git_bcommits<cr>"         , "Buffer commits"     },
+      b = { "<cmd>Telescope git_branches<cr>"         , "Branches"           },
+      s = { "<cmd>Telescope git_status<cr>"           , "Status"             },
+      S = { "<cmd>Telescope git_stash<cr>"            , "Stash"              },
+    }
   }
 }, { prefix = "<leader>" })
 
@@ -224,7 +228,8 @@ wk.register({
     n = { "]s"                                 , "Next misspelling"          },
     p = { "[s"                                 , "Previous misspelling"      },
     a = { "zg"                                 , "Add to dictionary"         },
-    ["?"] = { "Lookup in dictionary"                                         },
+    f = { "<cmd>Telescope spell_suggest<cr>"   , "Lookup in dictionary"      },
+    ["?"] = { "<cmd>Telescope spell_suggest<cr>", "which_key_ignore"         },
   }
 }, { prefix = "<leader>" })
 
