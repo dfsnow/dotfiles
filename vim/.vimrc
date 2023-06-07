@@ -7,19 +7,20 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'lewis6991/gitsigns.nvim'
 
     " Diagnostics and Treesitter
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 
     " UI and Colors
     Plug 'Mofiqul/dracula.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'kosayoda/nvim-lightbulb'
     Plug 'lukas-reineke/indent-blankline.nvim'
-    Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+    Plug 'akinsho/toggleterm.nvim', { 'tag' : '*' }
 
     " Movement and Search
     Plug 'phaazon/hop.nvim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+    Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'nvim-telescope/telescope-ui-select.nvim'
 
     " Completion and Snippets
     Plug 'hrsh7th/nvim-cmp'
@@ -377,6 +378,11 @@ dracula.setup({
     CmpItemAbbrMatch = { fg = dracula.colors().bright_green },
     GitSignsChange = { fg = dracula.colors().orange },
     GitSignsChangeLn = { fg = dracula.colors().orange },
+    TelescopePromptBorder = { fg = dracula.colors().bright_white },
+    TelescopePreviewBorder = { fg = dracula.colors().bright_white },
+    TelescopeResultsBorder = { fg = dracula.colors().bright_white },
+    TelescopeSelection = { fg = dracula.colors().bright_white },
+    TelescopeMatching = { fg = dracula.colors().bright_green }
   }
 })
 
@@ -418,7 +424,7 @@ require("toggleterm").setup({
   float_opts = {
     border = "curved",
     height = math.floor(vim.o.lines * 0.85),
-    width = math.floor(vim.o.columns * 0.80)
+    width = math.floor(vim.o.columns * 0.90)
   },
   shade_terminals = false,
   highlights = {
@@ -435,7 +441,43 @@ require("toggleterm").setup({
 
 require("hop").setup()
 
-require("fzf-lua").setup({ fzf_opts = { ["--layout"] = "default" } })
+actions = require("telescope.actions")
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("ui-select")
+require("telescope").setup({
+  defaults = {
+    file_ignore_patterns = { ".git", "renv" },
+    layout_strategy = "flex",
+    layout_config = {
+      horizontal = { preview_cutoff = 0, width = 0.90, height = 0.85 },
+      vertical = { preview_cutoff = 0, width = 0.90 },
+    },
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close,
+        ["<C-j>"] = { actions.move_selection_previous, type = "action" },
+        ["<C-k>"] = { actions.move_selection_next, type = "action" }
+      },
+    },
+    hidden = true
+  },
+  pickers = {
+    find_files = {
+      hidden = true
+    }
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    },
+    ["ui-select"] = {
+      require("telescope.themes").get_cursor()
+    }
+  }
+})
 
 
 ---------------------------------------------------------------
