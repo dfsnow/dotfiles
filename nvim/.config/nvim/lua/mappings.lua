@@ -13,6 +13,7 @@ wk.register({
   },
   ["<C-t>"]   = { "<cmd>Telescope find_files<cr>"   , "Search files"         },
   ["K"]       = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show hover info"      },
+  ["-"]       = { "Open parent directory"                                    },
   ["<C-A>"]   = { "Increment up"                                             },
   ["<C-X>"]   = { "Increment down"                                           },
   ["<TAB>"]   = { "Next window"                                              },
@@ -78,6 +79,7 @@ wk.register({
   g = {
     name = "+misc",
     c = { "which_key_ignore"                                                 }, 
+    h = { "Toggle hidden files"                                              }, 
     [";"] = { "Go to last edited postition"                                  }, 
   } 
 })

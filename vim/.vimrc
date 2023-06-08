@@ -15,6 +15,7 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'kosayoda/nvim-lightbulb'
     Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'akinsho/toggleterm.nvim', { 'tag' : '*' }
+    Plug 'elihunter173/dirbuf.nvim'
 
     " Movement and Search
     Plug 'phaazon/hop.nvim'
