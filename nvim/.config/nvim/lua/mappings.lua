@@ -71,8 +71,35 @@ wk.register({
       })
     end
     , "Hop backward"
-  }
+  },
+  t = { 
+    function()
+      hop.hint_char1({
+        direction = directions.AFTER_CURSOR,
+        current_line_only = true,
+        hint_offset = -1
+      })
+    end
+    , "Hop forward"
+  },
+  T = { 
+    function()
+      hop.hint_char1({
+        direction = directions.BEFORE_CURSOR,
+        current_line_only = true,
+        hint_offset = -1
+      })
+    end
+    , "Hop backward"
+  },
 }, { mode = { "n", "v", "o" } })
+
+wk.register({
+  ["<Space>"] = { "<cmd>HopLineStart<cr>"      , "Hop to line"               },
+}, {
+  prefix = "<leader>",
+  mode = { "n", "v", "o" } 
+})
 
 wk.register({ z = { name = "+fold" } })
 wk.register({
@@ -109,7 +136,6 @@ wk.register({
     ["ll"]       = { "Next buffer"                                           },
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
-    ["<Space>"]  = { "<cmd>Telescope resume<cr>", "Open Telescope"           },
     ["<leader>"] = {
       "<cmd>Telescope find_files<cr>",
       "Search files"
