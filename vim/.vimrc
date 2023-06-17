@@ -388,7 +388,11 @@ dracula.setup({
 })
 
 require("lualine").setup({
-  options = { icons_enabled = false },
+  options = {
+    icons_enabled = false,
+    section_separators = "",
+    component_separators = ""
+  },
   extensions = { "toggleterm", "fugitive" },
   tabline = {
     lualine_a = {
