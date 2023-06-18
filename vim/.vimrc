@@ -14,6 +14,7 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'kosayoda/nvim-lightbulb'
     Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'smjonas/inc-rename.nvim'
     Plug 'akinsho/toggleterm.nvim', { 'tag' : '*' }
     Plug 'elihunter173/dirbuf.nvim'
 
@@ -417,6 +418,9 @@ require("indent_blankline").setup({
   show_end_of_line = true,
   space_char_blankline = " ",
 })
+
+require("inc_rename").setup()
+vim.keymap.set("n", "<leader>dR", ":IncRename ")
 
 require("toggleterm").setup({
   size = function(term)

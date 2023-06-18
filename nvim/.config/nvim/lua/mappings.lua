@@ -168,10 +168,10 @@ wk.register({
 wk.register({
   d = {
     name = "lsp",
+    R = { "Rename identifer"                                                 },
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
     r = { "<cmd>lua vim.lsp.buf.references()<cr>"    , "Show references"     },
-    R = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename references"   },
     d = { "<cmd>lua vim.lsp.buf.definition()<cr>"    , "Goto definition"     },
     D = { "<cmd>lua vim.lsp.buf.declaration()<cr>"   , "Goto declaration"    },
     i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Show implementations"},
