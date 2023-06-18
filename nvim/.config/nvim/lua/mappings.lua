@@ -136,6 +136,7 @@ wk.register({
     ["ll"]       = { "Next buffer"                                           },
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
+    ["."]        = { "<cmd>e .<CR>"            , "Open current directory"    },        
     ["<leader>"] = {
       "<cmd>Telescope find_files<cr>",
       "Search files"
