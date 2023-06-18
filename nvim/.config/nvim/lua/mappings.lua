@@ -222,6 +222,7 @@ wk.register({
 }, { prefix = "<leader>" })
 
 wk.register({
+  G = { "<cmd>Git<cr>"                                , "Open git"           },
   g = {
     name = "git",
     b = { "<cmd>lua require'gitsigns'.blame_line{}<CR>", "View line blame"   },
@@ -229,8 +230,9 @@ wk.register({
     B = { "<cmd>Git blame<cr>"                        , "View full blame"    },
     c = { "<cmd>Git commit<cr>"                       , "Create commit"      },
     g = { "<cmd>Gitsigns toggle_signs<cr>"            , "Toggle git signs"   },
-    d = { "<cmd>Gitsigns diffthis<cr>"                , "View diff"          },
-    P = { "<cmd>Gitsigns preview_hunk<cr>"            , "Preview hunk"       },
+    d = { "<cmd>Gitsigns preview_hunk<cr>"            , "View diff preview"  },
+    D = { "<cmd>Gitsigns diffthis<cr>"                , "View full diff"     },
+    P = { "<cmd>Git push<cr>"                         , "Push to remote"     },
     n = { "<cmd>Gitsigns next_hunk<cr>"               , "Next hunk"          },
     p = { "<cmd>Gitsigns prev_hunk<cr>"               , "Previous hunk"      },
     u = { "<cmd>Gitsigns reset_hunk<cr>"              , "Undo hunk"          },
