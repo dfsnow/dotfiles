@@ -359,6 +359,14 @@ require("nvim-treesitter.configs").setup{
     enable = true,
     extended_mode = true,
     max_file_lines = nil,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<leader>v",
+      node_incremental = "<leader><CR>",
+      node_decremental = "<leader><BS>"
+    }
   }
 }
 
