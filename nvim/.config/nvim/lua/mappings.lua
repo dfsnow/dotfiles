@@ -117,7 +117,6 @@ wk.register({
     name = "+leader",
     x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
-    v = { "Select with treesitter"                                           },
     c = { "Toggle comment"                                                   },
     p = { "Paste from clipboard"                                             },
     y = { "Copy to clipboard"                                                },
