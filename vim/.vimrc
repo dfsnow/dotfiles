@@ -5,6 +5,7 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     " Git Integration
     Plug 'tpope/vim-fugitive'
     Plug 'lewis6991/gitsigns.nvim'
+    Plug 'junegunn/gv.vim'
 
     " Diagnostics and Treesitter
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }

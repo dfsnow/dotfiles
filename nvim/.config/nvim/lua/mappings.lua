@@ -241,6 +241,7 @@ wk.register({
     s = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
     S = { "<cmd>Gitsigns stage_buffer<cr>"            , "Stage buffer"       },
     h = { "<cmd>Gitsigns toggle_linehl<cr>"           , "Toggle highlights"  },
+    v = { "<cmd>GV<cr>"                               , "Browse commits"     },
     f = {
       name = "search",
       c = { "<cmd>Telescope git_commits<cr>"          , "Commits"            },
