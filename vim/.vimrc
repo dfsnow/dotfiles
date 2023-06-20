@@ -397,6 +397,7 @@ require("catppuccin").setup({
       TelescopeMatching = { fg = colors.red },
       CmpItemAbbr = { fg = colors.text },
       CmpItemAbbrMatch = { fg = colors.red },
+      NormalFloat = { bg = colors.none },
     }
   end
 })
