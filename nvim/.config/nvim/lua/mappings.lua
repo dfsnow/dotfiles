@@ -94,13 +94,6 @@ wk.register({
   },
 }, { mode = { "n", "v", "o" } })
 
-wk.register({
-  ["<Space>"] = { "<cmd>HopLineStart<cr>"      , "Hop to line"               },
-}, {
-  prefix = "<leader>",
-  mode = { "n", "v", "o" } 
-})
-
 wk.register({ z = { name = "+fold" } })
 wk.register({
   g = {
@@ -133,12 +126,14 @@ wk.register({
     Y = { "which_key_ignore"                                                 },
     Y = { "which_key_ignore"                                                 },
     yy = { "which_key_ignore"                                                },
+    ["<S-SPACE>"] = { "which_key_ignore"                                     },
+    ["<SPACE>"]  = { "Toggle fold"                                           },
     ["<TAB>"]    = { "Next window"                                           },
     ["<S-TAB>"]  = { "Previous window"                                       },
     ["ll"]       = { "Next buffer"                                           },
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
-    ["."]        = { "<cmd>e .<CR>"            , "Open current directory"    },        
+    ["."]        = { "<cmd>e .<CR>"            , "Open current directory"    },
     ["<leader>"] = {
       "<cmd>Telescope find_files<cr>",
       "Search files"
