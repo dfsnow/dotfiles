@@ -241,7 +241,8 @@ wk.register({
     s = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
     S = { "<cmd>Gitsigns stage_buffer<cr>"            , "Stage buffer"       },
     h = { "<cmd>Gitsigns toggle_linehl<cr>"           , "Toggle highlights"  },
-    v = { "<cmd>GV<cr>"                               , "Browse commits"     },
+    v = { "<cmd>GV!<cr>"                              , "Browse file commits"},
+    V = { "<cmd>GV<cr>"                               , "Browse all commits" },
     f = {
       name = "search",
       c = { "<cmd>Telescope git_commits<cr>"          , "Commits"            },
@@ -252,6 +253,10 @@ wk.register({
     }
   }
 }, { prefix = "<leader>" })
+
+wk.register({
+  gb = { "<cmd>GBrowse<cr>"                           , "View git upstream"  },
+}, { mode = { "n", "v", "o" } })
 
 wk.register({
   s = {
