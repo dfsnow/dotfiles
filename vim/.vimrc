@@ -168,8 +168,8 @@ nmap <leader>j <C-W><C-J>
 nmap <leader>k <C-W><C-K>
 nmap <leader>l <C-W><C-L>
 nmap <leader>h <C-W><C-H>
-nmap <Tab> <C-W>w
-nmap <S-Tab> <C-W>W
+nmap <leader><Tab> <C-W>w
+nmap <leader><S-Tab> <C-W>W
 
 tmap <leader><Esc> <C-\><C-n>:q<CR>
 tmap <leader>q <C-\><C-n>:q<CR>
@@ -186,6 +186,8 @@ nmap <leader>bd :Bclose<cr>
 nmap <leader>bc :Bclose<cr>
 nmap <leader>ba :bufdo bd<cr>
 
+nmap <Tab> :bnext<cr>
+nmap <S-Tab> :bprevious<cr>
 nmap <leader>ll :bnext<cr>
 nmap <leader>hh :bprevious<cr>
 
