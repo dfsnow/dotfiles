@@ -319,6 +319,7 @@ require("gitsigns").setup({
     changedelete = { text = "_" },
     untracked    = { text = "┆" },
   },
+  preview_config = { border = "rounded" }
 })
 
 
@@ -708,7 +709,7 @@ wk.setup{
       g = true,
     },
   },
-  window = { border = "single" },
+  window = { border = "rounded" },
   key_labels = {
     ["<space>"]    = "SPC",
     ["<cr>"]       = "RET",
@@ -788,11 +789,11 @@ vmap <leader>c :Commentary<cr>
 
 " Conditionally use neovim version of catppuccin
 function! CheckColorscheme(name) abort
-    let pat = 'colors/'.a:name.'.vim'
+    let pat = "colors/".a:name.".vim"
     return !empty(globpath(&rtp, pat))
 endfunction
 
-if CheckColorscheme('catppuccin-mocha')
+if CheckColorscheme("catppuccin-mocha")
   colorscheme catppuccin-mocha
 else
   colorscheme catppuccin_mocha
