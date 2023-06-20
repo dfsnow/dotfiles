@@ -13,7 +13,7 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 
     " UI and Colors
-    Plug 'Mofiqul/dracula.nvim'
+    Plug 'catppuccin/nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'kosayoda/nvim-lightbulb'
     Plug 'lukas-reineke/indent-blankline.nvim'
@@ -56,8 +56,8 @@ if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
 else
 
-  " Use vim dracula as a backup for nvim version
-  Plug 'dracula/vim', { 'as': 'dracula' }
+  " Use vim theme as a backup for nvim version
+  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 endif
 
@@ -153,6 +153,7 @@ set foldlevel=99
 set laststatus=2
 set noshowmode
 set timeoutlen=300
+set termguicolors
 syntax enable
 
 
@@ -383,32 +384,16 @@ require("nvim-treesitter.configs").setup{
 -- UI and Colors
 ---------------------------------------------------------------
 
-local dracula = require("dracula")
-dracula.setup({
-  colors = { nontext = "#474e57" }, -- default is too low contrast
-  overrides = {
-    WhichKeyDesc = { fg = dracula.colors().bright_white },
-    WhichKeyGroup = { fg = dracula.colors().pink },
-    FloatBorder = { fg = dracula.colors().bright_white },
-    FoldColumn = { fg = dracula.colors().comment },
-    ColorColumn = { bg = dracula.colors().black },
-    CmpItemAbbr = { fg = dracula.colors().bright_white, bg = nil },
-    CmpItemAbbrMatch = { fg = dracula.colors().bright_green },
-    GitSignsChange = { fg = dracula.colors().orange },
-    GitSignsChangeLn = { fg = dracula.colors().orange },
-    TelescopePromptBorder = { fg = dracula.colors().bright_white },
-    TelescopePreviewBorder = { fg = dracula.colors().bright_white },
-    TelescopeResultsBorder = { fg = dracula.colors().bright_white },
-    TelescopeSelection = { fg = dracula.colors().bright_white },
-    TelescopeMatching = { fg = dracula.colors().bright_green }
-  }
+require("catppuccin").setup({
+  integrations = { which_key = true }
 })
 
 require("lualine").setup({
   options = {
     icons_enabled = false,
     section_separators = "",
-    component_separators = ""
+    component_separators = "",
+    theme = "catppuccin"
   },
   extensions = { "toggleterm", "fugitive" },
   tabline = {
@@ -451,12 +436,7 @@ require("toggleterm").setup({
     height = math.floor(vim.o.lines * 0.85),
     width = math.floor(vim.o.columns * 0.90)
   },
-  shade_terminals = false,
-  highlights = {
-    Normal = {
-      guibg = dracula.colors().bg
-    }
-  }
+  shade_terminals = true
 })
 
 
@@ -792,6 +772,14 @@ endif
 nmap <leader>c :Commentary<cr>
 vmap <leader>c :Commentary<cr>
 
-let g:dracula_colorterm = 0
-let g:dracula_italic = 0
-colorscheme dracula " must load after the nvim plugin
+" Conditionally use neovim version of catppuccin
+function! CheckColorscheme(name) abort
+    let pat = 'colors/'.a:name.'.vim'
+    return !empty(globpath(&rtp, pat))
+endfunction
+
+if CheckColorscheme('catppuccin-mocha')
+  colorscheme catppuccin-mocha
+else
+  colorscheme catppuccin_mocha
+endif
