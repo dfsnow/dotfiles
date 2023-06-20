@@ -20,12 +20,11 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias l='ls -hGF'
     alias ls='ls -hGF'
     alias ll='ls -lahGF'
-    # Add mac-specific aliases
-    alias y='open -a Yoink'
     o() {
         open --reveal "${1:-.}"
     }
 fi
+LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
 
 # Git related aliases automatically added by .gitconfig
 alias g='git'
