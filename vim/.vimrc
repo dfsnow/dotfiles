@@ -390,7 +390,15 @@ require("nvim-treesitter.configs").setup{
 ---------------------------------------------------------------
 
 require("catppuccin").setup({
-  integrations = { which_key = true }
+  integrations = { which_key = true },
+  custom_highlights = function(colors)
+    return {
+      NonText = { fg = colors.surface1 },
+      TelescopeMatching = { fg = colors.red },
+      CmpItemAbbr = { fg = colors.text },
+      CmpItemAbbrMatch = { fg = colors.red },
+    }
+  end
 })
 
 require("lualine").setup({
@@ -765,6 +773,7 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup = "IncSearch"
 " Replace indent folding with treesitter folding
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable
 
 endif
 
