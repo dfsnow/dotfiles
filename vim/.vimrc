@@ -733,6 +733,27 @@ require("mappings")
 -- Additional Remaps
 ---------------------------------------------------------------
 
+-- Hide eol and space characters
+vim.g.zen_toggle_flag = false
+function toggleZenMode()
+  local next_zen_toggle_flag = not vim.g.zen_toggle_flag
+  if next_zen_toggle_flag then
+    print("Zen mode on")
+  else
+    print("Zen mode off")
+  end
+  if next_zen_toggle_flag then
+    vim.cmd("IndentBlanklineDisable")
+    vim.opt.list = false
+    vim.opt.foldenable = false
+    vim.g.zen_toggle_flag = next_zen_toggle_flag
+  else
+    vim.cmd("IndentBlanklineEnable")
+    vim.opt.list = true
+    vim.g.zen_toggle_flag = next_zen_toggle_flag
+  end
+end
+
 -- Proper indentation on empty lines
 vim.keymap.set("n", "i", function()
   if #vim.fn.getline(".") == 0 then

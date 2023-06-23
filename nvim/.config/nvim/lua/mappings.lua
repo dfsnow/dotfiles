@@ -108,6 +108,7 @@ wk.register({
 wk.register({
   ["<leader>"] = {
     name = "+leader",
+    Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
     x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
     v = { "Select with treesitter"                                           },
