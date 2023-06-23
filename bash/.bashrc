@@ -60,6 +60,9 @@ __set_bash_prompt()
         local BGre='\[\e[1;32m\]';
         local BBlu='\[\e[1;34m\]';
         local None='\[\e[0m\]' # Return to default colour
+        if [[ -n "$VIRTUAL_ENV" ]]; then
+            PreGitPS1+="($(basename $VIRTUAL_ENV)) "
+        fi
         PreGitPS1+="$BGre\u@\h$None:$BBlu\w$None"
     else
         unset GIT_PS1_SHOWCOLORHINTS
@@ -72,6 +75,7 @@ __set_bash_prompt()
 
 PROMPT_COMMAND=__set_bash_prompt
 PROMPT_DIRTRIM=1
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 
