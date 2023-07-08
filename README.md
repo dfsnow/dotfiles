@@ -30,7 +30,13 @@ Tmux prefix is `Ctrl + a`
 
 # GPG
 
-See [here](https://wiki.gnupg.org/AgentForwarding) for forwarding setup.
+## Links
+
+* [GPG Quickstart](https://github.com/bfrg/gpg-guide)
+* [GnuPG forwarding setup](https://wiki.gnupg.org/AgentForwarding)
+* [Mac-specific forwarding setup](https://gist.github.com/TimJDFletcher/85fafd023c81aabfad57454111c1564d)
+* [YubiKey commit signing](https://github.com/YubicoLabs/sign-git-commits-yubikey)
+* [YubiKey big guide](https://github.com/drduh/YubiKey-Guide)
 
 ## Useful Commands
 
