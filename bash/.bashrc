@@ -149,7 +149,7 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/nul
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/Library' --exclude '**/.tldrc' --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.local' --exclude '**/.git' --exclude '**/.cache' --exclude '**/.vim' . $HOME"
 
-# Use Dracula theme for bat
+# Use Catppuccin theme for bat
 export BAT_THEME="Catppuccin-mocha"
 
 # Remove bash deprecation warning message on Mac
@@ -158,12 +158,15 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
 
-# Add Go and efm support
+# Add Go path
 [ -d /usr/local/go/bin ] && export PATH=$PATH:/usr/local/go/bin
 if type go >/dev/null 2>/dev/null; then
     PATH=$PATH:$(go env GOPATH)/bin
     export PATH
 fi
+
+# GPG setup
+export GPG_TTY=$(tty)
 
 # Unset setup variables
 unset UNAME DISTRO
