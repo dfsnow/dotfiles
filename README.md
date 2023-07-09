@@ -34,6 +34,7 @@ Tmux prefix is `Ctrl + a`
 
 * [GPG Quickstart](https://github.com/bfrg/gpg-guide)
 * [GnuPG forwarding setup](https://wiki.gnupg.org/AgentForwarding)
+* [Offline master key](https://incenp.org/notes/2015/using-an-offline-gnupg-master-key.html)
 * [Mac-specific forwarding setup](https://gist.github.com/TimJDFletcher/85fafd023c81aabfad57454111c1564d)
 * [YubiKey commit signing](https://github.com/YubicoLabs/sign-git-commits-yubikey)
 * [YubiKey big guide](https://github.com/drduh/YubiKey-Guide)
@@ -46,5 +47,5 @@ Tmux prefix is `Ctrl + a`
 * `gpg --list-secret-keys --keyid-format=long` long IDs
 * `gpgconf --list-dir agent-socket` populate SSH config
 
-Remember to add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config`
+Remember to add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config`. You can append `!` to get a specific key.
 

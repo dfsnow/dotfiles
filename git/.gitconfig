@@ -1,7 +1,7 @@
 [user]
     name = Dan Snow
     email = dan@sno.ws
-    signingkey = C5389003AC500A4A
+    signingkey = 7E773BB13A204904!
 
 [commit]
     gpgsign = true
