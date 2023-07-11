@@ -13,9 +13,6 @@
 [core]
     autocrlf = false
 
-[includeIf "gitdir:/Users/"]
-    path = ~/.mac.gitconfig
-
 [includeIf "gitdir:C:/"]
     path = ~/.ccao.gitconfig
 
