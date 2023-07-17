@@ -111,8 +111,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Add third-party bash feature support
-[ -f ~/dotfiles/vendor/fzf.bash ] \
-    && source ~/dotfiles/vendor/fzf.bash
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/dotfiles/vendor/git-completion.bash ] \
     && source ~/dotfiles/vendor/git-completion.bash
 [ -f ~/dotfiles/vendor/git-prompt.sh ] \
