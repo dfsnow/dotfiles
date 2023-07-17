@@ -1,17 +1,8 @@
-# Installation
-
-```
-cd ~
-git clone https://github.com/dfsnow/dotfiles
-cd ~/dotfiles
-source setup.sh
-```
-
 # Usage
 
 ## Tmux
 
-Tmux prefix is `Ctrl + a`
+Tmux prefix is `Ctrl + a`. To fix agent forwarding, using `fixssh`.
 
 ### Windows
 

@@ -62,3 +62,6 @@ elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
     alias vi='vim'
 fi
+
+# Fix for SSH forwarding in tmux
+alias fixssh='eval $(tmux showenv -s SSH_AUTH_SOCK)'
