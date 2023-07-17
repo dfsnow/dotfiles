@@ -1,5 +1,4 @@
 #!/bin/bash
-# shellcheck disable=1090
 
 # Alias common navigation commands
 alias c='clear'
@@ -12,17 +11,17 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
         (test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)") \
             || eval "$(dircolors -b)"
     fi
-    alias l='ls -hGF --color=auto'
     alias ls='ls -hGF --color=auto'
+    alias l='ls -lahGF --color=auto'
     alias ll='ls -lahGF --color=auto'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     export CLICOLOR=1
-    alias l='ls -hGF'
     alias ls='ls -hGF'
+    alias l='ls -lahGF'
     alias ll='ls -lahGF'
 fi
 
-# Fix for bad dir colors on specific machines
+# Fix bad dir colors on specific machines
 LS_COLORS=$LS_COLORS:'ow=1;34:'
 export LS_COLORS
 
@@ -41,6 +40,12 @@ for al in $(git config --get-regexp '^alias\.' | cut -f 1 -d ' ' | cut -f 2 -d '
 done
 unset al
 
+# Lazygit aliases if installed
+if type lazygit > /dev/null 2> /dev/null; then
+    alias lg='lazygit'
+    alias gg='lazygit'
+fi
+
 # Aliases for directory backtracking
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -57,19 +62,3 @@ elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
     alias vi='vim'
 fi
-
-# Setup Z with fzf
-source ~/dotfiles/z.sh
-unalias z 2> /dev/null
-z() {
-    [ $# -gt 0 ] && _z "$*" && return
-    cd "$(_z -l 2>&1 | fzf \
-        --height 40% \
-        --nth 2.. \
-        --reverse \
-        --inline-info +s \
-        --tac \
-        --query "${*##-* }" \
-        | sed 's/^[0-9,.]* *//')" \
-        || return
-}

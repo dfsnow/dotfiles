@@ -109,25 +109,27 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
-# Add fzf support
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] \
-    && source /usr/share/doc/fzf/examples/key-bindings.bash
-
-# Add git bash completion
-[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
-[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh __git_complete g __git_main
+# Add third-party bash feature support
+[ -f ~/dotfiles/vendor/fzf.bash ] \
+    && source ~/dotfiles/vendor/fzf.bash
+[ -f ~/dotfiles/vendor/git-completion.bash ] \
+    && source ~/dotfiles/vendor/git-completion.bash
+[ -f ~/dotfiles/vendor/git-prompt.sh ] \
+    && source ~/dotfiles/vendor/git-prompt.sh __git_complete g __git_main
+[ -f ~/.cargo/env ] && source ~/.cargo/env
 
 # Add alias definitions
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
-# Add cargo support
-[ -f ~/.cargo/env ] && source ~/.cargo/env
+[ -f ~/dotfiles/bash/.bash_aliases ] \
+    && source ~/dotfiles/bash/.bash_aliases
 
 
 ###############################################################
 # => Exports env vars
 ###############################################################
+
+# GPG pinentry setup
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # Set editor to best available
 if type nvim >/dev/null 2>/dev/null; then
@@ -159,16 +161,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
-
-# Add Go path
-[ -d /usr/local/go/bin ] && export PATH=$PATH:/usr/local/go/bin
-if type go >/dev/null 2>/dev/null; then
-    PATH=$PATH:$(go env GOPATH)/bin
-    export PATH
-fi
-
-# GPG setup
-export GPG_TTY=$(tty)
 
 # Unset setup variables
 unset UNAME DISTRO
