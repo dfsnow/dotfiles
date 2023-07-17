@@ -55,14 +55,15 @@ __set_bash_prompt()
     local PreGitPS1="${debian_chroot:+($debian_chroot)}"
     local PostGitPS1=""
 
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        PreGitPS1+="($(basename $VIRTUAL_ENV)) "
+    fi
+
     if [[ $__colourise_prompt ]]; then
         export GIT_PS1_SHOWCOLORHINTS=1
         local BGre='\[\e[1;32m\]'
         local BBlu='\[\e[1;34m\]'
         local None='\[\e[0m\]'
-        if [[ -n "$VIRTUAL_ENV" ]]; then
-            PreGitPS1+="($(basename $VIRTUAL_ENV)) "
-        fi
         PreGitPS1+="$BGre\u@\h$None:$BBlu\w$None"
     else
         unset GIT_PS1_SHOWCOLORHINTS

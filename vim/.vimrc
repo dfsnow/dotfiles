@@ -131,7 +131,7 @@ set noshowmode
 set timeoutlen=300
 set termguicolors
 syntax enable
-
+colorscheme delek
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -762,14 +762,4 @@ endif
 nmap <leader>c :Commentary<cr>
 vmap <leader>c :Commentary<cr>
 
-" Conditionally use neovim version of catppuccin
-function! CheckColorscheme(name) abort
-    let pat = "colors/".a:name.".vim"
-    return !empty(globpath(&rtp, pat))
-endfunction
-
-if CheckColorscheme("catppuccin-mocha")
-  colorscheme catppuccin-mocha
-else
-  colorscheme catppuccin_mocha
-endif
+colorscheme catppuccin-mocha
