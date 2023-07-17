@@ -3,10 +3,6 @@ call plug#begin("~/.vim/vim-plug")
 if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
 
     " Git Integration
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-rhubarb'
-    Plug 'shumphrey/fugitive-gitlab.vim'
-    Plug 'junegunn/gv.vim'
     Plug 'lewis6991/gitsigns.nvim'
 
     " Diagnostics and Treesitter

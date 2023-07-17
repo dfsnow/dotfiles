@@ -221,17 +221,12 @@ wk.register({
 }, { prefix = "<leader>" })
 
 wk.register({
-  G = { "<cmd>Git<cr>"                                , "Open git"           },
   g = {
     name = "git",
     b = { "<cmd>lua require'gitsigns'.blame_line{}<CR>", "View line blame"   },
-    o = { "<cmd>Git<cr>"                              , "Open git"           },
-    B = { "<cmd>Git blame<cr>"                        , "View full blame"    },
-    c = { "<cmd>Git commit<cr>"                       , "Create commit"      },
     g = { "<cmd>Gitsigns toggle_signs<cr>"            , "Toggle git signs"   },
     d = { "<cmd>Gitsigns preview_hunk<cr>"            , "View diff preview"  },
     D = { "<cmd>Gitsigns diffthis<cr>"                , "View full diff"     },
-    P = { "<cmd>Git push<cr>"                         , "Push to remote"     },
     n = { "<cmd>Gitsigns next_hunk<cr>"               , "Next hunk"          },
     p = { "<cmd>Gitsigns prev_hunk<cr>"               , "Previous hunk"      },
     u = { "<cmd>Gitsigns reset_hunk<cr>"              , "Undo hunk"          },
@@ -239,8 +234,6 @@ wk.register({
     s = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
     S = { "<cmd>Gitsigns stage_buffer<cr>"            , "Stage buffer"       },
     h = { "<cmd>Gitsigns toggle_linehl<cr>"           , "Toggle highlights"  },
-    v = { "<cmd>GV!<cr>"                              , "Browse file commits"},
-    V = { "<cmd>GV<cr>"                               , "Browse all commits" },
     f = {
       name = "search",
       c = { "<cmd>Telescope git_commits<cr>"          , "Commits"            },
@@ -251,10 +244,6 @@ wk.register({
     }
   }
 }, { prefix = "<leader>" })
-
-wk.register({
-  gb = { "<cmd>GBrowse<cr>"                           , "View git upstream"  },
-}, { mode = { "n", "v", "o" } })
 
 wk.register({
   s = {
