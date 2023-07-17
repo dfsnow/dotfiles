@@ -57,9 +57,9 @@ __set_bash_prompt()
 
     if [[ $__colourise_prompt ]]; then
         export GIT_PS1_SHOWCOLORHINTS=1
-        local BGre='\[\e[1;32m\]';
-        local BBlu='\[\e[1;34m\]';
-        local None='\[\e[0m\]' # Return to default colour
+        local BGre='\[\e[1;32m\]'
+        local BBlu='\[\e[1;34m\]'
+        local None='\[\e[0m\]'
         if [[ -n "$VIRTUAL_ENV" ]]; then
             PreGitPS1+="($(basename $VIRTUAL_ENV)) "
         fi
@@ -111,7 +111,8 @@ fi
 
 # Add fzf support
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+[ -f /usr/share/doc/fzf/examples/key-bindings.bash ] \
+    && source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # Add git bash completion
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
@@ -141,16 +142,17 @@ export EDITOR="$VISUAL"
 # For Debian systems add alias for fd, since fd is fdfind in apt
 if echo "$DISTRO" | grep -q "debian"; then alias fd=fdfind; fi
 export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
---layout=reverse"
+    --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+    --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+    --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+    --layout=reverse"
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type d --follow --hidden --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/Library' --exclude '**/.tldrc' --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.local' --exclude '**/.git' --exclude '**/.cache' --exclude '**/.vim' . $HOME"
-
-# Use Catppuccin theme for bat
-export BAT_THEME="Catppuccin-mocha"
+export FZF_ALT_C_COMMAND="fd --type d --follow --hidden \
+    --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/Library' \
+    --exclude '**/.tldrc' --exclude '**/.tldr' --exclude '**/.cargo' \
+    --exclude '**/.local' --exclude '**/.git' --exclude '**/.cache' \
+    --exclude '**/.vim' . $HOME"
 
 # Remove bash deprecation warning message on Mac
 export BASH_SILENCE_DEPRECATION_WARNING=1

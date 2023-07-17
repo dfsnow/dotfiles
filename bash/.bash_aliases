@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=1090
 
 # Alias common navigation commands
 alias c='clear'
@@ -8,8 +9,7 @@ alias ld='du -h -d 1'
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     # Enable color support of ls and also add handy aliases
     if [ -x /usr/bin/dircolors ]; then
-        test -r ~/.dircolors \
-            && eval "$(dircolors -b ~/.dircolors)" \
+        (test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)") \
             || eval "$(dircolors -b)"
     fi
     alias l='ls -hGF --color=auto'
@@ -20,11 +20,11 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias l='ls -hGF'
     alias ls='ls -hGF'
     alias ll='ls -lahGF'
-    o() {
-        open --reveal "${1:-.}"
-    }
 fi
-LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
+
+# Fix for bad dir colors on specific machines
+LS_COLORS=$LS_COLORS:'ow=1;34:'
+export LS_COLORS
 
 # Git related aliases automatically added by .gitconfig
 alias g='git'
@@ -63,5 +63,13 @@ source ~/dotfiles/z.sh
 unalias z 2> /dev/null
 z() {
     [ $# -gt 0 ] && _z "$*" && return
-    cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')" || return
+    cd "$(_z -l 2>&1 | fzf \
+        --height 40% \
+        --nth 2.. \
+        --reverse \
+        --inline-info +s \
+        --tac \
+        --query "${*##-* }" \
+        | sed 's/^[0-9,.]* *//')" \
+        || return
 }
