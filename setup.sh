@@ -59,7 +59,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         fi
     }
 
-    for pkg in stow neovim tmux git fzf fd ripgrep zstd bash bash-completion mosh; do
+    for pkg in stow neovim tmux git fzf fd ripgrep zstd bash bash-completion mosh lazygit; do
         __install_or_upgrade "$pkg"
     done
 
@@ -69,10 +69,6 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # Hush login message
     touch ~/.hushlogin
 fi
-
-# Install vim-plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Create symlinks to all files and folders using GNU stow
 for pkg in tmux bash git vim nvim; do
@@ -84,6 +80,3 @@ echo "Config files stowed"
 bind -f ~/.inputrc
 source ~/.bashrc
 echo "Bash configs installed"
-
-# Install vim plugins
-vi --noplugin +PlugInstall +qa
