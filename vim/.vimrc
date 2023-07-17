@@ -1,67 +1,50 @@
 call plug#begin("~/.vim/vim-plug")
 
-if has("nvim-0.8.0") && ($NVIM_EDITOR_CONFIG == "ADVANCED")
-
-    " Git Integration
-    Plug 'lewis6991/gitsigns.nvim'
-
-    " Diagnostics and Treesitter
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-
-    " UI and Colors
-    Plug 'catppuccin/nvim'
-    Plug 'nvim-lualine/lualine.nvim'
-    Plug 'kosayoda/nvim-lightbulb'
-    Plug 'lukas-reineke/indent-blankline.nvim'
-    Plug 'akinsho/toggleterm.nvim', { 'tag' : '*' }
-    Plug 'elihunter173/dirbuf.nvim'
-
-    " Movement and Search
-    Plug 'phaazon/hop.nvim'
-    Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-    Plug 'nvim-telescope/telescope-ui-select.nvim'
-
-    " Completion and Snippets
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'onsails/lspkind.nvim'
-    Plug 'hrsh7th/vim-vsnip'
-    Plug 'hrsh7th/vim-vsnip-integ'
-    Plug 'rafamadriz/friendly-snippets'
-    Plug 'zbirenbaum/copilot.lua'
-
-    " Completion Sources
-    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-vsnip'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/cmp-calc'
-    Plug 'zbirenbaum/copilot-cmp'
-    
-    " Language Integration
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'jose-elias-alvarez/null-ls.nvim'
-    Plug 'simrat39/rust-tools.nvim'
-
-    " WhichKey
-    Plug 'folke/which-key.nvim'
-
-else
-
-  " Use vim theme as a backup for nvim version
-  Plug 'catppuccin/vim', { 'as': 'catppuccin' }
-
-endif
-
-" tpope base for only-vim systems
+" Core
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+
+" UI and Colors
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'catppuccin/nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kosayoda/nvim-lightbulb'
+Plug 'lukas-reineke/indent-blankline.nvim'
+
+" Movement and Search
+Plug 'phaazon/hop.nvim'
+Plug 'elihunter173/dirbuf.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-ui-select.nvim'
+Plug 'folke/which-key.nvim'
+
+" Completion and Snippets
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind.nvim'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'zbirenbaum/copilot.lua'
+
+" Completion Sources
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-calc'
+Plug 'zbirenbaum/copilot-cmp'
+
+" Language Integration
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'simrat39/rust-tools.nvim'
 
 call plug#end()
 
@@ -78,8 +61,6 @@ call plug#end()
 "    -> Spell Checking
 "    -> Helper Functions
 "    -> Neovim Settings
-"       -- Git Integration
-"       -- LSP and Treesitter
 "       -- UI and Colors
 "       -- Movement and Search
 "       -- Completion and Snippets
@@ -305,6 +286,15 @@ lua <<EOF
 -- Git Integration
 ---------------------------------------------------------------
 
+
+---------------------------------------------------------------
+-- Diagnostics and Treesitter
+---------------------------------------------------------------
+
+---------------------------------------------------------------
+-- UI and Colors
+---------------------------------------------------------------
+
 require("gitsigns").setup({
   signs = {
     add          = { text = "+" },
@@ -316,74 +306,6 @@ require("gitsigns").setup({
   },
   preview_config = { border = "rounded" }
 })
-
-
----------------------------------------------------------------
--- Diagnostics and Treesitter
----------------------------------------------------------------
-
--- Add floating windows for diagnostics
-vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  update_in_insert = true,
-  underline = true,
-  severity_sort = false,
-  float = {
-    border = "rounded",
-    source = "always",
-    header = "",
-    prefix = ""
-  },
-})
-
--- Add rounded borders to floating windows
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = "rounded" }
-)
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = "rounded" }
-)
-
-require("nvim-treesitter.configs").setup{
-  ensure_installed = { 
-    "lua", "vim",
-    "rust", "c", "cpp", "go",
-    "r", "python", "julia",
-    "javascript", "html", "typescript",
-    "toml", "yaml", "json",
-    "bash", "awk", "jq",
-    "markdown", "markdown_inline",
-    "gitcommit", "gitignore", "gitattributes",
-    "dockerfile", "sql", "comment"
-  },
-  auto_install = false,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = { "markdown" }
-  },
-  ident = { enable = true }, 
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<leader>v",
-      node_incremental = "<leader><CR>",
-      node_decremental = "<leader><BS>"
-    }
-  }
-}
-
-
----------------------------------------------------------------
--- UI and Colors
----------------------------------------------------------------
 
 require("catppuccin").setup({
   integrations = { which_key = true },
@@ -405,7 +327,6 @@ require("lualine").setup({
     component_separators = "",
     theme = "catppuccin"
   },
-  extensions = { "toggleterm", "fugitive" },
   tabline = {
     lualine_a = {
       { "buffers", symbols = { modified = "[+]", alternate_file = "" } }
@@ -428,22 +349,6 @@ require("indent_blankline").setup({
   show_current_context = true,
   show_end_of_line = true,
   space_char_blankline = " ",
-})
-
-require("toggleterm").setup({
-  size = function(term)
-    if term.direction == "horizontal" then
-      return math.floor(vim.o.lines * 0.4)
-    elseif term.direction == "vertical" then
-      return math.floor(vim.o.columns * 0.4)
-    end
-  end,
-  float_opts = {
-    border = "curved",
-    height = math.floor(vim.o.lines * 0.85),
-    width = math.floor(vim.o.columns * 0.90)
-  },
-  shade_terminals = true
 })
 
 
@@ -564,7 +469,6 @@ cmp.setup({
     { name = "nvim_lsp",   max_item_count = 9, keyword_length = 1 },
     { name = "buffer",     max_item_count = 9, keyword_length = 2 },
     { name = "copilot",    max_item_count = 4 },
-    { name = "vsnip",      max_item_count = 5 },
     { name = "nvim_lsp_signature_help" },
     { name = "calc" },
   },
@@ -608,16 +512,74 @@ function toggleAutoCmp()
   end
 end
 
--- require("copilot").setup({
---   suggestion = { enabled = false },
---   panel = { enabled = false },
--- })
--- require("copilot_cmp").setup()
+require("copilot").setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+require("copilot_cmp").setup()
 
 
 ---------------------------------------------------------------
 -- Language Integration
 ---------------------------------------------------------------
+
+-- Add floating windows for diagnostics
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  update_in_insert = true,
+  underline = true,
+  severity_sort = false,
+  float = {
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = ""
+  },
+})
+
+-- Add rounded borders to floating windows
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = "rounded" }
+)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  { border = "rounded" }
+)
+
+require("nvim-treesitter.configs").setup{
+  ensure_installed = { 
+    "lua", "vim",
+    "rust", "c", "cpp", "go",
+    "r", "python", "julia",
+    "javascript", "html", "typescript",
+    "toml", "yaml", "json",
+    "bash", "awk", "jq",
+    "markdown", "markdown_inline",
+    "gitcommit", "gitignore", "gitattributes",
+    "dockerfile", "sql", "comment"
+  },
+  auto_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = { "markdown" }
+  },
+  ident = { enable = true }, 
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<leader>v",
+      node_incremental = "<leader><CR>",
+      node_decremental = "<leader><BS>"
+    }
+  }
+}
 
 local lspconfig = require("lspconfig")
 lspconfig.r_language_server.setup{}

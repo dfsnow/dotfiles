@@ -258,17 +258,6 @@ wk.register({
 }, { prefix = "<leader>" })
 
 wk.register({
-  t = {
-    name = "term",
-    t = { "<cmd>ToggleTerm<cr>"                     , "Toggle current"       },
-    v = { "<cmd>ToggleTerm direction=vertical<cr>"  , "New (vertical)"       },
-    h = { "<cmd>ToggleTerm direction=horizontal<cr>", "New (horizontal)"     },
-    f = { "<cmd>ToggleTerm direction=float<cr>"     , "New (float)"          },
-    a = { "<cmd>ToggleTermToggleAll<cr>"            , "Toggle all"           },
-  }
-}, { prefix = "<leader>" })
-
-wk.register({
   z = {
     name = "fold",
     t = { "zi"                            , "Toggle folding"                 },
