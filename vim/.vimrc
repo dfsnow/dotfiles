@@ -14,7 +14,7 @@ Plug 'kosayoda/nvim-lightbulb'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Movement and Search
-Plug 'phaazon/hop.nvim'
+Plug 'ggandor/leap.nvim'
 Plug 'elihunter173/dirbuf.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -356,7 +356,7 @@ require("indent_blankline").setup({
 -- Movement and Search
 ---------------------------------------------------------------
 
-require("hop").setup()
+require("leap").add_default_mappings()
 
 actions = require("telescope.actions")
 require("telescope").load_extension("fzf")
