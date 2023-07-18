@@ -59,7 +59,7 @@ set noshowmode
 set timeoutlen=300
 set termguicolors
 syntax enable
-colorscheme habamax
+colorscheme slate
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -197,9 +197,3 @@ endfun
 if has("autocmd")
   autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.md,*.R,*.Rmd,*.qmd,*.css,*.html,*.yaml,*.toml :call CleanExtraSpaces()
 endif
-
-" Add diagnostic floating window
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-
-" Automatically highlight yanked text
-autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
