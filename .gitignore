@@ -1,3 +1,4 @@
 *.spl
 lazygit/*
 !lazygit/.config/lazygit/config.yml
+nvim/.config/nvim/lazy-lock.json
