@@ -1,6 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       {
         "zbirenbaum/copilot.lua",
@@ -9,7 +10,12 @@ return {
           panel = { enabled = false }
         }
       },
-      "zbirenbaum/copilot-cmp",
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end
+      },
       "onsails/lspkind.nvim",
       "hrsh7th/vim-vsnip",
       "hrsh7th/vim-vsnip-integ",
