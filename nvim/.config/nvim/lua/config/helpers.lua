@@ -1,22 +1,26 @@
 -- Hide eol and space characters
-vim.g.zen_toggle_flag = false
+vim.b.zen_toggle_flag = false
 function toggleZenMode()
-  local next_zen_toggle_flag = not vim.g.zen_toggle_flag
+  local next_zen_toggle_flag = not vim.b.zen_toggle_flag
   if next_zen_toggle_flag then
     print("Zen mode on")
+    vim.opt_local.list = false
+    vim.b.indent_blankline_enabled = false
+    vim.b.zen_toggle_flag = next_zen_toggle_flag
+
+    local original_fold_flag = vim.opt_local.foldenable:get()
+    if original_fold_flag then
+      next_fold_flag = original_fold_flag
+      vim.opt_local.foldenable = false
+    end
   else
     print("Zen mode off")
-  end
-  if next_zen_toggle_flag then
-    vim.cmd("IndentBlanklineDisable")
-    vim.opt.list = false
-    vim.opt.foldenable = false
-    vim.g.zen_toggle_flag = next_zen_toggle_flag
-  else
-    vim.cmd("IndentBlanklineEnable")
-    vim.opt.list = true
-    vim.opt.foldenable = true
-    vim.g.zen_toggle_flag = next_zen_toggle_flag
+    vim.opt_local.list = true
+    vim.b.indent_blankline_enabled = true
+    vim.b.zen_toggle_flag = next_zen_toggle_flag
+    if next_fold_flag then
+      vim.opt_local.foldenable = true
+    end
   end
 end
 
