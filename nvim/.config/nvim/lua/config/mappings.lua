@@ -63,6 +63,7 @@ wk.register({
 wk.register({
   ["<leader>"] = {
     name = "+leader",
+    L = { "<cmd>Lazy<cr>"                      , "Open Lazy"                 },
     Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
     x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
@@ -91,8 +92,8 @@ wk.register({
     ["<Tab>"]    = { "Next window"                                           },
     ["."]        = { "<cmd>e .<CR>"            , "Open current directory"    },
     ["<leader>"] = {
-      "<cmd>Telescope find_files<cr>",
-      "Search files"
+      "<cmd>Telescope git_files<cr>",
+      "Search git files"
     },
     ["?"]        = {
       "<cmd>Telescope live_grep<cr>",
