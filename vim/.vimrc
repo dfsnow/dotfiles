@@ -59,7 +59,6 @@ set noshowmode
 set timeoutlen=300
 set termguicolors
 syntax enable
-colorscheme slate
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
