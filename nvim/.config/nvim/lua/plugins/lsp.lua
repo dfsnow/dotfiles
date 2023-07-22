@@ -1,7 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    ft = { "r", "rmd", "qmd", "py", "html", "css" },
+    ft = { "r", "rmd", "quarto", "python", "html", "css" },
     config = function()
       local lspconfig = require("lspconfig")
       lspconfig.r_language_server.setup{}
@@ -38,8 +38,9 @@ return {
 
   {
     "simrat39/rust-tools.nvim",
-    ft = "rs",
+    ft = "rust",
     config = function()
+      local wk = require("which-key")
       local rt = require("rust-tools")
       rt.setup({
         tools = {
