@@ -16,13 +16,18 @@ return {
           require("copilot_cmp").setup()
         end
       },
+      {
+	"L3MON4D3/LuaSnip",
+	version = "2.*",
+	build = "make install_jsregexp",
+        dependencies = { 
+          "rafamadriz/friendly-snippets",
+          "saadparwaiz1/cmp_luasnip"
+        }
+      },
       "onsails/lspkind.nvim",
-      "hrsh7th/vim-vsnip",
-      "hrsh7th/vim-vsnip-integ",
-      "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-vsnip",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
@@ -36,12 +41,11 @@ return {
         return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
       end
 
-      local feedkey = function(key, mode)
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-      end
-
       local cmp = require("cmp")
       local lspkind = require("lspkind")
+      local luasnip = require("luasnip")
+      require("luasnip.loaders.from_vscode").lazy_load()
+
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -59,37 +63,41 @@ return {
       })
 
       cmp.setup({
-        snippet = {
-          expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-          end,
-        },
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif vim.fn["vsnip#available"](1) == 1 then
-              feedkey("<Plug>(vsnip-expand-or-jump)", "")
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
             elseif has_words_before() then
               cmp.complete()
             else
               fallback()
             end
           end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function()
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-              feedkey("<Plug>(vsnip-jump-prev)", "")
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
             end
           end, { "i", "s" }),
           ["<C-p>"] = cmp.mapping.scroll_docs(-4),
           ["<C-n>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false
+          ["<CR>"] = cmp.mapping({
+            i = function(fallback)
+              if cmp.visible() and cmp.get_active_entry() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+              else
+                fallback()
+              end
+            end,
+            s = cmp.mapping.confirm({ select = true }),
+            c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
           })
         },
         sources = {
@@ -97,6 +105,7 @@ return {
           { name = "nvim_lsp",   max_item_count = 9, keyword_length = 1 },
           { name = "buffer",     max_item_count = 9, keyword_length = 2 },
           { name = "copilot",    max_item_count = 4 },
+          { name = "luasnip",    max_item_count = 4 },
           { name = "nvim_lsp_signature_help" },
           { name = "calc" },
         },
