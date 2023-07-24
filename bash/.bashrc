@@ -59,17 +59,29 @@ __set_bash_prompt()
         PreGitPS1+="($(basename $VIRTUAL_ENV)) "
     fi
 
-    if [[ $__colourise_prompt ]]; then
-        export GIT_PS1_SHOWCOLORHINTS=1
-        local BGre='\[\e[1;32m\]'
-        local BBlu='\[\e[1;34m\]'
-        local None='\[\e[0m\]'
-        PreGitPS1+="$BGre\u@\h$None:$BBlu\w$None"
-    else
-        unset GIT_PS1_SHOWCOLORHINTS
-        PreGitPS1="${debian_chroot:+($debian_chroot)}\u@\h:\w"
-    fi
-
+    local Title='\033]0;'
+    local Bell='\007'
+    local BGre='\[\e[1;32m\]'
+    local BBlu='\[\e[1;34m\]'
+    local None='\[\e[0m\]'
+    case "$TERM" in 
+        xterm*|screen*) 
+            if [[ $__colourise_prompt ]]; then
+                export GIT_PS1_SHOWCOLORHINTS=1
+                PreGitPS1+="\[$Title\u@\h$Bell\]$BBlu\w$None"
+            else
+                unset GIT_PS1_SHOWCOLORHINTS
+                PreGitPS1+="\[$Title\u@\h$Bell\]\w"
+            fi
+        ;;
+         *)
+         if [[ $__colourise_prompt ]]; then
+            export GIT_PS1_SHOWCOLORHINTS=1
+            PreGitPS1+="\[$Title\u@\h$Bell\]$BGre\u@\h$None:$BBlu\w$None"
+        else
+            PreGitPS1+="\u@\h:\w"
+        fi
+    esac
     PostGitPS1+="$None"'\$ '"$None"
     __git_ps1 "$PreGitPS1" "$PostGitPS1" ' (%s)'
 }
