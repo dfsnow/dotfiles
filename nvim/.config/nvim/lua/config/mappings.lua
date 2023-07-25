@@ -96,10 +96,6 @@ wk.register({
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
     ["."]        = { "<cmd>e .<CR>"            , "Open current directory"    },
-    ["<leader>"] = {
-      "<cmd>Telescope git_files<cr>",
-      "Search git files"
-    },
     ["?"]        = {
       "<cmd>Telescope live_grep<cr>",
       "Grep in project"
@@ -129,7 +125,7 @@ wk.register({
 wk.register({
   d = {
     name = "lsp",
-    R = { "Rename identifer"                                                 },
+    R = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename identifer"    },
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
     r = { "<cmd>lua vim.lsp.buf.references()<cr>"    , "Show references"     },
@@ -166,16 +162,12 @@ wk.register({
 wk.register({
   f = {
     name = "search",
-    g = { "<cmd>Telescope git_files<cr>"              , "Git files"          },
-    G = { "<cmd>Telescope git_status<cr>"             , "Git status"         },
     f = { "<cmd>Telescope find_files<cr>"             , "All files"          },
     b = { "<cmd>Telescope buffers<cr>"                , "Buffers"            },
     w = { "<cmd>Telescope grep_string<cr>"            , "Grep current word"  },
     m = { "<cmd>Telescope marks<cr>"                  , "Marks"              },
     h = { "<cmd>Telescope command_history<cr>"        , "Command history"    },
-    c = { "<cmd>Telescope git_commits<cr>"            , "Git commits"        },
     r = { "<cmd>Telescope live_grep<cr>"              , "Grep in project"    },
-    l = { "<cmd>Telescope live_grep<cr>"              , "which_key_ignore"   },
     s = { "<cmd>Telescope spell_suggest<cr>"          , "Spellings"          },
     l = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Grep in buffer"   },
   }
@@ -195,14 +187,6 @@ wk.register({
     s = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
     S = { "<cmd>Gitsigns stage_buffer<cr>"            , "Stage buffer"       },
     h = { "<cmd>Gitsigns toggle_linehl<cr>"           , "Toggle highlights"  },
-    f = {
-      name = "search",
-      c = { "<cmd>Telescope git_commits<cr>"          , "Commits"            },
-      C = { "<cmd>Telescope git_bcommits<cr>"         , "Buffer commits"     },
-      b = { "<cmd>Telescope git_branches<cr>"         , "Branches"           },
-      s = { "<cmd>Telescope git_status<cr>"           , "Status"             },
-      S = { "<cmd>Telescope git_stash<cr>"            , "Stash"              },
-    }
   }
 }, { prefix = "<leader>" })
 
@@ -232,3 +216,50 @@ wk.register({
   }
 }, { prefix = "<leader>" })
 
+-- Map <leader><leader> to git files if available, else find files
+local utils = require("telescope.utils")
+local builtin = require("telescope.builtin")
+project_files = function()
+    local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" }) 
+    if ret == 0 then 
+        builtin.git_files() 
+    else 
+        builtin.find_files() 
+    end 
+end
+
+wk.register({
+  ["<leader>"] = {
+    "<cmd>lua project_files()<cr>",
+    "Search git files"
+  }
+}, { prefix = "<leader>" })
+
+-- Map git bindings if in git repo
+local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" }) 
+if ret == 0 then 
+
+  wk.register({
+    g = {
+      name = "git",
+      f = {
+        name = "search",
+        c = { "<cmd>Telescope git_commits<cr>"        , "Commits"            },
+        C = { "<cmd>Telescope git_bcommits<cr>"       , "Buffer commits"     },
+        b = { "<cmd>Telescope git_branches<cr>"       , "Branches"           },
+        d = { "<cmd>Telescope git_status<cr>"         , "Diff"               },
+        S = { "<cmd>Telescope git_stash<cr>"          , "Stash"              },
+      }
+    }
+  }, { prefix = "<leader>" })
+
+  wk.register({
+    f = {
+      g = { "<cmd>Telescope git_files<cr>"            , "Git files"          },
+      d = { "<cmd>Telescope git_status<cr>"           , "Git diff"           },
+      c = { "<cmd>Telescope git_commits<cr>"          , "Git commits"        },
+    }
+  }, { prefix = "<leader>" })
+
+
+end
