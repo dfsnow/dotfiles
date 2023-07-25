@@ -63,6 +63,15 @@ return {
       })
 
       cmp.setup({
+        enabled = function()
+          local context = require 'cmp.config.context'
+          if vim.api.nvim_get_mode().mode == 'c' then
+            return true
+          else
+            return not context.in_treesitter_capture("comment") 
+              and not context.in_syntax_group("Comment")
+          end
+        end,
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -95,9 +104,7 @@ return {
               else
                 fallback()
               end
-            end,
-            s = cmp.mapping.confirm({ select = true }),
-            c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+            end
           })
         },
         sources = {
