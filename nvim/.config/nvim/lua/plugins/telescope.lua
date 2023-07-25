@@ -37,8 +37,8 @@ return {
             i = {
               ["<C-u>"] = false,
               ["<Esc>"] = actions.close,
-              ["<C-j>"] = { actions.move_selection_previous, type = "action" },
-              ["<C-k>"] = { actions.move_selection_next, type = "action" }
+              ["<C-j>"] = { actions.move_selection_next, type = "action" },
+              ["<C-k>"] = { actions.move_selection_previous, type = "action" }
             }
           },
         },

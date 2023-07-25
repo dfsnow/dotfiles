@@ -10,12 +10,12 @@ return {
           return {
             NonText = { fg = colors.surface1 },
             TelescopeMatching = { fg = colors.red },
+            TelescopePromptCounter = { fg = colors.mauve },
             CmpItemAbbr = { fg = colors.text },
             CmpItemAbbrMatch = { fg = colors.red },
             NormalFloat = { bg = colors.none },
             FlashBackdrop = { fg = colors.overlay0 },
             FlashLabel = { fg = colors.base, bg = colors.red },
-            LazyNormal = { bg = colors.mantle }
           }
         end
       })
