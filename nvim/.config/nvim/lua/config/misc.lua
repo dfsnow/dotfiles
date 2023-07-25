@@ -31,6 +31,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.b.indent_blankline_enabled = false
     vim.b.zen_toggle_flag = true
     vim.opt_local.wrap = true
+    vim.opt_local.spell = true
   end
 })
 
