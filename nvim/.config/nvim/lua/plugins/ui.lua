@@ -15,7 +15,7 @@ return {
             NormalFloat = { bg = colors.none },
             FlashBackdrop = { fg = colors.overlay0 },
             FlashLabel = { fg = colors.base, bg = colors.red },
-            -- FlashMatch = { fg = colors.base, bg = "#00dfff" },
+            LazyNormal = { bg = colors.mantle }
           }
         end
       })
@@ -44,6 +44,7 @@ return {
 
   {
     "kosayoda/nvim-lightbulb",
+    event = "LspAttach",
     config = function()
       require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
       vim.fn.sign_define("LightBulbSign", {

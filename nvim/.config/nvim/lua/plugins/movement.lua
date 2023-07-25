@@ -1,6 +1,7 @@
 return {
   {
-    "elihunter173/dirbuf.nvim"
+    "elihunter173/dirbuf.nvim",
+    event = "VeryLazy",
   },
 
   {
