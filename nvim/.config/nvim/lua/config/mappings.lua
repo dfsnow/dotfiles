@@ -26,7 +26,7 @@ wk.register({
   ["%"]       = { "Go to matching bracket"                                   },
   ["R"]       = { "Replace with last yank"                                   },
   ["u"]       = { "Undo"                                                     },
-  ["U"]       = { "Undo line"                                                },
+  ["U"]       = { "Redo"                                                     },
   [";"]       = { "Repeat last move"                                         },
   ["f"]       = { "which_key_ignore"                                         },
   ["F"]       = { "which_key_ignore"                                         },

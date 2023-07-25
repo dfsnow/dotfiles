@@ -69,6 +69,18 @@ return {
     end
   },
 
+  {
+    "tzachar/highlight-undo.nvim",
+    opts = {
+      hlgroup = "IncSearch",
+      duration = 700,
+      keymaps = {
+        {"n", "u", "undo", {}},
+        {"n", "U", "redo", {}},
+      }
+    }
+  },
+
   { 
     "nvim-tree/nvim-web-devicons",
     lazy = true
