@@ -45,7 +45,7 @@ fi
 # Check if colours are supported
 __colour_enabled() {
     local -i colors=$(tput colors 2>/dev/null)
-    [[ $? -eq 0 ]] && [[ $colors -gt 2 ]]
+    [[ $? -eq 0 && $colors -gt 2 ]] || [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]
 }
 unset __colourise_prompt && __colour_enabled && __colourise_prompt=1
 
