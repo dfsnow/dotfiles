@@ -13,7 +13,7 @@ wk.register({
   },
   ["<C-t>"]   = { "<cmd>Telescope find_files<cr>"   , "Search files"         },
   ["K"]       = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show hover info"      },
-  ["-"]       = { "Open parent directory"                                    },
+  ["-"]       = { "<cmd>NvimTreeToggle<cr>"         , "which_key_ignore"     },
   ["<C-A>"]   = { "Increment up"                                             },
   ["<C-X>"]   = { "Increment down"                                           },
   ["<TAB>"]   = { "Next buffer"                                              },
@@ -95,7 +95,10 @@ wk.register({
     ["ll"]       = { "Next buffer"                                           },
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
-    ["."]        = { "<cmd>e .<CR>"            , "Open current directory"    },
+    ["."]        = {
+      "<cmd>NvimTreeToggle<cr>",
+      "Open file tree"
+    },
     ["?"]        = {
       "<cmd>Telescope live_grep<cr>",
       "Grep in project"
