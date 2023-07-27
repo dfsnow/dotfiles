@@ -13,7 +13,6 @@ wk.register({
   },
   ["<C-t>"]   = { "<cmd>Telescope find_files<cr>"   , "Search files"         },
   ["K"]       = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show hover info"      },
-  ["-"]       = { "Open parent directory"                                    },
   ["<C-A>"]   = { "Increment up"                                             },
   ["<C-X>"]   = { "Increment down"                                           },
   ["<TAB>"]   = { "Next buffer"                                              },
@@ -52,6 +51,10 @@ wk.register({
   ["d"]       = { "which_key_ignore"                                         },
   ["y"]       = { "which_key_ignore"                                         },
   ["<SNR>"]   = { "which_key_ignore"                                         },
+  ["-"]       = {
+    "<cmd>lua require('oil').open()<cr>",
+    "Open parent directory" 
+  }
 })
 
 wk.register({ z = { name = "+fold" } })
