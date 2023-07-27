@@ -3,6 +3,12 @@ return {
     "stevearc/oil.nvim",
     event = "VeryLazy",
     opts = {
+      columns = {
+        "permissions",
+        "size",
+        "mtime",
+        "icon"
+      },
       view_options = {
         show_hidden = true,
       },
@@ -14,6 +20,8 @@ return {
         ["?"] = "actions.show_help",
         ["<CR>"] = "actions.select",
         ["<BS>"] = "actions.parent",
+        ["<Esc>"] = "actions.close",
+        ["<Tab>"] = "actions.close",
         ["<leader>-"] = "actions.select_vsplit",
         ["<leader>_"] = "actions.select_split",
         ["<leader><space>"] = "actions.preview",

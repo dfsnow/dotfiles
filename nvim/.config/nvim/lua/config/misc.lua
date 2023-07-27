@@ -25,7 +25,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 
 -- Activate wrapping and zen mode by default for certain filetypes
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = {"markdown", "txt", "rmd", "qmd", "lazy"},
+  pattern = { "markdown", "txt", "rmd", "qmd", "lazy" },
   callback = function()
     vim.opt_local.list = false
     vim.b.indent_blankline_enabled = false

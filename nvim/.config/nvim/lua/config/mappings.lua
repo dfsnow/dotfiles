@@ -98,7 +98,10 @@ wk.register({
     ["ll"]       = { "Next buffer"                                           },
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
-    ["."]        = { "<cmd>e .<CR>"            , "Open current directory"    },
+    ["."]        = {
+      "<cmd>lua require('oil').open('.')<cr>",
+      "Open current directory"
+    },
     ["?"]        = {
       "<cmd>Telescope live_grep<cr>",
       "Grep in project"
