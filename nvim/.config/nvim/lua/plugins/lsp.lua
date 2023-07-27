@@ -4,7 +4,9 @@ return {
     ft = { "r", "rmd", "quarto", "python", "html", "css" },
     config = function()
       local lspconfig = require("lspconfig")
-      lspconfig.r_language_server.setup{}
+      lspconfig.r_language_server.setup{
+        filetypes = { "r", "rmd", "quarto" }
+      }
       lspconfig.pyright.setup{}
       lspconfig.html.setup{}
       lspconfig.cssls.setup{}
