@@ -1,7 +1,10 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    ft = { "r", "rmd", "quarto", "python", "html", "css" },
+    ft = { 
+      "r", "rmd", "quarto", "python",
+      "html", "css", "scss", "less" 
+    },
     config = function()
       local lspconfig = require("lspconfig")
       lspconfig.r_language_server.setup{
