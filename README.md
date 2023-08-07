@@ -19,6 +19,14 @@ Tmux prefix is `Ctrl + a`. To fix agent forwarding, using `fixssh`.
 * `prefix + x` close current pane
 * `prefix + q` kill current session
 
+# SSH
+
+If SSH isn't working on macOS (no identities), use:
+
+```
+ssh-add --apple-use-keychain
+```
+
 # GPG
 
 ## Links
