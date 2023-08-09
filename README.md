@@ -1,50 +1,46 @@
-# Usage
+## tmux
 
-## Tmux
+The tmux prefix is `` ` ``
 
-Tmux prefix is `Ctrl + a`. To fix agent forwarding, using `fixssh`.
+- `prefix + j/k/h/l` - move panes
+- `prefix + t/z` - zoom current pane
+- `prefix + x` - close current pane
+- `prefix + c` - open new window
+- `prefix + &` - close current window
+- `prefix + ,` - rename current window
+- `prefix + n/Tab` - next window
+- `prefix + p/S-Tab` - previous window
+- `prefix + -/H` - split window horizontally
+- `prefix + _/V` - split window vertically
+- `prefix + Esc` - enter copy mode
+- `prefix + Enter` - copy selection
+- `prefix + q` - kill current session
 
-### Windows
+## SSH
 
-* `prefix + c` open new window
-* `prefix + &` close current window
-* `prefix + ,` rename current window
-* `prefix + n` next window
-* `prefix + p` previous window
+To fix agent forwarding, use `fixssh`
 
-### Panes
+If SSH isn't working on macOS (no identities), use `ssh-add --apple-use-keychain`
 
-* `prefix + -` split window horizontally
-* `prefix + _` split window vertically
-* `prefix + x` close current pane
-* `prefix + q` kill current session
+## GPG
 
-# SSH
+### Helpful Links
 
-If SSH isn't working on macOS (no identities), use:
+- [GPG Quickstart](https://github.com/bfrg/gpg-guide)
+- [GnuPG forwarding setup](https://wiki.gnupg.org/AgentForwarding)
+- [Offline master key](https://incenp.org/notes/2015/using-an-offline-gnupg-master-key.html)
+- [Mac-specific forwarding setup](https://gist.github.com/TimJDFletcher/85fafd023c81aabfad57454111c1564d)
+- [YubiKey commit signing](https://github.com/YubicoLabs/sign-git-commits-yubikey)
+- [YubiKey big guide](https://github.com/drduh/YubiKey-Guide)
 
-```
-ssh-add --apple-use-keychain
-```
+### Useful Commands
 
-# GPG
+- `gpg --export -a 07F64768955B38A4A934E3D9C5389003AC500A4A | ssh $HOSTNAME 'gpg --import  -'` export public keys to remote
+- `gpgconf --kill gpg-agent` when remote isn't working
+- `gpg-connect-agent reloadagent /bye` when local agent isn't working
+- `gpg --list-secret-keys --keyid-format=long` long IDs
+- `gpgconf --list-dir agent-socket` populate SSH config
 
-## Links
+Remember to add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config`
 
-* [GPG Quickstart](https://github.com/bfrg/gpg-guide)
-* [GnuPG forwarding setup](https://wiki.gnupg.org/AgentForwarding)
-* [Offline master key](https://incenp.org/notes/2015/using-an-offline-gnupg-master-key.html)
-* [Mac-specific forwarding setup](https://gist.github.com/TimJDFletcher/85fafd023c81aabfad57454111c1564d)
-* [YubiKey commit signing](https://github.com/YubicoLabs/sign-git-commits-yubikey)
-* [YubiKey big guide](https://github.com/drduh/YubiKey-Guide)
-
-## Useful Commands
-
-* `gpg --export -a 07F64768955B38A4A934E3D9C5389003AC500A4A | ssh $HOSTNAME 'gpg --import  -'` export public keys to remote
-* `gpgconf --kill gpg-agent` when remote isn't working
-* `gpg-connect-agent reloadagent /bye` when local agent isn't working
-* `gpg --list-secret-keys --keyid-format=long` long IDs
-* `gpgconf --list-dir agent-socket` populate SSH config
-
-Remember to add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config`. You can append `!` to get a specific key.
-
+You can append `!` to get a specific GPG key
