@@ -91,7 +91,7 @@ nmap <leader>bv :vnew<cr>
 nmap <leader>b- :vnew<cr>
 nmap <leader>bn :enew<cr>
 
-nmap <leader>bd :Bclose<cr>
+nmap <leader>bd :bdelete<cr>
 nmap <leader>bc :Bclose<cr>
 nmap <leader>ba :bufdo bd<cr>
 

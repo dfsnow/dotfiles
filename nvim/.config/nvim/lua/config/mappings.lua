@@ -98,6 +98,14 @@ wk.register({
     ["ll"]       = { "Next buffer"                                           },
     ["hh"]       = { "Previous buffer"                                       },
     ["<Tab>"]    = { "Next window"                                           },
+    ["<Esc>"]    = {
+      "<cmd>bdelete<cr>",
+      "Delete current buffer"
+    },
+    ["<S-Esc>"]  = {
+      "<cmd>Bclose<cr>",
+      "which_key_ignore"
+    },
     ["."]        = {
       "<cmd>lua require('oil').open('.')<cr>",
       "Open current directory"
