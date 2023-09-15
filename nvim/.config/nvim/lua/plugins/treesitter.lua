@@ -9,7 +9,7 @@ return {
           "rust", "c", "cpp", "go",
           "r", "python", "julia",
           "javascript", "html", "typescript",
-          "toml", "yaml", "json",
+          "toml", "yaml", "json", "terraform",
           "bash", "awk", "jq",
           "markdown", "markdown_inline",
           "gitcommit", "gitignore", "gitattributes",
