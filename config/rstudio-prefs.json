@@ -61,5 +61,6 @@
     "syntax_color_console": true,
     "auto_detect_indentation": true,
     "packages_pane_enabled": false,
-    "save_workspace": "never"
+    "save_workspace": "never",
+    "copilot_enabled": true
 }
