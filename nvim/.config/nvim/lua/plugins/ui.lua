@@ -73,8 +73,13 @@ return {
   {
     "tzachar/highlight-undo.nvim",
     opts = {
-      hlgroup = "IncSearch",
       duration = 700,
+      undo = {
+        hlgroup = "IncSearch",
+      },
+      redo = {
+        hlgroup = "IncSearch",
+      },
       keymaps = {
         {"n", "u", "undo", {}},
         {"n", "U", "redo", {}},
