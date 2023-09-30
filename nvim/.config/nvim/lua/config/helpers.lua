@@ -5,7 +5,7 @@ function toggleZenMode()
   if next_zen_toggle_flag then
     print("Zen mode on")
     vim.opt_local.list = false
-    vim.b.indent_blankline_enabled = false
+    require("ibl").setup_buffer(0, { enabled = false })
     vim.b.zen_toggle_flag = next_zen_toggle_flag
 
     local original_fold_flag = vim.opt_local.foldenable:get()
@@ -16,7 +16,7 @@ function toggleZenMode()
   else
     print("Zen mode off")
     vim.opt_local.list = true
-    vim.b.indent_blankline_enabled = true
+    require("ibl").setup_buffer(0, { enabled = true })
     vim.b.zen_toggle_flag = next_zen_toggle_flag
     if next_fold_flag then
       vim.opt_local.foldenable = true

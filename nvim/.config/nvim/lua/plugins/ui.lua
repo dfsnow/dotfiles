@@ -58,14 +58,17 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     lazy = false,
+    main = "ibl",
     config = function()
       vim.opt.list = true
       vim.opt.listchars:append "eol:↴"
       vim.opt.listchars:append "space:⋅"
       require("ibl").setup({
-        show_current_context = true,
-        show_end_of_line = true,
-        space_char_blankline = " ",
+        config = {
+          scope = {
+            enabled = true
+          }
+        }
       })
     end
   },
