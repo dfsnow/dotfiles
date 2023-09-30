@@ -17,27 +17,56 @@ return {
   },
 
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "stevearc/conform.nvim",
+    ft = { "sh", "python", "json" },
     config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({ default_timeout = 20000 })
-      null_ls.register({ 
-        null_ls.builtins.code_actions.shellcheck,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.formatting.shfmt.with({
-          extra_args = { "-i", "4", "-bn", "-sr", "-p", "-ci" }
-        })
+      require("conform").setup({
+        formatters_by_ft = {
+          sh = { "shfmt" },
+          python = { "isort", "autopep8" },
+          json = { "jq" },
+        },
       })
-      null_ls.register({ 
-        null_ls.builtins.diagnostics.sqlfluff,
-        null_ls.builtins.formatting.sqlfluff
-      })
-      null_ls.register({ 
-        null_ls.builtins.formatting.prettier,
-        null_ls.builtins.formatting.autopep8,
-        null_ls.builtins.formatting.styler,
-        null_ls.builtins.formatting.jq
-      })
+      local util = require("conform.util")
+      util.add_formatter_args(
+        require("conform.formatters.shfmt"),
+        { "-i", "4", "-bn", "-sr", "-p", "-ci" }
+      )
+      local wk = require("which-key")
+      wk.register({
+        d = {
+          name = "lsp",
+          F = {
+            "<cmd>lua require('conform').format()<cr>",
+            "Format buffer"
+          },
+        },
+      }, { prefix = "<leader>" })
+    end
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    ft = { "sh", "sql", "python", "yaml", "dockerfile", "markdown" },
+    config = function()
+      require("lint").linters_by_ft = {
+        sh = { "shellcheck" },
+        sql = { "sqlfluff" },
+        python = { "pylint", "flake8" },
+        yaml = { "yamllint", "actionlint" },
+        dockerfile = { "hadolint" },
+        markdown = { "markdownlint" }
+      }
+      local wk = require("which-key")
+      wk.register({
+        d = {
+          name = "lsp",
+          L = {
+            "<cmd>lua require('lint').try_lint()<cr>",
+            "Lint buffer"
+          },
+        },
+      }, { prefix = "<leader>" })
     end
   },
 
