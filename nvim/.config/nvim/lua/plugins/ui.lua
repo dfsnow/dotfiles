@@ -55,20 +55,32 @@ return {
       })
     end
   },
+
   {
     "lukas-reineke/indent-blankline.nvim",
     lazy = false,
     main = "ibl",
+    priority = 1000,
     config = function()
       vim.opt.list = true
       vim.opt.listchars:append "eol:↴"
       vim.opt.listchars:append "space:⋅"
       require("ibl").setup({
-        config = {
-          scope = {
-            enabled = true
-          }
+        scope = {
+          enabled = true
         }
+      })
+
+      -- Activate wrapping and zen mode by default for certain filetypes
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "markdown", "txt", "rmd", "qmd", "lazy" },
+        callback = function()
+          vim.opt_local.list = false
+          require("ibl").setup_buffer(0, { enabled = false })
+          vim.b.zen_toggle_flag = true
+          vim.opt_local.wrap = true
+          vim.opt_local.spell = true
+        end
       })
     end
   },
