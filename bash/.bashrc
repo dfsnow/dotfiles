@@ -120,6 +120,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     if [ -f "$(brew --prefix)"/etc/profile.d/bash_completion.sh ]; then
         . "$(brew --prefix)"/etc/profile.d/bash_completion.sh
     fi
+    # Use keychain for SSH password
+    ssh-add --apple-use-keychain -q
 fi
 
 # Add third-party bash feature support
