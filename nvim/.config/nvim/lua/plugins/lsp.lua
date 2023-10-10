@@ -3,7 +3,8 @@ return {
     "neovim/nvim-lspconfig",
     ft = { 
       "r", "rmd", "quarto", "python",
-      "html", "css", "scss", "less" 
+      "html", "css", "scss", "less",
+      "yaml"
     },
     config = function()
       local lspconfig = require("lspconfig")
@@ -13,6 +14,7 @@ return {
       lspconfig.pyright.setup{}
       lspconfig.html.setup{}
       lspconfig.cssls.setup{}
+      lspconfig.yamlls.setup{}
     end
   },
 
@@ -53,7 +55,6 @@ return {
         sh = { "shellcheck" },
         sql = { "sqlfluff" },
         python = { "pylint", "flake8" },
-        yaml = { "yamllint", "actionlint" },
         dockerfile = { "hadolint" },
         markdown = { "markdownlint" }
       }
