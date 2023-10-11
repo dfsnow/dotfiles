@@ -128,8 +128,8 @@ nnoremap R diw"0P
 vnoremap R "_d"0P"
 
 " Keep text selected on indent
-vnoremap < <gv
-vnoremap > >gv
+vnoremap < <gv<esc>
+vnoremap > >gv<esc>
 vmap y ygv<esc>
 
 " Copy and paste to system clipboard

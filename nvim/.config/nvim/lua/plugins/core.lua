@@ -6,7 +6,7 @@ return {
     "tpope/vim-commentary",
     config = function()
       vim.cmd([[nmap <leader>c :Commentary<cr>]])
-      vim.cmd([[vmap <leader>c :Commentary<cr>gv]])
+      vim.cmd([[vmap <leader>c :Commentary<cr>gv<esc>]])
     end
   }
 }
