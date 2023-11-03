@@ -52,7 +52,7 @@
 
     s = status -s -b
     co = checkout
-    cob = checkout -b
+    n = checkout -b
 
     ss = stash
     sl = stash list
@@ -69,15 +69,15 @@
 
     # Get ID and GPG key
     w = "!echo $(git var GIT_COMMITTER_IDENT) $(git config --get user.signingkey)"
+    who = w
 
     # Show pretty logs
     l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
     lg = "!git log --graph --pretty=oneline --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
     b = branch
-    # List branches sorted by last modified
-    bl = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-    # Delete local branches with no remote
+    bl = branch -a
+    # Delete local branches with merged/removed remote
     bd = "!git branch --v | grep 'gone]' | awk '{print $1}' | xargs git branch -D"
 
     # List aliases
@@ -85,7 +85,5 @@
 
     # How many commits have been made by different authors
     lw = shortlog -n -s --no-merges
-
     lc = "!git ls-files | while read f; do git blame -w --line-porcelain -- \"$f\" | grep -I '^author-mail '; done | sed 's/@.*//g'| sed 's/<//g' | sort -f | uniq -ic | sort -nr"
-
     lh = "!git log --numstat --pretty=\"%ae %H\" | sed 's/@.*//g' | awk '{ if (NF == 1){ name = $1}; if(NF == 3) {plus[name] += $1; minus[name] += $2}} END { for (name in plus) {print name\": +\"plus[name]\" -\"minus[name]}}' | sort -k2 -gr"
