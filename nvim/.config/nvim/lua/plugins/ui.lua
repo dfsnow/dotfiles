@@ -34,10 +34,21 @@ return {
         component_separators = "",
         theme = "catppuccin"
       },
+      sections = {
+        lualine_c = {{
+          "filename",
+          path = 4
+        }},
+      },
       tabline = {
-        lualine_a = {
-          { "buffers", symbols = { modified = "[+]", alternate_file = "" } }
-        }
+        lualine_a = {{
+          "buffers",
+          max_length = vim.o.columns,
+          symbols = {
+            modified = "[+]",
+            alternate_file = ""
+          } 
+        }}
       }
     }
   },
