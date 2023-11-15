@@ -36,7 +36,7 @@ return {
       },
       tabline = {
         lualine_a = {
-          { "filename", path = 4 }
+          { "buffers", symbols = { modified = "[+]", alternate_file = "" } }
         }
       }
     }
