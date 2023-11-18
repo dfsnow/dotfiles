@@ -1,6 +1,9 @@
 return {
   {
     "stevearc/oil.nvim",
+    dependencies = {
+      "nvim-telescope/telescope.nvim"
+    },
     opts = {
       default_file_explorer = true,
       columns = {
@@ -14,6 +17,19 @@ return {
       },
       buf_options = {
         bufhidden = "wipe"
+      },
+      float = {
+        override = function(conf)
+          local w = math.floor(vim.o.columns * 0.88)
+          local h = math.floor(vim.o.lines * 0.75)
+          local r = math.floor((vim.o.lines - h) / 2 - 1)
+          local c = math.floor((vim.o.columns - w) / 2 - 1)
+	  conf["width"] = w
+	  conf["height"] = h
+          conf["row"] = r
+          conf["col"] = c
+	  return(conf)
+        end
       },
       use_default_keymaps = false,
       keymaps = {

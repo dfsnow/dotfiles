@@ -52,7 +52,7 @@ wk.register({
   ["y"]       = { "which_key_ignore"                                         },
   ["<SNR>"]   = { "which_key_ignore"                                         },
   ["-"]       = {
-    "<cmd>lua require('oil').open()<cr>",
+    "<cmd>lua require('oil').open_float()<cr>",
     "Open parent directory" 
   }
 })
@@ -107,7 +107,7 @@ wk.register({
       "which_key_ignore"
     },
     ["."]        = {
-      "<cmd>lua require('oil').open('.')<cr>",
+      "<cmd>lua require('oil').open_float('.')<cr>",
       "Open current directory"
     },
     ["?"]        = {
