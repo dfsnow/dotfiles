@@ -58,5 +58,35 @@ return {
 	desc = "Flash" 
       }
     }
+  },
+
+  {
+    "chrisgrieser/nvim-spider",
+    config = function()
+      vim.keymap.set(
+        { "n", "o", "x" },
+        "w",
+        "<cmd>lua require('spider').motion('w')<CR>",
+        { desc = "Next word (start)" }
+      )
+      vim.keymap.set(
+        { "n", "o", "x" },
+        "e",
+        "<cmd>lua require('spider').motion('e')<CR>",
+        { desc = "Next word (end)" }
+      )
+      vim.keymap.set(
+        { "n", "o", "x" },
+        "b",
+        "<cmd>lua require('spider').motion('b')<CR>",
+        { desc = "Previous word (start)" }
+      )
+      vim.keymap.set(
+        { "n", "o", "x" },
+        "ge",
+        "<cmd>lua require('spider').motion('ge')<CR>",
+        { desc = "Previous word (end)" }
+      )
+    end
   }
 }
