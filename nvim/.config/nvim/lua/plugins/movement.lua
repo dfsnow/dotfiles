@@ -33,6 +33,7 @@ return {
       },
       use_default_keymaps = false,
       keymaps = {
+        ["-"] = "actions.parent",
         ["?"] = "actions.show_help",
         ["<CR>"] = "actions.select",
         ["<BS>"] = "actions.parent",
