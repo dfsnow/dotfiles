@@ -72,6 +72,11 @@ return {
               and not context.in_syntax_group("Comment")
           end
         end,
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
