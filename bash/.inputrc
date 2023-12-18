@@ -6,6 +6,7 @@ set output-meta on
 set bell-style none
 set editing-mode vi
 set show-mode-in-prompt on
+set keyseq-timeout 250
 set keymap vi-insert
     "\e[B": history-search-forward
     "\e[A": history-search-backward
