@@ -40,6 +40,7 @@ If SSH isn't working on macOS (no identities), use `ssh-add --apple-use-keychain
 - `gpg-connect-agent reloadagent /bye` when local agent isn't working
 - `gpg --list-secret-keys --keyid-format=long` long IDs
 - `gpgconf --list-dir agent-socket` populate SSH config
+- If `gpg -k` hangs locally, try removing lockfiles at `~/.gnupg/*.lock` and `~/.gnupg/public-keys.d/*.lock`
 - On the remote, make sure `SSH_AUTH_SOCK` isn't set (`unset SSH_AUTH_SOCK`)
 
 Remember to add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config`
