@@ -52,6 +52,9 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
+# Don't delete entire filesystems
+alias rm='rm -I'
+
 # Vim/neovim aliases if each installed
 if type nvim > /dev/null 2> /dev/null; then
     alias v='nvim'
