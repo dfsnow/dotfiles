@@ -199,6 +199,7 @@ wk.register({
     u = { "<cmd>Gitsigns reset_hunk<cr>"              , "Undo hunk"          },
     U = { "<cmd>Gitsigns undo_stage_hunk<cr>"         , "Undo stage hunk"    },
     s = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
+    a = { "<cmd>Gitsigns stage_hunk<cr>"              , "Stage hunk"         },
     S = { "<cmd>Gitsigns stage_buffer<cr>"            , "Stage buffer"       },
     h = { "<cmd>Gitsigns toggle_linehl<cr>"           , "Toggle highlights"  },
   }
