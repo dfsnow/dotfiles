@@ -41,6 +41,9 @@
 [credential]
     helper = cache
 
+[diff "lfs"]
+    textconv = cat
+
 [alias]
     a = add
     r = reset
