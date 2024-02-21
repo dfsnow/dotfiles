@@ -2,3 +2,6 @@
     name = Dan Snow
     email = daniel.snow@cookcountyil.gov
     signingkey = AD84CD93279D4E31!
+
+[gpg]
+    program = /usr/bin/gpg

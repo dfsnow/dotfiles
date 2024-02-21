@@ -10,6 +10,9 @@
     gpgSign = true
     forceSignAnnotated = true
 
+[gpg]
+    program = /opt/homebrew/bin/gpg
+
 [core]
     autocrlf = false
 
