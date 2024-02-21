@@ -54,20 +54,6 @@ return {
   },
 
   {
-    "kosayoda/nvim-lightbulb",
-    event = "LspAttach",
-    config = function()
-      require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
-      vim.fn.sign_define("LightBulbSign", {
-        text = "A",
-        texthl = "A",
-        linehl = "A",
-        numhl = "A"
-      })
-    end
-  },
-
-  {
     "lukas-reineke/indent-blankline.nvim",
     lazy = false,
     main = "ibl",

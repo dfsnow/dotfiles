@@ -12,8 +12,6 @@ wk.register({
     "Search command history"
   },
   ["<C-t>"]   = { "<cmd>Telescope find_files<cr>"   , "Search files"         },
-  ["K"]       = { "Move half page up"                                        },
-  ["J"]       = { "Move half page down"                                      },
   ["<C-A>"]   = { "Increment up"                                             },
   ["<C-X>"]   = { "Increment down"                                           },
   ["<TAB>"]   = { "Next buffer"                                              },
@@ -51,10 +49,6 @@ wk.register({
   ["d"]       = { "which_key_ignore"                                         },
   ["y"]       = { "which_key_ignore"                                         },
   ["<SNR>"]   = { "which_key_ignore"                                         },
-  ["-"]       = {
-    "<cmd>lua require('oil').open_float()<cr>",
-    "Open parent directory" 
-  }
 })
 
 wk.register({ z = { name = "+fold" } })
@@ -63,7 +57,7 @@ wk.register({
     name = "+misc",
     c = { "which_key_ignore"                                                 }, 
     h = { "Toggle hidden files"                                              }, 
-    [";"] = { "Go to last edited postition"                                  }, 
+    [";"] = { "Go to last edited position"                                   }, 
   } 
 })
 
@@ -73,17 +67,16 @@ wk.register({
     name = "+leader",
     L = { "<cmd>Lazy<cr>"                      , "Open Lazy"                 },
     Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
-    x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
-    j = { "Join lines"                                                       },
     v = { "Select with treesitter"                                           },
     c = { "Toggle comment"                                                   },
     p = { "Paste from clipboard"                                             },
     y = { "Copy to clipboard"                                                },
+    q = { "Quit vim"                                                         },
     h = { "which_key_ignore"                                                 },
+    j = { "which_key_ignore"                                                 },
     k = { "which_key_ignore"                                                 },
     l = { "which_key_ignore"                                                 },
-    q = { "which_key_ignore"                                                 },
     Q = { "which_key_ignore"                                                 },
     w = { "which_key_ignore"                                                 },
     W = { "which_key_ignore"                                                 },
@@ -105,10 +98,6 @@ wk.register({
     ["<S-Esc>"]  = {
       "<cmd>Bclose<cr>",
       "which_key_ignore"
-    },
-    ["."]        = {
-      "<cmd>lua require('oil').open_float('.')<cr>",
-      "Open current directory"
     },
     ["?"]        = {
       "<cmd>Telescope live_grep<cr>",
@@ -275,6 +264,5 @@ if ret == 0 then
       c = { "<cmd>Telescope git_commits<cr>"          , "Git commits"        },
     }
   }, { prefix = "<leader>" })
-
 
 end
