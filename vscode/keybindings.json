@@ -46,41 +46,50 @@
         "command": "workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
     },
-    // Open editor at index
+    // Open tab at index
     {
         "key": "cmd+1",
-        "command": "workbench.action.openEditorAtIndex1"
+        "command": "workbench.action.openEditorAtIndex1",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+2",
-        "command": "workbench.action.openEditorAtIndex2"
+        "command": "workbench.action.openEditorAtIndex2",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+3",
-        "command": "workbench.action.openEditorAtIndex3"
+        "command": "workbench.action.openEditorAtIndex3",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+4",
-        "command": "workbench.action.openEditorAtIndex4"
+        "command": "workbench.action.openEditorAtIndex4",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+5",
-        "command": "workbench.action.openEditorAtIndex5"
+        "command": "workbench.action.openEditorAtIndex5",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+6",
-        "command": "workbench.action.openEditorAtIndex6"
+        "command": "workbench.action.openEditorAtIndex6",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+7",
-        "command": "workbench.action.openEditorAtIndex7"
+        "command": "workbench.action.openEditorAtIndex7",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+8",
-        "command": "workbench.action.openEditorAtIndex8"
+        "command": "workbench.action.openEditorAtIndex8",
+        "when": "editorFocus"
     },
     {
         "key": "cmd+9",
-        "command": "workbench.action.openEditorAtIndex9"
+        "command": "workbench.action.openEditorAtIndex9",
+        "when": "editorFocus"
     }
 ]

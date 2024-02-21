@@ -56,7 +56,7 @@
     "vim.highlightedyank.duration": 700,
     "vim.leader": ",",
     "vim.normalModeKeyBindings": [
-        // Zero goes to first character
+        // Zero moves to first character
         {
             "before": [
                 "0"
@@ -65,7 +65,7 @@
                 "^"
             ]
         },
-        // Space starts easymotion port
+        // Space starts easymotion movement
         {
             "before": [
                 "<space>"
@@ -76,6 +76,7 @@
                 "s"
             ]
         },
+        // Toggle comments and folds
         {
             "before": [
                 "<leader>",
@@ -94,7 +95,7 @@
                 "editor.toggleFold"
             ]
         },
-        // Replace vim command and search with VSCode built-ins
+        // Replace vim command mode with VS Code command palette
         {
             "before": [
                 ":"
@@ -220,7 +221,7 @@
                 "editor.action.commentLine"
             ]
         },
-        // Use VSCode < and > to indent and outdent
+        // Use VS Code < and > to indent and outdent
         {
             "before": [
                 ">"
@@ -297,6 +298,7 @@
                 "\"",
             ]
         },
+        // Copy and paste with system clipboard
         {
             "before": [
                 "<leader>",
