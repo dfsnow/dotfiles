@@ -65,6 +65,16 @@
                 "^"
             ]
         },
+        // Toggle word wrap
+        {
+            "before": [
+                "<leader>",
+                "n"
+            ],
+            "commands": [
+                "editor.action.toggleWordWrap"
+            ]
+        },
         // Space starts easymotion movement
         {
             "before": [
@@ -113,9 +123,88 @@
             "commands": [
                 "workbench.action.files.save",
             ]
-        }
+        },
+        // Git integration, move between hunks, hunk undo, etc.
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "g"
+            ],
+            "commands": [
+                "workbench.view.scm"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "d"
+            ],
+            "commands": [
+                "editor.action.dirtydiff.next"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "n"
+            ],
+            "commands": [
+                "workbench.action.editor.nextChange"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "p"
+            ],
+            "commands": [
+                "workbench.action.editor.previousChange"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "u"
+            ],
+            "commands": [
+                "git.revertSelectedRanges"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "s"
+            ],
+            "commands": [
+                "git.stageSelectedRanges"
+            ]
+        },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "<leader>"
+            ],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        },
+        // Use VS code undo and redo
+        {
+            "before": [
+                "u"
+            ],
+            "commands": [
+                "undo"
+            ]
+        },
         {
             "before": [
                 "U"
