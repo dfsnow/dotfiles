@@ -91,5 +91,16 @@
         "key": "cmd+9",
         "command": "workbench.action.openEditorAtIndex9",
         "when": "editorFocus"
-    }
+    },
+    // Insert cursor above and below using vim keys
+    {
+        "key": "shift+cmd+j",
+        "command": "editor.action.insertCursorBelow",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "shift+cmd+k",
+        "command": "editor.action.insertCursorAbove",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
 ]
