@@ -28,24 +28,35 @@
     "scm.alwaysShowRepositories": true,
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "never",
-    "terminal.integrated.defaultProfile.osx": "bash",
+    "terminal.integrated.defaultProfile.osx": "tmux",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "terminal.integrated.env.osx": {
+        "SHELL": "/opt/homebrew/bin/bash"
+    },
     "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font, monospace",
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.gpuAcceleration": "on",
+    "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.profiles.osx": {
         "bash": {
-            "path": "bash",
+            "path": "/opt/homebrew/bin/bash",
             "args": [
                 "-l"
             ],
             "icon": "terminal-bash"
         },
         "tmux": {
-            "path": "tmux",
+            "path": "/opt/homebrew/bin/tmux",
+            "args": [
+                "new",
+                "-A",
+                "-s",
+                "vscode"
+            ],
             "icon": "terminal-tmux"
         }
     },
+    "terminal.integrated.shellIntegration.enabled": true,
     "terminal.integrated.shellIntegration.suggestEnabled": true,
     "telemetry.telemetryLevel": "off",
     "vim.easymotion": true,
