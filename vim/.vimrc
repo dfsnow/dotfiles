@@ -122,12 +122,6 @@ vnoremap <BS> {
 nnoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
 onoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
 vnoremap <CR> }
-nnoremap K <C-u>
-onoremap K <C-u>
-vnoremap K <C-u>
-nnoremap J <C-d>
-onoremap J <C-d>
-vnoremap J <C-d>
 
 " Replace word with last yank
 nnoremap R diw"0P
