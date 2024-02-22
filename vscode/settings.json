@@ -96,17 +96,6 @@
                 "editor.action.toggleWordWrap"
             ]
         },
-        // Space starts easymotion movement
-        {
-            "before": [
-                "<space>"
-            ],
-            "after": [
-                "<leader>",
-                "<leader>",
-                "s"
-            ]
-        },
         // Toggle comments and folds
         {
             "before": [
@@ -215,6 +204,17 @@
             ],
             "commands": [
                 "workbench.action.quickOpen"
+            ]
+        },
+        // Space starts easymotion movement
+        {
+            "before": [
+                "<space>"
+            ],
+            "after": [
+                "<leader>",
+                "<leader>",
+                "s"
             ]
         },
         // Use VS code undo and redo
