@@ -33,6 +33,14 @@
     },
     // Better shortcuts for workbench views
     {
+        "key": "-",
+        "command": "workbench.view.explorer"
+    },
+    {
+        "key": "cmd+shift+r",
+        "command": "workbench.action.focusActiveEditorGroup"
+    },
+    {
         "key": "cmd+shift+g",
         "command": "workbench.view.scm",
         "when": "workbench.scm.active"
