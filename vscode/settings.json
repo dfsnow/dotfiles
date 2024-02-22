@@ -28,7 +28,7 @@
     "scm.alwaysShowRepositories": true,
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "never",
-    "terminal.integrated.defaultProfile.osx": "tmux",
+    "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.env.osx": {
         "SHELL": "/opt/homebrew/bin/bash"
@@ -67,6 +67,16 @@
     "vim.highlightedyank.duration": 700,
     "vim.leader": ",",
     "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "<leader>",
+                "b",
+                "c"
+            ],
+            "commands": [
+                "workbench.action.closeActiveEditor"
+            ]
+        },
         // Zero moves to first character
         {
             "before": [
@@ -422,6 +432,7 @@
             ]
         },
     ],
+    "workbench.activityBar.location": "hidden",
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
 }

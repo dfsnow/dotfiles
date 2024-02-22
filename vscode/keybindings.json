@@ -41,11 +41,6 @@
         "command": "workbench.action.focusActiveEditorGroup"
     },
     {
-        "key": "cmd+shift+g",
-        "command": "workbench.view.scm",
-        "when": "workbench.scm.active"
-    },
-    {
         "key": "cmd+shift+c",
         "command": "workbench.panel.chat.view.copilot.focus"
     },
@@ -53,6 +48,11 @@
         "key": "cmd+shift+t",
         "command": "workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
+    },
+    // Open lazygit
+    {
+        "key": "shift+cmd+g",
+        "command": "lazygit.openLazygit"
     },
     // Open tab at index
     {
