@@ -477,5 +477,7 @@
     ],
     "workbench.activityBar.location": "hidden",
     "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.editor.editorActionsLocation": "hidden",
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    "workbench.startupEditor": "none",
 }
