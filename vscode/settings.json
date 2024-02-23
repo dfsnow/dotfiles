@@ -15,8 +15,14 @@
     "editor.fontFamily": "'JetBrainsMono Nerd Font', monospace",
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
+    "editor.minimap.enabled": false,
+    "editor.minimap.renderCharacters": false,
     "editor.minimap.showSlider": "always",
+    "editor.scrollBeyondLastLine": false,
     "editor.suggestSelection": "first",
+    "errorLens.excludeBySource": [
+        "cSpell"
+    ],
     "explorer.confirmDelete": false,
     "git.autofetch": true,
     "git.autofetchPeriod": 900,
@@ -131,7 +137,7 @@
         {
             "before": [
                 "<leader>",
-                "<space>",
+                "<space>"
             ],
             "commands": [
                 "editor.toggleFold"
@@ -143,7 +149,7 @@
                 ":"
             ],
             "commands": [
-                "workbench.action.showCommands",
+                "workbench.action.showCommands"
             ],
             "silent": true
         },
@@ -153,7 +159,7 @@
                 "w"
             ],
             "commands": [
-                "workbench.action.files.save",
+                "workbench.action.files.save"
             ]
         },
         // Git integration, move between hunks, hunk undo, etc.
@@ -257,7 +263,7 @@
             "commands": [
                 "editor.action.marker.prev"
             ]
-        },
+        }
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
         {
@@ -372,7 +378,7 @@
                 "+",
                 "P"
             ]
-        },
+        }
     ],
     "vim.visualModeKeyBindings": [
         {
@@ -437,7 +443,7 @@
                 "v",
                 "<esc>"
             ]
-        },
+        }
     ],
     "vim.visualModeKeyBindingsNonRecursive": [
         {
@@ -468,7 +474,7 @@
                 "\"",
                 "0",
                 "P",
-                "\"",
+                "\""
             ]
         },
         // Copy and paste with system clipboard
@@ -493,11 +499,15 @@
                 "+",
                 "P"
             ]
-        },
+        }
     ],
-    "workbench.activityBar.location": "hidden",
+    "window.commandCenter": false,
+    "workbench.activityBar.location": "top",
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.editor.editorActionsLocation": "hidden",
+    "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
+    "workbench.sideBar.location": "right",
     "workbench.startupEditor": "none",
+    "breadcrumbs.enabled": false
 }
