@@ -10,6 +10,11 @@
         "command": "workbench.action.previousEditor",
         "when": "editorFocus && vim.mode == 'Normal'"
     },
+    {
+        "key": "o",
+        "command": "explorer.openAndPassFocus",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+    },
     // Use tab to select from suggestions
     {
         "key": "tab",
