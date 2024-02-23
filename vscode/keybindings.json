@@ -40,7 +40,8 @@
     // Better shortcuts for workbench views
     {
         "key": "-",
-        "command": "workbench.view.explorer"
+        "command": "workbench.view.explorer",
+        "when": "vim.mode != 'Insert' || !inputFocus"
     },
     {
         "key": "home",
