@@ -25,6 +25,7 @@
     "github.gitProtocol": "ssh",
     "path-intellisense.showHiddenFiles": true,
     "python.defaultInterpreterPath": "/usr/bin/python3",
+    "remote.SSH.enableAgentForwarding": true,
     "scm.alwaysShowActions": true,
     "scm.alwaysShowRepositories": true,
     "security.promptForLocalFileProtocolHandling": false,
