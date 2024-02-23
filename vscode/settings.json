@@ -39,6 +39,25 @@
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.gpuAcceleration": "on",
     "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "bash",
+            "args": [
+                "-l"
+            ],
+            "icon": "terminal-bash"
+        },
+        "tmux": {
+            "path": "tmux",
+            "args": [
+                "new",
+                "-A",
+                "-s",
+                "vscode"
+            ],
+            "icon": "terminal-tmux"
+        }
+    },
     "terminal.integrated.profiles.osx": {
         "bash": {
             "path": "/opt/homebrew/bin/bash",
