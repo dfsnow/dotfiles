@@ -13,13 +13,13 @@
     // Use tab to select from suggestions
     {
         "key": "tab",
-        "command": "selectNextQuickFix",
-        "when": "editorFocus && quickFixWidgetVisible"
+        "command": "selectNextCodeAction",
+        "when": "editorFocus && codeActionMenuVisible"
     },
     {
         "key": "shift+tab",
-        "command": "selectPrevQuickFix",
-        "when": "editorFocus && quickFixWidgetVisible"
+        "command": "selectPrevCodeAction",
+        "when": "editorFocus && codeActionMenuVisible"
     },
     {
         "key": "tab",
@@ -110,5 +110,5 @@
         "key": "shift+cmd+k",
         "command": "editor.action.insertCursorAbove",
         "when": "editorTextFocus && vim.mode == 'Normal'"
-    },
+    }
 ]

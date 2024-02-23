@@ -67,6 +67,7 @@
     "vim.highlightedyank.duration": 700,
     "vim.leader": ",",
     "vim.normalModeKeyBindings": [
+        // Close tab
         {
             "before": [
                 "<leader>",
@@ -193,6 +194,47 @@
             ],
             "commands": [
                 "git.stageSelectedRanges"
+            ]
+        },
+        // Show, move between, and fix diagnostics
+        {
+            "before": [
+                "<leader>",
+                "d",
+                "d"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "d",
+                "f"
+            ],
+            "commands": [
+                "editor.action.quickFix"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "d",
+                "n"
+            ],
+            "commands": [
+                "editor.action.marker.next"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "d",
+                "p"
+            ],
+            "commands": [
+                "editor.action.marker.prev"
             ]
         },
     ],
