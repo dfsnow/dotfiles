@@ -78,5 +78,5 @@ echo "Config files stowed"
 
 # Reset inputrc and bashrc
 bind -f ~/.inputrc
-source ~/.bashrc
+source "$HOME/.bashrc"
 echo "Bash configs installed"
