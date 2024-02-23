@@ -42,8 +42,12 @@
         "command": "workbench.view.explorer"
     },
     {
-        "key": "cmd+shift+r",
+        "key": "home",
         "command": "workbench.action.focusActiveEditorGroup"
+    },
+    {
+        "key": "cmd+shift+r",
+        "command": "workbench.view.remote"
     },
     {
         "key": "cmd+shift+c",
