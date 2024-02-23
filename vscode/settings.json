@@ -1,4 +1,10 @@
 {
+    "breadcrumbs.enabled": false,
+    "catppuccin.customUIColors": {
+        "all": {
+            "editorOverviewRuler.background": "base"
+        }
+    },
     "cSpell.customDictionaries": {
         "vim-dict": {
             "name": "vim-dict",
@@ -16,26 +22,19 @@
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
     "editor.minimap.enabled": false,
-    "editor.minimap.renderCharacters": false,
-    "editor.minimap.showSlider": "always",
-    "editor.scrollBeyondLastLine": false,
+    "editor.overviewRulerBorder": false,
+    "editor.scrollbar.vertical": "visible",
+    "editor.scrollbar.horizontal": "visible",
+    "editor.scrollbeyondlastline": false,
     "editor.suggestSelection": "first",
     "errorLens.excludeBySource": [
         "cSpell"
     ],
     "explorer.confirmDelete": false,
-    "git.autofetch": true,
-    "git.autofetchPeriod": 900,
-    "git.enableCommitSigning": true,
-    "git.fetchOnPull": true,
-    "github.gitProtocol": "ssh",
     "path-intellisense.showHiddenFiles": true,
-    "python.defaultInterpreterPath": "/usr/bin/python3",
     "remote.SSH.enableAgentForwarding": true,
-    "scm.alwaysShowActions": true,
-    "scm.alwaysShowRepositories": true,
     "security.promptForLocalFileProtocolHandling": false,
-    "security.workspace.trust.startupPrompt": "never",
+    "security.workspace.trust.startupPrompt": "always",
     "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.env.osx": {
@@ -83,6 +82,7 @@
             "icon": "terminal-tmux"
         }
     },
+    "terminal.integrated.shellIntegration.decorationsEnabled": "overviewRuler",
     "terminal.integrated.shellIntegration.enabled": true,
     "terminal.integrated.shellIntegration.suggestEnabled": true,
     "telemetry.telemetryLevel": "off",
@@ -508,6 +508,5 @@
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.sideBar.location": "right",
-    "workbench.startupEditor": "none",
-    "breadcrumbs.enabled": false
+    "workbench.startupEditor": "none"
 }

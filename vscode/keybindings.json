@@ -10,6 +10,7 @@
         "command": "workbench.action.previousEditor",
         "when": "editorFocus && vim.mode == 'Normal'"
     },
+    // Open file and take focus
     {
         "key": "o",
         "command": "explorer.openAndPassFocus",
