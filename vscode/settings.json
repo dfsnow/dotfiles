@@ -445,6 +445,7 @@
             ]
         }
     ],
+    "vim.useCtrlKeys": false,
     "vim.visualModeKeyBindingsNonRecursive": [
         {
             "before": [

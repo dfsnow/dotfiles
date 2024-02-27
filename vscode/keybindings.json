@@ -52,7 +52,15 @@
         "command": "workbench.view.remote"
     },
     {
+        "key": "ctrl+shift+r",
+        "command": "workbench.view.remote"
+    },
+    {
         "key": "cmd+shift+c",
+        "command": "workbench.panel.chat.view.copilot.focus"
+    },
+    {
+        "key": "ctrl+shift+c",
         "command": "workbench.panel.chat.view.copilot.focus"
     },
     {
@@ -60,9 +68,18 @@
         "command": "workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
     },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "terminal.active"
+    },
     // Open lazygit
     {
-        "key": "shift+cmd+g",
+        "key": "cmd+shift+g",
+        "command": "lazygit.openLazygit"
+    },
+    {
+        "key": "ctrl+shift+g",
         "command": "lazygit.openLazygit"
     },
     // Open tab at index
@@ -71,7 +88,15 @@
         "command": "workbench.action.openEditorAtIndex1"
     },
     {
+        "key": "ctrl+1",
+        "command": "workbench.action.openEditorAtIndex1"
+    },
+    {
         "key": "cmd+2",
+        "command": "workbench.action.openEditorAtIndex2"
+    },
+    {
+        "key": "ctrl+2",
         "command": "workbench.action.openEditorAtIndex2"
     },
     {
@@ -79,7 +104,15 @@
         "command": "workbench.action.openEditorAtIndex3"
     },
     {
+        "key": "ctrl+3",
+        "command": "workbench.action.openEditorAtIndex3"
+    },
+    {
         "key": "cmd+4",
+        "command": "workbench.action.openEditorAtIndex4"
+    },
+    {
+        "key": "ctrl+4",
         "command": "workbench.action.openEditorAtIndex4"
     },
     {
@@ -87,7 +120,15 @@
         "command": "workbench.action.openEditorAtIndex5"
     },
     {
+        "key": "ctrl+5",
+        "command": "workbench.action.openEditorAtIndex5"
+    },
+    {
         "key": "cmd+6",
+        "command": "workbench.action.openEditorAtIndex6"
+    },
+    {
+        "key": "ctrl+6",
         "command": "workbench.action.openEditorAtIndex6"
     },
     {
@@ -95,21 +136,43 @@
         "command": "workbench.action.openEditorAtIndex7"
     },
     {
+        "key": "ctrl+7",
+        "command": "workbench.action.openEditorAtIndex7"
+    },
+    {
         "key": "cmd+8",
+        "command": "workbench.action.openEditorAtIndex8"
+    },
+    {
+        "key": "ctrl+8",
         "command": "workbench.action.openEditorAtIndex8"
     },
     {
         "key": "cmd+9",
         "command": "workbench.action.openEditorAtIndex9"
     },
+    {
+        "key": "ctrl+9",
+        "command": "workbench.action.openEditorAtIndex9"
+    },
     // Insert cursor above and below using vim keys
     {
-        "key": "shift+cmd+j",
+        "key": "cmd+shift+j",
         "command": "editor.action.insertCursorBelow",
         "when": "editorTextFocus && vim.mode == 'Normal'"
     },
     {
-        "key": "shift+cmd+k",
+        "key": "ctrl+shift+j",
+        "command": "editor.action.insertCursorBelow",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "cmd+shift+k",
+        "command": "editor.action.insertCursorAbove",
+        "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    {
+        "key": "ctrl+shift+k",
         "command": "editor.action.insertCursorAbove",
         "when": "editorTextFocus && vim.mode == 'Normal'"
     }
