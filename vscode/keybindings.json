@@ -187,5 +187,16 @@
         "key": "ctrl+shift+k",
         "command": "editor.action.insertCursorAbove",
         "when": "editorTextFocus && vim.mode == 'Normal'"
+    },
+    // Ctrl+D to multi-select
+    {
+        "key": "cmd+d",
+        "command": "editor.action.addSelectionToNextFindMatch",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "editor.action.addSelectionToPreviousFindMatch",
+        "when": "editorFocus"
     }
 ]

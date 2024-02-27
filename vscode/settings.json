@@ -90,6 +90,10 @@
     "vim.easymotion": true,
     "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
     "vim.foldfix": true,
+    "vim.handleKeys": {
+        "<C-d>": false,
+        "<C-shift+d>": false
+    },
     "vim.highlightedyank.enable": true,
     "vim.highlightedyank.color": "rgba(137, 220, 235, 0.25)",
     "vim.highlightedyank.duration": 700,
