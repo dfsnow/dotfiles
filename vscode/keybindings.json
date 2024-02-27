@@ -41,7 +41,7 @@
     {
         "key": "-",
         "command": "workbench.view.explorer",
-        "when": "vim.mode != 'Insert' || !inputFocus"
+        "when": "(vim.mode != 'Insert' && editorTextFocus) || !inputFocus"
     },
     {
         "key": "home",
