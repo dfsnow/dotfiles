@@ -86,11 +86,13 @@
     // Open lazygit
     {
         "key": "cmd+shift+g",
-        "command": "lazygit.openLazygit"
+        "command": "workbench.action.tasks.runTask",
+        "args": "editor_after_lazygit"
     },
     {
         "key": "ctrl+shift+g",
-        "command": "lazygit.openLazygit"
+        "command": "workbench.action.tasks.runTask",
+        "args": "editor_after_lazygit"
     },
     // Open tab at index
     {
