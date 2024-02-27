@@ -33,6 +33,7 @@
     "explorer.confirmDelete": false,
     "path-intellisense.showHiddenFiles": true,
     "remote.SSH.enableAgentForwarding": true,
+    "remote.SSH.enableDynamicForwarding": false,
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "always",
     "terminal.integrated.defaultProfile.osx": "bash",
