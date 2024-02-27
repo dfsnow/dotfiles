@@ -16,6 +16,16 @@
         "command": "explorer.openAndPassFocus",
         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
     },
+    {
+        "key": "cmd+shift+o",
+        "command": "workbench.action.files.openFolder",
+        "when": "openFolderWorkspaceSupport"
+    },
+    {
+        "key": "ctrl+shift+o",
+        "command": "workbench.action.files.openFolder",
+        "when": "openFolderWorkspaceSupport"
+    },
     // Use tab to select from suggestions
     {
         "key": "tab",
