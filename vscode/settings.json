@@ -33,7 +33,10 @@
     "explorer.confirmDelete": false,
     "path-intellisense.showHiddenFiles": true,
     "remote.SSH.enableAgentForwarding": true,
-    "remote.SSH.enableDynamicForwarding": false,
+    "remote.SSH.remotePlatform": {
+        "ccao-dsnow": "linux",
+        "ccao-shiny-server": "linux"
+    },
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "always",
     "terminal.integrated.defaultProfile.osx": "bash",
