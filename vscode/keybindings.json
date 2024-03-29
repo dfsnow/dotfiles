@@ -10,6 +10,17 @@
         "command": "workbench.action.previousEditor",
         "when": "editorFocus && vim.mode == 'Normal'"
     },
+    // Ctrl + tab to cycle editor groups
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.focusNextGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.focusPreviousGroup",
+        "when": "editorFocus"
+    },
     // Open file and take focus
     {
         "key": "o",
