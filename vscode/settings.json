@@ -31,7 +31,9 @@
         "cSpell"
     ],
     "explorer.confirmDelete": false,
+    "jupyter.showVariableViewWhenDebugging": true,
     "path-intellisense.showHiddenFiles": true,
+    "python.REPL.enableREPLSmartSend": true,
     "remote.SSH.enableAgentForwarding": true,
     "remote.SSH.remotePlatform": {
         "ccao-dsnow": "linux",
@@ -513,7 +515,6 @@
     "window.commandCenter": false,
     "workbench.activityBar.location": "top",
     "workbench.colorTheme": "Catppuccin Mocha",
-    "workbench.editor.editorActionsLocation": "hidden",
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.sideBar.location": "right",

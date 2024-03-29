@@ -198,5 +198,68 @@
         "key": "ctrl+shift+d",
         "command": "editor.action.addSelectionToPreviousFindMatch",
         "when": "editorFocus"
-    }
+    },
+    // Quarto REPL
+    {
+        "key": "shift+enter",
+        "command": "quarto.runSelection",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "quarto.runSelection",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "quarto.runSelection",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
+    },
+    {
+        "key": "cmd+shift+enter",
+        "command": "quarto.runCurrentAdvance",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "quarto.runCurrentAdvance",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
+    },
+    // Python REPL
+    {
+        "key": "cmd+enter",
+        "command": "python.execSelectionInTerminal",
+        "when": "editorTextFocus && !findInputFocussed && !jupyter.ownsSelection && !notebookEditorFocused && !replaceInputFocussed && editorLangId == 'python'"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "python.execSelectionInTerminal",
+        "when": "editorTextFocus && !findInputFocussed && !jupyter.ownsSelection && !notebookEditorFocused && !replaceInputFocussed && editorLangId == 'python'"
+    },
+    {
+        "key": "cmd+shift+enter",
+        "command": "python.execInDedicatedTerminal",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "python.execInDedicatedTerminal",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
+    },
+    // R REPL
+    {
+        "key": "shift+enter",
+        "command": "r.runSelection",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "r.runSelection",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "r.runSelection",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
+    },
 ]
