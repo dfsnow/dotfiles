@@ -272,5 +272,5 @@
         "key": "ctrl+enter",
         "command": "r.runSelection",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
-    },
+    }
 ]
