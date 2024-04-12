@@ -8,8 +8,6 @@ nmap <leader>W :x<cr>
 nmap <leader>q :q<cr>
 nmap <leader>Q :q!<cr>
 
-" :W sudo saves the file
-command W w !sudo tee % > /dev/null
 command Q :q!
 
 set history=500
@@ -80,20 +78,14 @@ nmap <leader>h <C-W><C-H>
 nmap <leader><Tab> <C-W>w
 nmap <leader><S-Tab> <C-W>W
 
-tmap <leader><Esc> <C-\><C-n>:q<CR>
-tmap <leader>q <C-\><C-n>:q<CR>
-tmap <leader><Tab> <C-\><C-n><c-W>w
-tmap <leader><S-Tab> <C-\><C-n><c-W>W
+tmap <Esc><Esc> <C-\><C-n>
 
-nmap <leader>bh :new<cr>
-nmap <leader>b_ :new<cr>
-nmap <leader>bv :vnew<cr>
-nmap <leader>b- :vnew<cr>
+nmap <leader>_ :new<cr>
+nmap <leader>- :vnew<cr>
+nmap <leader>bb :enew<cr>
 nmap <leader>bn :enew<cr>
-
-nmap <leader>bd :bdelete<cr>
-nmap <leader>bc :Bclose<cr>
-nmap <leader>ba :bufdo bd<cr>
+nmap <leader>x :bdelete <cr>
+nmap <leader>bc :bdelete<cr>
 
 nmap <Tab> :bnext<cr>
 nmap <S-Tab> :bprevious<cr>
@@ -162,27 +154,6 @@ set spellfile=$HOME/dotfiles/spell/en.utf-8.add
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Don't close window when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-  let l:currentBufNum = bufnr("%")
-  let l:alternateBufNum = bufnr("#")
-
-  if buflisted(l:alternateBufNum)
-    buffer #
-  else
-    bnext
-  endif
-
-  if bufnr("%") == l:currentBufNum
-    new
-  endif
-
-  if buflisted(l:currentBufNum)
-    execute("bdelete! ".l:currentBufNum)
-  endif
-endfunction
 
 " Delete trailing white space on save
 fun! CleanExtraSpaces()
