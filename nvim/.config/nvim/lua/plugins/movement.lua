@@ -1,5 +1,5 @@
 return {
-  {
+   {
     "stevearc/oil.nvim",
     dependencies = {
       "nvim-telescope/telescope.nvim"

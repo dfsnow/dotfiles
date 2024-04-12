@@ -24,7 +24,24 @@ require("lazy").setup(
       border = "rounded",
       size = { width = 0.88, height = 0.75 },
       title = "Lazy Plugins",
-      title_pos = "left"
+      title_pos = "left",
+      backdrop = 100
     }
   }
 )
+
+-- Exit lazy.nvim using escape
+local user_grp = vim.api.nvim_create_augroup("LazyUserGroup", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "lazy",
+  desc = "Quit lazy with <esc>",
+  callback = function()
+    vim.keymap.set(
+      "n",
+      "<esc>",
+      function() vim.api.nvim_win_close(0, false) end,
+      { buffer = true, nowait = true }
+    )
+  end,
+  group = user_grp,
+})

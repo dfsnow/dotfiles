@@ -78,6 +78,7 @@ wk.register({
     c = { "Toggle comment"                                                   },
     p = { "Paste from clipboard"                                             },
     y = { "Copy to clipboard"                                                },
+    x = { "Delete buffer"                                                    },
     h = { "which_key_ignore"                                                 },
     k = { "which_key_ignore"                                                 },
     l = { "which_key_ignore"                                                 },
@@ -93,21 +94,9 @@ wk.register({
     ["<SPACE>"]  = { "Toggle fold"                                           },
     ["<TAB>"]    = { "Next window"                                           },
     ["<S-TAB>"]  = { "Previous window"                                       },
-    ["ll"]       = { "Next buffer"                                           },
-    ["hh"]       = { "Previous buffer"                                       },
+    ["-"]        = { "New vertical split"                                    },
+    ["_"]        = { "New horizontal split"                                  },
     ["<Tab>"]    = { "Next window"                                           },
-    ["<Esc>"]    = {
-      "<cmd>bdelete<cr>",
-      "Delete current buffer"
-    },
-    ["<S-Esc>"]  = {
-      "<cmd>Bclose<cr>",
-      "which_key_ignore"
-    },
-    ["."]        = {
-      "<cmd>lua require('oil').open_float('.')<cr>",
-      "Open current directory"
-    },
     ["?"]        = {
       "<cmd>Telescope live_grep<cr>",
       "Grep in project"
@@ -115,7 +104,11 @@ wk.register({
     ["/"]        = {
       "<cmd>Telescope current_buffer_fuzzy_find<cr>",
       "Search current buffer"
-    }
+    },
+    ["."]        = {
+      "<cmd>lua require('oil').open_float('.')<cr>",
+      "Open current directory"
+    },
   }
 }) 
 
@@ -123,14 +116,9 @@ wk.register({
   b = {
     name = "buffer",
     f = { "<cmd>Telescope buffers<cr>"         , "Search buffers"            },
-    h = { "New (horizontal)"                                                 },
-    v = { "New (vertical)"                                                   },
+    b = { "New (no split)"                                                   },
     n = { "New (no split)"                                                   },
     c = { "Close"                                                            },
-    d = { "which_key_ignore"                                                 },
-    a = { "Close all"                                                        },
-    ["-"] = { "which_key_ignore"                                             },
-    ["_"] = { "which_key_ignore"                                             },
   }
 }, { prefix = "<leader>" })
 

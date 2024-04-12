@@ -89,8 +89,6 @@ nmap <leader>bc :Bclose<cr>
 
 nmap <Tab> :bnext<cr>
 nmap <S-Tab> :bprevious<cr>
-nmap <leader>ll :bnext<cr>
-nmap <leader>hh :bprevious<cr>
 
 " Specify the behavior when switching between buffers
 try
