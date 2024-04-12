@@ -73,7 +73,7 @@ wk.register({
     name = "+leader",
     L = { "<cmd>Lazy<cr>"                      , "Open Lazy"                 },
     Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
-    x = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
+    m = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
     j = { "Join lines"                                                       },
     v = { "Select with treesitter"                                           },

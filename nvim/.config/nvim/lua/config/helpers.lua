@@ -13,6 +13,11 @@ function toggleZenMode()
       next_fold_flag = original_fold_flag
       vim.opt_local.foldenable = false
     end
+    require("cmp").setup({
+      completion = {
+        autocomplete = false
+      }
+    })
   else
     print("Zen mode off")
     vim.opt_local.list = true
@@ -21,6 +26,11 @@ function toggleZenMode()
     if next_fold_flag then
       vim.opt_local.foldenable = true
     end
+    require("cmp").setup({
+      completion = {
+        autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged }
+      }
+    })
   end
 end
 
@@ -43,7 +53,7 @@ vim.keymap.set("n", "dd", function()
 end, { expr = true })
 
 -- Better, space-aware line joins
-vim.keymap.set({"n", "v"}, "<leader>j", function()
+vim.keymap.set({"n", "v"}, "J", function()
   vim.cmd("normal! mzJ")
   local col = vim.fn.col(".")
   local context = string.sub(vim.fn.getline("."), col - 1, col + 1)
