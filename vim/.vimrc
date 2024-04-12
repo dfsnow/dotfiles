@@ -6,7 +6,7 @@ let g:mapleader = ","
 nmap <leader>w :w!<cr>
 nmap <leader>W :x<cr>
 nmap <leader>q :q<cr>
-nmap <leader>Q :q!<cr>
+nmap <leader>Q :qall!<cr>
 
 command Q :q!
 
@@ -84,8 +84,8 @@ nmap <leader>_ :new<cr>
 nmap <leader>- :vnew<cr>
 nmap <leader>bb :enew<cr>
 nmap <leader>bn :enew<cr>
-nmap <leader>x :bdelete <cr>
-nmap <leader>bc :bdelete<cr>
+nmap <leader>x :bdelete!<cr>
+nmap <leader>bc :Bclose<cr>
 
 nmap <Tab> :bnext<cr>
 nmap <S-Tab> :bprevious<cr>
@@ -154,6 +154,27 @@ set spellfile=$HOME/dotfiles/spell/en.utf-8.add
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Don't close window when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
+
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
+
+  if bufnr("%") == l:currentBufNum
+    new
+  endif
+
+  if buflisted(l:currentBufNum)
+    execute("bdelete! ".l:currentBufNum)
+  endif
+endfunction
 
 " Delete trailing white space on save
 fun! CleanExtraSpaces()

@@ -12,8 +12,6 @@ wk.register({
     "Search command history"
   },
   ["<C-t>"]   = { "<cmd>Telescope find_files<cr>"   , "Search files"         },
-  ["K"]       = { "Move half page up"                                        },
-  ["J"]       = { "Move half page down"                                      },
   ["<C-A>"]   = { "Increment up"                                             },
   ["<C-X>"]   = { "Increment down"                                           },
   ["<TAB>"]   = { "Next buffer"                                              },
