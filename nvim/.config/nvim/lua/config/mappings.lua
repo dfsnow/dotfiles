@@ -3,10 +3,6 @@ wk.register(mappings, opts)
 
 -- Non-leader mappings
 wk.register({
-  ["?"]       = {
-    "<cmd>Telescope current_buffer_fuzzy_find<cr>",
-    "Search in buffer"
-  },
   ["<C-r>"]   = {
     "<cmd>Telescope command_history<cr>",
     "Search command history"
@@ -26,6 +22,7 @@ wk.register({
   ["u"]       = { "Undo"                                                     },
   ["U"]       = { "Redo"                                                     },
   [";"]       = { "Repeat last move"                                         },
+  ["J"]       = { "Join lines"                                               },
   ["f"]       = { "which_key_ignore"                                         },
   ["F"]       = { "which_key_ignore"                                         },
   ["t"]       = { "which_key_ignore"                                         },
@@ -73,7 +70,6 @@ wk.register({
     Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
     m = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
-    j = { "Join lines"                                                       },
     v = { "Select with treesitter"                                           },
     c = { "Toggle comment"                                                   },
     p = { "Paste from clipboard"                                             },
@@ -97,10 +93,6 @@ wk.register({
     ["-"]        = { "New vertical split"                                    },
     ["_"]        = { "New horizontal split"                                  },
     ["<Tab>"]    = { "Next window"                                           },
-    ["?"]        = {
-      "<cmd>Telescope live_grep<cr>",
-      "Grep in project"
-    },
     ["/"]        = {
       "<cmd>Telescope current_buffer_fuzzy_find<cr>",
       "Search current buffer"
@@ -108,7 +100,7 @@ wk.register({
     ["."]        = {
       "<cmd>lua require('oil').open_float('.')<cr>",
       "Open current directory"
-    },
+    }
   }
 }) 
 
