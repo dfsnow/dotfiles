@@ -59,7 +59,7 @@ wk.register({
     name = "+misc",
     c = { "which_key_ignore"                                                 }, 
     h = { "Toggle hidden files"                                              }, 
-    [";"] = { "Go to last edited postition"                                  }, 
+    [";"] = { "Go to last edited position"                                   }, 
   } 
 })
 
@@ -77,9 +77,9 @@ wk.register({
     x = { "Delete buffer"                                                    },
     j = { "which_key_ignore"                                                 },
     h = { "which_key_ignore"                                                 },
+    j = { "which_key_ignore"                                                 },
     k = { "which_key_ignore"                                                 },
     l = { "which_key_ignore"                                                 },
-    q = { "which_key_ignore"                                                 },
     Q = { "which_key_ignore"                                                 },
     w = { "which_key_ignore"                                                 },
     W = { "which_key_ignore"                                                 },
@@ -256,6 +256,5 @@ if ret == 0 then
       c = { "<cmd>Telescope git_commits<cr>"          , "Git commits"        },
     }
   }, { prefix = "<leader>" })
-
 
 end
