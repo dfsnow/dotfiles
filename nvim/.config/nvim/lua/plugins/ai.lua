@@ -1,7 +1,7 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    event = "VeryLazy",
+    cmd = {"CopilotChatToggle", "CopilotChatPrompt"}, -- Add this line
     dependencies = {
       { "zbirenbaum/copilot.lua" },
       { "nvim-lua/plenary.nvim" }
@@ -30,7 +30,7 @@ return {
               selection = require("CopilotChat.select").visual,
           })
         end,
-        mode = {"n", "v"},
+        mode = { "n", "v" },
         desc = "Toggle Copilot Chat",
       },
       {
@@ -39,7 +39,7 @@ return {
           local actions = require("CopilotChat.actions")
           require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
         end,
-        mode = {"n", "v"},
+        mode = { "n", "v" },
         desc = "Open Copilot Chat prompts",
       }
     }
