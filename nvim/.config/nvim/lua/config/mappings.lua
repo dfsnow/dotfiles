@@ -46,6 +46,7 @@ wk.register({
   ["d"]       = { "which_key_ignore"                                         },
   ["y"]       = { "which_key_ignore"                                         },
   ["<SNR>"]   = { "which_key_ignore"                                         },
+  ["?"]       = { "Open Copilot Chat"                                        },
   ["-"]       = {
     "<cmd>lua require('oil').open_float()<cr>",
     "Open parent directory" 
@@ -70,11 +71,11 @@ wk.register({
     Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
     m = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
-    v = { "Select with treesitter"                                           },
     c = { "Toggle comment"                                                   },
     p = { "Paste from clipboard"                                             },
     y = { "Copy to clipboard"                                                },
     x = { "Delete buffer"                                                    },
+    j = { "which_key_ignore"                                                 },
     h = { "which_key_ignore"                                                 },
     k = { "which_key_ignore"                                                 },
     l = { "which_key_ignore"                                                 },
@@ -93,6 +94,8 @@ wk.register({
     ["-"]        = { "New vertical split"                                    },
     ["_"]        = { "New horizontal split"                                  },
     ["<Tab>"]    = { "Next window"                                           },
+    ["?"]        = { "Open Copilot prompts"                                  },
+    ["<CR>"]     = { "Send to tmux"                                          },
     ["/"]        = {
       "<cmd>Telescope current_buffer_fuzzy_find<cr>",
       "Search current buffer"
