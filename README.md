@@ -5,13 +5,14 @@ The tmux prefix is `` ` ``
 - `prefix + j/k/h/l` - move panes
 - `prefix + t/z` - zoom current pane
 - `prefix + x` - close current pane
-- `prefix + c` - open new window
+- `prefix + c/b` - open new window
 - `prefix + &` - close current window
 - `prefix + ,` - rename current window
 - `prefix + n/Tab` - next window
 - `prefix + p/S-Tab` - previous window
-- `prefix + -/H` - split window horizontally
-- `prefix + _/V` - split window vertically
+- `prefix + -` - split window horizontally
+- `prefix + _` - split window vertically
+- `prefix + =` - split window 70/30
 - `prefix + Esc` - enter copy mode
 - `prefix + Enter` - copy selection
 - `prefix + q` - kill current session
