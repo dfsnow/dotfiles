@@ -56,15 +56,15 @@ return {
   {
     "kosayoda/nvim-lightbulb",
     event = "LspAttach",
-    config = function()
-      require("nvim-lightbulb").setup({ autocmd = { enabled = true } })
-      vim.fn.sign_define("LightBulbSign", {
+    opts = {
+      sign = {
         text = "A",
-        texthl = "A",
-        linehl = "A",
-        numhl = "A"
-      })
-    end
+      },
+      autocmd = {
+        enabled = true
+      },
+      action_kinds = {"quickfix", "refactor"},
+    }
   },
 
   {
