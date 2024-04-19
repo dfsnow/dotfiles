@@ -11,7 +11,19 @@ return {
       lspconfig.r_language_server.setup{
         filetypes = { "r", "rmd", "quarto" }
       }
-      lspconfig.pyright.setup{}
+      lspconfig.pyright.setup {
+        settings = {
+          pyright = {
+            disableOrganizeImports = true,
+          },
+          python = {
+            analysis = {
+              ignore = { "*" },
+            }
+          }
+        }
+      }
+      lspconfig.ruff_lsp.setup{}
       lspconfig.html.setup{}
       lspconfig.cssls.setup{}
       lspconfig.yamlls.setup{}
@@ -54,7 +66,6 @@ return {
       require("lint").linters_by_ft = {
         sh = { "shellcheck" },
         sql = { "sqlfluff" },
-        python = { "pylint", "flake8" },
         dockerfile = { "hadolint" },
         markdown = { "markdownlint" }
       }
