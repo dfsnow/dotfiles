@@ -7,18 +7,24 @@ export LC_ALL=en_US.UTF-8
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# Don't put duplicate lines or lines starting with space in the history
-HISTCONTROL=ignoreboth
-
 # Append to the history file, don't overwrite it
 shopt -s histappend
 
 # Multi-line command uses single history entry
 shopt -s cmdhist
 
+# Set history file location
+HISTFILE=~/.bash_history
+
 # For setting history length see HISTSIZE and HISTFILESIZE in bash
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE=200000
+HISTFILESIZE=200000
+
+# Don't put duplicate lines or lines starting with space in the history
+HISTCONTROL=ignoreboth
+
+# Ignore common commands in history
+HISTIGNORE="ls:ll:cd:pwd:exit:clear:history"
 
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS
