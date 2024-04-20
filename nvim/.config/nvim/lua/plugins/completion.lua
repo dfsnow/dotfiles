@@ -65,9 +65,11 @@ return {
       cmp.setup({
         preselect = cmp.PreselectMode.None,
         enabled = function()
-          local context = require 'cmp.config.context'
-          if vim.api.nvim_get_mode().mode == 'c' then
+          local context = require("cmp.config.context")
+          if vim.api.nvim_get_mode().mode == "c" then
             return true
+          elseif vim.bo.buftype == "prompt" then
+            return false
           else
             return not context.in_treesitter_capture("comment") 
               and not context.in_syntax_group("Comment")
