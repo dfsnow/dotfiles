@@ -1,10 +1,10 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    ft = { 
+    ft = {
       "r", "rmd", "quarto", "python",
       "html", "css", "scss", "less",
-      "yaml"
+      "yaml", "lua"
     },
     config = function()
       local lspconfig = require("lspconfig")
@@ -24,6 +24,7 @@ return {
         }
       }
       lspconfig.ruff_lsp.setup{}
+      lspconfig.lua_ls.setup{}
       lspconfig.html.setup{}
       lspconfig.cssls.setup{}
       lspconfig.yamlls.setup{}
