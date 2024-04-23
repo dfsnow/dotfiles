@@ -49,7 +49,7 @@ wk.register({
   ["?"]       = { "Open Copilot Chat"                                        },
   ["-"]       = {
     "<cmd>lua require('oil').open_float()<cr>",
-    "Open parent directory" 
+    "Open parent directory"
   }
 })
 
@@ -79,13 +79,11 @@ wk.register({
     q = { "which_key_ignore"                                                 },
     j = { "which_key_ignore"                                                 },
     h = { "which_key_ignore"                                                 },
-    j = { "which_key_ignore"                                                 },
     k = { "which_key_ignore"                                                 },
     l = { "which_key_ignore"                                                 },
     w = { "which_key_ignore"                                                 },
     W = { "which_key_ignore"                                                 },
     P = { "which_key_ignore"                                                 },
-    Y = { "which_key_ignore"                                                 },
     Y = { "which_key_ignore"                                                 },
     yy = { "which_key_ignore"                                                },
     ["<S-SPACE>"] = { "which_key_ignore"                                     },
@@ -106,12 +104,12 @@ wk.register({
       "Open current directory"
     }
   }
-}) 
+})
 
 wk.register({
   b = {
     name = "buffer",
-    f = { "<cmd>Telescope buffers<cr>"         , "Search buffers"            },
+    f = { "<cmd>Telescope buffers<cr>"               , "Search buffers"      },
     b = { "New (no split)"                                                   },
     n = { "New (no split)"                                                   },
     c = { "Close"                                                            },
@@ -131,7 +129,7 @@ wk.register({
     k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
     K = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
-    F = { 
+    F = {
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"
     },
@@ -217,12 +215,12 @@ wk.register({
 local utils = require("telescope.utils")
 local builtin = require("telescope.builtin")
 project_files = function()
-    local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" }) 
-    if ret == 0 then 
-        builtin.git_files() 
-    else 
-        builtin.find_files() 
-    end 
+  local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" })
+  if ret == 0 then
+    builtin.git_files()
+  else
+    builtin.find_files()
+  end
 end
 
 wk.register({
@@ -233,9 +231,8 @@ wk.register({
 }, { prefix = "<leader>" })
 
 -- Map git bindings if in git repo
-local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" }) 
-if ret == 0 then 
-
+local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" })
+if ret == 0 then
   wk.register({
     g = {
       name = "git",
@@ -258,5 +255,4 @@ if ret == 0 then
       c = { "<cmd>Telescope git_commits<cr>"          , "Git commits"        },
     }
   }, { prefix = "<leader>" })
-
 end

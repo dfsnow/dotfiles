@@ -17,10 +17,10 @@ return {
         end
       },
       {
-	"L3MON4D3/LuaSnip",
-	version = "2.*",
-	build = "make install_jsregexp",
-        dependencies = { 
+        "L3MON4D3/LuaSnip",
+        version = "2.*",
+        build = "make install_jsregexp",
+        dependencies = {
           "rafamadriz/friendly-snippets",
           "saadparwaiz1/cmp_luasnip"
         }
@@ -38,7 +38,7 @@ return {
       local has_words_before = function()
         if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+        return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
       end
 
       local cmp = require("cmp")
@@ -71,8 +71,8 @@ return {
           elseif vim.bo.buftype == "prompt" then
             return false
           else
-            return not context.in_treesitter_capture("comment") 
-              and not context.in_syntax_group("Comment")
+            return not context.in_treesitter_capture("comment")
+                and not context.in_syntax_group("Comment")
           end
         end,
         snippet = {
@@ -116,11 +116,11 @@ return {
           })
         },
         sources = {
-          { name = "path",       max_item_count = 4},
-          { name = "nvim_lsp",   max_item_count = 9, keyword_length = 1 },
-          { name = "buffer",     max_item_count = 9, keyword_length = 2 },
-          { name = "copilot",    max_item_count = 4 },
-          { name = "luasnip",    max_item_count = 4 },
+          { name = "path",                   max_item_count = 4 },
+          { name = "nvim_lsp",               max_item_count = 9, keyword_length = 1 },
+          { name = "buffer",                 max_item_count = 9, keyword_length = 2 },
+          { name = "copilot",                max_item_count = 4 },
+          { name = "luasnip",                max_item_count = 4 },
           { name = "nvim_lsp_signature_help" },
           { name = "calc" },
         },
@@ -163,7 +163,6 @@ return {
           vim.g.cmp_toggle_flag = next_cmp_toggle_flag
         end
       end
-
     end
   }
 }

@@ -8,7 +8,7 @@ return {
     },
     config = function()
       local lspconfig = require("lspconfig")
-      lspconfig.r_language_server.setup{
+      lspconfig.r_language_server.setup {
         filetypes = { "r", "rmd", "quarto" }
       }
       lspconfig.pyright.setup {
@@ -23,11 +23,11 @@ return {
           }
         }
       }
-      lspconfig.ruff_lsp.setup{}
-      lspconfig.lua_ls.setup{}
-      lspconfig.html.setup{}
-      lspconfig.cssls.setup{}
-      lspconfig.yamlls.setup{}
+      lspconfig.ruff_lsp.setup {}
+      lspconfig.lua_ls.setup {}
+      lspconfig.html.setup {}
+      lspconfig.cssls.setup {}
+      lspconfig.yamlls.setup {}
     end
   },
 

@@ -53,7 +53,7 @@ vim.keymap.set("n", "dd", function()
 end, { expr = true })
 
 -- Better, space-aware line joins
-vim.keymap.set({"n", "v"}, "J", function()
+vim.keymap.set({ "n", "v" }, "J", function()
   vim.cmd("normal! mzJ")
   local col = vim.fn.col(".")
   local context = string.sub(vim.fn.getline("."), col - 1, col + 1)

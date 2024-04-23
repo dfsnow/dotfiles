@@ -1,7 +1,7 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    cmd = {"CopilotChatToggle", "CopilotChatPrompt"}, -- Add this line
+    cmd = { "CopilotChatToggle", "CopilotChatPrompt" },
     dependencies = {
       { "zbirenbaum/copilot.lua" },
       { "nvim-lua/plenary.nvim" }
@@ -29,7 +29,7 @@ return {
         "?",
         function()
           require("CopilotChat").toggle({
-              selection = require("CopilotChat.select").visual,
+            selection = require("CopilotChat.select").visual,
           })
         end,
         mode = { "n", "v" },

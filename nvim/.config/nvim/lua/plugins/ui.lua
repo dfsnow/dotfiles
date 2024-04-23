@@ -35,20 +35,20 @@ return {
         theme = "catppuccin"
       },
       sections = {
-        lualine_c = {{
+        lualine_c = { {
           "filename",
           path = 4
-        }},
+        } },
       },
       tabline = {
-        lualine_a = {{
+        lualine_a = { {
           "buffers",
           max_length = vim.o.columns,
           symbols = {
             modified = "[+]",
             alternate_file = ""
-          } 
-        }}
+          }
+        } }
       }
     }
   },
@@ -63,7 +63,7 @@ return {
       autocmd = {
         enabled = true
       },
-      action_kinds = {"quickfix", "refactor"},
+      action_kinds = { "quickfix", "refactor" },
     }
   },
 
@@ -107,13 +107,13 @@ return {
         hlgroup = "IncSearch",
       },
       keymaps = {
-        {"n", "u", "undo", {}},
-        {"n", "U", "redo", {}},
+        { "n", "u", "undo", {} },
+        { "n", "U", "redo", {} },
       }
     }
   },
 
-  { 
+  {
     "nvim-tree/nvim-web-devicons",
     lazy = true
   }

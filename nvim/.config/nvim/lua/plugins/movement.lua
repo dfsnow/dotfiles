@@ -1,8 +1,9 @@
 return {
-   {
+  {
     "stevearc/oil.nvim",
     dependencies = {
-      "nvim-telescope/telescope.nvim"
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-web-devicons"
     },
     opts = {
       default_file_explorer = true,
@@ -24,11 +25,11 @@ return {
           local h = math.floor(vim.o.lines * 0.75)
           local r = math.floor((vim.o.lines - h) / 2 - 1)
           local c = math.floor((vim.o.columns - w) / 2 - 1)
-	  conf["width"] = w
-	  conf["height"] = h
+          conf["width"] = w
+          conf["height"] = h
           conf["row"] = r
           conf["col"] = c
-	  return(conf)
+          return (conf)
         end
       },
       use_default_keymaps = false,
@@ -60,9 +61,9 @@ return {
       vim.g.slime_preserve_curpos = 0
       vim.g.slime_paste_file = vim.fn.tempname()
       vim.g.slime_target = "tmux"
-      vim.g.slime_default_config = { 
+      vim.g.slime_default_config = {
         socket_name = "default",
-        target_pane = "{bottom}" 
+        target_pane = "{bottom}"
       }
       vim.cmd([[nmap <leader><cr> <Plug>SlimeLineSendj0]])
       vim.cmd([[vmap <leader><cr> <Plug>SlimeRegionSendgv<esc>]])
@@ -75,9 +76,9 @@ return {
     keys = {
       {
         "<space>",
-      	mode = { "n", "x", "o" },
-	function() require("flash").jump() end,
-	desc = "Flash" 
+        mode = { "n", "x", "o" },
+        function() require("flash").jump() end,
+        desc = "Flash"
       }
     }
   }

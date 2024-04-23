@@ -4,7 +4,7 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { 
+        ensure_installed = {
           "lua", "vim", "vimdoc", "query",
           "rust", "c", "cpp", "go",
           "r", "python", "julia",
@@ -20,7 +20,7 @@ return {
           enable = true,
           additional_vim_regex_highlighting = { "markdown" }
         },
-        ident = { enable = true }, 
+        ident = { enable = true },
         rainbow = {
           enable = true,
           extended_mode = true,
