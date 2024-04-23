@@ -75,12 +75,13 @@ wk.register({
     p = { "Paste from clipboard"                                             },
     y = { "Copy to clipboard"                                                },
     x = { "Delete buffer"                                                    },
+    Q = { "Exit without saving"                                              },
+    q = { "which_key_ignore"                                                 },
     j = { "which_key_ignore"                                                 },
     h = { "which_key_ignore"                                                 },
     j = { "which_key_ignore"                                                 },
     k = { "which_key_ignore"                                                 },
     l = { "which_key_ignore"                                                 },
-    Q = { "which_key_ignore"                                                 },
     w = { "which_key_ignore"                                                 },
     W = { "which_key_ignore"                                                 },
     P = { "which_key_ignore"                                                 },
@@ -172,7 +173,7 @@ wk.register({
   g = {
     name = "git",
     b = { "<cmd>lua require'gitsigns'.blame_line{}<CR>", "View line blame"   },
-    g = { "<cmd>Gitsigns toggle_signs<cr>"            , "Toggle git signs"   },
+    t = { "<cmd>Gitsigns toggle_signs<cr>"            , "Toggle git signs"   },
     d = { "<cmd>Gitsigns preview_hunk<cr>"            , "View diff preview"  },
     D = { "<cmd>Gitsigns diffthis<cr>"                , "View full diff"     },
     n = { "<cmd>Gitsigns next_hunk<cr>"               , "Next hunk"          },
@@ -238,6 +239,7 @@ if ret == 0 then
   wk.register({
     g = {
       name = "git",
+      g = { "<cmd>Telescope git_status<cr>"           , "Search git changes" },
       f = {
         name = "search",
         c = { "<cmd>Telescope git_commits<cr>"        , "Commits"            },
