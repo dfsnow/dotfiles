@@ -16,7 +16,7 @@ return {
         show_hidden = true,
       },
       buf_options = {
-        bufhidden = "wipe"
+        bufhidden = "hide"
       },
       float = {
         override = function(conf)
