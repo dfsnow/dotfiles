@@ -78,8 +78,6 @@ nmap <leader>h <C-W><C-H>
 nmap <leader><Tab> <C-W>w
 nmap <leader><S-Tab> <C-W>W
 
-tmap <Esc><Esc> <C-\><C-n>
-
 nmap <leader>_ :new<cr>
 nmap <leader>- :vnew<cr>
 nmap <leader>bb :enew<cr>

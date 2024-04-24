@@ -4,10 +4,10 @@ wk.register(mappings, opts)
 -- Non-leader mappings
 wk.register({
   ["<C-r>"]   = {
-    "<cmd>Telescope command_history<cr>",
+    "<cmd>FzfLua command_history<cr>",
     "Search command history"
   },
-  ["<C-t>"]   = { "<cmd>Telescope find_files<cr>"   , "Search files"         },
+  ["<C-t>"]   = { "<cmd>FzfLua files<cr>"           , "Search files"         },
   ["<C-A>"]   = { "Increment up"                                             },
   ["<C-X>"]   = { "Increment down"                                           },
   ["<TAB>"]   = { "Next buffer"                                              },
@@ -57,10 +57,10 @@ wk.register({ z = { name = "+fold" } })
 wk.register({
   g = {
     name = "+misc",
-    c = { "which_key_ignore"                                                 }, 
-    h = { "Toggle hidden files"                                              }, 
-    [";"] = { "Go to last edited position"                                   }, 
-  } 
+    c = { "which_key_ignore"                                                 },
+    h = { "Toggle hidden files"                                              },
+    [";"] = { "Go to last edited position"                                   },
+  }
 })
 
 -- Leader mappings
@@ -96,7 +96,7 @@ wk.register({
     ["?"]        = { "Open Copilot prompts"                                  },
     ["<CR>"]     = { "Send to tmux"                                          },
     ["/"]        = {
-      "<cmd>Telescope current_buffer_fuzzy_find<cr>",
+      "<cmd>FzfLua grep_curbuf<cr>",
       "Search current buffer"
     },
     ["."]        = {
@@ -109,7 +109,7 @@ wk.register({
 wk.register({
   b = {
     name = "buffer",
-    f = { "<cmd>Telescope buffers<cr>"               , "Search buffers"      },
+    f = { "<cmd>FzfLua buffers<cr>"               , "Search buffers"         },
     b = { "New (no split)"                                                   },
     n = { "New (no split)"                                                   },
     c = { "Close"                                                            },
@@ -119,34 +119,38 @@ wk.register({
 wk.register({
   d = {
     name = "lsp",
-    R = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename identifer"    },
+    r = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename identifer"    },
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
-    r = { "<cmd>lua vim.lsp.buf.references()<cr>"    , "Show references"     },
-    d = { "<cmd>lua vim.lsp.buf.definition()<cr>"    , "Goto definition"     },
-    D = { "<cmd>lua vim.lsp.buf.declaration()<cr>"   , "Goto declaration"    },
-    i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Show implementations"},
-    k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature help" },
-    K = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
+    l = { "<cmd>FzfLua lsp_finder<cr>"               , "Search all LSP"      },
+    k = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
+    d = {
+      "<cmd>FzfLua lsp_document_diagnostics<cr>",
+      "Search buffer diagnostics"
+    },
+    D = {
+      "<cmd>FzfLua lsp_workspace_diagnostics<cr>",
+      "Search workspace diagnostics"
+    },
     F = {
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
       "Format buffer"
     },
     f = {
       name = "search",
-      r = { "<cmd>Telescope lsp_references<cr>"       , "References"         },
-      d = { "<cmd>Telescope lsp_definitions<cr>"      , "Definitions"        },
-      D = { "<cmd>Telescope lsp_type_definitions<cr>" , "Type definitions"   },
-      i = { "<cmd>Telescope lsp_implementations<cr>"  , "Implementations"    },
-      s = { "<cmd>Telescope lsp_document_symbols<cr>" , "Document symbols"   },
-      S = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace symbols"  },
+      r = { "<cmd>FzfLua lsp_references<cr>"       , "References"         },
+      d = { "<cmd>FzfLua lsp_definitions<cr>"      , "Definitions"        },
+      D = { "<cmd>FzfLua lsp_type_definitions<cr>" , "Type definitions"   },
+      i = { "<cmd>FzfLua lsp_implementations<cr>"  , "Implementations"    },
+      s = { "<cmd>FzfLua lsp_document_symbols<cr>" , "Document symbols"   },
+      S = { "<cmd>FzfLua lsp_workspace_symbols<cr>", "Workspace symbols"  },
       n = {
-        "<cmd>Telescope diagnostics bufnr=0<cr>",
+        "<cmd>FzfLua lsp_document_diagnostics<cr>",
         "Document diagnostics"
       },
       N = {
-        "<cmd>Telescope diagnostics<cr>",
+        "<cmd>FzfLua lsp_workspace_diagnostics<cr>",
         "All diagnostics"
       },
     },
@@ -156,14 +160,17 @@ wk.register({
 wk.register({
   f = {
     name = "search",
-    f = { "<cmd>Telescope find_files<cr>"             , "All files"          },
-    b = { "<cmd>Telescope buffers<cr>"                , "Buffers"            },
-    w = { "<cmd>Telescope grep_string<cr>"            , "Grep current word"  },
-    m = { "<cmd>Telescope marks<cr>"                  , "Marks"              },
-    h = { "<cmd>Telescope command_history<cr>"        , "Command history"    },
-    r = { "<cmd>Telescope live_grep<cr>"              , "Grep in project"    },
-    s = { "<cmd>Telescope spell_suggest<cr>"          , "Spellings"          },
-    l = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Grep in buffer"   },
+    f = { "<cmd>FzfLua files<cr>"                     , "All files"          },
+    o = { "<cmd>FzfLua oldfiles<cr>"                  , "Old files"          },
+    q = { "<cmd>FzfLua quickfix<cr>"                  , "Quickfix list"      },
+    b = { "<cmd>FzfLua buffers<cr>"                   , "Buffers"            },
+    w = { "<cmd>FzfLua grep_cword<cr>"                , "Grep current word"  },
+    m = { "<cmd>FzfLua marks<cr>"                     , "Marks"              },
+    r = { "<cmd>FzfLua command_history<cr>"           , "Command history"    },
+    p = { "<cmd>FzfLua grep_project<cr>"              , "Grep in project"    },
+    s = { "<cmd>FzfLua spell_suggest<cr>"             , "Spellings"          },
+    l = { "<cmd>FzfLua grep_curbuf<cr>"               , "Grep in buffer"     },
+    h = { "<cmd>FzfLua helptags<cr>"                  , "Helptags"           },
   }
 }, { prefix = "<leader>" })
 
@@ -192,8 +199,8 @@ wk.register({
     n = { "]s"                                 , "Next misspelling"          },
     p = { "[s"                                 , "Previous misspelling"      },
     a = { "zg"                                 , "Add to dictionary"         },
-    f = { "<cmd>Telescope spell_suggest<cr>"   , "Lookup in dictionary"      },
-    ["?"] = { "<cmd>Telescope spell_suggest<cr>", "which_key_ignore"         },
+    f = { "<cmd>FzfLua spell_suggest<cr>"      , "Lookup in dictionary"      },
+    ["?"] = { "<cmd>FzfLua spell_suggest<cr>"  , "which_key_ignore"          },
   }
 }, { prefix = "<leader>" })
 
@@ -212,47 +219,46 @@ wk.register({
 }, { prefix = "<leader>" })
 
 -- Map <leader><leader> to git files if available, else find files
-local utils = require("telescope.utils")
-local builtin = require("telescope.builtin")
-project_files = function()
-  local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" })
-  if ret == 0 then
-    builtin.git_files()
+local fzf = require("fzf-lua")
+PROJ_FILES = function()
+  local git_exit_status = os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
+  if git_exit_status == 0 then
+    fzf.git_files()
   else
-    builtin.find_files()
+    fzf.files()
   end
 end
 
 wk.register({
   ["<leader>"] = {
-    "<cmd>lua project_files()<cr>",
+    "<cmd>lua PROJ_FILES()<cr>",
     "Search git files"
   }
 }, { prefix = "<leader>" })
 
 -- Map git bindings if in git repo
-local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" })
-if ret == 0 then
+local git_exit_status = os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
+if git_exit_status == 0 then
   wk.register({
     g = {
       name = "git",
-      g = { "<cmd>Telescope git_status<cr>"           , "Search git changes" },
+      g = { "<cmd>FzfLua git_status<cr>"              , "Search git changes" },
       f = {
         name = "search",
-        c = { "<cmd>Telescope git_commits<cr>"        , "Commits"            },
-        C = { "<cmd>Telescope git_bcommits<cr>"       , "Buffer commits"     },
-        b = { "<cmd>Telescope git_branches<cr>"       , "Branches"           },
-        d = { "<cmd>Telescope git_status<cr>"         , "Diff"               },
-        S = { "<cmd>Telescope git_stash<cr>"          , "Stash"              },
+        c = { "<cmd>FzfLua git_commits<cr>"           , "Commits"            },
+        C = { "<cmd>FzfLua git_bcommits<cr>"          , "Buffer commits"     },
+        b = { "<cmd>FzfLua git_branches<cr>"          , "Branches"           },
+        d = { "<cmd>FzfLua git_status<cr>"            , "Diff"               },
+        S = { "<cmd>FzfLua git_stash<cr>"             , "Stash"              },
       }
     }
   }, { prefix = "<leader>" })
 
   wk.register({
     f = {
-      g = { "<cmd>Telescope git_files<cr>"            , "Git files"          },
-      d = { "<cmd>Telescope git_status<cr>"           , "Git diff"           },
-      c = { "<cmd>Telescope git_commits<cr>"          , "Git commits"        },
+      g = { "<cmd>FzfLua git_files<cr>"               , "Git files"          },
+      d = { "<cmd>FzfLua git_status<cr>"              , "Git diff"           },
+      c = { "<cmd>FzfLua git_commits<cr>"             , "Git commits"        },
     }
   }, { prefix = "<leader>" })
 end

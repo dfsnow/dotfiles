@@ -1,10 +1,7 @@
 return {
   {
     "stevearc/oil.nvim",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-tree/nvim-web-devicons"
-    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       default_file_explorer = true,
       columns = {

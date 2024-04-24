@@ -5,17 +5,21 @@ return {
     priority = 1000,
     config = function()
       require("catppuccin").setup({
-        integrations = { which_key = true },
+        integrations = {
+          which_key = true,
+          gitsigns = true,
+          flash = true
+        },
         custom_highlights = function(colors)
           return {
             NonText = { fg = colors.surface1 },
-            TelescopeMatching = { fg = colors.red },
-            TelescopePromptCounter = { fg = colors.mauve },
             CmpItemAbbr = { fg = colors.text },
             CmpItemAbbrMatch = { fg = colors.red },
             NormalFloat = { bg = colors.none },
             FlashBackdrop = { fg = colors.overlay0 },
             FlashLabel = { fg = colors.base, bg = colors.red },
+            FzfLuaBorder = { fg = colors.blue },
+            FzfLuaTitle = { fg = colors.overlay2 }
           }
         end
       })
