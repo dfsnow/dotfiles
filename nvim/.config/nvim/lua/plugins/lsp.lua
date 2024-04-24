@@ -88,43 +88,5 @@ return {
         end
       })
     end
-  },
-
-  {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    config = function()
-      local wk = require("which-key")
-      local rt = require("rust-tools")
-      rt.setup({
-        tools = {
-          hover_actions = {
-            auto_focus = true,
-          },
-        },
-        server = {
-          -- These will overwrite the default mappings on load
-          on_attach = function(_, bufnr)
-            vim.keymap.set(
-              "n", "K",
-              rt.hover_actions.hover_actions, { buffer = bufnr }
-            )
-            vim.keymap.set(
-              "n", "<leader>dK",
-              rt.hover_actions.hover_actions, { buffer = bufnr }
-            )
-            wk.register({
-              d = {
-                name = "lsp",
-                K = {
-                  "<cmd>lua rt.hover_actions.hover_actions<cr>",
-                  "View hover actions"
-                },
-              },
-            }, { prefix = "<leader>" })
-          end,
-        },
-      })
-    end
   }
 }
