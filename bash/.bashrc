@@ -172,13 +172,16 @@ export FZF_DEFAULT_OPTS=" \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
     --layout=reverse"
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow 2> /dev/null"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
+    -g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' \
+    -g '!{node_modules,renv}/' \
+    2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --follow --hidden \
-    --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/Library' \
-    --exclude '**/.tldrc' --exclude '**/.tldr' --exclude '**/.cargo' \
-    --exclude '**/.local' --exclude '**/.git' --exclude '**/.cache' \
-    --exclude '**/.vim' . $HOME"
+    --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/.tldrc' \
+    --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.git' \
+    --exclude '**/.cache' --exclude '**/.local' --exclude '**/.vim' \
+    --exclude '**/Library' . $HOME"
 
 function z {
     cd "$(fd . "${HOME}" \

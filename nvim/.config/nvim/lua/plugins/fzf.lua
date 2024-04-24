@@ -19,8 +19,17 @@ return {
         }
       },
       fzf_opts = { ["--layout"] = "default" },
+      files = {
+        fd_opts =
+          "--color=never --type f --hidden --follow " ..
+          "--exclude .git --exclude node_modules --exclude renv"
+      },
       grep = {
-        rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+        rg_opts =
+          "--hidden --column --line-number --no-heading " ..
+          "--color=always --smart-case --max-columns=4096 " ..
+          "-g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' " ..
+          "-g '!{node_modules,renv}/' -e"
       }
     })
     require("fzf-lua").register_ui_select()
