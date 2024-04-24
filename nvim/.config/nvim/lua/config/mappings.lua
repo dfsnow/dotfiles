@@ -167,7 +167,6 @@ wk.register({
     w = { "<cmd>FzfLua grep_cword<cr>"                , "Grep current word"  },
     m = { "<cmd>FzfLua marks<cr>"                     , "Marks"              },
     r = { "<cmd>FzfLua command_history<cr>"           , "Command history"    },
-    p = { "<cmd>FzfLua grep_project<cr>"              , "Grep in project"    },
     s = { "<cmd>FzfLua spell_suggest<cr>"             , "Spellings"          },
     l = { "<cmd>FzfLua grep_curbuf<cr>"               , "Grep in buffer"     },
     h = { "<cmd>FzfLua helptags<cr>"                  , "Helptags"           },
@@ -218,11 +217,15 @@ wk.register({
   }
 }, { prefix = "<leader>" })
 
--- Map <leader><leader> to git files if available, else find files
+-- Helper function to check if in a git dir
+get_git_exit = function()
+  return os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
+end
+
+-- Map <leader><leader> to git files if available, else normal files
 local fzf = require("fzf-lua")
-PROJ_FILES = function()
-  local git_exit_status = os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
-  if git_exit_status == 0 then
+proj_files = function()
+  if get_git_exit() == 0 then
     fzf.git_files()
   else
     fzf.files()
@@ -231,14 +234,32 @@ end
 
 wk.register({
   ["<leader>"] = {
-    "<cmd>lua PROJ_FILES()<cr>",
+    "<cmd>lua proj_files()<cr>",
     "Search git files"
   }
 }, { prefix = "<leader>" })
 
+-- Search from CWD if not in a git dir
+cwd_or_git = function()
+  if get_git_exit() == 0 then
+    return vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  else
+    return vim.loop.cwd()
+  end
+end
+
+wk.register({
+  f = {
+    name = "search",
+    p = {
+      "<cmd>lua require('fzf-lua').grep_project({cwd = cwd_or_git()})<cr>",
+      "Grep in project"
+    }
+  }
+}, { prefix = "<leader>" })
+
 -- Map git bindings if in git repo
-local git_exit_status = os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
-if git_exit_status == 0 then
+if get_git_exit() == 0 then
   wk.register({
     g = {
       name = "git",
