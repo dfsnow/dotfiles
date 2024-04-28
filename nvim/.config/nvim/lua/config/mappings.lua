@@ -68,6 +68,7 @@ wk.register({
   ["<leader>"] = {
     name = "+leader",
     L = { "<cmd>Lazy<cr>"                      , "Open Lazy"                 },
+    M = { "<cmd>Mason<cr>"                     , "Open Mason"                },
     Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
     m = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },

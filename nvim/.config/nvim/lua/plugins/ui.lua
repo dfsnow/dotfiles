@@ -8,7 +8,8 @@ return {
         integrations = {
           which_key = true,
           gitsigns = true,
-          flash = true
+          flash = true,
+          mason = true
         },
         custom_highlights = function(colors)
           return {
