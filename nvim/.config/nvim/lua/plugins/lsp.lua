@@ -88,5 +88,16 @@ return {
         end
       })
     end
+  },
+
+  {
+    "folke/trouble.nvim",
+    branch = "dev",
+    opts = {
+      focus = true,
+      keys = {
+        ["<Esc>"] = "close"
+      }
+    }
   }
 }

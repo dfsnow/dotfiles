@@ -122,16 +122,15 @@ wk.register({
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename identifer"    },
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
-    l = { "<cmd>FzfLua lsp_finder<cr>"               , "Search all LSP"      },
     k = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
     d = {
-      "<cmd>FzfLua lsp_document_diagnostics<cr>",
-      "Search buffer diagnostics"
+      "<cmd>Trouble diagnostics toggle<cr>",
+      "Show workspace diagnostics"
     },
     D = {
-      "<cmd>FzfLua lsp_workspace_diagnostics<cr>",
-      "Search workspace diagnostics"
+      "<cmd>Trouble<cr>",
+      "Show Trouble options"
     },
     F = {
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
@@ -139,12 +138,13 @@ wk.register({
     },
     f = {
       name = "search",
-      r = { "<cmd>FzfLua lsp_references<cr>"       , "References"         },
-      d = { "<cmd>FzfLua lsp_definitions<cr>"      , "Definitions"        },
-      D = { "<cmd>FzfLua lsp_type_definitions<cr>" , "Type definitions"   },
-      i = { "<cmd>FzfLua lsp_implementations<cr>"  , "Implementations"    },
-      s = { "<cmd>FzfLua lsp_document_symbols<cr>" , "Document symbols"   },
-      S = { "<cmd>FzfLua lsp_workspace_symbols<cr>", "Workspace symbols"  },
+      a = { "<cmd>FzfLua lsp_finder<cr>"             , "All LSP"             },
+      r = { "<cmd>FzfLua lsp_references<cr>"         , "References"          },
+      d = { "<cmd>FzfLua lsp_definitions<cr>"        , "Definitions"         },
+      D = { "<cmd>FzfLua lsp_type_definitions<cr>"   , "Type definitions"    },
+      i = { "<cmd>FzfLua lsp_implementations<cr>"    , "Implementations"     },
+      s = { "<cmd>FzfLua lsp_document_symbols<cr>"   , "Document symbols"    },
+      S = { "<cmd>FzfLua lsp_workspace_symbols<cr>"  , "Workspace symbols"   },
       n = {
         "<cmd>FzfLua lsp_document_diagnostics<cr>",
         "Document diagnostics"
