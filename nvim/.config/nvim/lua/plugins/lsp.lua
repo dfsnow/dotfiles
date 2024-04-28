@@ -50,6 +50,7 @@ return {
     ft = {
       "json",
       "sh", "bash",
+      "sql",
       "yaml"
     },
     config = function()
@@ -57,6 +58,7 @@ return {
         formatters_by_ft = {
           json = { "jq" },
           sh = { "shfmt" }, bash = { "shfmt" },
+          sql = { "sqlfluff" },
           yaml = { "yamlfmt" }
         }
       })
@@ -74,7 +76,7 @@ return {
         d = {
           name = "lsp",
           F = {
-            "<cmd>lua require('conform').format()<cr>",
+            "<cmd>lua require('conform').format({ timeout_ms=5000 })<cr>",
             "Format buffer"
           }
         }
