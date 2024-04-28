@@ -125,11 +125,11 @@ return {
 
   {
     "folke/trouble.nvim",
-    branch = "dev",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      focus = true,
-      keys = {
-        ["<Esc>"] = "close"
+      action_keys = {
+        close = "<esc>",
+        cancel = {}
       }
     }
   }

@@ -126,12 +126,12 @@ wk.register({
     k = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>"   , "Show code actions"   },
     d = {
-      "<cmd>Trouble diagnostics toggle<cr>",
-      "Show workspace diagnostics"
+      "<cmd>TroubleToggle document_diagnostics<cr>",
+      "Show document diagnostics"
     },
     D = {
-      "<cmd>Trouble<cr>",
-      "Show Trouble options"
+      "<cmd>TroubleToggle workspace_diagnostics<cr>",
+      "Show workspace diagnostics"
     },
     F = {
       "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>",
