@@ -183,15 +183,6 @@ export FZF_ALT_C_COMMAND="fd --type d --follow --hidden \
     --exclude '**/.cache' --exclude '**/.local' --exclude '**/.vim' \
     --exclude '**/Library' . $HOME"
 
-function z {
-    cd "$(fd . "${HOME}" \
-        "${HOME}/Library/Mobile Documents/com~apple~CloudDocs" \
-        --exclude '/Library/' --type d --color never \
-       | fzf --select-1 --query "${*}")" \
-       || return
-    ls
-}
-
 # Remove bash deprecation warning message on Mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
