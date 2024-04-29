@@ -120,7 +120,6 @@ wk.register({
 wk.register({
   d = {
     name = "lsp",
-    r = { "<cmd>lua vim.lsp.buf.rename()<cr>"        , "Rename identifer"    },
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>"  , "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>"  , "Next diagnostic"     },
     k = { "<cmd>lua vim.lsp.buf.hover()<cr>"         , "Show hover info"     },

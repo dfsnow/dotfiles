@@ -161,6 +161,16 @@ return {
   },
 
   {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup()
+      local wk = require("which-key")
+      wk.register({ ["<leader>dr"] = { "Rename identifier" } })
+      vim.keymap.set("n", "<leader>dr", ":IncRename ")
+    end,
+  },
+
+  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
