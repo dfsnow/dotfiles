@@ -166,7 +166,12 @@ fi
 export EDITOR="$VISUAL"
 
 # For Debian systems add alias for fd, since fd is fdfind in apt
-if echo "$DISTRO" | grep -q "debian"; then alias fd=fdfind; fi
+if type fd >/dev/null 2>/dev/null; then
+    FZF_FIND=fd
+elif type fdfind >/dev/null 2>/dev/null; then
+    FZF_FIND=fdfind
+    alias fd=fdfind
+fi
 export FZF_DEFAULT_OPTS=" \
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
@@ -177,7 +182,7 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
     -g '!{node_modules,renv}/' \
     2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type d --follow --hidden \
+export FZF_ALT_C_COMMAND="$FZF_FIND --type d --follow --hidden \
     --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/.tldrc' \
     --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.git' \
     --exclude '**/.cache' --exclude '**/.local' --exclude '**/.vim' \
