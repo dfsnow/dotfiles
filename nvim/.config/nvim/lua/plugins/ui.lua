@@ -119,6 +119,17 @@ return {
   },
 
   {
+    "stevearc/dressing.nvim",
+    config = function()
+      require("dressing").setup({
+        select = {
+          enabled = false
+        }
+      })
+    end
+  },
+
+  {
     "nvim-tree/nvim-web-devicons",
     lazy = true
   }

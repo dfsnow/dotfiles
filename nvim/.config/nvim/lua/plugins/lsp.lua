@@ -78,6 +78,9 @@ return {
       lspconfig.ruff_lsp.setup({})
       lspconfig.rust_analyzer.setup({})
       lspconfig.yamlls.setup({})
+
+      -- Prettify the LSP info window
+      require("lspconfig.ui.windows").default_options.border = "rounded"
     end
   },
 
@@ -165,7 +168,7 @@ return {
     "smjonas/inc-rename.nvim",
     event = "VeryLazy",
     config = function()
-      require("inc_rename").setup()
+      require("inc_rename").setup({ input_buffer_type = "dressing" })
       local wk = require("which-key")
       wk.register({ ["<leader>dr"] = { "Rename identifier" } })
       vim.keymap.set("n", "<leader>dr", ":IncRename ")
