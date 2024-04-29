@@ -1,5 +1,40 @@
 return {
   {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        -- Language servers
+        "bashls",
+        "cssls",
+        "dockerls",
+        "docker_compose_language_service",
+        "html",
+        "lua_ls",
+        "pyright",
+        -- "r_language_server", Not installed by default, too heavy
+        "ruff",
+        "ruff_lsp",
+        "rust_analyzer",
+        "yamlls",
+        -- Formatters
+        "jq",
+        "shfmt",
+        "sqlfluff",
+        "yamlfmt",
+        -- Linters
+        "actionlint",
+        "gitlint",
+        "hadolint",
+        "shellcheck",
+        "sqlfluff",
+        "stylelint",
+        "markdownlint",
+        "yamllint"
+      }
+    }
+  },
+
+  {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason.nvim",
