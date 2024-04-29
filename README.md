@@ -15,6 +15,7 @@ The tmux prefix is `` ` ``
 - `prefix + =` - split window 70/30
 - `prefix + Esc` - enter copy mode
 - `prefix + Enter` - copy selection
+- `prefix + $` - rename current session
 - `prefix + q` - kill current session
 
 ## SSH
