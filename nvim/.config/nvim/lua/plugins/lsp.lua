@@ -1,6 +1,7 @@
 return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    event = "VeryLazy",
     opts = {
       ensure_installed = {
         -- Language servers
@@ -162,6 +163,7 @@ return {
 
   {
     "smjonas/inc-rename.nvim",
+    event = "VeryLazy",
     config = function()
       require("inc_rename").setup()
       local wk = require("which-key")

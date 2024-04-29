@@ -1,5 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
+  event = "VeryLazy",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local w = math.floor(vim.o.columns * 0.88)
