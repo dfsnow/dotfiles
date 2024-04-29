@@ -1,12 +1,20 @@
 return {
   "tpope/vim-sleuth",
   "tpope/vim-repeat",
-  "tpope/vim-surround",
+
   {
-    "tpope/vim-commentary",
+    "kylechui/nvim-surround",
+    version = "*",
     config = function()
-      vim.cmd([[nmap <leader>c :Commentary<cr>]])
-      vim.cmd([[vmap <leader>c :Commentary<cr>gv]])
+      require("nvim-surround").setup({})
+    end
+  },
+
+  {
+    "numToStr/Comment.nvim",
+    config = function()
+      vim.keymap.set("n", "<leader>c", "<Plug>(comment_toggle_linewise_current)")
+      vim.keymap.set("x", "<leader>c", "<Plug>(comment_toggle_linewise_visual)")
     end
   }
 }
