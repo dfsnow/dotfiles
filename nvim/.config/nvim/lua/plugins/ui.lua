@@ -60,7 +60,6 @@ return {
 
   {
     "kosayoda/nvim-lightbulb",
-    event = "LspAttach",
     opts = {
       sign = {
         text = "A",
