@@ -225,27 +225,7 @@ end
 -- Map <leader><leader> to git files if available, else normal files
 local fzf_lua = require("fzf-lua")
 _G.proj_files = function()
-  local path = require("fzf-lua.path")
-  local utils = require("fzf-lua.utils")
-  local marks = vim.fn.execute("marks")
-  marks = vim.split(marks, "\n")
-
-  local entries = {}
-  for i = #marks, 3, -1 do
-    local mark, _, _, text = marks[i]:match("(.)%s+(%d+)%s+(%d+)%s+(.*)")
-    if path.is_absolute(text) then
-      text = path.HOME_to_tilde(text)
-    end
-    if string.match(mark, "%a") then
-      table.insert(entries, string.format(" %-15s %s",
-        utils.ansi_codes.green(mark),
-        text
-      ))
-    end
-  end
-  if next(entries) ~= nil then
-    return fzf_harpoon(entries)
-  elseif get_git_exit() == 0 then
+  if get_git_exit() == 0 then
     return fzf_lua.git_files()
   else
     return fzf_lua.files()

@@ -36,25 +36,5 @@ return {
       }
     })
     fzf_lua.register_ui_select()
-
-    -- Custom marks search function
-    local previewer = require("fzf-lua.previewer")
-    local prev_marks = previewer.buffer_or_file:extend()
-
-    -- function prev_marks:new(o, opts, fzf_win)
-    --   prev_marks.marks.super.new(self, o, opts, fzf_win)
-    --   return self
-    -- end
-
-    _G.fzf_harpoon = function(entries, opts)
-      local core = require("fzf-lua.core")
-      local config = require("fzf-lua.config")
-      opts = config.normalize_opts(opts, "marks")
-      if not opts then return end
-      opts.previewer = nil
-      opts.prompt = "Harpoon> "
-      table.sort(entries, function(a, b) return a < b end)
-      core.fzf_exec(entries, opts)
-    end
   end
 }
