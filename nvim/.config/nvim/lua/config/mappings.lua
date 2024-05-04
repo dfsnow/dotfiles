@@ -222,14 +222,10 @@ _G.get_git_exit = function()
   return os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
 end
 
--- Map <leader><leader> to Harpoon, then git files if available
--- else normal files
+-- Map <leader><leader> to git files if available, else normal files
 local fzf_lua = require("fzf-lua")
-local harpoon = require("harpoon")
 _G.proj_files = function()
-  if next(harpoon:list().items) ~= nil then
-    fzf_harpoon(harpoon:list())
-  elseif get_git_exit() == 0 then
+  if get_git_exit() == 0 then
     return fzf_lua.git_files()
   else
     return fzf_lua.files()
