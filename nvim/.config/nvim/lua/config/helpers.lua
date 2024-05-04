@@ -1,6 +1,6 @@
 -- Hide eol and space characters
 vim.b.zen_toggle_flag = false
-function toggleZenMode()
+function _G.toggleZenMode()
   local next_zen_toggle_flag = not vim.b.zen_toggle_flag
   local next_fold_flag = false
   if next_zen_toggle_flag then

@@ -2,11 +2,6 @@
     "diagnostics.globals": [
         "vim",
         "mappings",
-        "opts",
-        "toggleAutoCmp",
-        "cwd_or_git",
-        "proj_files",
-        "get_git_exit",
-        "toggleZenMode"
+        "opts"
     ]
 }

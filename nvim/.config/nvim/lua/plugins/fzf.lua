@@ -7,7 +7,8 @@ return {
     local h = math.floor(vim.o.lines * 0.75)
     local r = math.floor((vim.o.lines - h) / 2 - 1)
     local c = math.floor((vim.o.columns - w) / 2 - 1)
-    require("fzf-lua").setup({
+    local fzf_lua = require("fzf-lua")
+    fzf_lua.setup({
       winopts = {
         height    = 0.85,
         width     = 0.9,
@@ -20,6 +21,7 @@ return {
         }
       },
       fzf_opts = { ["--layout"] = "default" },
+      actions = { files = { ["default"] = fzf_lua.actions.file_edit } },
       files = {
         fd_opts =
           "--color=never --type f --hidden --follow " ..
@@ -33,6 +35,6 @@ return {
           "-g '!{node_modules,renv}/' -e"
       }
     })
-    require("fzf-lua").register_ui_select()
+    fzf_lua.register_ui_select()
   end
 }

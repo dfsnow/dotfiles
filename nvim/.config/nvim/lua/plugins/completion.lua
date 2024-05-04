@@ -141,7 +141,7 @@ return {
 
       -- Toggle autocompletion
       vim.g.cmp_toggle_flag = true
-      function toggleAutoCmp()
+      function _G.toggleAutoCmp()
         local next_cmp_toggle_flag = not vim.g.cmp_toggle_flag
         if next_cmp_toggle_flag then
           print("Completion on")

@@ -218,17 +218,17 @@ wk.register({
 }, { prefix = "<leader>" })
 
 -- Helper function to check if in a git dir
-get_git_exit = function()
+_G.get_git_exit = function()
   return os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
 end
 
 -- Map <leader><leader> to git files if available, else normal files
-local fzf = require("fzf-lua")
-proj_files = function()
+local fzf_lua = require("fzf-lua")
+_G.proj_files = function()
   if get_git_exit() == 0 then
-    fzf.git_files()
+    return fzf_lua.git_files()
   else
-    fzf.files()
+    return fzf_lua.files()
   end
 end
 
@@ -240,7 +240,7 @@ wk.register({
 }, { prefix = "<leader>" })
 
 -- Search from CWD if not in a git dir
-cwd_or_git = function()
+_G.cwd_or_git = function()
   if get_git_exit() == 0 then
     return vim.fn.systemlist("git rev-parse --show-toplevel")[1]
   else
