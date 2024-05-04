@@ -47,6 +47,77 @@ return {
   },
 
   {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local wk = require("which-key")
+      local harpoon = require("harpoon")
+      harpoon:setup()
+
+      _G.fzf_harpoon = function(harpoon_files)
+        local fzf_lua = require("fzf-lua")
+
+        local file_paths = {}
+        for _, item in pairs(harpoon_files.items) do
+          table.insert(file_paths, item.value)
+        end
+
+        opts = {}
+        opts.prompt = "Harpoon> "
+        opts.previewer = "builtin"
+        opts.fn_transform = function(x)
+          return fzf_lua.make_entry.file(x, {
+            file_icons = true,
+            color_icons = true,
+            git_icons = true
+          })
+        end
+        opts.preview = false
+        opts.actions = {
+          ["default"] = fzf_lua.actions.file_edit,
+          ["ctrl-x"] = {
+            function(selected)
+              for _, f in ipairs(selected) do
+                print(string.format("Removed %s from Harpoon", f:sub(11)))
+                local _, idx = harpoon:list():get_by_value(f:sub(11))
+                harpoon:list():remove_at(idx)
+              end
+            end,
+            fzf_lua.actions.resume
+          }
+        }
+
+        local cmd = string.format("ls %s", table.concat(file_paths, ' '))
+        fzf_lua.fzf_exec(cmd, opts)
+      end
+
+      wk.register({
+        h = {
+          name = "harpoon",
+          h = {
+            "<cmd>lua _G.fzf_harpoon(require('harpoon'):list())<cr>",
+            "Open Harpoon list"
+          },
+          a = {
+            "<cmd>lua require('harpoon'):list():prepend()<cr>",
+            "Add to Harpoon"
+          },
+          x = {
+            "<cmd>lua require('harpoon'):list():remove()<cr>",
+            "Remove from Harpoon"
+          },
+          c = {
+            "<cmd>lua require('harpoon'):list():clear()<cr>",
+            "Clear Harpoon list"
+          }
+        }
+      }, { prefix = "<leader>" })
+
+    end
+  },
+
+  {
     "jpalardy/vim-slime",
     event = "VeryLazy",
     init = function()
