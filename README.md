@@ -48,3 +48,7 @@ If SSH isn't working on macOS (no identities), use `ssh-add --apple-use-keychain
 Remember to add `StreamLocalBindUnlink yes` to `/etc/ssh/sshd_config`
 
 You can append `!` to get a specific GPG key
+
+> [!NOTE]
+> If the remote forwarding stops working for whatever reason. Use the following command:
+> `rm $(gpgconf --list-dir agent-socket)`, then reconnect the SSH session
