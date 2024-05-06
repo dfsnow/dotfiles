@@ -23,6 +23,7 @@ return {
       fzf_opts = { ["--layout"] = "default" },
       actions = { files = { ["default"] = fzf_lua.actions.file_edit } },
       files = {
+        formatter = "path.filename_first",
         fd_opts =
           "--color=never --type f --hidden --follow " ..
           "--exclude .git --exclude node_modules --exclude renv"
@@ -33,6 +34,11 @@ return {
           "--color=always --smart-case --max-columns=4096 " ..
           "-g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' " ..
           "-g '!{node_modules,renv}/' -e"
+      },
+      git = {
+        files = {
+          formatter = "path.filename_first"
+        }
       }
     })
     fzf_lua.register_ui_select()
