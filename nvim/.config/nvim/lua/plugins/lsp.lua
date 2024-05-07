@@ -12,6 +12,7 @@ return {
         "html",
         "lua_ls",
         "pyright",
+        "terraform-ls",
         -- "r_language_server", Not installed by default, too heavy
         "ruff",
         "ruff_lsp",
@@ -29,6 +30,7 @@ return {
         "shellcheck",
         "sqlfluff",
         "stylelint",
+        "tflint",
         "markdownlint",
         "yamllint"
       }
@@ -77,6 +79,7 @@ return {
       })
       lspconfig.ruff_lsp.setup({})
       lspconfig.rust_analyzer.setup({})
+      lspconfig.terraformls.setup({})
       lspconfig.yamlls.setup({})
 
       -- Prettify the LSP info window
@@ -132,6 +135,7 @@ return {
       "markdown",
       "sh",
       "sql",
+      "terraform",
       "yaml"
     },
     config = function()
@@ -142,6 +146,7 @@ return {
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
         sql = { "sqlfluff" },
+        terraform = { "tflint" },
         yaml = { "actionlint", "yamllint" }
       }
       local wk = require("which-key")
