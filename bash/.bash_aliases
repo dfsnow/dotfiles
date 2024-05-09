@@ -11,9 +11,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
         (test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)") \
             || eval "$(dircolors -b)"
     fi
-    alias ls='ls -hGF --color=auto'
-    alias l='ls -lahGF --color=auto'
-    alias ll='ls -lahGF --color=auto'
+    alias ls='ls -hF --color=auto'
+    alias ll='ls -lahF --color=auto'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     export CLICOLOR=1
     alias ls='ls -hGF'
