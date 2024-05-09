@@ -90,6 +90,9 @@
     # Delete local branches with merged/removed remote
     bd = "!git branch --v | grep 'gone]' | awk '{print $1}' | xargs git branch -D"
 
+    # Fuzzy find branches and tags
+    bf = "!git checkout $(( git branch -a --color=never --format='%(refname:short)' --sort=committerdate & git tag -l ) | grep -v '^head' | fzf --height 40% --reverse --ansi --multi --tac | sed 's#^remotes/[^/]*/##' | sed 's#^origin/##')"
+
     # List aliases
     la = "!git config -l | grep alias | cut -c 7-"
 
