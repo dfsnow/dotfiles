@@ -38,5 +38,28 @@ return {
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
       vim.opt.foldenable = false
     end
+  },
+
+  {
+    "RRethy/nvim-treesitter-textsubjects",
+    deps = {
+      "nvim-treesitter/nvim-treesitter",
+      "jpalardy/vim-slime"
+    },
+    ft = { "python", "r", "julia", "lua" },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        textsubjects = {
+          enable = true,
+          keymaps = {
+            ["."] = "textsubjects-smart",
+            [";"] = "textsubjects-container-outer"
+          }
+        }
+      })
+      -- Adds a buffer local mapping to send the outer container (usually a
+      -- function or class definition) to a REPL using vim-slime
+      vim.cmd([[nmap <buffer> <leader><cr> v;<Plug>SlimeRegionSendgv<esc>]])
+    end
   }
 }
