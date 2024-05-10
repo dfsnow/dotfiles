@@ -108,6 +108,17 @@ wk.register({
 })
 
 wk.register({
+  ["<leader>"] = {
+    name = "+leader",
+    P = { "which_key_ignore"                                                 },
+    c = { "Toggle comment"                                                   },
+    p = { "Paste from system clipboard"                                      },
+    y = { "Yank to system clipboard"                                         },
+    ["<CR>"] = { "Send to tmux"                                              },
+  }
+}, { mode = "v" })
+
+wk.register({
   b = {
     name = "buffer",
     f = { "<cmd>FzfLua buffers<cr>"               , "Search buffers"         },
