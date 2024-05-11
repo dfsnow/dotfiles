@@ -48,7 +48,7 @@ return {
 
   {
     "jpalardy/vim-slime",
-    event = "VeryLazy",
+    keys = "<leader><cr>",
     init = function()
       vim.g.slime_no_mappings = 1
     end,
@@ -69,7 +69,6 @@ return {
 
   {
     "folke/flash.nvim",
-    event = "VeryLazy",
     keys = {
       {
         "<space>",

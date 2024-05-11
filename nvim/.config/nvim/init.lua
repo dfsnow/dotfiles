@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("config/misc")
 require("config/helpers")
+require("config/filetypes")
 require("lazy").setup(
   "plugins",
   {

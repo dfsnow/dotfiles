@@ -12,7 +12,7 @@ return {
 
   {
     "numToStr/Comment.nvim",
-    event = "VeryLazy",
+    keys = "<leader>c",
     config = function()
       vim.keymap.set("n", "<leader>c", "<Plug>(comment_toggle_linewise_current)")
       vim.keymap.set("x", "<leader>c", "<Plug>(comment_toggle_linewise_visual)")

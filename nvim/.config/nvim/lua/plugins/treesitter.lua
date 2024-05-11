@@ -2,19 +2,10 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    ft = treesitter_ft,
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "lua", "vim", "vimdoc", "query",
-          "rust", "c", "cpp", "go",
-          "r", "python", "julia",
-          "javascript", "html", "typescript",
-          "toml", "yaml", "json", "terraform",
-          "bash", "awk", "jq",
-          "markdown", "markdown_inline",
-          "gitcommit", "gitignore", "gitattributes",
-          "dockerfile", "sql", "comment"
-        },
+        ensure_installed = treesitter_parsers,
         auto_install = false,
         highlight = {
           enable = true,

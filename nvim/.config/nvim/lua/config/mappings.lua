@@ -68,7 +68,6 @@ wk.register({
   ["<leader>"] = {
     name = "+leader",
     L = { "<cmd>Lazy<cr>"                      , "Open Lazy"                 },
-    M = { "<cmd>Mason<cr>"                     , "Open Mason"                },
     Z = { "<cmd>lua toggleZenMode()<cr>"       , "Toggle Zen mode"           },
     m = { "<cmd>lua toggleAutoCmp()<cr>"       , "Toggle completion"         },
     n = { "<cmd>setlocal wrap!<cr>"            , "Toggle word wrap"          },
@@ -102,7 +101,7 @@ wk.register({
     },
     ["."]        = {
       "<cmd>lua require('oil').open_float('.')<cr>",
-      "Open current directory"
+      "Open working directory"
     }
   }
 })
@@ -228,14 +227,10 @@ wk.register({
   }
 }, { prefix = "<leader>" })
 
--- Helper function to check if in a git dir
-_G.get_git_exit = function()
-  return os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
-end
 
 -- Map <leader><leader> to git files if available, else normal files
-local fzf_lua = require("fzf-lua")
 _G.proj_files = function()
+  local fzf_lua = require("fzf-lua")
   if get_git_exit() == 0 then
     return fzf_lua.git_files()
   else
@@ -249,15 +244,6 @@ wk.register({
     "Search git files"
   }
 }, { prefix = "<leader>" })
-
--- Search from CWD if not in a git dir
-_G.cwd_or_git = function()
-  if get_git_exit() == 0 then
-    return vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-  else
-    return vim.loop.cwd()
-  end
-end
 
 wk.register({
   f = {

@@ -47,6 +47,20 @@ _G.is_big_file = function(_, buf)
   end
 end
 
+-- Helper function to check if in a git dir
+_G.get_git_exit = function()
+  return os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
+end
+
+-- Search from CWD if not in a git dir
+_G.cwd_or_git = function()
+  if get_git_exit() == 0 then
+    return vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  else
+    return vim.loop.cwd()
+  end
+end
+
 -- Proper indentation on empty lines
 vim.keymap.set("n", "i", function()
   if #vim.fn.getline(".") == 0 then
