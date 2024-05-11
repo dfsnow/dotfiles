@@ -2,6 +2,7 @@
     "diagnostics.globals": [
         "vim",
         "mappings",
-        "opts"
+        "opts",
+        "_"
     ]
 }

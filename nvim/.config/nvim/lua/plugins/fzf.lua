@@ -1,6 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
-  event = "VeryLazy",
+  cmd = "FzfLua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local w = math.floor(vim.o.columns * 0.88)
@@ -10,11 +10,11 @@ return {
     local fzf_lua = require("fzf-lua")
     fzf_lua.setup({
       winopts = {
-        height    = 0.85,
-        width     = 0.9,
-        row       = r,
-        col       = c,
-        preview   = {
+        height  = 0.85,
+        width   = 0.9,
+        row     = r,
+        col     = c,
+        preview = {
           flip_columns = 80,
           horizontal = "right:50%",
           vertical = "up:50%"
@@ -25,15 +25,15 @@ return {
       files = {
         formatter = "path.filename_first",
         fd_opts =
-          "--color=never --type f --hidden --follow " ..
-          "--exclude .git --exclude node_modules --exclude renv"
+            "--color=never --type f --hidden --follow " ..
+            "--exclude .git --exclude node_modules --exclude renv"
       },
       grep = {
         rg_opts =
-          "--hidden --column --line-number --no-heading " ..
-          "--color=always --smart-case --max-columns=4096 " ..
-          "-g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' " ..
-          "-g '!{node_modules,renv}/' -e"
+            "--hidden --column --line-number --no-heading " ..
+            "--color=always --smart-case --max-columns=4096 " ..
+            "-g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' " ..
+            "-g '!{node_modules,renv}/' -e"
       },
       git = {
         files = {

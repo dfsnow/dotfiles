@@ -42,8 +42,22 @@ _G.is_big_file = function(_, buf)
   local max_filesize = 1024 * 1024 * 3
   local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
   if ok and stats and (vim.api.nvim_buf_line_count(buf) > max_lines
-    or stats.size > max_filesize) then
+        or stats.size > max_filesize) then
     return true
+  end
+end
+
+-- Helper function to check if in a git dir
+_G.get_git_exit = function()
+  return os.execute("git rev-parse --is-inside-work-tree > /dev/null 2>&1")
+end
+
+-- Search from CWD if not in a git dir
+_G.cwd_or_git = function()
+  if get_git_exit() == 0 then
+    return vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+  else
+    return vim.loop.cwd()
   end
 end
 

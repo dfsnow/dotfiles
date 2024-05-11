@@ -1,8 +1,10 @@
 return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    event = "VeryLazy",
+    cmd = { "MasonToolsInstall", "MasonToolsUpdate" },
+    dependencies = { "neovim/nvim-lspconfig" },
     opts = {
+      run_on_start = false,
       ensure_installed = {
         -- Language servers
         "bashls",
@@ -43,6 +45,10 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim"
     },
+    keys = {
+      { "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason" }
+    },
+    ft = lsp_ft,
     config = function()
       require("mason").setup({
         ui = {
@@ -89,12 +95,7 @@ return {
 
   {
     "stevearc/conform.nvim",
-    ft = {
-      "json",
-      "sh", "bash",
-      "sql",
-      "yaml"
-    },
+    ft = format_ft,
     config = function()
       require("conform").setup({
         formatters_by_ft = {
@@ -128,16 +129,7 @@ return {
 
   {
     "mfussenegger/nvim-lint",
-    ft = {
-      "css", "scss", "less",
-      "dockerfile",
-      "gitcommit",
-      "markdown",
-      "sh",
-      "sql",
-      "terraform",
-      "yaml"
-    },
+    ft = lint_ft,
     config = function()
       require("lint").linters_by_ft = {
         css = { "stylelint" }, scss = { "stylelint" }, less = { "stylelint" },
@@ -171,13 +163,10 @@ return {
 
   {
     "smjonas/inc-rename.nvim",
-    event = "VeryLazy",
+    keys = { { "<leader>dr", ":IncRename ", desc = "Rename identifier" } },
     config = function()
       require("inc_rename").setup({ input_buffer_type = "dressing" })
-      local wk = require("which-key")
-      wk.register({ ["<leader>dr"] = { "Rename identifier" } })
-      vim.keymap.set("n", "<leader>dr", ":IncRename ")
-    end,
+    end
   },
 
   {

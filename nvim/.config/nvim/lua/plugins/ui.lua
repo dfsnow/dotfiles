@@ -60,6 +60,7 @@ return {
 
   {
     "kosayoda/nvim-lightbulb",
+    ft = lsp_ft,
     opts = {
       sign = {
         text = "A",
@@ -102,6 +103,7 @@ return {
 
   {
     "tzachar/highlight-undo.nvim",
+    keys = "u",
     opts = {
       duration = 700,
       undo = {
