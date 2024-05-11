@@ -35,6 +35,18 @@ function _G.toggleZenMode()
   end
 end
 
+-- Check if the buffer is absolutely huge then use it to toggle off
+-- heavy features (LSP, treesitter, etc.)
+_G.is_big_file = function(_, buf)
+  local max_lines = 2000
+  local max_filesize = 1024 * 1024 * 3
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+  if ok and stats and (vim.api.nvim_buf_line_count(buf) > max_lines
+    or stats.size > max_filesize) then
+    return true
+  end
+end
+
 -- Proper indentation on empty lines
 vim.keymap.set("n", "i", function()
   if #vim.fn.getline(".") == 0 then

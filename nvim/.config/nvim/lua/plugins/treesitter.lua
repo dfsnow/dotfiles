@@ -18,7 +18,8 @@ return {
         auto_install = false,
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = { "markdown" }
+          additional_vim_regex_highlighting = { "markdown" },
+          disable = is_big_file
         },
         ident = { enable = true },
         rainbow = {
@@ -33,10 +34,17 @@ return {
         }
       })
 
-      --Replace indent folding with treesitter folding
-      vim.opt.foldmethod = "expr"
-      vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-      vim.opt.foldenable = false
+      -- Disable treesitter folding for large files
+      vim.api.nvim_create_autocmd("BufEnter", {
+        desc = "Disable treesitter folding for large files",
+        group = vim.api.nvim_create_augroup("BigFile", { clear = false }),
+        callback = function(opts)
+          if not is_big_file(_, opts.buf) then
+            vim.opt_local.foldmethod = "expr"
+            vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
+          end
+        end
+      })
     end
   },
 
