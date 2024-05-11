@@ -34,7 +34,9 @@ return {
         "stylelint",
         "tflint",
         "markdownlint",
-        "yamllint"
+        "yamllint",
+        -- Debug Adapters
+        "debugpy"
       }
     }
   },
