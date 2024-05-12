@@ -12,12 +12,11 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
             || eval "$(dircolors -b)"
     fi
     alias ls='ls -hF --color=auto'
-    alias ll='ls -lahF --color=auto'
+    alias ll='ls -lahFT --color=auto'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     export CLICOLOR=1
     alias ls='ls -hGF'
-    alias l='ls -lahGF'
-    alias ll='ls -lahGF'
+    alias ll='ls -lahGFT'
 fi
 
 # Fix bad dir colors on specific machines
