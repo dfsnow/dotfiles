@@ -25,33 +25,3 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
   vim.lsp.handlers.signature_help,
   { border = "rounded" }
 )
-
--- Add diagnostic floating window
-vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    vim.diagnostic.open_float(nil, { focusable = false })
-  end
-})
-
--- Disable performance hogs for large files
-vim.api.nvim_create_autocmd("BufEnter", {
-  desc = "Disable performance hogs for large files",
-  group = vim.api.nvim_create_augroup("BigFile", { clear = false }),
-  callback = function(opts)
-    if is_big_file(_, opts.buf) then
-      require("ibl").setup_buffer(0, { enabled = false })
-      require("cmp").setup({ completion = { autocomplete = false } })
-      vim.opt_local.list = false
-      vim.opt_local.foldenable = false
-      vim.opt_local.wrap = false
-      vim.opt_local.syntax = ""
-    end
-  end
-})
-
--- Automatically highlight yanked text
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
-  end
-})

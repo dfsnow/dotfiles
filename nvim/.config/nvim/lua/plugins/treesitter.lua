@@ -24,18 +24,6 @@ return {
           lint_events = { "BufWrite", "CursorHold" },
         }
       })
-
-      -- Disable treesitter folding for large files
-      vim.api.nvim_create_autocmd("BufEnter", {
-        desc = "Disable treesitter folding for large files",
-        group = vim.api.nvim_create_augroup("BigFile", { clear = false }),
-        callback = function(opts)
-          if not is_big_file(_, opts.buf) then
-            vim.opt_local.foldmethod = "expr"
-            vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-          end
-        end
-      })
     end
   },
 
