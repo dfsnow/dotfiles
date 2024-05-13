@@ -12,11 +12,43 @@ The tmux prefix is `` ` ``
 - `prefix + p/S-Tab` - previous window
 - `prefix + -` - split window horizontally
 - `prefix + _` - split window vertically
-- `prefix + =` - split window 70/30
-- `prefix + Esc` - enter copy mode
-- `prefix + Enter` - copy selection
+- `prefix + =` - split window horizontally 70/30
+- `prefix + Esc` - enter copy mode, then `Enter` to copy
 - `prefix + $` - rename current session
 - `prefix + q` - kill current session
+
+## PDB
+
+### Stepping
+
+- `n(ext)` - Step over
+- `s(tep)` - Step into
+- `r(eturn)` - Continue until the current function returns
+- `c(ontinue)` - Continue until the next breakpoint is encountered
+- `unt(il) line_number` - Continue until a specific line is encountered
+- `u(p)` - Up one level in the stack trace
+- `d(own)` - Down one level in the stack trace
+- `h(elp)` - Show help
+- `q(uit)` - Quit debugger
+
+### Breakpoints
+
+- `b(reak)` - Show all breakpoints
+- `b(reak) line_number` - Set a breakpoint at a specific line
+- `b(reak) line_number, condition` - Set a breakpoint at a specific line, if condition is met
+- `b(reak) file:line_number` - Set a breakpoint in a file at a specific line
+- `b(reak) func` - Set a breakpoint at the first line of a function
+- `disable number` - Disable breakpoint number
+- `enable number` - Enable breakpoint number
+- `clear number` - Remove breakpoint number
+
+### Printing
+
+- `p(rint) expr` - Print the value of expr
+- `w(here)` - Print current position and stack trace
+- `l(ist)` - Print 11 lines of code around the current line
+- `ll(onglist)` - Print the entire code for current function or frame
+- `a(rgs)` - Print the arguments of the current function
 
 ## SSH
 

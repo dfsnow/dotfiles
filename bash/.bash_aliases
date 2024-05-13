@@ -64,5 +64,10 @@ elif type vim > /dev/null 2> /dev/null; then
     alias vi='vim'
 fi
 
+# Python debugger (PDB)
+if type python3 > /dev/null 2> /dev/null; then
+    alias pdb='python3 -m pdb'
+fi
+
 # Fix for SSH forwarding in tmux
 alias fixssh='eval $(tmux showenv -s SSH_AUTH_SOCK)'
