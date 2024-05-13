@@ -1,6 +1,3 @@
--- Disable folding by default
-vim.opt.foldenable = false
-
 -- Add floating windows for diagnostics
 vim.diagnostic.config({
   virtual_text = false,

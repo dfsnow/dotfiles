@@ -49,6 +49,7 @@ set cursorline
 set colorcolumn=80
 set signcolumn=yes
 set ai si nowrap
+set nofoldenable
 set foldcolumn=1
 set foldmethod=indent
 set foldlevel=99
