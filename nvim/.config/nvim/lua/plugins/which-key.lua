@@ -37,7 +37,6 @@ return {
           ["<C-X>"]    = "C-x",
         },
       })
-      require("config/mappings")
     end
   }
 }
