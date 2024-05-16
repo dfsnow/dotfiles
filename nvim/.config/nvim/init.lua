@@ -16,6 +16,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load all nvim plugins
+require("config/filetypes")
 require("lazy").setup(
   "plugins",
   {
@@ -32,6 +33,5 @@ require("lazy").setup(
 -- Load additional configuration and settings
 require("config/misc")
 require("config/helpers")
-require("config/filetypes")
 require("config/autocmds")
 require("config/mappings")

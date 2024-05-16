@@ -29,7 +29,7 @@ return {
 
   {
     "RRethy/nvim-treesitter-textsubjects",
-    deps = {
+    dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "jpalardy/vim-slime"
     },
