@@ -99,8 +99,9 @@ return {
     config = function()
       require("conform").setup({
         formatters_by_ft = {
+          bash = { "shfmt" },
           json = { "jq" },
-          sh = { "shfmt" }, bash = { "shfmt" },
+          sh = { "shfmt" },
           sql = { "sqlfluff" },
           yaml = { "yamlfmt" }
         }
@@ -132,10 +133,12 @@ return {
     ft = lint_ft,
     config = function()
       require("lint").linters_by_ft = {
-        css = { "stylelint" }, scss = { "stylelint" }, less = { "stylelint" },
+        css = { "stylelint" },
         dockerfile = { "hadolint" },
         gitcommit = { "gitlint" },
+        less = { "stylelint" },
         markdown = { "markdownlint" },
+        scss = { "stylelint" },
         sh = { "shellcheck" },
         sql = { "sqlfluff" },
         terraform = { "tflint" },
