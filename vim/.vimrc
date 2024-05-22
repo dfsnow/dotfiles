@@ -131,6 +131,10 @@ vnoremap <leader>P "+P
 " Redo to capital u
 nnoremap U <C-r>
 
+" Toggle comments
+nmap <leader>c gcc
+vmap <leader>c gcgv
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell Checking

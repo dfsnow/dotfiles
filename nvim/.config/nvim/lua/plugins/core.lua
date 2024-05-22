@@ -8,14 +8,5 @@ return {
     config = function()
       require("nvim-surround").setup({})
     end
-  },
-
-  {
-    "numToStr/Comment.nvim",
-    keys = "<leader>c",
-    config = function()
-      vim.keymap.set("n", "<leader>c", "<Plug>(comment_toggle_linewise_current)")
-      vim.keymap.set("x", "<leader>c", "<Plug>(comment_toggle_linewise_visual)")
-    end
   }
 }
