@@ -133,7 +133,7 @@ wk.register({
     p = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous diagnostic" },
     n = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next diagnostic" },
     k = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show hover info" },
-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Show code actions" },
+    a = { "<cmd>FzfLua lsp_code_actions<cr>", "Show code actions" },
     d = {
       "<cmd>TroubleToggle document_diagnostics<cr>",
       "Show document diagnostics"
