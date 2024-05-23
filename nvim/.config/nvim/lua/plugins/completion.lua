@@ -17,12 +17,12 @@ return {
         end
       },
       {
-        "L3MON4D3/LuaSnip",
-        version = "2.*",
-        build = "make install_jsregexp",
+        "garymjr/nvim-snippets",
         dependencies = {
           "rafamadriz/friendly-snippets",
-          "saadparwaiz1/cmp_luasnip"
+        },
+        opts = {
+          friendly_snippets = true
         }
       },
       "onsails/lspkind.nvim",
@@ -44,8 +44,6 @@ return {
 
       local cmp = require("cmp")
       local lspkind = require("lspkind")
-      local luasnip = require("luasnip")
-      require("luasnip.loaders.from_vscode").lazy_load()
 
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
@@ -74,19 +72,22 @@ return {
           else
             return not context.in_treesitter_capture("comment")
                 and not context.in_syntax_group("Comment")
+                and not vim.snippet.active({ direction = 1 })
           end
         end,
         snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+          expand = function(arg)
+            vim.snippet.expand(arg.body)
+          end
         },
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
+            if vim.snippet.active({ direction = 1 }) then
+              vim.schedule(function()
+                vim.snippet.jump(1)
+              end)
+            elseif cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
             elseif has_words_before() then
               cmp.complete()
             else
@@ -94,10 +95,12 @@ return {
             end
           end, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
+            if vim.snippet.active({ direction = -1 }) then
+              vim.schedule(function()
+                vim.snippet.jump(-1)
+              end)
+            elseif cmp.visible() then
               cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
             else
               fallback()
             end
@@ -105,7 +108,18 @@ return {
           ["<C-p>"] = cmp.mapping.scroll_docs(-4),
           ["<C-n>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
+          ["<ESC>"] = cmp.mapping({
+            i = function(fallback)
+              if cmp.visible() and cmp.get_active_entry() then
+                cmp.abort()
+              elseif vim.snippet.active() then
+                vim.snippet.stop()
+                fallback()
+              else
+                fallback()
+              end
+            end
+          }),
           ["<CR>"] = cmp.mapping({
             i = function(fallback)
               if cmp.visible() and cmp.get_active_entry() then
@@ -121,7 +135,7 @@ return {
           { name = "nvim_lsp",               max_item_count = 9, keyword_length = 1 },
           { name = "buffer",                 max_item_count = 9, keyword_length = 2 },
           { name = "copilot",                max_item_count = 4 },
-          { name = "luasnip",                max_item_count = 4 },
+          { name = "snippets",               max_item_count = 4 },
           { name = "nvim_lsp_signature_help" },
           { name = "calc" },
         },
