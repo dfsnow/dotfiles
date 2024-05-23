@@ -26,12 +26,12 @@ return {
         }
       },
       "onsails/lspkind.nvim",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-calc"
+      "hrsh7th/cmp-calc",
+      "hrsh7th/cmp-cmdline"
     },
 
     config = function()
@@ -131,12 +131,12 @@ return {
           })
         },
         sources = {
-          { name = "path",                   max_item_count = 4 },
-          { name = "nvim_lsp",               max_item_count = 9, keyword_length = 1 },
-          { name = "buffer",                 max_item_count = 9, keyword_length = 2 },
-          { name = "copilot",                max_item_count = 4 },
-          { name = "snippets",               max_item_count = 4 },
-          { name = "nvim_lsp_signature_help" },
+          { name = "path",                    max_item_count = 3 },
+          { name = "snippets",                max_item_count = 2 },
+          { name = "nvim_lsp",                max_item_count = 3, keyword_length = 2 },
+          { name = "nvim_lsp_signature_help", max_item_count = 3 },
+          { name = "buffer",                  max_item_count = 3, keyword_length = 2 },
+          { name = "copilot",                 max_item_count = 3 },
           { name = "calc" },
         },
         window = {
