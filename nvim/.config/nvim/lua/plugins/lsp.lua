@@ -17,7 +17,6 @@ return {
         "terraform-ls",
         -- "r_language_server", Not installed by default, too heavy
         "ruff",
-        "ruff_lsp",
         "rust_analyzer",
         "yamlls",
         -- Formatters
@@ -83,7 +82,7 @@ return {
       lspconfig.r_language_server.setup({
         filetypes = { "r", "rmd", "quarto" }
       })
-      lspconfig.ruff_lsp.setup({})
+      lspconfig.ruff.setup({})
       lspconfig.rust_analyzer.setup({})
       lspconfig.terraformls.setup({})
       lspconfig.yamlls.setup({})
