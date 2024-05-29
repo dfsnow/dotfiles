@@ -31,7 +31,7 @@ _G.treesitter_parsers = {
 -- Concatenate a table of languages which don't have parsers, but which
 -- we want to activate treesitter for
 _G.treesitter_ft = {
-  "bash",
+  "sh",
   "css", "scss", "less",
   "quarto", "rmd"
 }
