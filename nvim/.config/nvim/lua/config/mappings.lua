@@ -16,6 +16,7 @@ wk.register({
   ["*"]       = { "Select current word" },
   ["m"]       = { "Set mark at current line" },
   ["q"]       = { "Begin recording macro" },
+  ["@"]       = { "Execute macro" },
   ["~"]       = { "Toggle current case" },
   ["%"]       = { "Go to matching bracket" },
   ["R"]       = { "Replace with last yank" },
@@ -23,6 +24,7 @@ wk.register({
   ["U"]       = { "Redo" },
   [";"]       = { "Repeat last move" },
   ["J"]       = { "Join lines" },
+  ["K"]       = { "Show hover info" },
   ["f"]       = { "which_key_ignore" },
   ["F"]       = { "which_key_ignore" },
   ["t"]       = { "which_key_ignore" },
@@ -35,7 +37,6 @@ wk.register({
   ["j"]       = { "which_key_ignore" },
   ["Y"]       = { "which_key_ignore" },
   ["`"]       = { "which_key_ignore" },
-  ["@"]       = { "which_key_ignore" },
   ["!"]       = { "which_key_ignore" },
   ["["]       = { "which_key_ignore" },
   ["]"]       = { "which_key_ignore" },
@@ -86,8 +87,6 @@ wk.register({
     P             = { "which_key_ignore" },
     Y             = { "which_key_ignore" },
     yy            = { "which_key_ignore" },
-    ["<S-SPACE>"] = { "which_key_ignore" },
-    ["<SPACE>"]   = { "Toggle fold" },
     ["<TAB>"]     = { "Next window" },
     ["<S-TAB>"]   = { "Previous window" },
     ["-"]         = { "New vertical split" },
@@ -241,7 +240,7 @@ end
 wk.register({
   ["<leader>"] = {
     "<cmd>lua proj_files()<cr>",
-    "Search git files"
+    "Search project files"
   }
 }, { prefix = "<leader>" })
 

@@ -67,9 +67,6 @@ syntax enable
 set splitright
 set splitbelow
 
-nmap <leader><Space> za
-nmap <leader><S-Space> zA
-
 nmap <leader>j <C-W><C-J>
 nmap <leader>k <C-W><C-K>
 nmap <leader>l <C-W><C-L>
