@@ -205,6 +205,18 @@ wk.register({
 }, { prefix = "<leader>" })
 
 wk.register({
+  g = {
+    m = {
+      name = "+Copilot Chat",
+      d = "Show diff",
+      p = "System prompt",
+      s = "Show selection",
+      y = "Yank diff"
+    }
+  }
+})
+
+wk.register({
   s = {
     name = "spell",
     s = { "Toggle spell check" },
