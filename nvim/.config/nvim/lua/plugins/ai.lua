@@ -132,7 +132,7 @@ return {
           },
           submit_prompt = {
             normal = "<CR>",
-            insert = "<C-CR>",
+            insert = "<CR>",
           },
           yank_diff = {
             normal = "gmy",
