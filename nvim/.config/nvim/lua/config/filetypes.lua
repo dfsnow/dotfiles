@@ -68,6 +68,7 @@ _G.format_ft = {
 _G.lint_ft = {
   "bash", "sh",
   "css", "scss", "less",
+  "html",
   "dockerfile",
   "gitcommit",
   "markdown",

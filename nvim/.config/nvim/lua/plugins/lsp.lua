@@ -28,6 +28,7 @@ return {
         "actionlint",
         "gitlint",
         "hadolint",
+        "htmlhint",
         "shellcheck",
         "sqlfluff",
         "stylelint",
@@ -133,6 +134,7 @@ return {
     config = function()
       require("lint").linters_by_ft = {
         css = { "stylelint" },
+        html = { "htmlhint" },
         dockerfile = { "hadolint" },
         gitcommit = { "gitlint" },
         less = { "stylelint" },
