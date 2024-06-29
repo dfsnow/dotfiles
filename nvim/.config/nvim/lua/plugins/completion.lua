@@ -133,9 +133,9 @@ return {
         sources = {
           { name = "path",                    max_item_count = 3 },
           { name = "snippets",                max_item_count = 2 },
-          { name = "nvim_lsp",                max_item_count = 3, keyword_length = 2 },
+          { name = "nvim_lsp",                max_item_count = 4 },
           { name = "nvim_lsp_signature_help", max_item_count = 3 },
-          { name = "buffer",                  max_item_count = 3, keyword_length = 2 },
+          { name = "buffer",                  max_item_count = 3 },
           { name = "copilot",                 max_item_count = 3 },
           { name = "calc" },
         },

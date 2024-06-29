@@ -58,14 +58,18 @@ return {
         }
       })
       require("mason-lspconfig").setup({})
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require("lspconfig")
-      lspconfig.bashls.setup({})
-      lspconfig.cssls.setup({})
-      lspconfig.dockerls.setup({})
-      lspconfig.docker_compose_language_service.setup({})
-      lspconfig.html.setup({})
-      lspconfig.lua_ls.setup({})
+      lspconfig.bashls.setup({ capabilities = capabilities })
+      lspconfig.cssls.setup({ capabilities = capabilities })
+      lspconfig.dockerls.setup({ capabilities = capabilities })
+      lspconfig.docker_compose_language_service.setup({
+        capabilities = capabilities
+      })
+      lspconfig.html.setup({ capabilities = capabilities })
+      lspconfig.lua_ls.setup({ capabilities = capabilities })
       lspconfig.pyright.setup({
+        capabilities = capabilities,
         settings = {
           pyright = {
             disableOrganizeImports = true,
@@ -81,12 +85,13 @@ return {
         }
       })
       lspconfig.r_language_server.setup({
+        capabilities = capabilities,
         filetypes = { "r", "rmd", "quarto" }
       })
-      lspconfig.ruff.setup({})
-      lspconfig.rust_analyzer.setup({})
-      lspconfig.terraformls.setup({})
-      lspconfig.yamlls.setup({})
+      lspconfig.ruff.setup({ capabilities = capabilities })
+      lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+      lspconfig.terraformls.setup({ capabilities = capabilities })
+      lspconfig.yamlls.setup({ capabilities = capabilities })
 
       -- Prettify the LSP info window
       require("lspconfig.ui.windows").default_options.border = "rounded"
