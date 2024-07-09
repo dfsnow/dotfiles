@@ -63,7 +63,7 @@ return {
         target_pane = "{bottom}"
       }
       vim.cmd([[nmap <leader><cr> <Plug>SlimeLineSendj0]])
-      vim.cmd([[vmap <leader><cr> <Plug>SlimeRegionSendgv<esc>]])
+      vim.cmd([[vmap <leader><cr> <Plug>SlimeRegionSendgvj0<esc>]])
     end
   },
 
