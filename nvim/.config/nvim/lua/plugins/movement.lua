@@ -1,6 +1,7 @@
 return {
   {
     "stevearc/oil.nvim",
+    version = "*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       default_file_explorer = true,
@@ -48,6 +49,7 @@ return {
 
   {
     "jpalardy/vim-slime",
+    version = "*",
     keys = "<leader><cr>",
     init = function()
       vim.g.slime_no_mappings = 1
@@ -69,6 +71,7 @@ return {
 
   {
     "folke/flash.nvim",
+    version = "*",
     event = "VeryLazy",
     opts = {
       modes = {

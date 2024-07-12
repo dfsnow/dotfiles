@@ -1,10 +1,12 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    version = "*",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       {
         "zbirenbaum/copilot.lua",
+        version = "*",
         opts = {
           suggestion = { enabled = false },
           panel = { enabled = false }
@@ -12,12 +14,14 @@ return {
       },
       {
         "zbirenbaum/copilot-cmp",
+        version = "*",
         config = function()
           require("copilot_cmp").setup()
         end
       },
       {
         "garymjr/nvim-snippets",
+        version = "*",
         dependencies = {
           "rafamadriz/friendly-snippets",
         },

@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    version = "*",
     build = ":TSUpdate",
     ft = treesitter_ft,
     config = function()
@@ -29,6 +30,7 @@ return {
 
   {
     "RRethy/nvim-treesitter-textsubjects",
+    version = "*",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "jpalardy/vim-slime"

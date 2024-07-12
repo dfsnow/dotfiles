@@ -1,6 +1,7 @@
 return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    version = "*",
     cmd = { "MasonToolsInstall", "MasonToolsUpdate" },
     dependencies = { "neovim/nvim-lspconfig" },
     opts = {
@@ -41,6 +42,7 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    version = "*",
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim"
@@ -100,6 +102,7 @@ return {
 
   {
     "stevearc/conform.nvim",
+    version = "*",
     ft = format_ft,
     config = function()
       require("conform").setup({
@@ -135,6 +138,7 @@ return {
 
   {
     "mfussenegger/nvim-lint",
+    version = "*",
     ft = lint_ft,
     config = function()
       require("lint").linters_by_ft = {
@@ -165,6 +169,7 @@ return {
 
   {
     "smjonas/inc-rename.nvim",
+    version = "*",
     keys = { { "<leader>dr", ":IncRename ", desc = "Rename identifier" } },
     config = function()
       require("inc_rename").setup({ input_buffer_type = "dressing" })
@@ -173,6 +178,7 @@ return {
 
   {
     "folke/trouble.nvim",
+    version = "*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       focus = true

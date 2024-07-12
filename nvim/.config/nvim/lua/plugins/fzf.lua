@@ -1,5 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
+  version = "*",
   cmd = "FzfLua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()

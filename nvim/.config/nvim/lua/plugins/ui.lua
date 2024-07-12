@@ -30,6 +30,7 @@ return {
 
   {
     "nvim-lualine/lualine.nvim",
+    version = "*",
     lazy = false,
     priority = 1000,
     opts = {
@@ -60,6 +61,7 @@ return {
 
   {
     "kosayoda/nvim-lightbulb",
+    version = "*",
     ft = lsp_ft,
     opts = {
       sign = {
@@ -74,6 +76,7 @@ return {
 
   {
     "lukas-reineke/indent-blankline.nvim",
+    version = "*",
     lazy = false,
     main = "ibl",
     priority = 1000,
@@ -91,6 +94,7 @@ return {
 
   {
     "tzachar/highlight-undo.nvim",
+    version = "*",
     keys = "u",
     opts = {
       duration = 700,
@@ -108,11 +112,13 @@ return {
   },
 
   {
-    "stevearc/dressing.nvim"
+    "stevearc/dressing.nvim",
+    version = "*",
   },
 
   {
     "nvim-tree/nvim-web-devicons",
+    version = "*",
     lazy = true
   }
 }

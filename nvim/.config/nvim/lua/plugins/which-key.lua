@@ -1,6 +1,7 @@
 return {
   {
     "folke/which-key.nvim",
+    version = "^2.1.0",
     config = function()
       local wk = require("which-key")
       wk.register(mappings, opts)
