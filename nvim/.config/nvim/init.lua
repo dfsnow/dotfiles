@@ -26,6 +26,10 @@ require("lazy").setup(
       title = "Lazy Plugins",
       title_pos = "left",
       backdrop = 100
+    },
+    rocks = {
+      hererocks = false,
+      enabled = false
     }
   }
 )
