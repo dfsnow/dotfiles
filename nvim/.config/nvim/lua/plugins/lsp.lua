@@ -124,15 +124,13 @@ return {
         { "-formatter", "retain_line_breaks_single=true" }
       )
       local wk = require("which-key")
-      wk.register({
-        d = {
-          name = "lsp",
-          F = {
-            "<cmd>lua require('conform').format({ timeout_ms=5000 })<cr>",
-            "Format buffer"
-          }
+      wk.add({
+        {
+          "<leader>dF",
+          "<cmd>lua require('conform').format({ timeout_ms=5000 })<cr>",
+          desc = "Format buffer"
         }
-      }, { prefix = "<leader>" })
+      })
     end
   },
 
@@ -155,15 +153,13 @@ return {
         yaml = { "actionlint", "yamllint" }
       }
       local wk = require("which-key")
-      wk.register({
-        d = {
-          name = "lsp",
-          L = {
-            "<cmd>lua require('lint').try_lint()<cr>",
-            "Lint buffer"
-          },
-        },
-      }, { prefix = "<leader>" })
+      wk.add({
+        {
+          "<leader>dL",
+          "<cmd>lua require('lint').try_lint()<cr>",
+          desc = "Lint buffer"
+        }
+      })
     end
   },
 

@@ -37,7 +37,6 @@ wk.add({
   { "i", hidden = true },
   { "j", hidden = true },
   { "Y", hidden = true },
-  { "`", hidden = true },
   { "!", hidden = true },
   { "[", hidden = true },
   { "]", hidden = true },
