@@ -2,6 +2,8 @@ local wk = require("which-key")
 
 -- Non-leader
 wk.add({
+  { "g", group = "misc" },
+  { "z", group = "folding" },
   { "-", "<cmd>lua require('oil').open_float()<cr>", desc = "Open parent directory" },
   { "<c-r>", "<cmd>FzfLua command_history<cr>", desc = "Search command history" },
   { "<c-t>", "<cmd>FzfLua files<cr>", desc = "Search files" },
@@ -65,7 +67,6 @@ wk.add({
   { "<leader>?", desc = "Open Copilot prompts" },
   { "<leader><tab>", desc = "Next window" },
   { "<leader><s-tab>", desc = "Previous window" },
-  { "<leader><tab>", desc = "Next window" },
   { "<leader>q", hidden = true },
   { "<leader>j", hidden = true },
   { "<leader>h", hidden = true },
@@ -73,10 +74,9 @@ wk.add({
   { "<leader>l", hidden = true },
   { "<leader>w", hidden = true },
   { "<leader>W", hidden = true },
-  { "<leader>P", hidden = true },
   { "<leader>Y", hidden = true },
   { "<leader>yy", hidden = true },
-  { mode = { "v", "n" },
+  { mode = { "x", "n" },
     { "<leader>P", hidden = true },
     { "<leader>c", desc = "Toggle comment" },
     { "<leader>p", desc = "Paste from clipboard" },
@@ -144,7 +144,7 @@ wk.add({
 
 -- Spelling
 wk.add({
-  { "<leader>s", group = "spell" },
+  { "<leader>s", group = "spelling" },
   { "<leader>ss", desc = "Toggle spell check" },
   { "<leader>sn", "]s", desc = "Next misspelling" },
   { "<leader>sp", "[s", desc = "Previous misspelling" },
@@ -155,7 +155,7 @@ wk.add({
 
 -- Folding
 wk.add({
-  { "<leader>z", group = "fold" },
+  { "<leader>z", group = "folding" },
   { "<leader>zt", "zi", desc = "Toggle folding" },
   { "<leader>za", "za", desc = "Toggle current" },
   { "<leader>zA", "zA", desc = "Toggle all under cursor" },
