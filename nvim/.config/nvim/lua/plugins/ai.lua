@@ -110,7 +110,7 @@ return {
 
       chat.setup({
         show_folds = false,
-        show_help = true,
+        show_help = false,
         auto_follow_cursor = false,
         auto_insert_mode = true,
         context = "buffer",
@@ -125,27 +125,22 @@ return {
         },
         mappings = {
           close = {
-            normal = "<Esc>"
+            normal = "<esc>"
           },
           reset = {
-            normal = "<C-x>",
-            insert = "<C-x>",
+            normal = "<leader><esc>",
+            insert = "<leader><esc>"
           },
           submit_prompt = {
-            normal = "<CR>",
-            insert = "<CR>",
+            normal = "<cr>",
+            insert = "<leader><cr>"
+          },
+          accept_diff = {
+            normal = "<leader>p",
+            insert = "<leader>p"
           },
           yank_diff = {
-            normal = "gmy",
-          },
-          show_diff = {
-            normal = "gmd",
-          },
-          show_system_prompt = {
-            normal = "gmp",
-          },
-          show_user_selection = {
-            normal = "gms",
+            normal = "<leader>y"
           }
         }
       })
