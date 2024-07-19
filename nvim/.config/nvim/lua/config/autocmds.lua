@@ -33,13 +33,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end
 })
 
--- Add diagnostic floating window
-vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    vim.diagnostic.open_float(nil, { focusable = false })
-  end
-})
-
 -- Activate wrapping and zen mode by default for certain filetypes
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "txt", "rmd", "qmd", "lazy" },

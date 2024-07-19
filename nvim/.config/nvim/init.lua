@@ -1,6 +1,9 @@
 -- Use .vimrc as a base file
 vim.cmd("source ~/.vimrc")
 
+-- Enable virtual text inline diagnostics
+vim.diagnostic.config({ virtual_text = true })
+
 -- Load lazy.nvim plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -35,7 +38,6 @@ require("lazy").setup(
 )
 
 -- Load additional configuration and settings
-require("config/misc")
 require("config/helpers")
 require("config/autocmds")
 require("config/mappings")
