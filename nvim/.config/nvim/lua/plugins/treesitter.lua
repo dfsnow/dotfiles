@@ -50,7 +50,8 @@ return {
       -- to a tmux REPL using vim-slime. Sends the current node if not in a
       -- node. Only works for Python and R
       local smart_send = function()
-        local node = vim.treesitter.get_node_at_cursor()
+        local ts_utils = require("nvim-treesitter.ts_utils")
+        local node = ts_utils.get_node_at_cursor()
         local feed_string = ''
         local patterns = {
           "function_definition",
