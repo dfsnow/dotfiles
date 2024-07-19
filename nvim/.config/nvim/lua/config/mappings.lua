@@ -52,46 +52,183 @@ wk.add({
 
 -- Base leader
 wk.add({
-  { "<leader>",        group = "leader" },
-  { "<leader>L",       "<cmd>Lazy<cr>",                               desc = "Open Lazy" },
-  { "<leader>Z",       "<cmd>lua toggleZenMode()<cr>",                desc = "Toggle Zen mode" },
-  { "<leader>m",       "<cmd>lua toggleAutoCmp()<cr>",                desc = "Toggle completion" },
-  { "<leader>n",       "<cmd>setlocal wrap!<cr>",                     desc = "Toggle word wrap" },
-  { "<leader>/",       "<cmd>FzfLua grep_curbuf<cr>",                 desc = "Search current buffer" },
-  { "<leader>.",       "<cmd>lua require('oil').open_float('.')<cr>", desc = "Open working directory" },
-  { "<leader>x",       desc = "Delete buffer" },
-  { "<leader>Q",       desc = "Exit without saving" },
-  { "<leader>-",       desc = "New vertical split" },
-  { "<leader>_",       desc = "New horizontal split" },
-  { "<leader>?",       desc = "Open Copilot prompts" },
-  { "<leader><tab>",   desc = "Next window" },
-  { "<leader><s-tab>", desc = "Previous window" },
-  { "<leader>q",       hidden = true },
-  { "<leader>j",       hidden = true },
-  { "<leader>h",       hidden = true },
-  { "<leader>k",       hidden = true },
-  { "<leader>l",       hidden = true },
-  { "<leader>w",       hidden = true },
-  { "<leader>W",       hidden = true },
-  { "<leader>Y",       hidden = true },
-  { "<leader>yy",      hidden = true },
+  {
+    "<leader>",
+    group = "leader",
+    icon = { icon = "", color = "yellow" }
+  },
+  {
+    "<leader>Q",
+    desc = "Exit without saving",
+    icon = { icon = "󰈆", color = "red" }
+  },
+  {
+    "<leader>x",
+    desc = "Delete buffer",
+    icon = { icon = "󰈆", color = "red" }
+  },
+  {
+    "<leader>L",
+    "<cmd>Lazy<cr>",
+    desc = "Open Lazy",
+    icon = { icon = "󰒲", color = "blue" }
+  },
+  {
+    "<leader>M",
+    desc = "Open Mason",
+    icon = { icon = "󱌢", color = "blue" }
+  },
+  {
+    "<leader>c",
+    desc = "Toggle comment",
+    mode = { "n", "x" },
+    icon = { icon = "", color = "green" }
+  },
+  {
+    "<leader>m",
+    "<cmd>lua toggleAutoCmp()<cr>",
+    desc = "Toggle completion",
+    icon = { icon = "", color = "green" }
+  },
+  {
+    "<leader>n",
+    "<cmd>setlocal wrap!<cr>",
+    desc = "Toggle word wrap",
+    icon = { icon = "", color = "green" }
+  },
+  {
+    "<leader><s-space>",
+    desc = "Toggle Flash search",
+    icon = { icon = "", color = "green" }
+  },
+  {
+    "<leader>Z",
+    "<cmd>lua toggleZenMode()<cr>",
+    desc = "Toggle Zen mode",
+    icon = { icon = "󱅻", color = "cyan" }
+  },
+  {
+    "<leader><space>",
+    desc = "Flash treesitter",
+    icon = { icon = "", color = "green" }
+  },
+  {
+    "<leader>/",
+    "<cmd>FzfLua grep_curbuf<cr>",
+    desc = "Search current buffer",
+    icon = { icon = "", color = "green" }
+  },
+  {
+    "<leader><leader>",
+    "<cmd>lua require('fzf-lua').files({cwd = cwd_or_git()})<cr>",
+    desc = "Search project files",
+    icon = { icon = "", color = "green" }
+  },
+  {
+    "<leader>.",
+    "<cmd>lua require('oil').open_float('.')<cr>",
+    desc = "Open working directory",
+    icon = { icon = "󰙅", color = "purple" }
+  },
+  {
+    "<leader>-",
+    desc = "New vertical split",
+    icon = { icon = "󰕮", color = "purple" }
+  },
+  {
+    "<leader>_",
+    desc = "New horizontal split",
+    icon = { icon = "󰕮", color = "purple" }
+  },
+  {
+    "<leader><tab>",
+    desc = "Next window",
+    icon = { icon = "", color = "blue" }
+  },
+  {
+    "<leader><s-tab>",
+    desc = "Previous window",
+    icon = { icon = "", color = "blue" }
+  },
+  {
+    "<leader>?",
+    desc = "Open Copilot prompts",
+    icon = { icon = "", color = "azure" }
+  },
   {
     mode = { "x", "n" },
-    { "<leader>P",    hidden = true },
-    { "<leader>c",    desc = "Toggle comment" },
-    { "<leader>p",    desc = "Paste from clipboard" },
-    { "<leader>y",    desc = "Yank to clipboard" },
-    { "<leader><cr>", desc = "Send to tmux" },
+    {
+      "<leader>P",
+      hidden = true
+    },
+    {
+      "<leader>p",
+      desc = "Paste from clipboard",
+      icon = { icon = "󰅇", color = "orange" }
+    },
+    {
+      "<leader>y",
+      desc = "Yank to clipboard",
+      icon = { icon = "󰅇", color = "orange" }
+    },
+    {
+      "<leader><cr>",
+      desc = "Send to tmux",
+      icon = { icon = "󰅇", color = "orange" }
+    }
+  },
+  {
+    hidden = true,
+    { "<leader>q" },
+    { "<leader>j" },
+    { "<leader>h" },
+    { "<leader>k" },
+    { "<leader>l" },
+    { "<leader>w" },
+    { "<leader>W" },
+    { "<leader>Y" },
+    { "<leader>yy" },
   }
 })
 
 -- Buffer
 wk.add({
-  { "<leader>b",  group = "buffer" },
-  { "<leader>bf", "<cmd>FzfLua buffers<cr>", desc = "Search buffers" },
-  { "<leader>bb", desc = "New (no split)" },
-  { "<leader>bn", desc = "New (no split)" },
-  { "<leader>bc", desc = "Close" },
+  {
+    "<leader>b",
+    group = "buffer",
+    icon = { icon = "󰈔", color = "cyan" }
+  },
+  {
+    "<leader>bb",
+    desc = "New (no split)"
+  },
+  {
+    "<leader>bn",
+    desc = "New (no split)"
+  },
+  {
+    "<leader>bv",
+    "<cmd>vnew<cr>",
+    desc = "New vertical split",
+    icon = { icon = "󰕮", color = "purple" }
+  },
+  {
+    "<leader>bh",
+    "<cmd>new<cr>",
+    desc = "New horizontal split",
+    icon = { icon = "󰕮", color = "purple" }
+  },
+  {
+    "<leader>bf",
+    "<cmd>FzfLua buffers<cr>",
+    desc = "Search buffers",
+    icon = { icon = "", color = "green" }
+  },
+  { 
+    "<leader>bc",
+    desc = "Close",
+    icon = { icon = "󰈆", color = "red" }
+  }
 })
 
 -- LSP
@@ -105,6 +242,9 @@ wk.add({
   { "<leader>dD",  "<cmd>Trouble lsp toggle<cr>",                            desc = "Show LSP items" },
   { "<leader>ds",  "<cmd>Trouble symbols toggle<cr>",                        desc = "Show symbols" },
   { "<leader>dF",  "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>", desc = "Format buffer" },
+})
+
+wk.add({
   { "<leader>df",  group = "search" },
   { "<leader>dfa", "<cmd>FzfLua lsp_finder<cr>",                             desc = "All LSP" },
   { "<leader>dfr", "<cmd>FzfLua lsp_references<cr>",                         desc = "References" },
@@ -130,11 +270,6 @@ wk.add({
   { "<leader>fs", "<cmd>FzfLua spell_suggest<cr>",   desc = "Spellings" },
   { "<leader>fl", "<cmd>FzfLua grep_curbuf<cr>",     desc = "Grep in buffer" },
   { "<leader>fh", "<cmd>FzfLua helptags<cr>",        desc = "Helptags" },
-  {
-    "<leader><leader>",
-    "<cmd>lua require('fzf-lua').files({cwd = cwd_or_git()})<cr>",
-    desc = "Search project files"
-  },
   {
     "<leader>fp",
     "<cmd>lua require('fzf-lua').grep_project({cwd = cwd_or_git()})<cr>",

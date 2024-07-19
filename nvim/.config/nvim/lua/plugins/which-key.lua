@@ -4,6 +4,7 @@ return {
     version = "*",
     opts = {
       preset = "modern",
+      sort = { "manual", "local", "order" },
       plugins = {
         marks = true,
         registers = true,
@@ -21,13 +22,8 @@ return {
           g = true,
         },
       },
-      win = { border = "rounded" },
-      modes = {
-        x = false,
-        o = false,
-        t = false,
-        s = false
-      }
+      win = { no_overlap = false, border = "rounded" },
+      triggers = { "<auto>", mode = "nic" }
     }
   }
 }
