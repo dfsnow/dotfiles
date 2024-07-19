@@ -102,35 +102,35 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 nmap 0 ^
 nnoremap <BS> {
 onoremap <BS> {
-vnoremap <BS> {
+xnoremap <BS> {
 nnoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
 onoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
-vnoremap <CR> }
+xnoremap <CR> }
 
 " Replace word with last yank
 nnoremap R diw"0P
-vnoremap R "_d"0P"
+xnoremap R "_d"0P"
 
 " Keep text selected on indent
-vnoremap < <gv
-vnoremap > >gv
-vmap y ygv<esc>
+xnoremap < <gv
+xnoremap > >gv
+xmap y ygv<esc>
 
 " Copy and paste to system clipboard
-vmap <leader>y "+ygv<esc>
+xmap <leader>y "+ygv<esc>
 nnoremap <leader>y "+y
 nnoremap <leader>yy "+yy
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+xnoremap <leader>p "+p
+xnoremap <leader>P "+P
 
 " Redo to capital u
 nnoremap U <C-r>
 
 " Toggle comments
 nmap <leader>c gcc
-vmap <leader>c gcgv
+xmap <leader>c gcgv
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
