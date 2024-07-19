@@ -4,7 +4,7 @@ return {
     version = "*",
     opts = {
       preset = "modern",
-      sort = { "manual", "local", "order" },
+      icons = { mappings = false },
       plugins = {
         marks = true,
         registers = true,
