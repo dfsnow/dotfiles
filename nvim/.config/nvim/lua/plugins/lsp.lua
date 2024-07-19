@@ -14,7 +14,7 @@ return {
         "docker_compose_language_service",
         "html",
         "lua_ls",
-        "pyright",
+        "basedpyright",
         "terraform-ls",
         -- "r_language_server", Not installed by default, too heavy
         "ruff",
@@ -51,6 +51,13 @@ return {
       { "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason" }
     },
     ft = lsp_ft,
+    opts = {
+      diagnostics = {
+        virtual_text = true,
+        update_in_insert = false,
+        severity_sort = true
+      }
+    },
     config = function()
       require("mason").setup({
         ui = {
@@ -70,10 +77,10 @@ return {
       })
       lspconfig.html.setup({ capabilities = capabilities })
       lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.pyright.setup({
+      lspconfig.basedpyright.setup({
         capabilities = capabilities,
         settings = {
-          pyright = {
+          basedpyright = {
             disableOrganizeImports = true,
             disableTaggedHints = true
           },
