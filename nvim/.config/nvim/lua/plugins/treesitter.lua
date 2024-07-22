@@ -77,12 +77,12 @@ return {
           local txsub = require("nvim-treesitter.textsubjects")
           txsub.select("textsubjects-smart", true, vim.fn.getpos("."), vim.fn.getpos("."))
           vim.cmd('normal! v')
-          feed_string = '<Plug>SlimeRegionSendgv<esc>'
+          feed_string = "<Plug>SlimeRegionSendgv<esc>"
         else
           vim.cmd('normal! V')
-          feed_string = '<Plug>SlimeRegionSend<esc>j0'
+          feed_string = "<Plug>SlimeRegionSend<esc>j0"
         end
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(feed_string, true, true, true), 'n', true)
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(feed_string, true, true, true), "n", true)
       end
 
       vim.keymap.set("n", "<leader><cr>", smart_send, { silent = true, noremap = true })

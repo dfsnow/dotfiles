@@ -132,7 +132,7 @@ return {
             insert = "<leader><esc>"
           },
           submit_prompt = {
-            normal = "<cr>",
+            normal = "<leader><cr>",
             insert = "<leader><cr>"
           },
           accept_diff = {
