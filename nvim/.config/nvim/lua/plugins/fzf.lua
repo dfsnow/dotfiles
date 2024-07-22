@@ -43,5 +43,7 @@ return {
       }
     })
     fzf_lua.register_ui_select()
+    -- Hack to disable background tint
+    vim.cmd("highlight FzfLuaBackdrop NONE")
   end
 }
