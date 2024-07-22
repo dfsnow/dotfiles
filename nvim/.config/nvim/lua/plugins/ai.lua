@@ -112,7 +112,7 @@ return {
         show_folds = false,
         show_help = false,
         auto_follow_cursor = false,
-        auto_insert_mode = true,
+        auto_insert_mode = false,
         context = "buffer",
         prompts = prompts,
         window = {
@@ -145,6 +145,19 @@ return {
         }
       })
       require("CopilotChat.integrations.cmp").setup()
+
+      -- Autocommand to re-open the chat window in the same position
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+        pattern = "copilot-*",
+        callback = function(opts)
+          local prev_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
+          if prev_line > 1
+              and prev_line <= vim.api.nvim_buf_line_count(opts.buf)
+          then
+            vim.api.nvim_feedkeys([[g`"]], "n", true)
+          end
+        end
+      })
     end
   }
 }
