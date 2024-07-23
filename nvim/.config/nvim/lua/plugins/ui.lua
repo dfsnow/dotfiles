@@ -41,10 +41,22 @@ return {
         theme = "catppuccin"
       },
       sections = {
-        lualine_c = { {
-          "filename",
-          path = 4
-        } },
+        lualine_b = { "fzf_cwd()" },
+        lualine_c = {
+          { "filename", path = 4 },
+          {
+            "branch",
+            fmt = function(str)
+              if str ~= "" then
+                return "(" .. str .. ")"
+              else
+                return str
+              end
+            end
+          },
+          "diff",
+          "diagnostics"
+        }
       },
       tabline = {
         lualine_a = { {

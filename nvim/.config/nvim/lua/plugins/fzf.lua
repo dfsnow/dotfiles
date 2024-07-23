@@ -1,6 +1,7 @@
 return {
   "ibhagwan/fzf-lua",
   version = "*",
+  lazy = false,
   cmd = "FzfLua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
@@ -40,5 +41,26 @@ return {
       }
     })
     fzf_lua.register_ui_select()
+
+    -- Helper to replice Alt-C function inside vim
+    _G.fzf_dirs = function(opts)
+      opts = opts or {}
+      opts.fzf_cli_args = "--walker=dir --scheme=path"
+      opts.prompt = "Dir> "
+      opts.actions = {
+        ["default"] = function(selected)
+          vim.cmd("cd " .. selected[1])
+        end
+      }
+      fzf_lua.fzf_exec(os.getenv("FZF_ALT_C_COMMAND"), opts)
+    end
+
+    -- Helper used to display the cwd in the statusline via lualine
+    _G.fzf_cwd = function()
+      local path = vim.loop.cwd()
+      path = fzf_lua.path.HOME_to_tilde(path)
+      path = fzf_lua.path.shorten(path)
+      return path
+    end
   end
 }
