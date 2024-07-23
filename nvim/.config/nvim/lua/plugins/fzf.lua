@@ -11,6 +11,7 @@ return {
         width   = float_width,
         row     = float_row,
         col     = float_col,
+        backdrop = "NONE",
         preview = {
           flip_columns = 80,
           horizontal = "right:50%",
@@ -39,7 +40,5 @@ return {
       }
     })
     fzf_lua.register_ui_select()
-    -- Hack to disable background tint
-    vim.cmd("highlight FzfLuaBackdrop NONE")
   end
 }
