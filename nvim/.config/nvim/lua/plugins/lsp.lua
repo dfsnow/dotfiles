@@ -62,8 +62,8 @@ return {
       require("mason").setup({
         ui = {
           border = "rounded",
-          width = 0.88,
-          height = 0.75
+          width = float_width + 2,
+          height = float_height
         }
       })
       require("mason-lspconfig").setup({})

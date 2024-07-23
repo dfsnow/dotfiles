@@ -66,3 +66,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
   end
 })
+
+-- Set the size and position of floating windows on window change
+vim.api.nvim_create_autocmd({ "VimResized", "VimEnter" }, {
+  callback = set_float_size
+})

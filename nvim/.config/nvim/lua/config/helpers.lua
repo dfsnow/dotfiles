@@ -1,6 +1,6 @@
 -- Hide eol and space characters
 vim.b.zen_toggle_flag = false
-function _G.toggleZenMode()
+function _G.toggle_zen_mode()
   local next_zen_toggle_flag = not vim.b.zen_toggle_flag
   local next_fold_flag = false
   if next_zen_toggle_flag then
@@ -59,6 +59,14 @@ _G.cwd_or_git = function()
   else
     return vim.loop.cwd()
   end
+end
+
+-- Set globals used by various plugins to determine floating window size/pos
+_G.set_float_size = function()
+    _G.float_width = math.floor(vim.o.columns * 0.88)
+    _G.float_height = math.floor(vim.o.lines * 0.75)
+    _G.float_row = math.floor((vim.o.lines - float_height) / 2 - 1)
+    _G.float_col = math.floor((vim.o.columns - float_width) / 2 - 1)
 end
 
 -- Proper indentation on empty lines

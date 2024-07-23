@@ -19,14 +19,10 @@ return {
       },
       float = {
         override = function(conf)
-          local w = math.floor(vim.o.columns * 0.88)
-          local h = math.floor(vim.o.lines * 0.75)
-          local r = math.floor((vim.o.lines - h) / 2 - 1)
-          local c = math.floor((vim.o.columns - w) / 2 - 1)
-          conf["width"] = w
-          conf["height"] = h
-          conf["row"] = r
-          conf["col"] = c
+          conf["width"] = float_width
+          conf["height"] = float_height
+          conf["row"] = float_row
+          conf["col"] = float_col
           return (conf)
         end
       },

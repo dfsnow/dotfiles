@@ -117,10 +117,10 @@ return {
         prompts = prompts,
         window = {
           layout = "float",
-          width = math.floor(vim.o.columns * 0.88),
-          height = math.floor(vim.o.lines * 0.75),
-          row = math.floor((vim.o.lines - math.floor(vim.o.lines * 0.75)) / 2 - 1),
-          col = math.floor((vim.o.columns - math.floor(vim.o.columns * 0.88)) / 2 - 1),
+          height = float_height,
+          width  = float_width,
+          row    = float_row,
+          col    = float_col,
           border = "rounded"
         },
         mappings = {
@@ -147,7 +147,7 @@ return {
       require("CopilotChat.integrations.cmp").setup()
 
       -- Autocommand to re-open the chat window in the same position
-      vim.api.nvim_create_autocmd("BufWinEnter", {
+      vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "copilot-*",
         callback = function(opts)
           local prev_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]

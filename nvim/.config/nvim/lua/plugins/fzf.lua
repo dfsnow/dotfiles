@@ -4,17 +4,13 @@ return {
   cmd = "FzfLua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    local w = math.floor(vim.o.columns * 0.88)
-    local h = math.floor(vim.o.lines * 0.75)
-    local r = math.floor((vim.o.lines - h) / 2 - 1)
-    local c = math.floor((vim.o.columns - w) / 2 - 1)
     local fzf_lua = require("fzf-lua")
     fzf_lua.setup({
       winopts = {
-        height  = 0.85,
-        width   = 0.9,
-        row     = r,
-        col     = c,
+        height  = float_height,
+        width   = float_width,
+        row     = float_row,
+        col     = float_col,
         preview = {
           flip_columns = 80,
           horizontal = "right:50%",

@@ -59,7 +59,7 @@ wk.add({
   { "<leader>L",         "<cmd>Lazy<cr>",                                               desc = "Open Lazy" },
   { "<leader>m",         "<cmd>lua toggleAutoCmp()<cr>",                                desc = "Toggle completion" },
   { "<leader>n",         "<cmd>setlocal wrap!<cr>",                                     desc = "Toggle word wrap" },
-  { "<leader>Z",         "<cmd>lua toggleZenMode()<cr>",                                desc = "Toggle Zen mode" },
+  { "<leader>Z",         "<cmd>lua toggle_zen_mode()<cr>",                                desc = "Toggle Zen mode" },
   { "<leader>/",         "<cmd>FzfLua grep_curbuf<cr>",                                 desc = "Search current buffer" },
   { "<leader><leader>",  "<cmd>lua require('fzf-lua').files({cwd = cwd_or_git()})<cr>", desc = "Search project files" },
   { "<leader>.",         "<cmd>lua require('oil').open_float('.')<cr>",                 desc = "Open working directory" },
