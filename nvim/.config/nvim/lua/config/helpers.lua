@@ -63,8 +63,8 @@ end
 
 -- Get window size/position for most floating windows
 _G.get_float_size = function(w_pct, h_pct)
-  local w = math.floor(vim.o.columns * w_pct)
-  local h = math.floor(vim.o.lines * h_pct)
+  local w = math.ceil(vim.o.columns * w_pct)
+  local h = math.ceil(vim.o.lines * h_pct)
   local c = math.floor((vim.o.columns - w) / 2 - 1)
   local r = math.floor((vim.o.lines - h) / 2 - 1)
   return w, h, c, r

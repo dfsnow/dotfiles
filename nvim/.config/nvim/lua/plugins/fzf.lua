@@ -6,13 +6,13 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local fzf_lua = require("fzf-lua")
-    local w, h, c, r = get_float_size(float_width_pct, float_height_pct)
     fzf_lua.setup({
+      winopts_fn = function()
+        local w, h, c, r = get_float_size(float_width_pct, float_height_pct)
+        local opts = { width = w, height = h, row = r, col = c }
+        return opts
+      end,
       winopts = {
-        width    = w,
-        height   = h,
-        row      = r,
-        col      = c,
         backdrop = "NONE",
         preview  = {
           flip_columns = 80,
