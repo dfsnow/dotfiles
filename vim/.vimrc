@@ -152,6 +152,7 @@ nmap <leader>sp [s
 nmap <leader>sa zg
 nmap <leader>s? z=
 
+set spell!
 set spelllang=en
 set spellfile=$HOME/dotfiles/spell/en.utf-8.add
 

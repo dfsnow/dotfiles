@@ -43,7 +43,7 @@ return {
     })
     fzf_lua.register_ui_select()
 
-    -- Helper to replice Alt-C function inside vim
+    -- Helper to replicate Alt-C function inside vim
     _G.fzf_dirs = function(opts)
       opts = opts or {}
       opts.fzf_cli_args = "--walker=dir --scheme=path"
