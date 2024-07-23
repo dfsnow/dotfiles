@@ -69,5 +69,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Set the size and position of floating windows on window change
 vim.api.nvim_create_autocmd({ "VimResized", "VimEnter" }, {
-  callback = set_float_size
+  callback = function()
+    set_float_size(float_width_pct, float_height_pct)
+  end
 })

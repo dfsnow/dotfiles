@@ -21,7 +21,9 @@ require("config/filetypes")
 require("config/autocmds")
 
 -- Set global floating window size before plugin load
-set_float_size()
+_G.float_width_pct = 0.88
+_G.float_height_pct = 0.75
+set_float_size(float_width_pct, float_height_pct)
 
 -- Load all nvim plugins and mappings
 require("lazy").setup(
@@ -29,7 +31,10 @@ require("lazy").setup(
   {
     ui = {
       border = "rounded",
-      size = { width = 0.88, height = 0.75 },
+      size = {
+        width = float_width_pct,
+        height = float_height_pct
+      },
       title = "Lazy Plugins",
       title_pos = "left",
       backdrop = 100
