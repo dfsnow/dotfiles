@@ -132,6 +132,15 @@ nnoremap U <C-r>
 nmap <leader>c gcc
 xmap <leader>c gcgv
 
+" Non-terrible scrolling
+nnoremap <ScrollWheelUp> 2kzz
+xnoremap <ScrollWheelUp> kzz
+inoremap <ScrollWheelUp> <Esc>kzz
+nnoremap <ScrollWheelDown> 2jzz
+xnoremap <ScrollWheelDown> jzz
+inoremap <ScrollWheelDown> <Esc>jzz
+nnoremap <PageUp> 20kzz
+nnoremap <PageDown> 20jzz
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell Checking
