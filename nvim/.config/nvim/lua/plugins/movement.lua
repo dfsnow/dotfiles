@@ -11,12 +11,9 @@ return {
         "mtime",
         "icon"
       },
-      view_options = {
-        show_hidden = true,
-      },
-      buf_options = {
-        bufhidden = "hide"
-      },
+      view_options = { show_hidden = true, },
+      buf_options = { bufhidden = "hide" },
+      win_options = { colorcolumn = "0" },
       float = {
         override = function(conf)
           conf["width"] = float_width
