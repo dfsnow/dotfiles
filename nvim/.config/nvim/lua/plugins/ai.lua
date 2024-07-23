@@ -117,10 +117,6 @@ return {
         prompts = prompts,
         window = {
           layout = "float",
-          height = float_height,
-          width  = float_width,
-          row    = float_row,
-          col    = float_col,
           border = "rounded"
         },
         mappings = {

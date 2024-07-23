@@ -61,12 +61,13 @@ _G.cwd_or_git = function()
   end
 end
 
--- Set globals used by various plugins to determine floating window size/pos
-_G.set_float_size = function(h_pct, w_pct)
-    _G.float_width = math.floor(vim.o.columns * h_pct)
-    _G.float_height = math.floor(vim.o.lines * w_pct)
-    _G.float_row = math.floor((vim.o.lines - float_height) / 2 - 1)
-    _G.float_col = math.floor((vim.o.columns - float_width) / 2 - 1)
+-- Get window size/position for most floating windows
+_G.get_float_size = function(w_pct, h_pct)
+  local w = math.floor(vim.o.columns * w_pct)
+  local h = math.floor(vim.o.lines * h_pct)
+  local c = math.floor((vim.o.columns - w) / 2 - 1)
+  local r = math.floor((vim.o.lines - h) / 2 - 1)
+  return w, h, c, r
 end
 
 -- Proper indentation on empty lines

@@ -1,7 +1,7 @@
 -- Disable performance hogs for large files
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable performance hogs for large files",
-  group = vim.api.nvim_create_augroup("BigFile", { clear = false }),
+  group = vim.api.nvim_create_augroup("big_file_perf", { clear = false }),
   callback = function(opts)
     if is_big_file(_, opts.buf) then
       require("ibl").setup_buffer(0, { enabled = false })
@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Disable treesitter folding for large files
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable treesitter folding for large files",
-  group = vim.api.nvim_create_augroup("BigFile", { clear = false }),
+  group = vim.api.nvim_create_augroup("big_file_perf", { clear = false }),
   callback = function(opts)
     if not is_big_file(_, opts.buf) then
       vim.opt_local.foldmethod = "expr"
@@ -26,16 +26,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
--- Automatically lint on save
-vim.api.nvim_create_autocmd("BufWritePost", {
-  callback = function()
-    require("lint").try_lint()
-  end
-})
-
 -- Activate wrapping and zen mode by default for certain filetypes
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "markdown", "txt", "rmd", "qmd", "lazy" },
+  desc = "Start in zen mode for text files",
+  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
   callback = function()
     vim.opt_local.list = false
     require("ibl").setup_buffer(0, { enabled = false })
@@ -49,7 +44,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "lazy",
   desc = "Quit lazy with <esc>",
-  group = vim.api.nvim_create_augroup("LazyUserGroup", { clear = true }),
+  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
   callback = function()
     vim.keymap.set(
       "n",
@@ -60,6 +55,24 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+-- Set the size and position of floating windows. Doesn't work for fzf-lua
+-- since that uses multiple windows
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+  desc = "Resize plugin floating windows",
+  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
+  pattern = { "mason", "lazy", "oil", "copilot-*" },
+  callback = function()
+    local w, h, c, r = get_float_size(float_width_pct, float_height_pct)
+    vim.api.nvim_win_set_config(0, {
+      relative = "editor",
+      width = w,
+      height = h,
+      row = r,
+      col = c
+    })
+  end
+})
+
 -- Automatically highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -67,9 +80,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end
 })
 
--- Set the size and position of floating windows on window change
-vim.api.nvim_create_autocmd({ "VimResized", "VimEnter" }, {
+-- Automatically lint on save
+vim.api.nvim_create_autocmd("BufWritePost", {
   callback = function()
-    set_float_size(float_width_pct, float_height_pct)
+    require("lint").try_lint()
   end
 })

@@ -12,17 +12,8 @@ return {
         "icon"
       },
       view_options = { show_hidden = true, },
-      buf_options = { bufhidden = "hide" },
+      buf_options = { bufhidden = "unload" },
       win_options = { colorcolumn = "0" },
-      float = {
-        override = function(conf)
-          conf["width"] = float_width
-          conf["height"] = float_height
-          conf["row"] = float_row
-          conf["col"] = float_col
-          return (conf)
-        end
-      },
       use_default_keymaps = false,
       keymaps = {
         ["-"] = "actions.parent",
