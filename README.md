@@ -50,6 +50,12 @@ The tmux prefix is `` ` ``
 - `ll(onglist)` - Print the entire code for current function or frame
 - `a(rgs)` - Print the arguments of the current function
 
+## Python Typing
+
+It seems like `pip install types-setuptools` is required for package type hints
+
+To create stubs for packages, use `pyright --createstub $PACKAGE`
+
 ## SSH
 
 To fix agent forwarding, use `fixssh`
