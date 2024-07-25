@@ -7,7 +7,6 @@ function _G.toggle_zen_mode()
     print("Zen mode on")
     vim.opt_local.list = false
     require("ibl").setup_buffer(0, { enabled = false })
-    vim.b.zen_toggle_flag = next_zen_toggle_flag
 
     local original_fold_flag = vim.opt_local.foldenable:get()
     if original_fold_flag then
@@ -23,7 +22,6 @@ function _G.toggle_zen_mode()
     print("Zen mode off")
     vim.opt_local.list = true
     require("ibl").setup_buffer(0, { enabled = true })
-    vim.b.zen_toggle_flag = next_zen_toggle_flag
     if next_fold_flag then
       vim.opt_local.foldenable = true
     end
@@ -33,6 +31,20 @@ function _G.toggle_zen_mode()
       }
     })
   end
+  vim.b.zen_toggle_flag = next_zen_toggle_flag
+end
+
+-- Toggle virtual text from diagnostics
+vim.g.show_diag_virtual_text = true
+function _G.toggle_diag_virtual_text()
+  local next_diag_virtual_text = not vim.g.show_diag_virtual_text
+  if next_diag_virtual_text then
+    print("Diagnostic virtual text on")
+  else
+    print("Diagnostic virtual text off")
+  end
+  vim.diagnostic.config({ virtual_text = next_diag_virtual_text })
+  vim.g.show_diag_virtual_text = next_diag_virtual_text
 end
 
 -- Check if the buffer is absolutely huge then use it to toggle off

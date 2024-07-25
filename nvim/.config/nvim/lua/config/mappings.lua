@@ -117,7 +117,8 @@ wk.add({
   { "<leader>dd", "<cmd>Trouble diagnostics toggle<cr>",                    desc = "Show diagnostics" },
   { "<leader>dD", "<cmd>Trouble lsp toggle<cr>",                            desc = "Show LSP items" },
   { "<leader>ds", "<cmd>Trouble symbols toggle<cr>",                        desc = "Show symbols" },
-  { "<leader>dF", "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>", desc = "Format buffer" }
+  { "<leader>dF", "<cmd>lua vim.lsp.buf.format { timeout_ms = 20000 }<cr>", desc = "Format buffer" },
+  { "<leader>dt", "<cmd>lua toggle_diag_virtual_text()<cr>",                desc = "Toggle virtual text" }
 })
 
 wk.add({
