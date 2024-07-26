@@ -137,6 +137,7 @@ wk.add({
 -- FZF
 wk.add({
   { "<leader>f",  group = "search" },
+  { "<leader>fs", plugin = "spelling",               desc = "Spellings" },
   { "<leader>ff", "<cmd>FzfLua files<cr>",           desc = "All files" },
   { "<leader>fo", "<cmd>FzfLua oldfiles<cr>",        desc = "Old files" },
   { "<leader>fq", "<cmd>FzfLua quickfix<cr>",        desc = "Quickfix list" },
@@ -144,7 +145,6 @@ wk.add({
   { "<leader>fw", "<cmd>FzfLua grep_cword<cr>",      desc = "Grep current word" },
   { "<leader>fm", "<cmd>FzfLua marks<cr>",           desc = "Marks" },
   { "<leader>fr", "<cmd>FzfLua command_history<cr>", desc = "Command history" },
-  { "<leader>fs", "<cmd>FzfLua spell_suggest<cr>",   desc = "Spellings" },
   { "<leader>fl", "<cmd>FzfLua grep_curbuf<cr>",     desc = "Grep in buffer" },
   { "<leader>fh", "<cmd>FzfLua helptags<cr>",        desc = "Helptags" },
   {
@@ -158,11 +158,11 @@ wk.add({
 wk.add({
   { "<leader>s",  group = "spelling" },
   { "<leader>ss", desc = "Toggle spell check" },
-  { "<leader>sn", "]s",                            desc = "Next misspelling" },
-  { "<leader>sp", "[s",                            desc = "Previous misspelling" },
-  { "<leader>sa", "zg",                            desc = "Add to dictionary" },
-  { "<leader>sf", "<cmd>FzfLua spell_suggest<cr>", desc = "Lookup in dictionary" },
-  { "<leader>s?", "<cmd>FzfLua spell_suggest<cr>", hidden = true }
+  { "<leader>sn", "]s",                       desc = "Next misspelling" },
+  { "<leader>sp", "[s",                       desc = "Previous misspelling" },
+  { "<leader>sa", "zg",                       desc = "Add to dictionary" },
+  { "<leader>sf", plugin = "spelling",        desc = "Lookup in dictionary" },
+  { "<leader>s?", plugin = "spelling",        desc = "Lookup in dictionary" }
 })
 
 -- Folding
