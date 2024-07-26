@@ -60,10 +60,15 @@ return {
     },
     config = function()
       require("mason").setup({
-        ui = { border = "rounded" }
+        ui = {
+          border = "rounded",
+          keymaps = {
+            toggle_help = "?"
+          }
+        }
       })
       require("mason-lspconfig").setup({})
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
       lspconfig.bashls.setup({ capabilities = capabilities })
       lspconfig.cssls.setup({ capabilities = capabilities })
