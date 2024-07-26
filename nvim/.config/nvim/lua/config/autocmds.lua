@@ -62,14 +62,16 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
   pattern = { "mason", "lazy", "oil", "copilot-*" },
   callback = function()
-    local w, h, c, r = get_float_size(float_width_pct, float_height_pct)
-    vim.api.nvim_win_set_config(0, {
-      relative = "editor",
-      width = w,
-      height = h,
-      row = r,
-      col = c
-    })
+    if vim.api.nvim_win_get_config(0).relative == "editor" then
+      local w, h, c, r = get_float_size(float_width_pct, float_height_pct)
+      vim.api.nvim_win_set_config(0, {
+        relative = "editor",
+        width = w,
+        height = h,
+        row = r,
+        col = c
+      })
+    end
   end
 })
 
