@@ -54,7 +54,7 @@ _G.lsp_ft = {
   "r",
   "rust",
   "sql",
-  "terraform",
+  "terraform", "tf",
   "yaml"
 }
 
@@ -73,6 +73,6 @@ _G.lint_ft = {
   "gitcommit",
   "markdown",
   "sql",
-  "terraform",
+  "terraform", "tf",
   "yaml"
 }
