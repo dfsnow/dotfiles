@@ -34,6 +34,33 @@ function _G.toggle_zen_mode()
   vim.b.zen_toggle_flag = next_zen_toggle_flag
 end
 
+-- Toggle autocompletion
+vim.g.cmp_toggle_flag = true
+function _G.toggle_cmp()
+  local cmp = require("cmp")
+  local next_cmp_toggle_flag = not vim.g.cmp_toggle_flag
+  if next_cmp_toggle_flag then
+    print("Completion on")
+  else
+    print("Completion off")
+  end
+  if next_cmp_toggle_flag then
+    cmp.setup({
+      completion = {
+        autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged }
+      }
+    })
+    vim.g.cmp_toggle_flag = next_cmp_toggle_flag
+  else
+    cmp.setup({
+      completion = {
+        autocomplete = false
+      }
+    })
+    vim.g.cmp_toggle_flag = next_cmp_toggle_flag
+  end
+end
+
 -- Toggle virtual text from diagnostics
 vim.g.show_diag_virtual_text = true
 function _G.toggle_diag_virtual_text()

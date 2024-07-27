@@ -58,7 +58,7 @@ wk.add({
 wk.add({
   { "<leader>",          group = "leader" },
   { "<leader>L",         "<cmd>Lazy<cr>",                                               desc = "Open Lazy" },
-  { "<leader>m",         "<cmd>lua toggleAutoCmp()<cr>",                                desc = "Toggle completion" },
+  { "<leader>m",         "<cmd>lua toggle_cmp()<cr>",                                   desc = "Toggle completion" },
   { "<leader>n",         "<cmd>setlocal wrap!<cr>",                                     desc = "Toggle word wrap" },
   { "<leader>Z",         "<cmd>lua toggle_zen_mode()<cr>",                              desc = "Toggle Zen mode" },
   { "<leader>/",         "<cmd>FzfLua grep_curbuf<cr>",                                 desc = "Search current buffer" },

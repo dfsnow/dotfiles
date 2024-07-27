@@ -160,32 +160,6 @@ return {
           })
         }
       })
-
-      -- Toggle autocompletion
-      vim.g.cmp_toggle_flag = true
-      function _G.toggleAutoCmp()
-        local next_cmp_toggle_flag = not vim.g.cmp_toggle_flag
-        if next_cmp_toggle_flag then
-          print("Completion on")
-        else
-          print("Completion off")
-        end
-        if next_cmp_toggle_flag then
-          cmp.setup({
-            completion = {
-              autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged }
-            }
-          })
-          vim.g.cmp_toggle_flag = next_cmp_toggle_flag
-        else
-          cmp.setup({
-            completion = {
-              autocomplete = false
-            }
-          })
-          vim.g.cmp_toggle_flag = next_cmp_toggle_flag
-        end
-      end
     end
   }
 }
