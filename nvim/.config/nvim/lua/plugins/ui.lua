@@ -59,14 +59,22 @@ return {
         }
       },
       tabline = {
-        lualine_a = { {
-          "buffers",
-          max_length = vim.o.columns,
-          symbols = {
-            modified = "[+]",
-            alternate_file = ""
+        lualine_a = {
+          {
+            "buffers",
+            max_length = function() return vim.o.columns end,
+            symbols = {
+              modified = "[+]",
+              alternate_file = ""
+            },
+            filetype_names = {
+              lazy = "lazy",
+              mason = "mason",
+              oil = "oil",
+              fzf = "fzf"
+            }
           }
-        } }
+        }
       }
     }
   },
