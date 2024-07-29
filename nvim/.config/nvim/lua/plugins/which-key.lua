@@ -23,10 +23,7 @@ return {
         },
       },
       win = { no_overlap = false, border = "rounded" },
-      triggers = { "<auto>", mode = "nic" },
-      disable = {
-        ft = { "mason", "lazy", "copilot-chat" }
-      }
+      triggers = { "<auto>", mode = "nc" }
     }
   }
 }
