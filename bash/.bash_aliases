@@ -23,7 +23,8 @@ fi
 LS_COLORS=$LS_COLORS:'ow=1;34:'
 export LS_COLORS
 
-# Git related aliases automatically added by .gitconfig
+# Git related aliases automatically added by .gitconfig. Cache the resulting
+# config file so we don't have to rebuild the aliases for every new shell 
 alias g='git'
 
 function_exists() {
@@ -31,12 +32,18 @@ function_exists() {
     return $?
 }
 
-for al in $(git config --get-regexp '^alias\.' | cut -f 1 -d ' ' | cut -f 2 -d '.'); do
-    alias g"${al}"="git ${al}"
-    complete_func=_git_"$(__git_aliased_command "${al}")"
-    function_exists "${complete_func}" && __git_complete g"${al}" "${complete_func}"
-done
-unset al
+if [ -f ~/.git_aliases_cache ] && [ "$(find ~/.git_aliases_cache -mtime 0)" != "" ]; then
+    . ~/.git_aliases_cache
+else
+    # The cache file doesn't exist or is old, so regenerate it
+    > ~/.git_aliases_cache
+    for al in $(git config --get-regexp '^alias\.' | cut -f 1 -d ' ' | cut -f 2 -d '.'); do
+        echo "alias g${al}='git ${al}'" >> ~/.git_aliases_cache
+        complete_func=_git_"$(__git_aliased_command "${al}")"
+        function_exists "${complete_func}" && echo "__git_complete g${al} ${complete_func}" >> ~/.git_aliases_cache
+    done
+    . ~/.git_aliases_cache
+fi
 
 # Lazygit aliases if installed
 if type lazygit > /dev/null 2> /dev/null; then
@@ -69,5 +76,8 @@ if type python3 > /dev/null 2> /dev/null; then
     alias pdb='python3 -m pdb'
 fi
 
-# Fix for SSH forwarding in tmux
-alias fixssh='eval $(tmux showenv -s SSH_AUTH_SOCK)'
+# Fix missing SSH keys on Mac and for SSH forwarding in tmux
+alias fixssh='\
+    [[ "$OSTYPE" == "darwin"* ]] && ssh-add --apple-use-keychain -q; \
+    eval $(tmux showenv -s SSH_AUTH_SOCK)\
+    '

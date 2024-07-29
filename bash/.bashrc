@@ -122,29 +122,25 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
 # Enable homebrew and programmable completion features (Mac)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    if [ -f "$(brew --prefix)"/etc/profile.d/bash_completion.sh ]; then
-        . "$(brew --prefix)"/etc/profile.d/bash_completion.sh
-    fi
-    # Use keychain for SSH password
-    ssh-add --apple-use-keychain -q
+    [[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] \
+        && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
 fi
 
 # Add third-party bash feature support
 if type fzf --bash >/dev/null 2>/dev/null; then
     eval "$(fzf --bash)"
 elif [ -f ~/.fzf.bash ]; then
-    source ~/.fzf.bash
+    . ~/.fzf.bash
 fi
 [ -f ~/dotfiles/vendor/git-completion.bash ] \
-    && source ~/dotfiles/vendor/git-completion.bash
+    && . ~/dotfiles/vendor/git-completion.bash
 [ -f ~/dotfiles/vendor/git-prompt.sh ] \
-    && source ~/dotfiles/vendor/git-prompt.sh __git_complete g __git_main
-[ -f ~/.cargo/env ] && source ~/.cargo/env
+    && . ~/dotfiles/vendor/git-prompt.sh __git_complete g __git_main
+[ -f ~/.cargo/env ] && . ~/.cargo/env
 
 # Add alias definitions
 [ -f ~/dotfiles/bash/.bash_aliases ] \
-    && source ~/dotfiles/bash/.bash_aliases
+    && . ~/dotfiles/bash/.bash_aliases
 
 
 ###############################################################
