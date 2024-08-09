@@ -83,7 +83,8 @@ return {
         settings = {
           basedpyright = {
             disableOrganizeImports = true,
-            disableTaggedHints = true
+            disableTaggedHints = true,
+            typeCheckingMode = "standard"
           },
           python = {
             analysis = {
