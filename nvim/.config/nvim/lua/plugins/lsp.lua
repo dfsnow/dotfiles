@@ -2,7 +2,7 @@ return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     version = "*",
-    cmd = { "MasonToolsInstall", "MasonToolsUpdate" },
+    cmd = { "MasonToolsInstall", "MasonToolsUpdate", "MasonToolsClean" },
     dependencies = { "neovim/nvim-lspconfig" },
     opts = {
       run_on_start = false,
