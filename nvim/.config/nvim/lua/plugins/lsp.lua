@@ -26,7 +26,6 @@ return {
         "sqlfluff",
         "yamlfmt",
         -- Linters
-        "actionlint",
         "gitlint",
         "hadolint",
         "htmlhint",
@@ -164,7 +163,7 @@ return {
         sh = { "shellcheck" },
         sql = { "sqlfluff" },
         terraform = { "tflint" },
-        yaml = { "actionlint", "yamllint" }
+        yaml = { "yamllint" }
       }
       local wk = require("which-key")
       wk.add({
