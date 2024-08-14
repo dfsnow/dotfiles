@@ -104,8 +104,13 @@ return {
       lspconfig.terraformls.setup({ capabilities = capabilities })
       lspconfig.yamlls.setup({ capabilities = capabilities })
 
-      -- Prettify the LSP info window
+      -- Prettify the LSP info and windows
       require("lspconfig.ui.windows").default_options.border = "rounded"
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover, {
+          border = "rounded"
+        }
+      )
     end
   },
 
