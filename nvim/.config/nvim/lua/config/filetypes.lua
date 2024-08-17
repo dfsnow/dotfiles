@@ -9,7 +9,7 @@ M.treesitter_parsers = {
   "cpp",
   "css",
   "dockerfile",
-  "gitcommit", "gitignore", "gitattributes",
+  "gitcommit", "gitignore", "gitattributes", "git_config",
   "go",
   "javascript",
   "json",
