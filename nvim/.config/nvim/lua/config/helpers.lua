@@ -1,5 +1,15 @@
 local M = {}
 
+-- Close all floating windows
+function M.close_floating_windows()
+  local valid_relatives = { "editor", "win" }
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    if vim.tbl_contains(valid_relatives, vim.api.nvim_win_get_config(win).relative) then
+      vim.api.nvim_win_close(win, false)
+    end
+  end
+end
+
 -- Search from CWD if not in a git dir
 function M.cwd_or_git()
   if M.get_git_exit() == 0 then

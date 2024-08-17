@@ -42,21 +42,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- Exit lazy.nvim using escape
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "lazy",
-  desc = "Quit lazy with <esc>",
-  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  callback = function()
-    vim.keymap.set(
-      "n",
-      "<esc>",
-      function() vim.api.nvim_win_close(0, false) end,
-      { buffer = true, nowait = true }
-    )
-  end
-})
-
 -- Set the size and position of certain floating windows automatically
 -- Note that fzf-lua uses a separate callback function for its floating window
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
@@ -101,5 +86,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
     then
       vim.api.nvim_feedkeys([[g`"]], "n", true)
     end
+  end
+})
+
+-- Disable conceal in certain markdown buffers and help files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "help", "markdown" },
+  desc = "Don't conceal in help and markdown files",
+  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
+  callback = function()
+    vim.wo.conceallevel = 0
   end
 })
