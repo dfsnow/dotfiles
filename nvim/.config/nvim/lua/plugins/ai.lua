@@ -17,15 +17,6 @@ return {
         end,
         mode = { "n", "v" },
         desc = "Toggle Copilot Chat",
-      },
-      {
-        "<leader>?",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-        end,
-        mode = { "n", "v" },
-        desc = "Open Copilot Chat prompts",
       }
     },
     config = function()

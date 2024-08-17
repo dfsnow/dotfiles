@@ -24,7 +24,7 @@ return {
           }
         end
       })
-      vim.cmd([[colorscheme catppuccin]])
+      vim.cmd("colorscheme catppuccin")
     end
   },
 
@@ -84,12 +84,9 @@ return {
     version = "*",
     ft = require("config.filetypes").lsp_ft,
     opts = {
-      sign = {
-        text = "A",
-      },
-      autocmd = {
-        enabled = true
-      },
+      sign = { enabled = false },
+      virtual_text = { enabled = true, hl = "NormalFloat" },
+      autocmd = { enabled = true },
       action_kinds = { "quickfix", "refactor" },
     }
   },
@@ -106,7 +103,8 @@ return {
       vim.opt.listchars:append "space:⋅"
       require("ibl").setup({
         scope = {
-          enabled = true
+          enabled = true,
+          show_end = false
         }
       })
     end

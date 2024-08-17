@@ -91,9 +91,7 @@ return {
           -- Use <Tab> and <S-Tab> to navigate through popup menu. See cmp wiki
           ["<Tab>"] = cmp.mapping(function(fallback)
             if vim.snippet.active({ direction = 1 }) then
-              vim.schedule(function()
-                vim.snippet.jump(1)
-              end)
+              vim.schedule(function() vim.snippet.jump(1) end)
             elseif cmp.visible() then
               cmp.select_next_item()
             elseif helpers.has_words_before() then
