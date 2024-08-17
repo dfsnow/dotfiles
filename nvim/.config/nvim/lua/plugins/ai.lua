@@ -30,91 +30,12 @@ return {
     },
     config = function()
       local chat = require("CopilotChat")
-      local select = require("CopilotChat.select")
-
-      local gitprompt =
-          "Write commit message for the change in the standard " ..
-          "imperative syntax. Make sure the title has maximum 50 " ..
-          "characters and message is wrapped at 72 characters. " ..
-          "Wrap the whole message in code block with language gitcommit."
-      local writeprompt =
-          "You are an excellent technical writer. Your writing balances " ..
-          "conciseness and clarity. You writing style is suitable for " ..
-          "READMEs, documentation, and technical blog posts, but your " ..
-          "expertise goes beyond software topics. Use markdown formatting " ..
-          "in your answers."
-
-      local prompts = {
-        -- Prompts for coding
-        Explain = {
-          prompt =
-              "/COPILOT_EXPLAIN Write a text explanation for the active " ..
-              "selection. Be as concise as possible."
-        },
-        Review = {
-          prompt =
-              "/COPILOT_REVIEW Review the selected code and provide " ..
-              "suggestions for improvement. Be as concise as possible."
-        },
-        Fix = {
-          prompt =
-              "/COPILOT_GENERATE There is a problem in this code. " ..
-              "Rewrite the code to show it with the bug fixed. Keep the " ..
-              "spacing and indentation the same."
-        },
-        Optimize = {
-          prompt =
-              "/COPILOT_GENERATE Optimize the selected code to improve" ..
-              "performance and readablilty."
-        },
-        Docs = {
-          prompt =
-              "/COPILOT_GENERATE Add a documentation comment for the " ..
-              "selection. Do not add a comment if the code is self-explanatory."
-        },
-        Tests = {
-          prompt = "/COPILOT_GENERATE Generate tests for the selected code."
-        },
-        FixDiagnostic = {
-          prompt = "Assist with the following diagnostic issue in file:",
-          selection = select.diagnostics,
-        },
-        Commit = {
-          prompt = gitprompt,
-          selection = select.gitdiff
-        },
-        CommitStaged = {
-          prompt = gitprompt,
-          selection = function(source)
-            return select.gitdiff(source, true)
-          end
-        },
-        -- Prompts for writing
-        Summarize = {
-          system_prompt = writeprompt,
-          prompt = "Summarize the selected text."
-        },
-        Spelling = {
-          system_prompt = writeprompt,
-          prompt = "Correct any grammar or spelling errors in the selected text."
-        },
-        Wording = {
-          system_prompt = writeprompt,
-          prompt = "Improve the grammar and wording of the selected text."
-        },
-        Concise = {
-          system_prompt = writeprompt,
-          prompt = "Rewrite the selected text to make it more concise."
-        }
-      }
-
       chat.setup({
         show_folds = false,
         show_help = false,
         auto_follow_cursor = false,
         auto_insert_mode = false,
         context = "buffer",
-        prompts = prompts,
         window = {
           layout = "float",
           border = "rounded"
@@ -142,7 +63,7 @@ return {
       })
       require("CopilotChat.integrations.cmp").setup()
 
-      -- Autocommand to re-open the chat window in the same position
+      -- Autocommand to always re-open the chat window in the same position
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "copilot-*",
         callback = function(opts)
