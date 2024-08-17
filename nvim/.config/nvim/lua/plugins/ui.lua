@@ -84,8 +84,8 @@ return {
     version = "*",
     ft = require("config.filetypes").lsp_ft,
     opts = {
-      sign = { enabled = false },
-      virtual_text = { enabled = true, hl = "NormalFloat" },
+      priority = 1000,
+      sign = { enabled = true, text = "A" },
       autocmd = { enabled = true },
       action_kinds = { "quickfix", "refactor" },
     }
