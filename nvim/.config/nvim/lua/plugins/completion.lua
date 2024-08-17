@@ -38,6 +38,7 @@ return {
     },
 
     config = function()
+      -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
       local has_words_before = function()
         if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
         ---@diagnostic disable-next-line: deprecated
@@ -47,19 +48,21 @@ return {
 
       local cmp = require("cmp")
       local lspkind = require("lspkind")
+
+      -- Setup autopairs completion/integration. See autopairs README
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       cmp.event:on(
         "confirm_done",
         cmp_autopairs.on_confirm_done()
       )
 
+      -- cmp command line completion. See cmp README
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = "buffer" }
         },
       })
-
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
@@ -72,13 +75,16 @@ return {
       cmp.setup({
         preselect = cmp.PreselectMode.None,
         enabled = function()
+          -- Only trigger if there are words before the cursor
+          -- Don't trigger completion in prompts, comments, or snippets
           local context = require("cmp.config.context")
           if vim.api.nvim_get_mode().mode == "c" then
             return true
           elseif vim.bo.buftype == "prompt" then
             return false
           else
-            return not context.in_treesitter_capture("comment")
+            return has_words_before()
+                and not context.in_treesitter_capture("comment")
                 and not context.in_syntax_group("Comment")
                 and not vim.snippet.active({ direction = 1 })
           end
@@ -89,6 +95,7 @@ return {
           end
         },
         mapping = {
+          -- Use <Tab> and <S-Tab> to navigate through popup menu. See cmp wiki
           ["<Tab>"] = cmp.mapping(function(fallback)
             if vim.snippet.active({ direction = 1 }) then
               vim.schedule(function()
@@ -113,9 +120,8 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          ["<C-p>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-n>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
+          ["K"] = cmp.mapping.scroll_docs(-4),
+          ["J"] = cmp.mapping.scroll_docs(4),
           ["<ESC>"] = cmp.mapping({
             i = function(fallback)
               if cmp.visible() and cmp.get_active_entry() then
@@ -131,7 +137,10 @@ return {
           ["<CR>"] = cmp.mapping({
             i = function(fallback)
               if cmp.visible() and cmp.get_active_entry() then
-                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                cmp.confirm({
+                  behavior = cmp.ConfirmBehavior.Insert,
+                  select = false
+                })
               else
                 fallback()
               end
@@ -151,6 +160,7 @@ return {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
+        -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text",
