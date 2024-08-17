@@ -57,8 +57,8 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- Set the size and position of floating windows. Doesn't work for fzf-lua
--- since that uses multiple windows
+-- Set the size and position of certain floating windows automatically
+-- Note that fzf-lua uses a separate callback function for its floating window
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   desc = "Resize plugin floating windows",
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
