@@ -41,7 +41,7 @@ return {
         theme = "catppuccin"
       },
       sections = {
-        lualine_b = { "fzf_cwd()" },
+        lualine_b = { require("config.helpers").fzf_cwd },
         lualine_c = {
           { "filename", path = 4 },
           {
@@ -82,7 +82,7 @@ return {
   {
     "kosayoda/nvim-lightbulb",
     version = "*",
-    ft = lsp_ft,
+    ft = require("config.filetypes").lsp_ft,
     opts = {
       sign = {
         text = "A",
@@ -129,11 +129,6 @@ return {
         { "n", "U", "redo", {} },
       }
     }
-  },
-
-  {
-    "stevearc/dressing.nvim",
-    version = "*",
   },
 
   {

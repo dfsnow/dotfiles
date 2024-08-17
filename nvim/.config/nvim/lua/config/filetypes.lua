@@ -1,5 +1,7 @@
+M = {}
+
 -- Filetypes for which to load various plugins lazily
-_G.treesitter_parsers = {
+M.treesitter_parsers = {
   "awk",
   "bash",
   "c",
@@ -30,17 +32,17 @@ _G.treesitter_parsers = {
 
 -- Concatenate a table of languages which don't have parsers, but which
 -- we want to activate treesitter for
-_G.treesitter_ft = {
+M.treesitter_ft = {
   "sh",
   "css", "scss", "less",
   "quarto", "rmd"
 }
 
-for _, v in ipairs(_G.treesitter_parsers) do
-  table.insert(_G.treesitter_ft, v)
+for _, v in ipairs(M.treesitter_parsers) do
+  table.insert(M.treesitter_ft, v)
 end
 
-_G.lsp_ft = {
+M.lsp_ft = {
   "bash", "sh",
   "css", "scss", "less",
   "dockerfile",
@@ -58,14 +60,14 @@ _G.lsp_ft = {
   "yaml"
 }
 
-_G.format_ft = {
+M.format_ft = {
   "bash", "sh",
   "json",
   "sql",
   "yaml"
 }
 
-_G.lint_ft = {
+M.lint_ft = {
   "bash", "sh",
   "css", "scss", "less",
   "html",
@@ -76,3 +78,5 @@ _G.lint_ft = {
   "terraform", "tf",
   "yaml"
 }
+
+return M

@@ -62,19 +62,6 @@ return {
         }
       })
       require("CopilotChat.integrations.cmp").setup()
-
-      -- Autocommand to always re-open the chat window in the same position
-      vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = "copilot-*",
-        callback = function(opts)
-          local prev_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
-          if prev_line > 1
-              and prev_line <= vim.api.nvim_buf_line_count(opts.buf)
-          then
-            vim.api.nvim_feedkeys([[g`"]], "n", true)
-          end
-        end
-      })
     end
   }
 }

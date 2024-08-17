@@ -51,7 +51,7 @@ return {
     keys = {
       { "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason" }
     },
-    ft = lsp_ft,
+    ft = require("config.filetypes").lsp_ft,
     opts = {
       diagnostics = {
         virtual_text = true,
@@ -118,7 +118,7 @@ return {
   {
     "stevearc/conform.nvim",
     version = "*",
-    ft = format_ft,
+    ft = require("config.filetypes").format_ft,
     config = function()
       require("conform").setup({
         formatters_by_ft = {
@@ -152,7 +152,7 @@ return {
   {
     "mfussenegger/nvim-lint",
     version = "*",
-    ft = lint_ft,
+    ft = require("config.filetypes").lint_ft,
     config = function()
       require("lint").linters_by_ft = {
         css = { "stylelint" },
@@ -182,6 +182,10 @@ return {
   {
     "smjonas/inc-rename.nvim",
     version = "*",
+    dependencies = {
+      "stevearc/dressing.nvim",
+      version = "*",
+    },
     keys = { { "<leader>dr", ":IncRename ", desc = "Rename identifier" } },
     config = function()
       require("inc_rename").setup({ input_buffer_type = "dressing" })

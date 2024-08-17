@@ -65,6 +65,8 @@ return {
       }
     },
     keys = {
+      -- Mappings for flash are here instead of mappings.lua because
+      -- they're used to lazy load flash
       {
         "<space>",
         mode = { "n", "x", "o" },

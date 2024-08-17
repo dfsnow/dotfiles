@@ -19,12 +19,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Load self-maintained helpers, dicts, etc.
-require("config/helpers")
-require("config/filetypes")
-require("config/autocmds")
-
--- Load all nvim plugins and mappings
+-- Load all nvim plugins, mappings, and autocmds
 require("lazy").setup(
   "plugins",
   {
@@ -41,3 +36,4 @@ require("lazy").setup(
   }
 )
 require("config/mappings")
+require("config/autocmds")

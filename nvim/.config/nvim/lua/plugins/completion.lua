@@ -38,15 +38,8 @@ return {
     },
 
     config = function()
-      -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
-      local has_words_before = function()
-        if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-        ---@diagnostic disable-next-line: deprecated
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-      end
-
       local cmp = require("cmp")
+      local helpers = require("config.helpers")
       local lspkind = require("lspkind")
 
       -- Setup autopairs completion/integration. See autopairs README
@@ -83,7 +76,7 @@ return {
           elseif vim.bo.buftype == "prompt" then
             return false
           else
-            return has_words_before()
+            return helpers.has_words_before()
                 and not context.in_treesitter_capture("comment")
                 and not context.in_syntax_group("Comment")
                 and not vim.snippet.active({ direction = 1 })
@@ -103,7 +96,7 @@ return {
               end)
             elseif cmp.visible() then
               cmp.select_next_item()
-            elseif has_words_before() then
+            elseif helpers.has_words_before() then
               cmp.complete()
             else
               fallback()
