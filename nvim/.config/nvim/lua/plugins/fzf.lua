@@ -7,6 +7,8 @@ return {
   config = function()
     local fzf_lua = require("fzf-lua")
     local helpers = require("config.helpers")
+    local trouble_actions = require("trouble.sources.fzf").actions
+
     fzf_lua.setup({
       -- Callback function to resize the window when vim size changes
       winopts_fn = function()
@@ -23,7 +25,23 @@ return {
         }
       },
       fzf_opts = { ["--layout"] = "default" },
-      actions = { files = { ["default"] = fzf_lua.actions.file_edit } },
+      actions = {
+        files = {
+          ["default"] = fzf_lua.actions.file_edit,
+          ["ctrl-t"] = trouble_actions.open
+        }
+      },
+      keymap = {
+        builtin = {
+          ["<S-j>"] = "preview-page-down",
+          ["<S-k>"] = "preview-page-up"
+        },
+        fzf = {
+          -- Reversed multi-select order since window dir is reversed
+          ["tab"] = "toggle-out",
+          ["shift-tab"] = "toggle-in"
+        }
+      },
       -- Same options as used in .bashrc, for consistency
       files = {
         formatter = "path.filename_first",

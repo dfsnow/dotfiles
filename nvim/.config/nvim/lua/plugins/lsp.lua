@@ -197,7 +197,12 @@ return {
     version = "*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      focus = true
+      focus = true,
+      keys = {
+        ["<esc>"] = "close",
+        ["<tab>"] = "next",
+        ["<s-tab>"] = "prev",
+      }
     }
   }
 }

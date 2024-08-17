@@ -6,6 +6,9 @@ local trouble = require("trouble")
 local wk = require("which-key")
 
 local helpers = require("config.helpers")
+local function grep_cwd()
+  fzf_lua.grep_project({ cwd = helpers.cwd_or_git() })
+end
 
 -- Non-leader
 wk.add({
@@ -130,6 +133,7 @@ wk.add({
   { "<leader>dk", vim.lsp.buf.hover,                                         desc = "Show hover info" },
   { "<leader>da", fzf_lua.lsp_code_actions,                                  desc = "Show code actions" },
   { "<leader>dd", function() trouble.toggle("diagnostics") end,              desc = "Show diagnostics" },
+  { "<leader>dl", function() trouble.toggle("lsp") end,                      desc = "Show LSP items" },
   { "<leader>dD", function() trouble.toggle("lsp") end,                      desc = "Show LSP items" },
   { "<leader>ds", function() trouble.toggle("symbols") end,                  desc = "Show symbols" },
   { "<leader>dF", function() vim.lsp.buf.format({ timeout_ms = 20000 }) end, desc = "Format buffer" },
@@ -149,7 +153,7 @@ wk.add({
   { "<leader>dfN", fzf_lua.lsp_workspace_diagnostics, desc = "All diagnostics" }
 })
 
--- FZF
+-- fzf
 wk.add({
   { "<leader>f",  group = "search" },
   { "<leader>fs", plugin = "spelling",     desc = "Spellings" },
@@ -162,11 +166,19 @@ wk.add({
   { "<leader>fr", fzf_lua.command_history, desc = "Command history" },
   { "<leader>fl", fzf_lua.grep_curbuf,     desc = "Grep in buffer" },
   { "<leader>fh", fzf_lua.helptags,        desc = "Helptags" },
-  {
-    "<leader>fp",
-    function() fzf_lua.grep_project({ cwd = helpers.cwd_or_git() }) end,
-    desc = "Search project files"
-  }
+  { "<leader>fp", grep_cwd,                desc = "Search in project" }
+})
+
+-- Trouble
+wk.add({
+  { "<leader>t",  group = "trouble" },
+  { "<leader>tt", function() trouble.toggle("fzf") end,         desc = "fzf grep matches" },
+  { "<leader>tf", function() trouble.toggle("fzf_files") end,   desc = "fzf file matches" },
+  { "<leader>tl", function() trouble.toggle("lsp") end,         desc = "All LSP items" },
+  { "<leader>td", function() trouble.toggle("diagnostics") end, desc = "LSP diagnostics" },
+  { "<leader>tD", function() trouble.toggle("lsp") end,         desc = "All LSP items" },
+  { "<leader>tr", function() trouble.toggle("references") end,  desc = "LSP references" },
+  { "<leader>ts", function() trouble.toggle("symbols") end,     desc = "LSP symbols" },
 })
 
 -- Spelling
