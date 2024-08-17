@@ -50,7 +50,7 @@ fi
 
 # Check if colours are supported
 __colour_enabled() {
-    local -i colors=$(tput colors 2>/dev/null)
+    local colors; colors=$(tput colors 2>/dev/null)
     [[ $? -eq 0 && $colors -gt 2 ]] || [[ -n "$SSH_CLIENT" || -n "$SSH_TTY" ]]
 }
 unset __colourise_prompt && __colour_enabled && __colourise_prompt=1
@@ -62,7 +62,7 @@ __set_bash_prompt()
     local PostGitPS1=""
 
     if [[ -n "$VIRTUAL_ENV" ]]; then
-        PreGitPS1+="($(basename $VIRTUAL_ENV)) "
+        PreGitPS1+="($(basename "$VIRTUAL_ENV")) "
     fi
 
     local Title='\033]0;'
@@ -127,7 +127,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Add third-party bash feature support
-if type fzf --bash >/dev/null 2>/dev/null; then
+if type fzf >/dev/null 2>/dev/null && fzf --bash >/dev/null 2>/dev/null; then
     eval "$(fzf --bash)"
 elif [ -f ~/.fzf.bash ]; then
     . ~/.fzf.bash
@@ -168,11 +168,12 @@ elif type fdfind >/dev/null 2>/dev/null; then
     FZF_FIND=fdfind
     alias fd=fdfind
 fi
+
 export FZF_DEFAULT_OPTS=" --height 40% \
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-    --layout=reverse"
+    --layout=reverse --exit-0"
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
     -g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' \
     -g '!{node_modules,renv}/' \

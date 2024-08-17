@@ -32,17 +32,23 @@ function_exists() {
     return $?
 }
 
-if [ -f ~/.git_aliases_cache ] && [ "$(find ~/.git_aliases_cache -mtime 0)" != "" ]; then
-    . ~/.git_aliases_cache
+BASH_ALIASES_CACHE="$HOME/.cache/bash/.bash_aliases_cache"
+[ ! -d "$(dirname "$BASH_ALIASES_CACHE")" ] && mkdir -p "$(dirname "$BASH_ALIASES_CACHE")"
+if [ -f "$BASH_ALIASES_CACHE" ] && [ "$(find "$BASH_ALIASES_CACHE" -mtime 0)" != "" ]; then
+    # shellcheck source=/dev/null
+    . "$BASH_ALIASES_CACHE"
 else
     # The cache file doesn't exist or is old, so regenerate it
-    > ~/.git_aliases_cache
+    touch "$BASH_ALIASES_CACHE"
     for al in $(git config --get-regexp '^alias\.' | cut -f 1 -d ' ' | cut -f 2 -d '.'); do
-        echo "alias g${al}='git ${al}'" >> ~/.git_aliases_cache
+        echo "alias g${al}='git ${al}'" >> "$BASH_ALIASES_CACHE"
         complete_func=_git_"$(__git_aliased_command "${al}")"
-        function_exists "${complete_func}" && echo "__git_complete g${al} ${complete_func}" >> ~/.git_aliases_cache
+        function_exists "${complete_func}" && \
+            echo "__git_complete g${al} ${complete_func}" \
+            >> "$BASH_ALIASES_CACHE"
     done
-    . ~/.git_aliases_cache
+    # shellcheck source=/dev/null
+    . "$BASH_ALIASES_CACHE"
 fi
 
 # Lazygit aliases if installed
@@ -63,17 +69,12 @@ alias rm='rm -I'
 # Vim/neovim aliases if each installed
 if type nvim > /dev/null 2> /dev/null; then
     alias v='nvim'
-    alias vi='nvim'
-    alias vim='nvim'
-    alias nv='nvim'
+    # Open last file
+    alias vl='nvim -c":e#<1"'
+    # Open project file search in cwd
+    alias vf='nvim -c "lua require(\"fzf-lua\").files({ cwd = require(\"config.helpers\").cwd_or_git() })"'
 elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
-    alias vi='vim'
-fi
-
-# Python debugger (PDB)
-if type python3 > /dev/null 2> /dev/null; then
-    alias pdb='python3 -m pdb'
 fi
 
 # Fix missing SSH keys on Mac and for SSH forwarding in tmux
