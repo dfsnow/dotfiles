@@ -76,8 +76,7 @@ return {
           elseif vim.bo.buftype == "prompt" then
             return false
           else
-            return helpers.has_words_before()
-                and not context.in_treesitter_capture("comment")
+            return not context.in_treesitter_capture("comment")
                 and not context.in_syntax_group("Comment")
                 and not vim.snippet.active({ direction = 1 })
           end
