@@ -57,29 +57,33 @@ wk.add({
     { "d" },
     { "y" },
     { "<snr>" },
-    { "gc" }
+    { "gc" },
+    { "<ScrollWheelUp>" },
+    { "<ScrollWheelDown>" },
+    { "<PageUp>" },
+    { "<PageDown>" }
   }
 })
 
 -- Base leader
 wk.add({
-  { "<leader>",          group = "leader" },
-  { "<leader>L",         lazy.home,                                                    desc = "Open Lazy" },
-  { "<leader>m",         helpers.toggle_cmp,                                           desc = "Toggle completion" },
-  { "<leader>n",         "<cmd>setlocal wrap!<cr>",                                    desc = "Toggle word wrap" },
-  { "<leader>Z",         helpers.toggle_zen_mode,                                      desc = "Toggle Zen mode" },
-  { "<leader>/",         fzf_lua.grep_curbuf,                                          desc = "Search current buffer" },
-  { "<leader><leader>",  function() fzf_lua.files({ cwd = helpers.cwd_or_git() }) end, desc = "Search project files" },
-  { "<leader>.",         function() oil.open_float(".") end,                           desc = "Open working directory" },
-  { "<leader>Q",         desc = "Exit without saving" },
-  { "<leader>x",         desc = "Delete buffer" },
-  { "<leader>M",         desc = "Open Mason" },
-  { "<leader><space>",   desc = "Flash treesitter" },
-  { "<leader><s-space>", desc = "Toggle Flash search" },
-  { "<leader>-",         desc = "New vertical split" },
-  { "<leader>_",         desc = "New horizontal split" },
-  { "<leader><tab>",     desc = "Next window" },
-  { "<leader><s-tab>",   desc = "Previous window" },
+  { "<leader>",         group = "leader" },
+  { "<leader>L",        lazy.home,                                                    desc = "Open Lazy" },
+  { "<leader>m",        helpers.toggle_cmp,                                           desc = "Toggle completion" },
+  { "<leader>n",        "<cmd>setlocal wrap!<cr>",                                    desc = "Toggle word wrap" },
+  { "<leader>Z",        helpers.toggle_zen_mode,                                      desc = "Toggle Zen mode" },
+  { "<leader>/",        grep_cwd,                                                     desc = "Search in project" },
+  { "<leader><leader>", function() fzf_lua.files({ cwd = helpers.cwd_or_git() }) end, desc = "Search project files" },
+  { "<leader>.",        function() oil.open_float(".") end,                           desc = "Open working directory" },
+  { "<leader>*",        fzf_lua.grep_cword,                                           desc = "Grep current word" },
+  { "<leader>Q",        hidden = true,                                                desc = "Exit without saving" },
+  { "<leader>x",        desc = "Delete buffer" },
+  { "<leader>M",        desc = "Open Mason" },
+  { "<leader><space>",  desc = "Flash treesitter" },
+  { "<leader>-",        desc = "New vertical split" },
+  { "<leader>_",        desc = "New horizontal split" },
+  { "<leader><tab>",    desc = "Next window" },
+  { "<leader><s-tab>",  desc = "Previous window" },
   {
     mode = { "x", "n" },
     { "<leader>p",    desc = "Paste from clipboard" },
@@ -102,7 +106,8 @@ wk.add({
   },
   {
     { "<leader><cr>", helpers.smart_send, desc = "Send to tmux" },
-    silent = true, noremap = true
+    silent = true,
+    noremap = true
   }
 })
 
@@ -128,15 +133,15 @@ wk.add({
   { "<leader>dD", function() trouble.toggle("lsp") end,                      desc = "Show LSP items" },
   { "<leader>ds", function() trouble.toggle("symbols") end,                  desc = "Show symbols" },
   { "<leader>dF", function() vim.lsp.buf.format({ timeout_ms = 20000 }) end, desc = "Format buffer" },
-  { "<leader>dt", helpers.toggle_diag_virtual_text,                          desc = "Toggle virtual text" }
+  { "<leader>dt", helpers.toggle_diag_virtual_text,                          desc = "Toggle diagnostics" }
 })
 
 wk.add({
   { "<leader>df",  group = "search" },
-  { "<leader>dfa", fzf_lua.lsp_finder,                desc = "All LSP" },
   { "<leader>dfr", fzf_lua.lsp_references,            desc = "References" },
   { "<leader>dfd", fzf_lua.lsp_definitions,           desc = "Definitions" },
-  { "<leader>dfD", fzf_lua.lsp_type_definitions,      desc = "Type definitions" },
+  { "<leader>dfD", fzf_lua.lsp_declarations,          desc = "Declarations" },
+  { "<leader>dft", fzf_lua.lsp_type_definitions,      desc = "Type definitions" },
   { "<leader>dfi", fzf_lua.lsp_implementations,       desc = "Implementations" },
   { "<leader>dfs", fzf_lua.lsp_document_symbols,      desc = "Document symbols" },
   { "<leader>dfS", fzf_lua.lsp_workspace_symbols,     desc = "Workspace symbols" },

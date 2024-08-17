@@ -71,7 +71,8 @@ return {
               lazy = "lazy",
               mason = "mason",
               oil = "oil",
-              fzf = "fzf"
+              fzf = "fzf",
+              trouble = "trouble"
             }
           }
         }

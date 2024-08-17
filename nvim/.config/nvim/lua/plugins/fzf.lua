@@ -16,7 +16,7 @@ return {
       end,
       winopts = {
         backdrop = "NONE",
-        preview  = {
+        preview = {
           flip_columns = 80,
           horizontal = "right:50%",
           vertical = "up:50%"

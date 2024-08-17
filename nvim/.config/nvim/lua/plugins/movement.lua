@@ -78,12 +78,6 @@ return {
         mode = { "n", "x", "o" },
         function() require("flash").treesitter() end,
         desc = "Flash Treesitter"
-      },
-      {
-        "<leader><s-space>",
-        mode = { "n", "x", "o" },
-        function() require("flash").toggle() end,
-        desc = "Toggle Flash search"
       }
     }
   }
