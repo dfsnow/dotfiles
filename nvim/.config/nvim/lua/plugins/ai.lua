@@ -17,6 +17,18 @@ return {
         end,
         mode = { "n", "v" },
         desc = "Toggle Copilot Chat",
+      },
+      {
+        "<leader>?",
+        function()
+          require("CopilotChat").reset()
+          require("CopilotChat").toggle({
+            selection = require("CopilotChat.select").visual,
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Reset Copilot Chat",
+        silent = true
       }
     },
     config = function()
