@@ -112,6 +112,20 @@ return {
   },
 
   {
+    "folke/trouble.nvim",
+    version = "*",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      focus = true,
+      keys = {
+        ["<esc>"] = "close",
+        ["<tab>"] = "next",
+        ["<s-tab>"] = "prev"
+      }
+    }
+  },
+
+  {
     "tzachar/highlight-undo.nvim",
     version = "*",
     keys = "u",

@@ -18,6 +18,7 @@ wk.add({
   { "<c-r>",   fzf_lua.command_history,            desc = "Search command history" },
   { "<c-t>",   fzf_lua.files,                      desc = "Search files" },
   { "<m-c>",   helpers.fzf_dirs,                   desc = "Search dirs" },
+  { "<esc>",   helpers.close_floating_windows,     desc = "Close floating windows" },
   { "<c-A>",   desc = "Increment up" },
   { "<c-X>",   desc = "Increment down" },
   { "<tab>",   desc = "Next buffer" },

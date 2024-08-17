@@ -190,19 +190,5 @@ return {
     config = function()
       require("inc_rename").setup({ input_buffer_type = "dressing" })
     end
-  },
-
-  {
-    "folke/trouble.nvim",
-    version = "*",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      focus = true,
-      keys = {
-        ["<esc>"] = "close",
-        ["<tab>"] = "next",
-        ["<s-tab>"] = "prev",
-      }
-    }
   }
 }
