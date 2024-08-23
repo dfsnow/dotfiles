@@ -78,7 +78,7 @@ nmap <leader>_ :new<cr>
 nmap <leader>- :vnew<cr>
 nmap <leader>bb :enew<cr>
 nmap <leader>bn :enew<cr>
-nmap <leader>x :bdelete!<cr>
+nmap <leader>x :Bclose<cr>
 nmap <leader>bc :Bclose<cr>
 
 nmap <Tab> :bnext<cr>

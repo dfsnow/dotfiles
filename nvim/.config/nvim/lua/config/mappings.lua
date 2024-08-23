@@ -34,7 +34,6 @@ wk.add({
   { "R",       desc = "Replace with last yank" },
   { "u",       desc = "Undo" },
   { "U",       desc = "Redo" },
-  { ";",       desc = "Repeat last move" },
   { "J",       desc = "Join lines" },
   { "K",       desc = "Show hover info" },
   { "g;",      desc = "Go to last edited position" },
@@ -77,12 +76,12 @@ wk.add({
   { "<leader>m",        helpers.toggle_cmp,                                           desc = "Toggle completion" },
   { "<leader>n",        "<cmd>setlocal wrap!<cr>",                                    desc = "Toggle word wrap" },
   { "<leader>Z",        helpers.toggle_zen_mode,                                      desc = "Toggle Zen mode" },
-  { "<leader>/",        grep_cwd,                                                     desc = "Search in project" },
+  { "<leader>/",        grep_cwd,                                                     desc = "Grep in project" },
   { "<leader><leader>", function() fzf_lua.files({ cwd = helpers.cwd_or_git() }) end, desc = "Search project files" },
   { "<leader>_",        function() oil.open_float(".") end,                           desc = "Open working directory" },
   { "<leader>*",        fzf_lua.grep_cword,                                           desc = "Grep current word" },
   { "<leader>Q",        desc = "Exit without saving" },
-  { "<leader>x",        desc = "Delete buffer" },
+  { "<leader>x",        desc = "Close buffer" },
   { "<leader>M",        desc = "Open Mason" },
   { "<leader><space>",  desc = "Flash treesitter" },
   { "<leader>-",        desc = "New vertical split" },
@@ -128,18 +127,19 @@ wk.add({
 })
 
 -- LSP
+local trouble_opts = { mode = "diagnostics", filter = { buf = 0 } }
 wk.add({
   { "<leader>d",  group = "lsp" },
   { "<leader>dp", vim.diagnostic.goto_prev,                                  desc = "Previous diagnostic" },
   { "<leader>dn", vim.diagnostic.goto_next,                                  desc = "Next diagnostic" },
   { "<leader>dk", vim.lsp.buf.hover,                                         desc = "Show hover info" },
   { "<leader>da", fzf_lua.lsp_code_actions,                                  desc = "Show code actions" },
-  { "<leader>dd", function() trouble.toggle("diagnostics") end,              desc = "Show diagnostics" },
-  { "<leader>dl", function() trouble.toggle("lsp") end,                      desc = "Show LSP items" },
-  { "<leader>dD", function() trouble.toggle("lsp") end,                      desc = "Show LSP items" },
-  { "<leader>ds", function() trouble.toggle("symbols") end,                  desc = "Show symbols" },
+  { "<leader>dd", function() trouble.toggle(trouble_opts) end,               desc = "Buffer diagnostics" },
+  { "<leader>dD", function() trouble.toggle("diagnostics") end,              desc = "Workspace diagnostics" },
+  { "<leader>dl", function() trouble.toggle("lsp") end,                      desc = "All LSP items" },
+  { "<leader>ds", function() trouble.toggle("symbols") end,                  desc = "Document symbols" },
   { "<leader>dF", function() vim.lsp.buf.format({ timeout_ms = 20000 }) end, desc = "Format buffer" },
-  { "<leader>dt", helpers.toggle_diag_virtual_text,                          desc = "Toggle diagnostics" }
+  { "<leader>dt", helpers.toggle_buffer_diagnostics,                         desc = "Toggle diagnostics" }
 })
 
 wk.add({
@@ -158,17 +158,15 @@ wk.add({
 -- fzf
 wk.add({
   { "<leader>f",  group = "search" },
-  { "<leader>fs", plugin = "spelling",     desc = "Spellings" },
   { "<leader>ff", fzf_lua.files,           desc = "All files" },
   { "<leader>fo", fzf_lua.oldfiles,        desc = "Old files" },
-  { "<leader>fq", fzf_lua.quickfix,        desc = "Quickfix list" },
   { "<leader>fb", fzf_lua.buffers,         desc = "Buffers" },
   { "<leader>fw", fzf_lua.grep_cword,      desc = "Grep current word" },
   { "<leader>fm", fzf_lua.marks,           desc = "Marks" },
   { "<leader>fr", fzf_lua.command_history, desc = "Command history" },
-  { "<leader>fl", fzf_lua.grep_curbuf,     desc = "Grep in buffer" },
   { "<leader>fh", fzf_lua.helptags,        desc = "Helptags" },
-  { "<leader>fp", grep_cwd,                desc = "Search in project" }
+  { "<leader>fs", fzf_lua.grep_curbuf,     desc = "Grep in buffer" },
+  { "<leader>fS", grep_cwd,                desc = "Grep in project" }
 })
 
 -- Trouble
@@ -177,10 +175,10 @@ wk.add({
   { "<leader>tt", function() trouble.toggle("fzf") end,         desc = "fzf grep matches" },
   { "<leader>tf", function() trouble.toggle("fzf_files") end,   desc = "fzf file matches" },
   { "<leader>tl", function() trouble.toggle("lsp") end,         desc = "All LSP items" },
-  { "<leader>td", function() trouble.toggle("diagnostics") end, desc = "LSP diagnostics" },
-  { "<leader>tD", function() trouble.toggle("lsp") end,         desc = "All LSP items" },
-  { "<leader>tr", function() trouble.toggle("references") end,  desc = "LSP references" },
-  { "<leader>ts", function() trouble.toggle("symbols") end,     desc = "LSP symbols" },
+  { "<leader>td", function() trouble.toggle(trouble_opts) end,  desc = "Buffer diagnostics" },
+  { "<leader>tD", function() trouble.toggle("diagnostics") end, desc = "Workspace diagnostics" },
+  { "<leader>tr", function() trouble.toggle("references") end,  desc = "References" },
+  { "<leader>ts", function() trouble.toggle("symbols") end,     desc = "Document symbols" },
 })
 
 -- Spelling
@@ -192,19 +190,6 @@ wk.add({
   { "<leader>sa", "zg",                       desc = "Add to dictionary" },
   { "<leader>sf", plugin = "spelling",        desc = "Lookup in dictionary" },
   { "<leader>s?", plugin = "spelling",        desc = "Lookup in dictionary" }
-})
-
--- Folding
-wk.add({
-  { "<leader>z",  group = "folding" },
-  { "<leader>zt", "zi",             desc = "Toggle folding" },
-  { "<leader>za", "za",             desc = "Toggle current" },
-  { "<leader>zA", "zA",             desc = "Toggle all under cursor" },
-  { "<leader>zr", "zr",             desc = "Open one level in buffer" },
-  { "<leader>zR", "zR",             desc = "Open all" },
-  { "<leader>zm", "zm",             desc = "Close one level in buffer" },
-  { "<leader>zM", "zM",             desc = "Close all" },
-  { "<leader>zi", "zi",             hidden = true }
 })
 
 -- Git

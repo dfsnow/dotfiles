@@ -141,20 +141,19 @@ function M.toggle_cmp()
   end
 end
 
--- Toggle virtual text from diagnostics
-vim.g.show_diag_virtual_text = true
-function M.toggle_diag_virtual_text()
-  local next_diag_virtual_text = not vim.g.show_diag_virtual_text
-  if next_diag_virtual_text then
-    print("Diagnostic virtual text on")
+-- Toggle diagnostics
+function M.toggle_buffer_diagnostics()
+  local diag_toggle_flag = vim.diagnostic.is_enabled({ ns_id = nil, bufnr = 0 })
+  if diag_toggle_flag then
+    print("Diagnostics off")
+    vim.diagnostic.enable(false, { ns_id = nil, bufnr = 0 })
   else
-    print("Diagnostic virtual text off")
+    print("Diagnostics on")
+    vim.diagnostic.enable(true, { ns_id = nil, bufnr = 0 })
   end
-  vim.diagnostic.config({ virtual_text = next_diag_virtual_text })
-  vim.g.show_diag_virtual_text = next_diag_virtual_text
 end
 
--- Toggle eol, space characters, and scope markers
+-- Toggle eol, space characters, scope markers, and autocomplete
 vim.b.zen_toggle_flag = false
 function M.toggle_zen_mode()
   local next_zen_toggle_flag = not vim.b.zen_toggle_flag

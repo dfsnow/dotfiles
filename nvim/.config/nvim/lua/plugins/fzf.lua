@@ -37,9 +37,7 @@ return {
           ["<S-k>"] = "preview-page-up"
         },
         fzf = {
-          -- Reversed multi-select order since window dir is reversed
-          ["tab"] = "toggle-out",
-          ["shift-tab"] = "toggle-in"
+          ["backspace"] = "unix-line-discard"
         }
       },
       -- Same options as used in .bashrc, for consistency
