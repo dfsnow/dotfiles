@@ -79,10 +79,10 @@ return {
       })
       lspconfig.html.setup({ capabilities = capabilities })
       lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.basedpyright.setup({
+      lspconfig.pyright.setup({
         capabilities = capabilities,
         settings = {
-          basedpyright = {
+          pyright = {
             disableOrganizeImports = true,
             disableTaggedHints = true,
             typeCheckingMode = "standard"
