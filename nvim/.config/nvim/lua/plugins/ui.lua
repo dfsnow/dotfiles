@@ -11,16 +11,17 @@ return {
           flash = true,
           mason = true
         },
-        custom_highlights = function(colors)
+        custom_highlights = function(c)
           return {
-            NonText = { fg = colors.surface1 },
-            CmpItemAbbr = { fg = colors.text },
-            CmpItemAbbrMatch = { fg = colors.red },
-            NormalFloat = { bg = colors.none },
-            FlashBackdrop = { fg = colors.overlay0 },
-            FlashLabel = { fg = colors.base, bg = colors.red },
-            FzfLuaBorder = { fg = colors.blue },
-            FzfLuaTitle = { fg = colors.overlay2 }
+            NonText = { fg = c.surface1 },
+            CmpItemAbbr = { fg = c.text },
+            CmpItemAbbrMatch = { fg = c.red },
+            NormalFloat = { bg = c.none },
+            FlashBackdrop = { fg = c.overlay0 },
+            FlashLabel = { fg = c.base, bg = c.red },
+            FzfLuaBorder = { fg = c.blue },
+            FzfLuaTitle = { fg = c.overlay2 },
+            HighlightUndo = { link = "IncSearch" },
           }
         end
       })
@@ -128,20 +129,8 @@ return {
   {
     "tzachar/highlight-undo.nvim",
     version = "*",
-    keys = "u",
-    opts = {
-      duration = 700,
-      undo = {
-        hlgroup = "IncSearch",
-      },
-      redo = {
-        hlgroup = "IncSearch",
-      },
-      keymaps = {
-        { "n", "u", "undo", {} },
-        { "n", "U", "redo", {} },
-      }
-    }
+    keys = { "u", "U", "p", "P" },
+    opts = { duration = 700 }
   },
 
   {
