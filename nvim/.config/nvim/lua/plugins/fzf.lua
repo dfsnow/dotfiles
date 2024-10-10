@@ -35,9 +35,6 @@ return {
         builtin = {
           ["<S-j>"] = "preview-page-down",
           ["<S-k>"] = "preview-page-up"
-        },
-        fzf = {
-          ["backspace"] = "unix-line-discard"
         }
       },
       -- Same options as used in .bashrc, for consistency
