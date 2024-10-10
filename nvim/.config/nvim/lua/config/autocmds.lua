@@ -102,3 +102,21 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.wo.conceallevel = 0
   end
 })
+
+-- Enable smart send via SLIME in supported files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = require("config.filetypes").smart_send_ft,
+  desc = "Enable smart send via vim-slime",
+  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
+  callback = function()
+    require("which-key").add({
+      {
+        { "<leader><cr>", helpers.smart_send, desc = "Smart send to tmux" },
+        group = "leader",
+        mode = "n",
+        silent = true,
+        noremap = true
+      }
+    })
+  end
+})

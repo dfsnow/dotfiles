@@ -107,11 +107,6 @@ wk.add({
     { "<leader>W" },
     { "<leader>Y" },
     { "<leader>yy" }
-  },
-  {
-    { "<leader><cr>", helpers.smart_send, desc = "Send to tmux" },
-    silent = true,
-    noremap = true
   }
 })
 

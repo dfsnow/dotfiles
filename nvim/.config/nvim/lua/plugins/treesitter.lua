@@ -37,7 +37,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "jpalardy/vim-slime"
     },
-    ft = { "python" },
+    ft = require("config.filetypes").smart_send_ft,
     config = function()
       require("nvim-treesitter.configs").setup({
         textsubjects = {
