@@ -35,12 +35,13 @@ wk.add({
   { "R",       desc = "Replace with last yank" },
   { "u",       desc = "Undo" },
   { "U",       desc = "Redo" },
-  { "J",       desc = "Join lines" },
   { "K",       desc = "Show hover info" },
   { "g;",      desc = "Go to last edited position" },
   { "?",       desc = "Open Copilot Chat" },
   {
     hidden = true,
+    { "p" },
+    { "P" },
     { "f" },
     { "F" },
     { "t" },
@@ -84,11 +85,12 @@ wk.add({
   { "<leader>Q",        desc = "Exit without saving" },
   { "<leader>x",        desc = "Close buffer" },
   { "<leader>M",        desc = "Open Mason" },
-  { "<leader><space>",  desc = "Flash treesitter", hidden = true },
+  { "<leader><space>",  desc = "Flash treesitter" },
   { "<leader>-",        desc = "New vertical split" },
   { "<leader>_",        desc = "New horizontal split" },
   { "<leader><tab>",    desc = "Next window" },
   { "<leader><s-tab>",  desc = "Previous window" },
+  { "<leader>j",        desc = "Join lines" },
   {
     mode = { "x", "n" },
     { "<leader>p",    desc = "Paste from clipboard" },
@@ -237,7 +239,7 @@ vim.keymap.set("n", "dd", function()
 end, { expr = true })
 
 -- Better, space-aware line joins
-vim.keymap.set({ "n", "v" }, "J", function()
+vim.keymap.set({ "n", "v" }, "<leader>j", function()
   vim.cmd("normal! mzJ")
   local col = vim.fn.col(".")
   local context = string.sub(vim.fn.getline("."), col - 1, col + 1)

@@ -114,6 +114,8 @@ xnoremap R "_d"0P"
 " Keep text selected on indent
 xnoremap < <gv
 xnoremap > >gv
+xnoremap <s-tab> <gv
+xnoremap <tab> >gv
 xmap y ygv<esc>
 
 " Copy and paste to system clipboard
@@ -131,6 +133,10 @@ nnoremap U <C-r>
 " Toggle comments
 nmap <leader>c gcc
 xmap <leader>c gcgv
+
+" Move visual lines up and down
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
 
 " Non-terrible scrolling
 nnoremap <ScrollWheelUp> 2kzz
