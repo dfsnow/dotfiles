@@ -93,6 +93,9 @@ __set_bash_prompt()
 }
 
 PROMPT_COMMAND=__set_bash_prompt
+
+# Append history to file after every command for sharing between tmux panes
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 PROMPT_DIRTRIM=1
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export GIT_PS1_SHOWDIRTYSTATE=1
