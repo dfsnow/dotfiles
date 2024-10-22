@@ -57,6 +57,14 @@ return {
           },
           "diff",
           "diagnostics"
+        },
+        lualine_x = {
+          {
+            'searchcount',
+            maxcount = 9999,
+            timeout = 500,
+          },
+          "encoding", "fileformat", "filetype"
         }
       },
       tabline = {

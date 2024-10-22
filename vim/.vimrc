@@ -32,7 +32,7 @@ set so=7
 set wildmenu
 set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 set completeopt=menuone,noselect,noinsert
-set shortmess+=c
+set shortmess+=cS
 set ruler
 set hidden
 set backspace=eol,start,indent
