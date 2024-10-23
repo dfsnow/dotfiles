@@ -22,6 +22,7 @@ return {
             FzfLuaBorder = { fg = c.blue },
             FzfLuaTitle = { fg = c.overlay2 },
             HighlightUndo = { link = "IncSearch" },
+            LocalHighlight = { bg = c.surface1 },
           }
         end
       })
@@ -87,6 +88,24 @@ return {
         }
       }
     }
+  },
+
+  {
+    "tzachar/local-highlight.nvim",
+    version = "*",
+    lazy = false,
+    config = function()
+      require("local-highlight").setup({
+        disable_file_types = { "csv", "txt", "log" },
+        hlgroup = "LocalHighlight",
+        cw_hlgroup = "LocalHighlight",
+        -- Whether to display highlights in INSERT mode or not
+        insert_mode = false,
+        min_match_len = 2,
+        max_match_len = math.huge,
+        highlight_single_match = true,
+      })
+    end
   },
 
   {
