@@ -14,7 +14,6 @@ return {
         "docker_compose_language_service",
         "html",
         "lua_ls",
-        "basedpyright",
         "terraform-ls",
         -- "r_language_server", Not installed by default, too heavy
         "ruff",
@@ -84,8 +83,7 @@ return {
         settings = {
           pyright = {
             disableOrganizeImports = true,
-            disableTaggedHints = true,
-            typeCheckingMode = "standard"
+            disableTaggedHints = true
           },
           python = {
             analysis = {

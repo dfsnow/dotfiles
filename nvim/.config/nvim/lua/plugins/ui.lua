@@ -90,18 +90,6 @@ return {
   },
 
   {
-    "kosayoda/nvim-lightbulb",
-    version = "*",
-    ft = require("config.filetypes").lsp_ft,
-    opts = {
-      priority = 1000,
-      sign = { enabled = true, text = "A" },
-      autocmd = { enabled = true },
-      action_kinds = { "quickfix", "refactor" },
-    }
-  },
-
-  {
     "lukas-reineke/indent-blankline.nvim",
     version = "*",
     lazy = false,
