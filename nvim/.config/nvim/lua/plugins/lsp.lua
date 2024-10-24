@@ -87,6 +87,8 @@ return {
           },
           python = {
             analysis = {
+              ignore = { "*" },         -- Using ruff
+              typeCheckingMode = "off", -- Using mypy
               diagnosticSeverityOverrides = {
                 reportUndefinedVariable = "none"
               }

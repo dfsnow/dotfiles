@@ -109,9 +109,45 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Enable smart send via vim-slime",
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
   callback = function()
+    local buf = vim.api.nvim_get_current_buf()
     require("which-key").add({
       {
         { "<leader><cr>", helpers.smart_send, desc = "Smart send to tmux" },
+        buffer = buf,
+        group = "leader",
+        mode = "n",
+        silent = true,
+        noremap = true
+      }
+    })
+  end
+})
+
+-- Setup ruff format and fix for Python files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  desc = "Enable ruff format and fix",
+  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    require("which-key").add({
+      {
+        {
+          "<leader>dF",
+          function()
+            vim.lsp.buf.code_action {
+              context = { only = { "source.fixAll" }, diagnostics = {} },
+              apply = true,
+            }
+            vim.lsp.buf.code_action {
+              context = { only = { "source.organizeImports" }, diagnostics = {} },
+              apply = true,
+            }
+            vim.lsp.buf.format { async = true }
+          end,
+          desc = "Format with ruff"
+        },
+        buffer = buf,
         group = "leader",
         mode = "n",
         silent = true,

@@ -128,16 +128,16 @@ wk.add({
 local trouble_opts = { mode = "diagnostics", filter = { buf = 0 } }
 wk.add({
   { "<leader>d",  group = "lsp" },
-  { "<leader>dp", vim.diagnostic.goto_prev,                                  desc = "Previous diagnostic" },
-  { "<leader>dn", vim.diagnostic.goto_next,                                  desc = "Next diagnostic" },
-  { "<leader>dk", vim.lsp.buf.hover,                                         desc = "Show hover info" },
-  { "<leader>da", fzf_lua.lsp_code_actions,                                  desc = "Show code actions" },
-  { "<leader>dd", function() trouble.toggle(trouble_opts) end,               desc = "Buffer diagnostics" },
-  { "<leader>dD", function() trouble.toggle("diagnostics") end,              desc = "Workspace diagnostics" },
-  { "<leader>dl", function() trouble.toggle("lsp") end,                      desc = "All LSP items" },
-  { "<leader>ds", function() trouble.toggle("symbols") end,                  desc = "Document symbols" },
-  { "<leader>dF", function() vim.lsp.buf.format({ timeout_ms = 20000 }) end, desc = "Format buffer" },
-  { "<leader>dt", helpers.toggle_buffer_diagnostics,                         desc = "Toggle diagnostics" }
+  { "<leader>dp", vim.diagnostic.goto_prev,                                                desc = "Previous diagnostic" },
+  { "<leader>dn", vim.diagnostic.goto_next,                                                desc = "Next diagnostic" },
+  { "<leader>dk", vim.lsp.buf.hover,                                                       desc = "Show hover info" },
+  { "<leader>da", fzf_lua.lsp_code_actions,                                                desc = "Show code actions" },
+  { "<leader>dd", function() trouble.toggle(trouble_opts) end,                             desc = "Buffer diagnostics" },
+  { "<leader>dD", function() trouble.toggle("diagnostics") end,                            desc = "Workspace diagnostics" },
+  { "<leader>dl", function() trouble.toggle("lsp") end,                                    desc = "All LSP items" },
+  { "<leader>ds", function() trouble.toggle("symbols") end,                                desc = "Document symbols" },
+  { "<leader>dF", function() vim.lsp.buf.format({ async = true, timeout_ms = 20000 }) end, desc = "Format buffer" },
+  { "<leader>dt", helpers.toggle_buffer_diagnostics,                                       desc = "Toggle diagnostics" }
 })
 
 wk.add({
