@@ -70,9 +70,9 @@ alias rm='rm -I'
 if type nvim > /dev/null 2> /dev/null; then
     alias v='nvim'
     # Open last file
-    alias vl='nvim -c":e#<1"'
+    alias vv='nvim -c":e#<1"'
     # Open project file search in cwd
-    alias vf='nvim -c "lua require(\"fzf-lua\").files({ cwd = require(\"config.helpers\").cwd_or_git() })"'
+    alias vvv='nvim -c "lua require(\"fzf-lua\").files({ cwd = require(\"config.helpers\").cwd_or_git() })"'
 elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
 fi
