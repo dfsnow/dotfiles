@@ -71,8 +71,9 @@ if type nvim > /dev/null 2> /dev/null; then
     alias v='nvim'
     # Open last file
     alias vv='nvim -c":e#<1"'
-    # Open project file search in cwd
-    alias vvv='nvim -c "lua require(\"fzf-lua\").files({ cwd = require(\"config.helpers\").cwd_or_git() })"'
+    # Open file in neovim with fzf
+    alias vf='nvim $(fzf)'
+    alias vvv='nvim $(fzf)'
 elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
 fi
