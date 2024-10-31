@@ -22,6 +22,7 @@ wk.add({
   { "<esc>",   helpers.close_floating_windows,     desc = "Close floating windows" },
   { "<c-A>",   desc = "Increment up" },
   { "<c-X>",   desc = "Increment down" },
+  { "<c-j>",   desc = "Join lines" },
   { "<tab>",   desc = "Next buffer" },
   { "<s-tab>", desc = "Previous buffer" },
   { ".",       desc = "Repeat last command" },
@@ -90,7 +91,6 @@ wk.add({
   { "<leader>_",        desc = "New horizontal split" },
   { "<leader><tab>",    desc = "Next window" },
   { "<leader><s-tab>",  desc = "Previous window" },
-  { "<leader>j",        desc = "Join lines" },
   {
     mode = { "x", "n" },
     { "<leader>p",    desc = "Paste from clipboard" },
@@ -239,7 +239,7 @@ vim.keymap.set("n", "dd", function()
 end, { expr = true })
 
 -- Better, space-aware line joins
-vim.keymap.set({ "n", "v" }, "<leader>j", function()
+vim.keymap.set({ "n", "v" }, "<c-j>", function()
   vim.cmd("normal! mzJ")
   local col = vim.fn.col(".")
   local context = string.sub(vim.fn.getline("."), col - 1, col + 1)
