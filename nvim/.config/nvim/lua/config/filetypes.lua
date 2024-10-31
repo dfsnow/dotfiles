@@ -47,6 +47,7 @@ M.lsp_ft = {
   "css", "scss", "less",
   "dockerfile",
   "gitcommit",
+  "javascript",
   "json",
   "html",
   "lua",

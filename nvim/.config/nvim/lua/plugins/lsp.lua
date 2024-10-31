@@ -18,6 +18,7 @@ return {
         -- "r_language_server", Not installed by default, too heavy
         "ruff",
         "rust_analyzer",
+        "typescript-language-server",
         "yamlls",
         -- Formatters
         "jq",
@@ -103,6 +104,7 @@ return {
       lspconfig.ruff.setup({ capabilities = capabilities })
       lspconfig.rust_analyzer.setup({ capabilities = capabilities })
       lspconfig.terraformls.setup({ capabilities = capabilities })
+      lspconfig.ts_ls.setup({ capabilities = capabilities })
       lspconfig.yamlls.setup({ capabilities = capabilities })
 
       -- Prettify the LSP info and windows
