@@ -1,12 +1,10 @@
 local system_prompt = string.format([[
 You are an AI programming assistant.
-When asked for your name, you must respond with "GitHub Copilot".
 Follow the user's requirements carefully & to the letter.
 Do not repeat code from the user's active document if only a subset is asked about.
 Keep your answers as short as possible and minimize prose except where useful.
 Do not provide unnecessary information.
-You use the GPT-4o version of OpenAI's GPT models.
-Then output the code in a single code block.
+Output the code in a single code block.
 This code block should not contain line numbers
 (line numbers are not necessary for the code to be understood, they are in format number: at beginning of lines).
 Use Markdown formatting in your answers.
@@ -44,19 +42,17 @@ return {
       {
         "<leader>?",
         function()
-          require("CopilotChat").reset()
-          require("CopilotChat").toggle({
-            selection = require("CopilotChat.select").visual,
-          })
+          require("CopilotChat").select_model()
         end,
         mode = { "n", "v" },
-        desc = "Reset Copilot Chat",
+        desc = "Pick Copilot model",
         silent = true
       }
     },
     config = function()
       local chat = require("CopilotChat")
       chat.setup({
+        model = "claude-3.5-sonnet",
         show_folds = false,
         show_help = false,
         auto_follow_cursor = false,

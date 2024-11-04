@@ -100,6 +100,7 @@ wk.add({
   },
   {
     hidden = true,
+    { "<leader><esc>" },
     { "<leader>P" },
     { "<leader>q" },
     { "<leader>j" },

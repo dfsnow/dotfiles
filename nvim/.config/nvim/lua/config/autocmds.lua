@@ -93,6 +93,30 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
+-- Clear Copilot prompt with leader + esc
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "copilot-*",
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    require("which-key").add({
+      {
+        {
+          "<leader><esc>",
+          function()
+            require("CopilotChat").reset()
+          end,
+          desc = "Clear Copilot chat"
+        },
+        buffer = buf,
+        group = "leader",
+        mode = "n",
+        silent = true,
+        noremap = true
+      }
+    })
+  end
+})
+
 -- Disable conceal in certain markdown buffers and help files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "help", "markdown" },
@@ -159,16 +183,16 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- Disable hover from ruff: https://docs.astral.sh/ruff/editors/setup/#neovim
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
+  group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     if client == nil then
       return
     end
-    if client.name == 'ruff' then
+    if client.name == "ruff" then
       -- Disable hover in favor of Pyright
       client.server_capabilities.hoverProvider = false
     end
   end,
-  desc = 'LSP: Disable hover capability from Ruff',
+  desc = "LSP: Disable hover capability from Ruff",
 })
