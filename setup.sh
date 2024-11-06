@@ -59,7 +59,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         fi
     }
 
-    for pkg in stow neovim tmux git fzf fd ripgrep zstd bash bash-completion@2 mosh lazygit uv; do
+    for pkg in stow neovim tmux git fzf fd ripgrep zstd bash bash-completion@2 mosh lazygit uv ruff; do
         __install_or_upgrade "$pkg"
     done
 

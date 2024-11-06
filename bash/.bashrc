@@ -128,13 +128,20 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Add third-party bash feature support
-if type fzf >/dev/null 2>/dev/null && fzf --bash >/dev/null 2>/dev/null; then
-    eval "$(fzf --bash)"
-elif [ -f ~/.fzf.bash ]; then
+__add_completion() {
+    local cmd=$1
+    local completion_arg=$2
+    if type "$cmd" >/dev/null 2>/dev/null && "$cmd" "$completion_arg" >/dev/null 2>/dev/null; then
+        eval "$("$cmd" "$completion_arg")"
+    fi
+}
+__add_completion uv "--generate-shell-completion bash"
+__add_completion ruff "--generate-shell-completion bash"
+__add_completion rg "--generate complete-bash"
+if [ -f ~/.fzf.bash ]; then
     . ~/.fzf.bash
-fi
-if type uv >/dev/null 2>/dev/null && uv --generate-shell-completion bash >/dev/null 2>/dev/null; then
-    eval "$(uv --generate-shell-completion bash)"
+else
+    __add_completion fzf "--bash"
 fi
 
 [ -f ~/dotfiles/vendor/git-completion.bash ] \
