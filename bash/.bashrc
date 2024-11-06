@@ -133,6 +133,10 @@ if type fzf >/dev/null 2>/dev/null && fzf --bash >/dev/null 2>/dev/null; then
 elif [ -f ~/.fzf.bash ]; then
     . ~/.fzf.bash
 fi
+if type uv >/dev/null 2>/dev/null && uv --generate-shell-completion bash >/dev/null 2>/dev/null; then
+    eval "$(uv --generate-shell-completion bash)"
+fi
+
 [ -f ~/dotfiles/vendor/git-completion.bash ] \
     && . ~/dotfiles/vendor/git-completion.bash
 [ -f ~/dotfiles/vendor/git-prompt.sh ] \
