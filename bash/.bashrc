@@ -122,12 +122,13 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
 # Enable homebrew and programmable completion features (Mac)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    export PATH="$(brew --prefix python)/libexec/bin:$PATH"
-    [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] \
-        && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+    brew_prefix=/opt/homebrew/
+    export PATH="$brew_prefix/opt/python/libexec/bin:$PATH"
+    [[ -r "$brew_prefix/etc/profile.d/bash_completion.sh" ]] \
+        && . "$brew_prefix/etc/profile.d/bash_completion.sh"
 fi
 
-# Add third-party bash feature support
+# Add third-party bash completion support
 __add_completion() {
     local cmd=$1
     local completion_arg=$2

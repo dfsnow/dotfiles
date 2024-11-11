@@ -38,7 +38,9 @@ if [ -f "$BASH_ALIASES_CACHE" ] && [ "$(find "$BASH_ALIASES_CACHE" -mtime 0)" !=
     # shellcheck source=/dev/null
     . "$BASH_ALIASES_CACHE"
 else
-    # The cache file doesn't exist or is old, so regenerate it
+    # The cache file doesn't exist or is old, so regenerate it. Remove any
+    # existing file first so we don't append to it forever
+    rm -rf "$BASH_ALIASES_CACHE"
     touch "$BASH_ALIASES_CACHE"
     for al in $(git config --get-regexp '^alias\.' | cut -f 1 -d ' ' | cut -f 2 -d '.'); do
         echo "alias g${al}='git ${al}'" >> "$BASH_ALIASES_CACHE"
