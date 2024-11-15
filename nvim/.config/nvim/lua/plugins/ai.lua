@@ -53,6 +53,7 @@ return {
       local chat = require("CopilotChat")
       chat.setup({
         model = "claude-3.5-sonnet",
+        log_level = "warn",
         show_folds = false,
         show_help = false,
         auto_follow_cursor = false,
