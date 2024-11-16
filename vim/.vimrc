@@ -103,8 +103,8 @@ nmap 0 ^
 nnoremap <BS> {
 onoremap <BS> {
 xnoremap <BS> {
-nnoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
-onoremap <expr> <CR> empty(&buftype) ? "}" : "<CR>"
+nnoremap <CR> }
+onoremap <CR> }
 xnoremap <CR> }
 
 " Replace word with last yank
