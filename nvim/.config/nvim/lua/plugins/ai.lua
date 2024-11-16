@@ -37,22 +37,52 @@ return {
           })
         end,
         mode = { "n", "v" },
-        desc = "Toggle Copilot Chat",
+        desc = "Toggle Copilot chat"
+      },
+      {
+        "<leader>aa",
+        function()
+          require("CopilotChat").toggle({
+            selection = require("CopilotChat.select").visual,
+          })
+        end,
+        mode = { "n", "v" },
+        desc = "Toggle chat"
       },
       {
         "<leader>?",
         function()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
+        end,
+        mode = { "n", "v" },
+        desc = "Pick Copilot prompt",
+        silent = true
+      },
+      {
+        "<leader>ap",
+        function()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
+        end,
+        mode = { "n", "v" },
+        desc = "Pick prompt",
+        silent = true
+      },
+      {
+        "<leader>am",
+        function()
           require("CopilotChat").select_model()
         end,
         mode = { "n", "v" },
-        desc = "Pick Copilot model",
+        desc = "Pick model",
         silent = true
       }
     },
     config = function()
       local chat = require("CopilotChat")
       chat.setup({
-        model = "claude-3.5-sonnet",
+        model = "gpt-4o",
         log_level = "warn",
         show_folds = false,
         show_help = false,
@@ -69,21 +99,44 @@ return {
             normal = "<esc>"
           },
           reset = {
-            normal = "<leader><esc>",
-            insert = "<leader><esc>"
+            normal = "<leader>ax",
+            insert = ""
           },
           submit_prompt = {
             normal = "<leader><cr>",
             insert = "<leader><cr>"
           },
           accept_diff = {
-            normal = "<leader>p",
-            insert = "<leader>p"
+            normal = "<leader>ac",
+            insert = ""
           },
           yank_diff = {
-            normal = "<leader>y"
+            normal = "<leader>ay",
+            insert = ""
+          },
+          show_diff = {
+            normal = "<leader>ad",
+            insert = ""
           }
         }
+      })
+      -- Conditionally add mappings only for Copilot buffer
+      local wk = require("which-key")
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "copilot-*",
+        callback = function()
+          wk.add({
+            { "<esc>",        desc = "Exit chat" },
+            { "<leader><cr>", desc = "Submit prompt" },
+            { "<leader>ax",   desc = "Reset chat" },
+            { "<leader>ay",   desc = "Yank diff" },
+            { "<leader>ac",   desc = "Accept diff" },
+            { "<leader>ad",   desc = "Show diff" },
+            { "<leader>as",   "<cmd>CopilotChatStop<cr>", desc = "Stop response" },
+            buffer = true,
+            mode = { "n", "v" },
+          })
+        end
       })
       require("CopilotChat.integrations.cmp").setup()
     end

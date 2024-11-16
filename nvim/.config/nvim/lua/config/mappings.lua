@@ -34,11 +34,12 @@ wk.add({
   { "~",       desc = "Toggle current case" },
   { "%",       desc = "Go to matching bracket" },
   { "R",       desc = "Replace with last yank" },
-  { "u",       desc = "Undo" },
-  { "U",       desc = "Redo" },
+  { "u",       desc = "Undo action" },
+  { "U",       desc = "Redo action" },
   { "K",       desc = "Show hover info" },
   { "g;",      desc = "Go to last edited position" },
   { "?",       desc = "Open Copilot Chat" },
+  { "i",       desc = "Insert mode" },
   {
     hidden = true,
     { "p" },
@@ -50,7 +51,6 @@ wk.add({
     { ">" },
     { "<" },
     { "0" },
-    { "i" },
     { "j" },
     { "Y" },
     { "!" },
@@ -113,6 +113,9 @@ wk.add({
     { "<leader>yy" }
   }
 })
+
+-- AI group name, mappings are in ai.lua
+wk.add({ { "<leader>a", group = "ai" } })
 
 -- Buffer
 wk.add({
