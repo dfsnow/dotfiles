@@ -63,6 +63,7 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
     -- Remap table to prevent buffer switching in floating windows
     vim.keymap.set("n", "<tab>", "j", { buffer = true })
     vim.keymap.set("n", "<s-tab>", "k", { buffer = true })
+    require("cmp").setup.buffer({ completion = { autocomplete = false } })
   end
 })
 
@@ -90,30 +91,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
     then
       vim.api.nvim_feedkeys([[g`"]], "n", true)
     end
-  end
-})
-
--- Clear Copilot prompt with leader + esc
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "copilot-*",
-  callback = function()
-    local buf = vim.api.nvim_get_current_buf()
-    require("which-key").add({
-      {
-        {
-          "<leader><esc>",
-          function()
-            require("CopilotChat").reset()
-          end,
-          desc = "Clear Copilot chat"
-        },
-        buffer = buf,
-        group = "leader",
-        mode = "n",
-        silent = true,
-        noremap = true
-      }
-    })
   end
 })
 

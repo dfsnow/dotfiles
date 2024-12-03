@@ -132,13 +132,13 @@ return {
             { "<leader>ay",   desc = "Yank diff" },
             { "<leader>ac",   desc = "Accept diff" },
             { "<leader>ad",   desc = "Show diff" },
-            { "<leader>as",   "<cmd>CopilotChatStop<cr>", desc = "Stop response" },
+            { "<leader>as",   "<cmd>CopilotChatStop<cr>",  desc = "Stop response" },
+            { "<leader>ar",   "<cmd>CopilotChatReset<cr>", desc = "Reset chat" },
             buffer = true,
             mode = { "n", "v" },
           })
         end
       })
-      require("CopilotChat.integrations.cmp").setup()
     end
   }
 }
