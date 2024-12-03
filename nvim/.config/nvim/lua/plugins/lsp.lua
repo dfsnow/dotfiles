@@ -134,7 +134,7 @@ return {
       local util = require("conform.util")
       util.add_formatter_args(
         require("conform.formatters.shfmt"),
-        { "-i", "4", "-bn", "-sr", "-p", "-ci" }
+        { "-i", "4", "-bn", "-sr", "-ci" }
       )
       util.add_formatter_args(
         require("conform.formatters.yamlfmt"),
