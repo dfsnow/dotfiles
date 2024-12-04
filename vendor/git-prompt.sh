@@ -645,6 +645,9 @@ __git_ps1 ()
 	local z="${GIT_PS1_STATESEPARATOR- }"
 
 	b=${b##refs/heads/}
+	if [ ${#b} -gt 20 ]; then
+	    b="${b:0:20}..."
+	fi
 	if [ "$pcmode" = yes ] && [ "$ps1_expanded" = yes ]; then
 		__git_ps1_branch_name=$b
 		b="\${__git_ps1_branch_name}"
