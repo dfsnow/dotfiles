@@ -2,6 +2,11 @@ local cmp = require("cmp")
 local chat = require("CopilotChat")
 local Source = {}
 
+local additional_descriptions = {
+  git = " Optionally add :staged or :unstaged.",
+  files = " Optionally add :list or :full.",
+}
+
 --- Modified completion items that doesn"t load agents/models (increases speed)
 --- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/1fe19d1fdbf9edcda8bad9b7b2d5e11aa95c1672/lua/CopilotChat/init.lua#L494
 ---@param callback function(table)
@@ -32,10 +37,11 @@ local function complete_items(callback)
   end
 
   for name, value in pairs(chat.config.contexts) do
+    local additional_info = additional_descriptions[name] or ""
     items[#items + 1] = {
       word = "#" .. name,
       kind = "context",
-      menu = value.description or "",
+      menu = (value.description or "") .. additional_info,
       icase = 1,
       dup = 0,
       empty = 0,
