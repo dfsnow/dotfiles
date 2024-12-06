@@ -8,6 +8,7 @@ M.treesitter_parsers = {
   "comment",
   "cpp",
   "css",
+  "diff",
   "dockerfile",
   "gitcommit", "gitignore", "gitattributes", "git_config",
   "go",
