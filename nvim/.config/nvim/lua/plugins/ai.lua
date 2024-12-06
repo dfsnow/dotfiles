@@ -64,7 +64,7 @@ return {
         auto_follow_cursor = false,
         auto_insert_mode = false,
         chat_autocomplete = false,
-        highlight_selection = false,
+        highlight_selection = true,
         window = {
           layout = "float",
           border = "rounded"
