@@ -19,10 +19,10 @@ return {
       {
         "<leader>aa",
         function()
-          require("CopilotChat").toggle()
+          require("CopilotChat").select_agent()
         end,
         mode = { "n", "v" },
-        desc = "Toggle chat"
+        desc = "Select agent"
       },
       {
         "<leader>?",
@@ -60,7 +60,7 @@ return {
         model = "gpt-4o",
         log_level = "warn",
         show_folds = false,
-        show_help = false,
+        show_help = true,
         auto_follow_cursor = false,
         auto_insert_mode = false,
         chat_autocomplete = false,
@@ -70,29 +70,18 @@ return {
           border = "rounded"
         },
         mappings = {
-          close = {
-            normal = "<esc>"
-          },
-          reset = {
-            normal = "<leader>ax",
-            insert = ""
-          },
-          submit_prompt = {
-            normal = "<leader><cr>",
-            insert = "<leader><cr>"
-          },
-          accept_diff = {
-            normal = "<leader>ac",
-            insert = ""
-          },
-          yank_diff = {
-            normal = "<leader>ay",
-            insert = ""
-          },
-          show_diff = {
-            normal = "<leader>ad",
-            insert = ""
-          }
+          close = { normal = "<esc>" },
+          reset = { normal = "<leader>ax", insert = "" },
+          submit_prompt = { normal = "<leader><cr>", insert = "<leader><cr>" },
+          accept_diff = { normal = "<leader>ay", insert = "" },
+          yank_diff = { normal = "<leader>aY", insert = "" },
+          show_diff = { normal = "<leader>ad", insert = "" },
+          show_context = { normal = "<leader>ac", insert = "" },
+          show_help = { normal = "<leader>ah", insert = "" },
+          show_info = { normal = "<leader>ai", insert = "" },
+          toggle_sticky = { normal = "" },
+          jump_to_diff = { normal = "" },
+          quickfix_diffs = { normal = "" },
         }
       })
       -- Conditionally add mappings only for Copilot buffer
@@ -102,11 +91,14 @@ return {
         callback = function()
           wk.add({
             { "<esc>",        desc = "Exit chat" },
-            { "<leader><cr>", desc = "Submit prompt" },
             { "<leader>ax",   desc = "Reset chat" },
-            { "<leader>ay",   desc = "Yank diff" },
-            { "<leader>ac",   desc = "Accept diff" },
+            { "<leader><cr>", desc = "Submit prompt" },
+            { "<leader>ay",   desc = "Accept diff" },
+            { "<leader>aY",   desc = "Yank diff" },
             { "<leader>ad",   desc = "Show diff" },
+            { "<leader>ac",   desc = "Show context" },
+            { "<leader>ah",   desc = "Show help" },
+            { "<leader>ai",   desc = "Show info" },
             { "<leader>as",   "<cmd>CopilotChatStop<cr>",  desc = "Stop response" },
             { "<leader>ar",   "<cmd>CopilotChatReset<cr>", desc = "Reset chat" },
             buffer = true,
