@@ -60,7 +60,7 @@ return {
         model = "gpt-4o",
         log_level = "warn",
         show_folds = false,
-        show_help = true,
+        show_help = false,
         auto_follow_cursor = false,
         auto_insert_mode = false,
         chat_autocomplete = false,

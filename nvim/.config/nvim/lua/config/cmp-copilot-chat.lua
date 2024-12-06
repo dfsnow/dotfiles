@@ -2,9 +2,23 @@ local cmp = require("cmp")
 local chat = require("CopilotChat")
 local Source = {}
 
-local additional_descriptions = {
-  git = " Optionally add :staged or :unstaged.",
-  files = " Optionally add :list or :full.",
+-- Override the default context descriptions (they aren't useful)
+local context_description = {
+  buffer = "Include current buffer",
+  buffers = "Include all open buffers",
+  file = "Include contents of provided file.\nRequires a filename",
+  files = [[
+  Include all non-hidden files.
+  :list (default) Only includes file names
+  :full Includes file contents
+  ]],
+  git = [[
+  Include git diff.
+  :unstaged (default) Include unstaged changes
+  :staged Include only staged changes
+  ]],
+  url = "Include URL content in context.\nRequires URL input",
+  register = "Include register contents.\nDefault is `+` (clipboard)"
 }
 
 --- Modified completion items that doesn"t load agents/models (increases speed)
@@ -37,11 +51,11 @@ local function complete_items(callback)
   end
 
   for name, value in pairs(chat.config.contexts) do
-    local additional_info = additional_descriptions[name] or ""
+    local additional_info = context_description[name] or ""
     items[#items + 1] = {
       word = "#" .. name,
       kind = "context",
-      menu = (value.description or "") .. additional_info,
+      menu = (additional_info ~= "" and additional_info or value.description or ""),
       icase = 1,
       dup = 0,
       empty = 0,
@@ -72,7 +86,10 @@ function Source:complete(params, callback)
       return {
         label = item.word,
         kind = cmp.lsp.CompletionItemKind.Keyword,
-        documentation = item.menu ~= "" and item.menu or item.info or ""
+        documentation = {
+          kind = "markdown",
+          value = (item.menu ~= "" and item.menu or item.info or "")
+        },
       }
     end, items)
 
