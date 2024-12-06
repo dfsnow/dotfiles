@@ -11,9 +11,7 @@ return {
       {
         "?",
         function()
-          require("CopilotChat").toggle({
-            selection = require("CopilotChat.select").visual,
-          })
+          require("CopilotChat").toggle()
         end,
         mode = { "n", "v" },
         desc = "Toggle Copilot chat"
@@ -21,9 +19,7 @@ return {
       {
         "<leader>aa",
         function()
-          require("CopilotChat").toggle({
-            selection = require("CopilotChat.select").visual,
-          })
+          require("CopilotChat").toggle()
         end,
         mode = { "n", "v" },
         desc = "Toggle chat"
@@ -68,7 +64,7 @@ return {
         auto_follow_cursor = false,
         auto_insert_mode = false,
         chat_autocomplete = false,
-        context = "buffer",
+        highlight_selection = false,
         window = {
           layout = "float",
           border = "rounded"
