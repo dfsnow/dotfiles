@@ -13,7 +13,7 @@ return {
         function()
           require("CopilotChat").toggle()
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Toggle Copilot chat"
       },
       {
@@ -21,7 +21,7 @@ return {
         function()
           require("CopilotChat").select_agent()
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Select agent"
       },
       {
@@ -30,7 +30,7 @@ return {
           local actions = require("CopilotChat.actions")
           require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Pick Copilot prompt",
         silent = true
       },
@@ -40,7 +40,7 @@ return {
           local actions = require("CopilotChat.actions")
           require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Pick prompt",
         silent = true
       },
@@ -49,7 +49,7 @@ return {
         function()
           require("CopilotChat").select_model()
         end,
-        mode = { "n", "v" },
+        mode = { "n", "x" },
         desc = "Pick model",
         silent = true
       }
@@ -102,10 +102,11 @@ return {
             { "<leader>as",   "<cmd>CopilotChatStop<cr>",  desc = "Stop response" },
             { "<leader>ar",   "<cmd>CopilotChatReset<cr>", desc = "Reset chat" },
             buffer = true,
-            mode = { "n", "v" },
+            mode = { "n", "x" },
           })
         end
       })
     end
   }
 }
+
