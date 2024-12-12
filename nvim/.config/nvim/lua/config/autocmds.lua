@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
       local screen_width = vim.o.columns
       local w, h, c, r = helpers.get_float_size(float_width_pct, float_height_pct)
       if screen_width > 100 then
-        w = math.min(math.floor(w / 2), 108)
+        w = math.min(math.floor(w * 0.6), 108)
         c = math.floor((screen_width) / 2) + math.floor(c / 2)
       end
       vim.api.nvim_win_set_config(0, {
