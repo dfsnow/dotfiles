@@ -87,7 +87,7 @@ return {
       -- Conditionally add mappings only for Copilot buffer
       local wk = require("which-key")
       vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = "copilot-*",
+        pattern = "copilot-chat",
         callback = function()
           wk.add({
             { "<esc>",        desc = "Exit chat" },

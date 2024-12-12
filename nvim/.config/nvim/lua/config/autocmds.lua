@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   desc = "Resize plugin floating windows",
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  pattern = { "mason", "lazy", "oil", "copilot-*" },
+  pattern = { "mason", "lazy", "oil", "copilot-chat" },
   callback = function()
     if vim.api.nvim_win_get_config(0).relative == "editor" then
       local screen_width = vim.o.columns
@@ -87,7 +87,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- Always re-open the Copilot chat window in the same position
 vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "copilot-*",
+  pattern = "copilot-chat",
   callback = function(opts)
     local prev_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
     if prev_line > 1
