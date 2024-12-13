@@ -138,7 +138,10 @@ return {
       )
       util.add_formatter_args(
         require("conform.formatters.yamlfmt"),
-        { "-formatter", "retain_line_breaks_single=true" }
+        {
+          "-formatter", "retain_line_breaks=true",
+          "-formatter", "pad_line_comments=2"
+        }
       )
       local wk = require("which-key")
       wk.add({
