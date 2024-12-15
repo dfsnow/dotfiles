@@ -59,6 +59,7 @@ M.lsp_ft = {
   "rust",
   "sql",
   "terraform", "tf",
+  "typescript",
   "yaml"
 }
 

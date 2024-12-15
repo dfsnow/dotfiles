@@ -12,6 +12,7 @@ return {
         "cssls",
         "dockerls",
         "docker_compose_language_service",
+        "eslint-lsp",
         "html",
         "lua_ls",
         "terraform-ls",
@@ -77,6 +78,7 @@ return {
       lspconfig.docker_compose_language_service.setup({
         capabilities = capabilities
       })
+      lspconfig.eslint.setup({ capabilities = capabilities })
       lspconfig.html.setup({ capabilities = capabilities })
       lspconfig.lua_ls.setup({ capabilities = capabilities })
       lspconfig.pyright.setup({
