@@ -15,6 +15,7 @@ return {
         "eslint-lsp",
         "html",
         "lua_ls",
+        "pyright",
         "terraform-ls",
         -- "r_language_server", Not installed by default, too heavy
         "ruff",
