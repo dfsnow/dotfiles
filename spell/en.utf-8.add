@@ -17,6 +17,7 @@ evaluatee
 expr
 filetype
 foia
+formatters
 github
 gitlab
 gitlab's
@@ -36,6 +37,8 @@ macos
 macos
 microaggression
 microaggressions
+mypy
+nvim
 onboarding
 osx
 pdb
@@ -59,7 +62,6 @@ statusline
 stdout
 subkey
 sudo
-sweatyhandshake
 tidyverse
 tmux
 toolchain
@@ -73,6 +75,4 @@ wiki
 wip
 workflow
 yubikey
-yubikey
 zstd
-lsp

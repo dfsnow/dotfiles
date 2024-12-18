@@ -13,6 +13,7 @@ return {
         "dockerls",
         "docker_compose_language_service",
         "eslint-lsp",
+        "harper-ls",
         "html",
         "lua_ls",
         "pyright",
@@ -80,6 +81,13 @@ return {
         capabilities = capabilities
       })
       lspconfig.eslint.setup({ capabilities = capabilities })
+      lspconfig.harper_ls.setup {
+        settings = {
+          ["harper-ls"] = {
+            userDictPath = "~/dotfiles/spell/en.utf-8.add"
+          }
+        }
+      }
       lspconfig.html.setup({ capabilities = capabilities })
       lspconfig.lua_ls.setup({ capabilities = capabilities })
       lspconfig.pyright.setup({
