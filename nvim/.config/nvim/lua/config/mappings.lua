@@ -129,14 +129,14 @@ wk.add({
 })
 
 -- LSP
-local trouble_opts = { mode = "diagnostics", filter = { buf = 0 } }
+local trouble_diag = { mode = "diagnostics", pinned = true, filter = { buf = 0 } }
 wk.add({
   { "<leader>d",  group = "lsp" },
   { "<leader>dp", vim.diagnostic.goto_prev,                                                desc = "Previous diagnostic" },
   { "<leader>dn", vim.diagnostic.goto_next,                                                desc = "Next diagnostic" },
   { "<leader>dk", vim.lsp.buf.hover,                                                       desc = "Show hover info" },
   { "<leader>da", fzf_lua.lsp_code_actions,                                                desc = "Show code actions" },
-  { "<leader>dd", function() trouble.toggle(trouble_opts) end,                             desc = "Buffer diagnostics" },
+  { "<leader>dd", function() trouble.toggle(trouble_diag) end,                             desc = "Buffer diagnostics" },
   { "<leader>dD", function() trouble.toggle("diagnostics") end,                            desc = "Workspace diagnostics" },
   { "<leader>dl", function() trouble.toggle("lsp") end,                                    desc = "All LSP items" },
   { "<leader>ds", function() trouble.toggle("symbols") end,                                desc = "Document symbols" },
@@ -174,13 +174,13 @@ wk.add({
 -- Trouble
 wk.add({
   { "<leader>t",  group = "trouble" },
-  { "<leader>tt", function() trouble.toggle("fzf") end,         desc = "fzf grep matches" },
-  { "<leader>tf", function() trouble.toggle("fzf_files") end,   desc = "fzf file matches" },
-  { "<leader>tl", function() trouble.toggle("lsp") end,         desc = "All LSP items" },
-  { "<leader>td", function() trouble.toggle(trouble_opts) end,  desc = "Buffer diagnostics" },
-  { "<leader>tD", function() trouble.toggle("diagnostics") end, desc = "Workspace diagnostics" },
-  { "<leader>tr", function() trouble.toggle("references") end,  desc = "References" },
-  { "<leader>ts", function() trouble.toggle("symbols") end,     desc = "Document symbols" },
+  { "<leader>tt", function() trouble.toggle("fzf") end,            desc = "fzf grep matches" },
+  { "<leader>tf", function() trouble.toggle("fzf_files") end,      desc = "fzf file matches" },
+  { "<leader>tl", function() trouble.toggle("lsp") end,            desc = "All LSP items" },
+  { "<leader>td", function() trouble.toggle(trouble_diag) end,     desc = "Buffer diagnostics" },
+  { "<leader>tD", function() trouble.toggle("diagnostics") end,    desc = "Workspace diagnostics" },
+  { "<leader>tr", function() trouble.toggle("lsp_references") end, desc = "References" },
+  { "<leader>ts", function() trouble.toggle("symbols") end,        desc = "Document symbols" },
 })
 
 -- Spelling
