@@ -24,6 +24,12 @@ return {
           vertical = "up:50%"
         }
       },
+      previewers = {
+        builtin = {
+          syntax_limit_b = 1024 * 100, -- 100KB
+        }
+      },
+      oldfiles = { include_current_session = true },
       fzf_opts = { ["--layout"] = "default" },
       actions = {
         files = {
