@@ -84,7 +84,8 @@ return {
       lspconfig.harper_ls.setup {
         settings = {
           ["harper-ls"] = {
-            userDictPath = "~/dotfiles/spell/en.utf-8.add"
+            userDictPath = "~/dotfiles/spell/en.utf-8.add",
+            linters = { spell_check = false }
           }
         }
       }
