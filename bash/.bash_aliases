@@ -83,5 +83,5 @@ fi
 # Fix missing SSH keys on Mac and for SSH forwarding in tmux
 alias fixssh='\
     [[ "$OSTYPE" == "darwin"* ]] && ssh-add --apple-use-keychain -q; \
-    eval $(tmux showenv -s SSH_AUTH_SOCK)\
+    tmux ls &> /dev/null && eval $(tmux showenv -s SSH_AUTH_SOCK)\
     '
