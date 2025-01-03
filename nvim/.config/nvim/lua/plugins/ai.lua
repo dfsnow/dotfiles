@@ -2,6 +2,7 @@ return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     version = "*",
+    branch = "main",
     cmd = { "CopilotChatToggle", "CopilotChatPrompt" },
     dependencies = {
       { "zbirenbaum/copilot.lua" },
