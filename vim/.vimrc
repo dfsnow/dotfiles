@@ -148,6 +148,7 @@ inoremap <ScrollWheelDown> <Esc>jzz
 nnoremap <PageUp> 20kzz
 nnoremap <PageDown> 20jzz
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell Checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

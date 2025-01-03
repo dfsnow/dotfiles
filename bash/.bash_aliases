@@ -75,7 +75,6 @@ if type nvim > /dev/null 2> /dev/null; then
     alias vv='nvim -c":e#<1"'
     # Open file in neovim with fzf
     alias vf='nvim $(fzf)'
-    alias vvv='nvim $(fzf)'
 elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
 fi
