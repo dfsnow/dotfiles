@@ -42,6 +42,25 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+-- Disable completion sources (except chat) in codecompanion window
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+  desc = "Disable all completion in chat buffer",
+  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
+  pattern = { "codecompanion" },
+  callback = function()
+    local cmp = require("cmp")
+    cmp.setup.buffer({
+      sources = {
+        { name = "codecompanion_models" },
+        { name = "codecompanion_slash_commands" },
+        { name = "codecompanion_tools" },
+        { name = "codecompanion_variables" },
+      },
+      matching = { disallow_prefix_unmatching = true }
+    })
+  end
+})
+
 -- Set the size and position of certain floating windows automatically
 -- Note that fzf-lua uses a separate callback function for its floating window
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {

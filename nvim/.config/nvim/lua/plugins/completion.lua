@@ -72,6 +72,15 @@ return {
       cmp.setup({
         preselect = cmp.PreselectMode.None,
         enabled = function()
+          local buffer = vim.bo.filetype
+          -- Don't autocomplete for certain filetypes
+          local filetypes = { "oil", "lazy", "mason" }
+          for _, f in ipairs(filetypes) do
+            if buffer == f then
+              return false
+            end
+          end
+
           -- Only trigger if there are words before the cursor
           -- Don't trigger completion in prompts, comments, or snippets
           local context = require("cmp.config.context")
@@ -149,10 +158,7 @@ return {
           { name = "buffer",                  max_item_count = 3 },
           { name = "copilot",                 max_item_count = 3 },
           { name = "calc" },
-          { name = "render-markdown" },
-          per_filetype = {
-            codecompanion = { "codecompanion" },
-          }
+          { name = "render-markdown" }
         },
         window = {
           completion = cmp.config.window.bordered(),
