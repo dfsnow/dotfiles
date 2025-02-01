@@ -24,6 +24,14 @@ return {
         end,
         mode = { "x" },
         desc = "Send to chat"
+      },
+      {
+        "<leader>?",
+        function()
+          require("codecompanion").actions()
+        end,
+        mode = { "n", "x" },
+        desc = "Open chat actions"
       }
     },
     config = function()
@@ -45,12 +53,7 @@ return {
               }
             },
             keymaps = {
-              send = {
-                modes = {
-                  n = { "<cr>", "<leader><cr>" },
-                  i = "<leader><cr>",
-                }
-              }
+              send = { modes = { n = "<leader><cr>", i = "<leader><cr>" } }
             }
           },
           inline = {

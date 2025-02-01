@@ -3,7 +3,7 @@ vim.cmd("source ~/.vimrc")
 
 -- Set global floating window size
 _G.float_width_pct = 0.88
-_G.float_height_pct = 0.84
+_G.float_height_pct = 0.86
 
 -- Load lazy.nvim plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
