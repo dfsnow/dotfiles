@@ -43,9 +43,16 @@ return {
       local lspkind = require("lspkind")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
+      -- Enable autopairs on completion except in codecompanion
       cmp.event:on(
         "confirm_done",
-        cmp_autopairs.on_confirm_done()
+        function(event)
+          local bufnr = vim.api.nvim_get_current_buf()
+          local filetype = vim.bo[bufnr].filetype
+          if filetype ~= "codecompanion" then
+            cmp_autopairs.on_confirm_done()(event)
+          end
+        end
       )
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),

@@ -11,7 +11,7 @@ return {
         changedelete = { text = "_" },
         untracked    = { text = "┆" },
       },
-      preview_config = { border = "rounded" }
+      preview_config = { border = "single" }
     }
   }
 }

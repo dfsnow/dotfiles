@@ -24,7 +24,7 @@ require("lazy").setup(
   "plugins",
   {
     ui = {
-      border = "rounded",
+      border = "single",
       title = "Lazy",
       title_pos = "left",
       backdrop = 100

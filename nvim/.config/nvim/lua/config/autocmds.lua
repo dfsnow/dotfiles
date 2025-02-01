@@ -57,7 +57,7 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
       )
       vim.api.nvim_win_set_config(0, {
         relative = "editor",
-        border = "rounded",
+        border = "single",
         width = w,
         height = h,
         row = r,

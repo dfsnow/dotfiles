@@ -22,7 +22,7 @@ return {
           g = true,
         },
       },
-      win = { no_overlap = false, border = "rounded" },
+      win = { no_overlap = false, border = "single" },
       triggers = { "<auto>", mode = "nc" }
     }
   }

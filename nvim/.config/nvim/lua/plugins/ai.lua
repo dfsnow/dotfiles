@@ -43,6 +43,14 @@ return {
                   provider = "fzf_lua",
                 }
               }
+            },
+            keymaps = {
+              send = {
+                modes = {
+                  n = { "<cr>", "<leader><cr>" },
+                  i = "<leader><cr>",
+                }
+              }
             }
           },
           inline = {
@@ -55,12 +63,11 @@ return {
             window = {
               layout = "float",
               relative = "editor",
-              border = "rounded",
+              border = "single",
               width = w,
               height = h,
               row = r,
               col = c,
-              title_pos = "left",
               opts = {
                 colorcolumn = "0",
                 number = false

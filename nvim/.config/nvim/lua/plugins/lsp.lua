@@ -65,7 +65,7 @@ return {
     config = function()
       require("mason").setup({
         ui = {
-          border = "rounded",
+          border = "single",
           keymaps = {
             toggle_help = "?"
           }
@@ -120,10 +120,10 @@ return {
       lspconfig.yamlls.setup({ capabilities = capabilities })
 
       -- Prettify the LSP info and windows
-      require("lspconfig.ui.windows").default_options.border = "rounded"
+      require("lspconfig.ui.windows").default_options.border = "single"
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
         vim.lsp.handlers.hover, {
-          border = "rounded"
+          border = "single"
         }
       )
     end

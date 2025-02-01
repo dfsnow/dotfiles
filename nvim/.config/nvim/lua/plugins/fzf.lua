@@ -22,8 +22,10 @@ return {
           height = h,
           row = r,
           col = c,
+          border = "single",
           backdrop = "NONE",
           preview = {
+            border = "single",
             flip_columns = 80,
             horizontal = "right:50%",
             vertical = "up:50%",
