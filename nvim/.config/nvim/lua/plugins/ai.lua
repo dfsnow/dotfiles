@@ -1,113 +1,67 @@
 return {
   {
-    "CopilotC-Nvim/CopilotChat.nvim",
+    "olimorris/codecompanion.nvim",
     version = "*",
     branch = "main",
-    cmd = { "CopilotChatToggle", "CopilotChatPrompt" },
     dependencies = {
-      { "zbirenbaum/copilot.lua" },
-      { "nvim-lua/plenary.nvim" }
+      "zbirenbaum/copilot.lua",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
     keys = {
       {
         "?",
         function()
-          require("CopilotChat").toggle()
+          require("codecompanion").toggle()
         end,
-        mode = { "n", "x" },
-        desc = "Toggle Copilot chat"
+        mode = { "n" },
+        desc = "Toggle chat"
       },
       {
-        "<leader>aa",
+        "?",
         function()
-          require("CopilotChat").select_agent()
+          require("codecompanion").add()
         end,
-        mode = { "n", "x" },
-        desc = "Select agent"
-      },
-      {
-        "<leader>?",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-        end,
-        mode = { "n", "x" },
-        desc = "Pick Copilot prompt",
-        silent = true
-      },
-      {
-        "<leader>ap",
-        function()
-          local actions = require("CopilotChat.actions")
-          require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
-        end,
-        mode = { "n", "x" },
-        desc = "Pick prompt",
-        silent = true
-      },
-      {
-        "<leader>am",
-        function()
-          require("CopilotChat").select_model()
-        end,
-        mode = { "n", "x" },
-        desc = "Pick model",
-        silent = true
+        mode = { "x" },
+        desc = "Send to chat"
       }
     },
     config = function()
-      local chat = require("CopilotChat")
-      chat.setup({
-        model = "gpt-4o",
-        log_level = "warn",
-        show_folds = false,
-        show_help = false,
-        auto_follow_cursor = false,
-        auto_insert_mode = false,
-        chat_autocomplete = false,
-        highlight_selection = true,
-        window = {
-          layout = "float",
-          border = "rounded"
+      local helpers = require("config.helpers")
+      local screen_width = vim.o.columns
+      local w, h, c, r = helpers.get_float_size(float_width_pct, float_height_pct)
+      if screen_width > 100 then
+        w = math.min(math.floor(w * 0.6), 108)
+        c = math.floor((screen_width) / 2) + math.floor(c / 2)
+      end
+      require("codecompanion").setup({
+        strategies = {
+          chat = {
+            adapter = "copilot",
+          },
+          inline = {
+            adapter = "copilot",
+          },
         },
-        mappings = {
-          close = { normal = "<esc>" },
-          reset = { normal = "<leader>ax", insert = "" },
-          submit_prompt = { normal = "<leader><cr>", insert = "<leader><cr>" },
-          accept_diff = { normal = "<leader>ay", insert = "" },
-          yank_diff = { normal = "<leader>aY", insert = "" },
-          show_diff = { normal = "<leader>ad", insert = "" },
-          show_context = { normal = "<leader>ac", insert = "" },
-          show_help = { normal = "<leader>ah", insert = "" },
-          show_info = { normal = "<leader>ai", insert = "" },
-          toggle_sticky = { normal = "" },
-          jump_to_diff = { normal = "" },
-          quickfix_diffs = { normal = "" },
+        display = {
+          chat = {
+            intro_message = "Press ? for help",
+            window = {
+              layout = "float",
+              relative = "editor",
+              border = "rounded",
+              width = w,
+              height = h,
+              row = r,
+              col = c,
+              opts = {
+                colorcolumn = "0",
+                number = false
+              }
+            }
+          }
         }
-      })
-      -- Conditionally add mappings only for Copilot buffer
-      local wk = require("which-key")
-      vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = "copilot-chat",
-        callback = function()
-          wk.add({
-            { "<esc>",        desc = "Exit chat" },
-            { "<leader>ax",   desc = "Reset chat" },
-            { "<leader><cr>", desc = "Submit prompt" },
-            { "<leader>ay",   desc = "Accept diff" },
-            { "<leader>aY",   desc = "Yank diff" },
-            { "<leader>ad",   desc = "Show diff" },
-            { "<leader>ac",   desc = "Show context" },
-            { "<leader>ah",   desc = "Show help" },
-            { "<leader>ai",   desc = "Show info" },
-            { "<leader>as",   "<cmd>CopilotChatStop<cr>",  desc = "Stop response" },
-            { "<leader>ar",   "<cmd>CopilotChatReset<cr>", desc = "Reset chat" },
-            buffer = true,
-            mode = { "n", "x" },
-          })
-        end
       })
     end
   }
 }
-

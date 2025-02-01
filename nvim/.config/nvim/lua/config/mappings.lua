@@ -37,7 +37,7 @@ wk.add({
   { "U",       desc = "Redo action" },
   { "K",       desc = "Show hover info" },
   { "g;",      desc = "Go to last edited position" },
-  { "?",       desc = "Open Copilot Chat" },
+  { "?",       desc = "Open chat" },
   { "i",       desc = "Insert mode" },
   {
     hidden = true,

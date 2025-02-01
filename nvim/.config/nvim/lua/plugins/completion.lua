@@ -41,19 +41,12 @@ return {
       local cmp = require("cmp")
       local helpers = require("config.helpers")
       local lspkind = require("lspkind")
-
-      -- Add custom Copilot Chat completion
-      -- See https://github.com/CopilotC-Nvim/CopilotChat.nvim/pull/507
-      require("config/cmp-copilot-chat").setup()
-
-      -- Setup autopairs completion/integration. See autopairs README
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+
       cmp.event:on(
         "confirm_done",
         cmp_autopairs.on_confirm_done()
       )
-
-      -- cmp command line completion. See cmp README
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
@@ -149,6 +142,9 @@ return {
           { name = "buffer",                  max_item_count = 3 },
           { name = "copilot",                 max_item_count = 3 },
           { name = "calc" },
+          per_filetype = {
+            codecompanion = { "codecompanion" },
+          }
         },
         window = {
           completion = cmp.config.window.bordered(),
