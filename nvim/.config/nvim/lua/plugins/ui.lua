@@ -162,6 +162,7 @@ return {
     opts = {
       enabled = true,
       file_types = { "markdown", "codecompanion" },
-    },
+      latex = { enabled = false }
+    }
   }
 }
