@@ -50,12 +50,11 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   pattern = { "mason", "lazy", "oil", "codecompanion" },
   callback = function()
     if vim.api.nvim_win_get_config(0).relative == "editor" then
-      local screen_width = vim.o.columns
-      local w, h, c, r = helpers.get_float_size(float_width_pct, float_height_pct)
-      if screen_width > 100 then
-        w = math.min(math.floor(w * 0.6), 108)
-        c = math.floor((screen_width) / 2) + math.floor(c / 2)
-      end
+      local w, h, c, r = helpers.get_float_size(
+        float_width_pct,
+        float_height_pct,
+        vim.o.columns
+      )
       vim.api.nvim_win_set_config(0, {
         relative = "editor",
         border = "rounded",

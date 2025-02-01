@@ -12,7 +12,11 @@ return {
     fzf_lua.setup({
       -- Callback function to resize the window when vim size changes
       winopts = function()
-        local w, h, c, r = helpers.get_float_size(float_width_pct, float_height_pct)
+        local w, h, c, r = helpers.get_float_size(
+          float_width_pct,
+          float_height_pct,
+          vim.o.columns
+        )
         local opts = {
           width = w,
           height = h,
@@ -22,7 +26,8 @@ return {
           preview = {
             flip_columns = 80,
             horizontal = "right:50%",
-            vertical = "up:50%"
+            vertical = "up:50%",
+            layout = "vertical",
           }
         }
         return opts

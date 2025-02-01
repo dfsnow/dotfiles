@@ -51,11 +51,17 @@ function M.fzf_dirs(opts)
 end
 
 -- Get window size/position for most floating windows
-function M.get_float_size(w_pct, h_pct)
+function M.get_float_size(w_pct, h_pct, screen_width)
   local w = math.ceil(vim.o.columns * w_pct)
   local h = math.ceil(vim.o.lines * h_pct) + 2
   local c = math.floor((vim.o.columns - w) / 2 - 1)
-  local r = math.floor((vim.o.lines - h) / 2 - 1)
+  local r = math.floor((vim.o.lines - h) / 2 - 2)
+
+  if screen_width and screen_width > 100 then
+    w = math.min(math.floor(w * 0.6), 108)
+    c = math.floor(screen_width / 2) + math.floor(c / 2)
+  end
+
   return w, h, c, r
 end
 

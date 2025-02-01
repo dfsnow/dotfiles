@@ -142,6 +142,7 @@ return {
           { name = "buffer",                  max_item_count = 3 },
           { name = "copilot",                 max_item_count = 3 },
           { name = "calc" },
+          { name = "render-markdown" },
           per_filetype = {
             codecompanion = { "codecompanion" },
           }
