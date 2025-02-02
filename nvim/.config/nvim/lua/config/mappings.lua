@@ -74,7 +74,7 @@ wk.add({
 wk.add({
   { "<leader>",         group = "leader" },
   { "<leader>L",        lazy.home,                                                    desc = "Open Lazy" },
-  { "<leader>m",        helpers.toggle_cmp,                                           desc = "Toggle completion" },
+  { "<leader>C",        helpers.toggle_cmp,                                           desc = "Toggle completion" },
   { "<leader>n",        "<cmd>setlocal wrap!<cr>",                                    desc = "Toggle word wrap" },
   { "<leader>Z",        helpers.toggle_zen_mode,                                      desc = "Toggle Zen mode" },
   { "<leader>/",        grep_cwd,                                                     desc = "Grep in project" },
@@ -83,6 +83,7 @@ wk.add({
   { "<leader>.",        function() oil.open_float(".") end,                           desc = "Open working directory" },
   { "<leader>*",        fzf_lua.grep_cword,                                           desc = "Grep current word" },
   { "<leader>r",        "<cmd>silent !tmux send-keys -t {bottom} Up Enter<cr>",       desc = "Run last tmux command" },
+  { "<leader>m",        "<cmd>RenderMarkdown toggle<cr>",                             desc = "Toggle markdown" },
   { "<leader>Q",        desc = "Exit without saving" },
   { "<leader>x",        desc = "Close buffer" },
   { "<leader>M",        desc = "Open Mason" },
