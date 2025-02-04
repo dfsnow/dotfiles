@@ -120,33 +120,6 @@ function M.smart_send()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(feed_string, true, true, true), "n", true)
 end
 
--- Toggle autocompletion
-vim.g.cmp_toggle_flag = true
-function M.toggle_cmp()
-  local cmp = require("cmp")
-  local next_cmp_toggle_flag = not vim.g.cmp_toggle_flag
-  if next_cmp_toggle_flag then
-    print("Completion on")
-  else
-    print("Completion off")
-  end
-  if next_cmp_toggle_flag then
-    cmp.setup({
-      completion = {
-        autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged }
-      }
-    })
-    vim.g.cmp_toggle_flag = next_cmp_toggle_flag
-  else
-    cmp.setup({
-      completion = {
-        autocomplete = false
-      }
-    })
-    vim.g.cmp_toggle_flag = next_cmp_toggle_flag
-  end
-end
-
 -- Toggle diagnostics
 function M.toggle_buffer_diagnostics()
   local diag_toggle_flag = vim.diagnostic.is_enabled({ ns_id = nil, bufnr = 0 })
@@ -174,11 +147,6 @@ function M.toggle_zen_mode()
       next_fold_flag = original_fold_flag
       vim.opt_local.foldenable = false
     end
-    require("cmp").setup({
-      completion = {
-        autocomplete = false
-      }
-    })
   else
     print("Zen mode off")
     vim.opt_local.list = true
@@ -186,11 +154,6 @@ function M.toggle_zen_mode()
     if next_fold_flag then
       vim.opt_local.foldenable = true
     end
-    require("cmp").setup({
-      completion = {
-        autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged }
-      }
-    })
   end
   vim.b.zen_toggle_flag = next_zen_toggle_flag
 end

@@ -1,6 +1,7 @@
 return {
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
+    version = "*",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       {
@@ -12,168 +13,43 @@ return {
         }
       },
       {
-        "zbirenbaum/copilot-cmp",
+        "zbirenbaum/copilot.lua",
         version = "*",
-        config = function()
-          require("copilot_cmp").setup()
-        end
-      },
-      {
-        "garymjr/nvim-snippets",
-        version = "*",
-        dependencies = {
-          "rafamadriz/friendly-snippets",
-        },
-        opts = {
-          friendly_snippets = true
+        {
+          "saghen/blink.compat",
+          opts = {
+            impersonate_nvim_cmp = true,
+            enable_events = true
+          }
         }
       },
-      "onsails/lspkind.nvim",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-calc",
-      "hrsh7th/cmp-cmdline"
+      { "rafamadriz/friendly-snippets" }
     },
+    opts = {
+      keymap = {
+        ["<tab>"] = { "select_next" },
+        ["<s-tab>"] = { "select_prev" },
+        ["<cr>"] = { "accept" },
+      },
+      completion = {
+        list = { selection = { preselect = false, auto_insert = false } },
+        documentation = { auto_show = true },
+        ghost_text = { enabled = true }
+      },
+      appearance = { nerd_font_variant = "mono" },
+      sources = {
 
-    config = function()
-      local cmp = require("cmp")
-      local helpers = require("config.helpers")
-      local lspkind = require("lspkind")
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
-      -- Enable autopairs on completion except in codecompanion
-      cmp.event:on(
-        "confirm_done",
-        function(event)
-          local bufnr = vim.api.nvim_get_current_buf()
-          local filetype = vim.bo[bufnr].filetype
-          if filetype ~= "codecompanion" then
-            cmp_autopairs.on_confirm_done()(event)
-          end
-        end
-      )
-      cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" }
+        default = { "lsp", "path", "snippets", "buffer", "copilot" },
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink.compat.source",
+            enabled = true,
+            opts = {},
+          },
         },
-      })
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" }
-        }, {
-          { name = "cmdline" }
-        })
-      })
-
-      cmp.setup({
-        preselect = cmp.PreselectMode.None,
-        enabled = function()
-          local buffer = vim.bo.filetype
-          -- Don't autocomplete for certain filetypes
-          local filetypes = { "oil", "lazy", "mason" }
-          for _, f in ipairs(filetypes) do
-            if buffer == f then
-              return false
-            end
-          end
-
-          -- Only trigger if there are words before the cursor
-          -- Don't trigger completion in prompts, comments, or snippets
-          local context = require("cmp.config.context")
-          if vim.api.nvim_get_mode().mode == "c" then
-            return true
-          elseif vim.bo.buftype == "prompt" then
-            return false
-          else
-            return not context.in_treesitter_capture("comment")
-                and not context.in_syntax_group("Comment")
-                and not vim.snippet.active({ direction = 1 })
-          end
-        end,
-        snippet = {
-          expand = function(arg)
-            vim.snippet.expand(arg.body)
-          end
-        },
-        mapping = {
-          -- Use <Tab> and <S-Tab> to navigate through popup menu. See cmp wiki
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if vim.snippet.active({ direction = 1 }) then
-              vim.schedule(function() vim.snippet.jump(1) end)
-            elseif cmp.visible() then
-              cmp.select_next_item()
-            elseif helpers.has_words_before() then
-              cmp.complete()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if vim.snippet.active({ direction = -1 }) then
-              vim.schedule(function()
-                vim.snippet.jump(-1)
-              end)
-            elseif cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["K"] = cmp.mapping.scroll_docs(-4),
-          ["J"] = cmp.mapping.scroll_docs(4),
-          ["<ESC>"] = cmp.mapping({
-            i = function(fallback)
-              if cmp.visible() and cmp.get_active_entry() then
-                cmp.abort()
-              elseif vim.snippet.active() then
-                vim.snippet.stop()
-                fallback()
-              else
-                fallback()
-              end
-            end
-          }),
-          ["<CR>"] = cmp.mapping({
-            i = function(fallback)
-              if cmp.visible() and cmp.get_active_entry() then
-                cmp.confirm({
-                  behavior = cmp.ConfirmBehavior.Insert,
-                  select = false
-                })
-              else
-                fallback()
-              end
-            end
-          })
-        },
-        sources = {
-          { name = "path",                    max_item_count = 3 },
-          { name = "snippets",                max_item_count = 2 },
-          { name = "nvim_lsp",                max_item_count = 4 },
-          { name = "nvim_lsp_signature_help", max_item_count = 3 },
-          { name = "buffer",                  max_item_count = 3 },
-          { name = "copilot",                 max_item_count = 3 },
-          { name = "calc" },
-          { name = "render-markdown" }
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        -- https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#basic-customisations
-        formatting = {
-          format = lspkind.cmp_format({
-            mode = "symbol_text",
-            maxwidth = 50,
-            ellipsis_char = "...",
-            symbol_map = { Copilot = "" }
-          })
-        }
-      })
-    end
+      },
+    },
+    opts_extend = { "sources.default" }
   }
 }

@@ -9,7 +9,8 @@ return {
           which_key = true,
           gitsigns = true,
           flash = true,
-          mason = true
+          mason = true,
+          blink_cmp = true
         },
         custom_highlights = function(c)
           return {

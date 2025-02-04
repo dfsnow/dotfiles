@@ -60,40 +60,22 @@ return {
         virtual_text = true,
         update_in_insert = false,
         severity_sort = true
-      }
-    },
-    config = function()
-      require("mason").setup({
-        ui = {
-          border = "single",
-          keymaps = {
-            toggle_help = "?"
-          }
-        }
-      })
-      require("mason-lspconfig").setup({})
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lspconfig = require("lspconfig")
-      lspconfig.bashls.setup({ capabilities = capabilities })
-      lspconfig.cssls.setup({ capabilities = capabilities })
-      lspconfig.dockerls.setup({ capabilities = capabilities })
-      lspconfig.docker_compose_language_service.setup({
-        capabilities = capabilities
-      })
-      lspconfig.eslint.setup({ capabilities = capabilities })
-      lspconfig.harper_ls.setup {
-        settings = {
+      },
+      servers = {
+        bashls = {},
+        cssls = {},
+        dockerls = {},
+        docker_compose_language_service = {},
+        eslint = {},
+        harper_ls = {
           ["harper-ls"] = {
             userDictPath = "~/dotfiles/spell/en.utf-8.add",
             linters = { spell_check = false }
           }
-        }
-      }
-      lspconfig.html.setup({ capabilities = capabilities })
-      lspconfig.lua_ls.setup({ capabilities = capabilities })
-      lspconfig.pyright.setup({
-        capabilities = capabilities,
-        settings = {
+        },
+        html = {},
+        lua_ls = {},
+        pyright = {
           pyright = {
             disableOrganizeImports = true,
             disableTaggedHints = true
@@ -107,24 +89,39 @@ return {
               }
             }
           }
+        },
+        r_language_server = {
+          filetypes = { "r", "rmd", "quarto" }
+        },
+        ruff = {},
+        rust_analyzer = {},
+        terraformls = {},
+        ts_ls = {},
+        yamlls = {}
+      }
+    },
+    config = function(_, opts)
+      local lspconfig = require("lspconfig")
+      require("mason").setup({
+        ui = {
+          border = "single",
+          keymaps = {
+            toggle_help = "?"
+          }
         }
       })
-      lspconfig.r_language_server.setup({
-        capabilities = capabilities,
-        filetypes = { "r", "rmd", "quarto" }
-      })
-      lspconfig.ruff.setup({ capabilities = capabilities })
-      lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-      lspconfig.terraformls.setup({ capabilities = capabilities })
-      lspconfig.ts_ls.setup({ capabilities = capabilities })
-      lspconfig.yamlls.setup({ capabilities = capabilities })
+      require("mason-lspconfig").setup({})
+
+      -- blink.cmp language server setup
+      for server, config in pairs(opts.servers) do
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
 
       -- Prettify the LSP info and windows
       require("lspconfig.ui.windows").default_options.border = "single"
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover, {
-          border = "single"
-        }
+        vim.lsp.handlers.hover, { border = "single" }
       )
     end
   },
