@@ -4,6 +4,8 @@ return {
     version = "*",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
+      { "rafamadriz/friendly-snippets" },
+      { "giuxtaposition/blink-cmp-copilot" },
       {
         "zbirenbaum/copilot.lua",
         version = "*",
@@ -11,44 +13,31 @@ return {
           suggestion = { enabled = false },
           panel = { enabled = false }
         }
-      },
-      {
-        "zbirenbaum/copilot.lua",
-        version = "*",
-        {
-          "saghen/blink.compat",
-          opts = {
-            impersonate_nvim_cmp = true,
-            enable_events = true
-          }
-        }
-      },
-      { "rafamadriz/friendly-snippets" }
+      }
     },
     opts = {
       keymap = {
+        preset = "enter",
         ["<tab>"] = { "select_next" },
         ["<s-tab>"] = { "select_prev" },
-        ["<cr>"] = { "accept" },
       },
       completion = {
         list = { selection = { preselect = false, auto_insert = false } },
         documentation = { auto_show = true },
-        ghost_text = { enabled = true }
+        ghost_text = { enabled = false }
       },
       appearance = { nerd_font_variant = "mono" },
       sources = {
-
         default = { "lsp", "path", "snippets", "buffer", "copilot" },
         providers = {
           copilot = {
             name = "copilot",
-            module = "blink.compat.source",
-            enabled = true,
-            opts = {},
-          },
-        },
-      },
+            module = "blink-cmp-copilot",
+            score_offset = 100,
+            async = true,
+          }
+        }
+      }
     },
     opts_extend = { "sources.default" }
   }
