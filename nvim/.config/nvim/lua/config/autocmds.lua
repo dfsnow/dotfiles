@@ -7,7 +7,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function(opts)
     if helpers.is_big_file(_, opts.buf) then
       require("ibl").setup_buffer(0, { enabled = false })
-      require("cmp").setup({ completion = { autocomplete = false } })
       vim.opt_local.list = false
       vim.opt_local.foldenable = false
       vim.opt_local.wrap = false
@@ -39,25 +38,6 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.b.zen_toggle_flag = true
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
-  end
-})
-
--- Disable completion sources (except chat) in codecompanion window
-vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
-  desc = "Disable all completion in chat buffer",
-  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  pattern = { "codecompanion" },
-  callback = function()
-    local cmp = require("cmp")
-    cmp.setup.buffer({
-      sources = {
-        { name = "codecompanion_models" },
-        { name = "codecompanion_slash_commands" },
-        { name = "codecompanion_tools" },
-        { name = "codecompanion_variables" },
-      },
-      matching = { disallow_prefix_unmatching = true }
-    })
   end
 })
 

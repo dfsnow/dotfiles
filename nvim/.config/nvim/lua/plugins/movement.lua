@@ -58,11 +58,14 @@ return {
     version = "*",
     event = "VeryLazy",
     opts = {
-      modes = {
-        char = {
-          keys = { "f", "F", "t", "T" },
+      search = {
+        exclude = {
+          "blink-cmp-menu",
+          "blink-cmp-documentation",
+          "blink-cmp-signature"
         }
-      }
+      },
+      modes = { char = { enabled = true } }
     },
     keys = {
       -- Mappings for flash are here instead of mappings.lua because
