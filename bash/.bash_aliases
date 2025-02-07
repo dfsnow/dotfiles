@@ -68,13 +68,24 @@ alias .....='cd ../../../..'
 # Don't delete entire filesystems
 alias rm='rm -I'
 
+# Search SSH config file
+fs () {
+  server=$(grep -E '^Host ' ~/.ssh/config | awk '{print $2}' | fzf)
+  if [[ -n $server ]]; then
+    ssh "$server"
+  fi
+}
+alias fssh='fs'
+
 # Vim/neovim aliases if each installed
 if type nvim > /dev/null 2> /dev/null; then
     alias v='nvim'
     # Open last file
     alias vv='nvim -c":e#<1"'
-    # Open file in neovim with fzf
-    alias vf='nvim $(fzf)'
+    # Open file in (neo)vim with fzf
+    alias fv='nvim $(fzf)'
+    alias fnvim='nvim $(fzf)'
+    alias fvim='vim $(fzf)'
 elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
 fi
