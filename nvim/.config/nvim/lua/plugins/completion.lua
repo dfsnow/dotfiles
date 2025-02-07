@@ -4,8 +4,8 @@ return {
     version = "*",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      { "rafamadriz/friendly-snippets" },
-      { "giuxtaposition/blink-cmp-copilot" },
+      "rafamadriz/friendly-snippets",
+      "giuxtaposition/blink-cmp-copilot",
       {
         "zbirenbaum/copilot.lua",
         version = "*",
@@ -18,13 +18,34 @@ return {
     opts = {
       keymap = {
         preset = "enter",
-        ["<tab>"] = { "select_next" },
-        ["<s-tab>"] = { "select_prev" },
+        ["<tab>"] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.snippet_forward()
+            else
+              return cmp.select_next()
+            end
+          end,
+          "fallback"
+        },
+        ["<s-tab>"] = {
+          function(cmp)
+            if cmp.snippet_active() then
+              return cmp.snippet_backward()
+            else
+              return cmp.select_prev()
+            end
+          end,
+          "fallback"
+        },
+        ["K"] = { "scroll_documentation_up", "fallback" },
+        ["J"] = { "scroll_documentation_down", "fallback" }
       },
       completion = {
         list = { selection = { preselect = false, auto_insert = false } },
+        trigger = { show_in_snippet = false },
         documentation = { auto_show = true },
-        ghost_text = { enabled = false }
+        ghost_text = { enabled = true }
       },
       appearance = { nerd_font_variant = "mono" },
       sources = {
