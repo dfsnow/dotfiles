@@ -24,6 +24,13 @@ return {
             FzfLuaTitle = { fg = c.overlay2 },
             HighlightUndo = { link = "IncSearch" },
             LocalHighlight = { bg = c.surface1 },
+            BlinkCmpMenu = { bg = c.base },
+            BlinkCmpMenuBorder = { fg = c.blue },
+            BlinkCmpDoc = { bg = c.base },
+            BlinkCmpDocBorder = { fg = c.blue },
+            BlinkCmpLabel = { fg = c.text },
+            BlinkCmpLabelMatch = { fg = c.red },
+            BlinkCmpGhostText = { fg = c.overlay0 }
           }
         end
       })

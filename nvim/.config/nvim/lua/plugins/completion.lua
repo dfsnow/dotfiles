@@ -42,9 +42,13 @@ return {
         ["J"] = { "scroll_documentation_down", "fallback" }
       },
       completion = {
+        menu = { border = "single" },
+        documentation = {
+          auto_show = true,
+          window = { border = "single" }
+        },
         list = { selection = { preselect = false, auto_insert = false } },
         trigger = { show_in_snippet = false },
-        documentation = { auto_show = true },
         ghost_text = { enabled = true }
       },
       appearance = { nerd_font_variant = "mono" },
@@ -55,7 +59,7 @@ return {
             name = "copilot",
             module = "blink-cmp-copilot",
             score_offset = 100,
-            async = true,
+            async = true
           }
         }
       }
