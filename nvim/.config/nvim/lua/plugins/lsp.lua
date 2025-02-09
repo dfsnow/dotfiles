@@ -68,9 +68,17 @@ return {
         docker_compose_language_service = {},
         eslint = {},
         harper_ls = {
-          ["harper-ls"] = {
-            userDictPath = "~/dotfiles/spell/en.utf-8.add",
-            linters = { spell_check = false }
+          settings = {
+            ["harper-ls"] = {
+              userDictPath = "~/dotfiles/spell/en.utf-8.add",
+              linters = {
+                spell_check = false,
+                avoid_curses = false
+              },
+              markdown = {
+                ignore_link_title = true
+              }
+            }
           }
         },
         html = {},
