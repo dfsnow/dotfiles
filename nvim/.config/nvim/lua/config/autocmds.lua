@@ -48,20 +48,23 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
   pattern = { "mason", "lazy", "oil", "codecompanion" },
   callback = function()
-    if vim.api.nvim_win_get_config(0).relative == "editor" then
-      local w, h, c, r = helpers.get_float_size(
-        float_width_pct,
-        float_height_pct,
-        vim.o.columns
-      )
-      vim.api.nvim_win_set_config(0, {
-        relative = "editor",
-        border = "single",
-        width = w,
-        height = h,
-        row = r,
-        col = c
-      })
+    local win_config = vim.api.nvim_win_get_config(0)
+    if win_config.relative ~= "" then
+      if win_config.relative == "editor" then
+        local w, h, c, r = helpers.get_float_size(
+          float_width_pct,
+          float_height_pct,
+          vim.o.columns
+        )
+        vim.api.nvim_win_set_config(0, {
+          relative = "editor",
+          border = "single",
+          width = w,
+          height = h,
+          row = r,
+          col = c
+        })
+      end
     end
 
     -- Remap table to prevent buffer switching in floating windows
@@ -73,7 +76,7 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
 -- Automatically highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
-    vim.highlight.on_yank { higroup = "IncSearch", timeout = 700 }
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 700, priority = 10000 })
   end
 })
 

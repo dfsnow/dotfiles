@@ -15,8 +15,6 @@ return {
         custom_highlights = function(c)
           return {
             NonText = { fg = c.surface1 },
-            CmpItemAbbr = { fg = c.text },
-            CmpItemAbbrMatch = { fg = c.red },
             NormalFloat = { bg = c.none },
             FlashBackdrop = { fg = c.overlay0 },
             FlashLabel = { fg = c.base, bg = c.red },

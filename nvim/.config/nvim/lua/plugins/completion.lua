@@ -53,13 +53,18 @@ return {
       },
       appearance = { nerd_font_variant = "mono" },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "copilot" },
+        default = { "lsp", "path", "snippets", "buffer", "copilot", "markdown" },
         providers = {
           copilot = {
             name = "copilot",
             module = "blink-cmp-copilot",
             score_offset = 100,
             async = true
+          },
+          markdown = {
+            name = "RenderMarkdown",
+            module = "render-markdown.integ.blink",
+            fallbacks = { "lsp" }
           }
         }
       }
