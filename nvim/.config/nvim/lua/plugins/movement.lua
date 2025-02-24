@@ -81,6 +81,19 @@ return {
         mode = { "n", "x", "o" },
         function() require("flash").treesitter() end,
         desc = "Flash Treesitter"
+      },
+      {
+        -- Fix for not escaping in f/F mode:
+	-- https://github.com/folke/flash.nvim/issues/401#issuecomment-2676690290
+        "<esc>",
+        mode = { "n", "x", "o" },
+        function()
+          local char = require("flash.plugins.char")
+          if char.state then
+            char.state:hide()
+          end
+        end,
+        desc = "Cancel Flash Char" 
       }
     }
   }

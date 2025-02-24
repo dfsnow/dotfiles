@@ -98,7 +98,7 @@ return {
 
   {
     "tzachar/local-highlight.nvim",
-    version = "*",
+    commit = "a22f707",
     lazy = false,
     config = function()
       require("local-highlight").setup({
