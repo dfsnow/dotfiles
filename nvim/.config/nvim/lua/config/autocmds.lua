@@ -70,6 +70,9 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
     -- Remap table to prevent buffer switching in floating windows
     vim.keymap.set("n", "<tab>", "j", { buffer = true })
     vim.keymap.set("n", "<s-tab>", "k", { buffer = true })
+
+    -- Remap Escape to quit floating windows
+    vim.keymap.set("n", "<esc>", "<cmd>q<cr>", { buffer = true })
   end
 })
 

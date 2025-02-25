@@ -113,6 +113,7 @@ return {
       require("mason").setup({
         ui = {
           border = "single",
+          backdrop = 100,
           keymaps = {
             toggle_help = "?"
           }
