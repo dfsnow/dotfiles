@@ -98,7 +98,6 @@ return {
 
   {
     "tzachar/local-highlight.nvim",
-    commit = "a22f707",
     lazy = false,
     config = function()
       require("local-highlight").setup({
@@ -110,6 +109,9 @@ return {
         min_match_len = 2,
         max_match_len = math.huge,
         highlight_single_match = true,
+        animate = {
+          enabled = false
+        }
       })
     end
   },
