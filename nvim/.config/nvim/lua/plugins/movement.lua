@@ -92,8 +92,9 @@ return {
           if char.state then
             char.state:hide()
           end
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", true)
         end,
-        desc = "Cancel Flash Char" 
+        desc = "Cancel Flash Char"
       }
     }
   }
