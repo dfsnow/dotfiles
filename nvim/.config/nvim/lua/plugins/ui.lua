@@ -104,8 +104,7 @@ return {
         disable_file_types = { "csv", "txt", "log", "tex" },
         hlgroup = "LocalHighlight",
         cw_hlgroup = "LocalHighlight",
-        animate = { enabled = false },
-        debounce_timeout = 0
+        animate = { enabled = false }
       })
     end
   },
