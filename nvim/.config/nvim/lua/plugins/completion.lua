@@ -52,6 +52,12 @@ return {
         trigger = { show_in_snippet = false },
         ghost_text = { enabled = true }
       },
+      cmdline = {
+        completion = {
+          menu = { auto_show = true },
+          list = { selection = { preselect = false, auto_insert = true } },
+        }
+      },
       appearance = { nerd_font_variant = "mono" },
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "copilot", "markdown" },
