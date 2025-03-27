@@ -546,4 +546,5 @@
             "source.organizeImports": "always"
         }
     },
+    "mypy.runUsingActiveInterpreter": true,
 }

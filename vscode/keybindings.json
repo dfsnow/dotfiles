@@ -272,5 +272,21 @@
         "key": "ctrl+enter",
         "command": "r.runSelection",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
+    },
+    // SQLTools setup
+    {
+        "key": "cmd+shift+enter",
+        "command": "sqltools.executeQueryFromFile",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "sqltools.executeQuery",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql' && editorHasSelection"
+    },
+    {
+        "key": "cmd+enter",
+        "command": "sqltools.executeCurrentQuery",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
     }
 ]
