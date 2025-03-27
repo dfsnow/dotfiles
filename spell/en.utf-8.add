@@ -1,3 +1,4 @@
+YubiKey
 api
 autocommand
 blog
@@ -8,7 +9,6 @@ ccao's
 cdo
 checkbox
 config
-config
 covid
 ctrl
 cwd
@@ -18,6 +18,7 @@ expr
 filetype
 foia
 formatters
+fzf
 github
 gitlab
 gitlab's
@@ -26,18 +27,22 @@ hn
 iaao
 jardine
 kaggle
+linux
 lockdown
 lockfile
 lockfiles
 lsp
 lualine
 m2
+macOS
 macbook
 macos
-macos
+matplotlib
 microaggression
 microaggressions
 mypy
+neovim
+numpy
 nvim
 onboarding
 osx
@@ -45,7 +50,7 @@ pdb
 pdf
 plugin
 plugins
-plugins
+pyplot
 quickstart
 quora
 recurse
@@ -76,8 +81,3 @@ wip
 workflow
 yubikey
 zstd
-macOS
-YubiKey
-fzf
-linux
-neovim

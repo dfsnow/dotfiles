@@ -13,27 +13,46 @@
             "addWords": true
         }
     },
-    "cSpell.enableFiletypes": [
-        "*",
-        "!json",
-        "!jsonc"
-    ],
+    "cSpell.diagnosticLevel": "Hint",
+    "cSpell.enabledFileTypes": {
+        "json": false,
+        "jsonc": false
+    },
     "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', monospace",
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
+    "editor.formatOnSave": false,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnPaste": false,
     "editor.minimap.enabled": false,
     "editor.overviewRulerBorder": false,
+    "editor.rulers": [80, 120],
     "editor.scrollbar.vertical": "visible",
     "editor.scrollbar.horizontal": "visible",
-    "editor.scrollbeyondlastline": false,
+    "editor.scrollBeyondLastLine": false,
     "editor.suggestSelection": "first",
     "errorLens.excludeBySource": [
         "cSpell"
     ],
     "explorer.confirmDelete": false,
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.git": true,
+        "**/.idea": true,
+        "**/*.pyc": true,
+        "**/node_modules*": true,
+        "**/tmp*": true
+    },
+    "files.trimTrailingWhitespace": true,
     "jupyter.showVariableViewWhenDebugging": true,
     "path-intellisense.showHiddenFiles": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "python.languageServer": "Pylance",
     "python.REPL.enableREPLSmartSend": true,
+    "r.rpath.mac": "/opt/homebrew/bin/R",
+    "r.rterm.mac": "/opt/homebrew/bin/R",
     "remote.SSH.enableAgentForwarding": true,
     "remote.SSH.remotePlatform": {
         "ccao-dsnow": "linux",
@@ -473,7 +492,7 @@
                 "}"
             ]
         },
-        // Replace word with last yank 
+        // Replace word with last yank
         {
             "before": [
                 "R"
@@ -518,5 +537,13 @@
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.sideBar.location": "right",
-    "workbench.startupEditor": "none"
+    "workbench.startupEditor": "none",
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "always",
+            "source.organizeImports": "always"
+        }
+    },
 }
