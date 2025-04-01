@@ -32,7 +32,6 @@ return {
         "gitlint",
         "hadolint",
         "htmlhint",
-        "mypy",
         "shellcheck",
         "shellcheck",
         "sqlfluff",
@@ -91,7 +90,7 @@ return {
           python = {
             analysis = {
               ignore = { "*" },         -- Using ruff
-              typeCheckingMode = "off", -- Using mypy
+              typeCheckingMode = "standard",
               diagnosticSeverityOverrides = {
                 reportUndefinedVariable = "none"
               }

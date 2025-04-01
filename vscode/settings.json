@@ -546,5 +546,5 @@
             "source.organizeImports": "always"
         }
     },
-    "mypy.runUsingActiveInterpreter": true,
+    "git.openRepositoryInParentFolders": "never"
 }
