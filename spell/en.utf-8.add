@@ -1,4 +1,5 @@
-YubiKey
+ACS
+README
 api
 autocommand
 blog
@@ -34,7 +35,6 @@ lockfiles
 lsp
 lualine
 m2
-macOS
 macbook
 macos
 matplotlib

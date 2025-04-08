@@ -44,6 +44,7 @@
         "**/tmp*": true
     },
     "files.trimTrailingWhitespace": true,
+    "git.openRepositoryInParentFolders": "never",
     "jupyter.showVariableViewWhenDebugging": true,
     "path-intellisense.showHiddenFiles": true,
     "python.analysis.autoImportCompletions": true,
@@ -60,6 +61,7 @@
     },
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "always",
+    "sqlfluff.executablePath": ".venv/bin/sqlfluff",
     "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.env.osx": {
@@ -545,6 +547,5 @@
             "source.fixAll": "always",
             "source.organizeImports": "always"
         }
-    },
-    "git.openRepositoryInParentFolders": "never"
+    }
 }
