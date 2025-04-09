@@ -293,5 +293,17 @@
         "key": "cmd+enter",
         "command": "sqltools.executeCurrentQuery",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
+    },
+    // Data Wrangler setup
+    {
+        "key": "shift+cmd+v",
+        "command": "dataWrangler.openNotebookVariable",
+        "when": "isWorkspaceTrusted && !notebookKernel || isWorkspaceTrusted && notebookKernel =~ /^ms-toolsai.jupyter\\//"
+    },
+    // Close terminals with same chord as editor
+    {
+        "key": "cmd+w",
+        "command": "workbench.action.terminal.kill",
+        "when": "terminalFocus && (terminalHasBeenCreated || terminalIsOpen || terminalProcessSupported)"
     }
 ]
