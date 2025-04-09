@@ -2,13 +2,13 @@
     // Use tab to cycle through tabs
     {
         "key": "tab",
-        "command": "workbench.action.nextEditor",
-        "when": "editorFocus && vim.mode == 'Normal'"
+        "command": "workbench.action.nextEditorInGroup",
+        "when": "editorFocus && vim.mode != 'Insert' || (!inputFocus && !editorFocus)"
     },
     {
         "key": "shift+tab",
-        "command": "workbench.action.previousEditor",
-        "when": "editorFocus && vim.mode == 'Normal'"
+        "command": "workbench.action.previousEditorInGroup",
+        "when": "editorFocus && vim.mode != 'Insert' || (!inputFocus && !editorFocus)"
     },
     // Ctrl + tab to cycle editor groups
     {

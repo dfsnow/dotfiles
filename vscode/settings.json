@@ -24,7 +24,6 @@
     "editor.formatOnSave": false,
     "editor.formatOnSaveMode": "file",
     "editor.formatOnPaste": false,
-    "editor.minimap.enabled": false,
     "editor.overviewRulerBorder": false,
     "editor.rulers": [80, 120],
     "editor.scrollbar.vertical": "visible",
@@ -62,6 +61,7 @@
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "always",
     "sqlfluff.executablePath": ".venv/bin/sqlfluff",
+    "sqltools.results.limit": 10000,
     "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.env.osx": {
@@ -547,5 +547,8 @@
             "source.fixAll": "always",
             "source.organizeImports": "always"
         }
+    },
+    "[sql]": {
+        "editor.defaultFormatter": "dorzey.vscode-sqlfluff"
     }
 }
