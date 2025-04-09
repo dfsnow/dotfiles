@@ -240,17 +240,22 @@
     {
         "key": "cmd+enter",
         "command": "python.execSelectionInTerminal",
-        "when": "editorTextFocus && !findInputFocussed && !jupyter.ownsSelection && !notebookEditorFocused && !replaceInputFocussed && editorLangId == 'python'"
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
     },
     {
         "key": "ctrl+enter",
         "command": "python.execSelectionInTerminal",
-        "when": "editorTextFocus && !findInputFocussed && !jupyter.ownsSelection && !notebookEditorFocused && !replaceInputFocussed && editorLangId == 'python'"
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
     },
     {
         "key": "cmd+shift+enter",
         "command": "python.execInDedicatedTerminal",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
+    },
+    {
+        "key": "enter",
+        "command": "acceptSelectedSuggestion",
+        "when": "jupyter.hasNativeNotebookOrInteractiveWindowOpen && acceptSuggestionOnEnter && suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && suggestionMakesTextEdit && textInputFocus"
     },
     {
         "key": "ctrl+shift+enter",
