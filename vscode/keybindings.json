@@ -65,6 +65,11 @@
         "when": "(vim.mode != 'Insert' && editorTextFocus) || !inputFocus"
     },
     {
+        "key": "cmd+shift+e",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "!editorFocus"
+    },
+    {
         "key": "home",
         "command": "workbench.action.focusActiveEditorGroup"
     },
@@ -201,7 +206,7 @@
     },
     // Ctrl+D to multi-select
     {
-        "key": "cmd+d",
+        "key": "ctrl+d",
         "command": "editor.action.addSelectionToNextFindMatch",
         "when": "editorFocus"
     },
