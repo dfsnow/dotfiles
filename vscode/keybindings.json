@@ -297,7 +297,13 @@
     // Data Wrangler setup
     {
         "key": "shift+cmd+v",
-        "command": "dataWrangler.openNotebookVariable",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "interactive.input.focus",
+                "dataWrangler.openNotebookVariable"
+            ]
+        },
         "when": "isWorkspaceTrusted && !notebookKernel || isWorkspaceTrusted && notebookKernel =~ /^ms-toolsai.jupyter\\//"
     },
     // Close terminals with same chord as editor

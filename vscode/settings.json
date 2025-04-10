@@ -540,6 +540,10 @@
     "window.commandCenter": false,
     "workbench.activityBar.location": "top",
     "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "file:/**/*.parquet": "jupyter-data-wrangler"
+    },
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
     "workbench.sideBar.location": "right",
