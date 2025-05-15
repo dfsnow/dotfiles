@@ -26,7 +26,10 @@
     "editor.formatOnSaveMode": "file",
     "editor.formatOnPaste": false,
     "editor.overviewRulerBorder": false,
-    "editor.rulers": [80, 120],
+    "editor.rulers": [
+        80,
+        120
+    ],
     "editor.scrollbar.vertical": "visible",
     "editor.scrollbar.horizontal": "visible",
     "editor.scrollBeyondLastLine": false,
@@ -55,6 +58,11 @@
     "python.analysis.inlayHints.variableTypes": true,
     "python.languageServer": "Pylance",
     "python.REPL.enableREPLSmartSend": true,
+    "python.terminal.launchArgs": [
+        "-m",
+        "IPython",
+        "--no-autoindent",
+    ],
     "r.rpath.mac": "/opt/homebrew/bin/R",
     "r.rterm.mac": "/opt/homebrew/bin/R",
     "remote.SSH.enableAgentForwarding": true,
@@ -64,6 +72,7 @@
     },
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "always",
+    "sqlfluff.dialect": "trino",
     "sqlfluff.executablePath": ".venv/bin/sqlfluff",
     "sqltools.results.limit": 10000,
     "terminal.integrated.defaultProfile.osx": "bash",

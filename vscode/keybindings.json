@@ -3,12 +3,24 @@
     {
         "key": "tab",
         "command": "workbench.action.nextEditorInGroup",
-        "when": "editorFocus && vim.mode != 'Insert' || (!inputFocus && !editorFocus)"
+        "when": "(editorFocus && vim.mode != 'Insert' && vim.mode != 'Visual' && vim.mode != 'VisualLine') || (!inputFocus && !editorFocus)"
     },
     {
         "key": "shift+tab",
         "command": "workbench.action.previousEditorInGroup",
-        "when": "editorFocus && vim.mode != 'Insert' || (!inputFocus && !editorFocus)"
+        "when": "(editorFocus && vim.mode != 'Insert' && vim.mode != 'Visual' && vim.mode != 'VisualLine') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": "tab",
+        "command": "editor.action.indentLines",
+        "when": "(editorFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine'))"
+
+    },
+    {
+        "key": "shift+tab",
+        "command": "editor.action.outdentLines",
+        "when": "(editorFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine'))"
+
     },
     // Ctrl + tab to cycle editor groups
     {
@@ -187,22 +199,22 @@
     {
         "key": "cmd+shift+j",
         "command": "editor.action.insertCursorBelow",
-        "when": "editorTextFocus && vim.mode == 'Normal'"
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed"
     },
     {
         "key": "ctrl+shift+j",
         "command": "editor.action.insertCursorBelow",
-        "when": "editorTextFocus && vim.mode == 'Normal'"
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed"
     },
     {
         "key": "cmd+shift+k",
         "command": "editor.action.insertCursorAbove",
-        "when": "editorTextFocus && vim.mode == 'Normal'"
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed"
     },
     {
         "key": "ctrl+shift+k",
         "command": "editor.action.insertCursorAbove",
-        "when": "editorTextFocus && vim.mode == 'Normal'"
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed"
     },
     // Ctrl+D to multi-select
     {
