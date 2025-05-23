@@ -2,6 +2,7 @@
   "actions" : [
     {
       "key" : "i",
+      "label" : "Terminal",
       "type" : "application",
       "value" : "/Applications/Ghostty.app"
     },
@@ -55,8 +56,15 @@
     },
     {
       "key" : "v",
+      "label" : "VS Code",
       "type" : "application",
       "value" : "/Applications/Visual Studio Code.app"
+    },
+    {
+      "key" : "l",
+      "label" : "Keylight",
+      "type" : "command",
+      "value" : "~/dotfiles/leaderkey/elgato-toggle.sh"
     }
   ],
   "type" : "group"
