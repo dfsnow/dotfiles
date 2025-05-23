@@ -74,6 +74,7 @@
     "security.workspace.trust.startupPrompt": "always",
     "sqlfluff.dialect": "trino",
     "sqlfluff.executablePath": ".venv/bin/sqlfluff",
+    "sqlfluff.suppressNotifications": true,
     "sqltools.results.limit": 10000,
     "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
