@@ -32,28 +32,6 @@ return {
   },
 
   {
-    "jpalardy/vim-slime",
-    version = "*",
-    keys = "<leader><cr>",
-    init = function()
-      vim.g.slime_no_mappings = 1
-    end,
-    config = function()
-      vim.g.slime_dont_ask_default = 1
-      vim.g.slime_bracketed_paste = 1
-      vim.g.slime_preserve_curpos = 0
-      vim.g.slime_paste_file = vim.fn.tempname()
-      vim.g.slime_target = "tmux"
-      vim.g.slime_default_config = {
-        socket_name = "default",
-        target_pane = "{bottom}"
-      }
-      vim.cmd([[nmap <leader><cr> <Plug>SlimeLineSendj0]])
-      vim.cmd([[vmap <leader><cr> <Plug>SlimeRegionSendgvj0<esc>]])
-    end
-  },
-
-  {
     "folke/flash.nvim",
     version = "*",
     event = "VeryLazy",

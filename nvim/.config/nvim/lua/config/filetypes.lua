@@ -82,8 +82,4 @@ M.lint_ft = {
   "yaml"
 }
 
-M.smart_send_ft = {
-  "python", "r"
-}
-
 return M

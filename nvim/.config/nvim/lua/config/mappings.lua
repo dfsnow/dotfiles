@@ -37,7 +37,6 @@ wk.add({
   { "U",       desc = "Redo action" },
   { "K",       desc = "Show hover info" },
   { "g;",      desc = "Go to last edited position" },
-  { "?",       desc = "Open chat" },
   { "i",       desc = "Insert mode" },
   {
     hidden = true,
@@ -91,7 +90,6 @@ wk.add({
   { "<leader>_",        desc = "New horizontal split" },
   { "<leader><tab>",    desc = "Next window" },
   { "<leader><s-tab>",  desc = "Previous window" },
-  { "<leader>?",        desc = "Open chat actions" },
   {
     mode = { "x", "n" },
     { "<leader>p",    desc = "Paste from clipboard" },

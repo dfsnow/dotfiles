@@ -100,26 +100,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- Enable smart send via SLIME in supported files
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = require("config.filetypes").smart_send_ft,
-  desc = "Enable smart send via vim-slime",
-  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  callback = function()
-    local buf = vim.api.nvim_get_current_buf()
-    require("which-key").add({
-      {
-        { "<leader><cr>", helpers.smart_send, desc = "Smart send to tmux" },
-        buffer = buf,
-        group = "leader",
-        mode = "n",
-        silent = true,
-        noremap = true
-      }
-    })
-  end
-})
-
 -- Setup ruff format and fix for Python files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",

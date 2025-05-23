@@ -82,44 +82,6 @@ function M.is_big_file(_, buf)
   end
 end
 
--- Send the selected treesitter node to a tmux REPL using vim-slime. Sends the
--- current node if not in a node. Node selection only works for Python
-function M.smart_send()
-  local ts_utils = require("nvim-treesitter.ts_utils")
-  local node = ts_utils.get_node_at_cursor()
-  local feed_string = ''
-  local patterns = {
-    "function_definition",
-    "class_definition",
-    "while_statement",
-    "for_statement",
-    "if_statement",
-    "with_statement",
-    "try_statement"
-  }
-
-  local match_found = false
-  for _, pattern in ipairs(patterns) do
-    if string.match(node:sexpr(), pattern) then
-      match_found = true
-      break
-    end
-  end
-
-  -- If in a matching node type that can be processed by textsubjects,
-  -- then use textsubjects selection. Otherwise, send the current line
-  if match_found then
-    local txsub = require("nvim-treesitter.textsubjects")
-    txsub.select("textsubjects-smart", true, vim.fn.getpos("."), vim.fn.getpos("."))
-    vim.cmd('normal! v')
-    feed_string = "<Plug>SlimeRegionSendgv<esc>"
-  else
-    vim.cmd('normal! V')
-    feed_string = "<Plug>SlimeRegionSend<esc>j0"
-  end
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(feed_string, true, true, true), "n", true)
-end
-
 -- Toggle diagnostics
 function M.toggle_buffer_diagnostics()
   local diag_toggle_flag = vim.diagnostic.is_enabled({ ns_id = nil, bufnr = 0 })

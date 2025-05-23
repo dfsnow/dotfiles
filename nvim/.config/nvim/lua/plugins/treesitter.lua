@@ -28,26 +28,5 @@ return {
         }
       })
     end
-  },
-
-  {
-    "RRethy/nvim-treesitter-textsubjects",
-    version = "*",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "jpalardy/vim-slime"
-    },
-    ft = require("config.filetypes").smart_send_ft,
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        textsubjects = {
-          enable = true,
-          keymaps = {
-            ["."] = "textsubjects-smart",
-            [";"] = "textsubjects-container-outer"
-          }
-        }
-      })
-    end
   }
 }
