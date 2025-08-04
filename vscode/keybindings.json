@@ -14,13 +14,11 @@
         "key": "tab",
         "command": "editor.action.indentLines",
         "when": "(editorFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine'))"
-
     },
     {
         "key": "shift+tab",
         "command": "editor.action.outdentLines",
         "when": "(editorFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine'))"
-
     },
     // Ctrl + tab to cycle editor groups
     {
@@ -92,14 +90,6 @@
     {
         "key": "ctrl+shift+r",
         "command": "workbench.view.remote"
-    },
-    {
-        "key": "cmd+shift+c",
-        "command": "workbench.panel.chat.view.copilot.focus"
-    },
-    {
-        "key": "ctrl+shift+c",
-        "command": "workbench.panel.chat.view.copilot.focus"
     },
     {
         "key": "cmd+shift+t",
@@ -227,74 +217,6 @@
         "command": "editor.action.addSelectionToPreviousFindMatch",
         "when": "editorFocus"
     },
-    // Quarto REPL
-    {
-        "key": "shift+enter",
-        "command": "quarto.runSelection",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
-    },
-    {
-        "key": "cmd+enter",
-        "command": "quarto.runSelection",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
-    },
-    {
-        "key": "ctrl+enter",
-        "command": "quarto.runSelection",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
-    },
-    {
-        "key": "cmd+shift+enter",
-        "command": "quarto.runCurrentAdvance",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
-    },
-    {
-        "key": "ctrl+shift+enter",
-        "command": "quarto.runCurrentAdvance",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'quarto'"
-    },
-    // Python REPL
-    {
-        "key": "cmd+enter",
-        "command": "python.execSelectionInTerminal",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
-    },
-    {
-        "key": "ctrl+enter",
-        "command": "python.execSelectionInTerminal",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
-    },
-    {
-        "key": "cmd+shift+enter",
-        "command": "python.execInDedicatedTerminal",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
-    },
-    {
-        "key": "enter",
-        "command": "acceptSelectedSuggestion",
-        "when": "jupyter.hasNativeNotebookOrInteractiveWindowOpen && acceptSuggestionOnEnter && suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && suggestionMakesTextEdit && textInputFocus"
-    },
-    {
-        "key": "ctrl+shift+enter",
-        "command": "python.execInDedicatedTerminal",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'python'"
-    },
-    // R REPL
-    {
-        "key": "shift+enter",
-        "command": "r.runSelection",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
-    },
-    {
-        "key": "cmd+enter",
-        "command": "r.runSelection",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
-    },
-    {
-        "key": "ctrl+enter",
-        "command": "r.runSelection",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && (editorLangId == 'r' || editorLangId == 'rmd')"
-    },
     // SQLTools setup
     {
         "key": "cmd+shift+enter",
@@ -311,22 +233,29 @@
         "command": "sqltools.executeCurrentQuery",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
     },
-    // Data Wrangler setup
-    {
-        "key": "shift+cmd+v",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "interactive.input.focus",
-                "dataWrangler.openNotebookVariable"
-            ]
-        },
-        "when": "isWorkspaceTrusted && !notebookKernel || isWorkspaceTrusted && notebookKernel =~ /^ms-toolsai.jupyter\\//"
-    },
     // Close terminals with same chord as editor
     {
         "key": "cmd+w",
         "command": "workbench.action.terminal.kill",
         "when": "terminalFocus && (terminalHasBeenCreated || terminalIsOpen || terminalProcessSupported)"
+    },
+    // Shift-enter for newlines in terminal
+    {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+            "text": "\\\r\n"
+        },
+        "when": "terminalFocus"
+    },
+    // Toggle specific panels
+    {
+        "key": "cmd+m",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'"
+    },
+    {
+        "key": "cmd+shift+c",
+        "command": "workbench.action.positronConsole.open"
     }
 ]

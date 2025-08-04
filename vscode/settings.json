@@ -2,7 +2,10 @@
     "breadcrumbs.enabled": false,
     "catppuccin.customUIColors": {
         "all": {
-            "editorOverviewRuler.background": "base"
+            "editorOverviewRuler.background": "base",
+            "notebook.selectedCellBackground": "#45475a50",
+            "sqltools.currentQueryBg": "surface0",
+            "sqltools.currentQueryOutline": "surface0",
         }
     },
     "cSpell.customDictionaries": {
@@ -18,18 +21,19 @@
         "json": false,
         "jsonc": false
     },
-    "dataWrangler.experiments.copilot.enabled": true,
     "editor.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', monospace",
     "editor.fontLigatures": true,
     "editor.fontSize": 14,
     "editor.formatOnSave": false,
     "editor.formatOnSaveMode": "file",
     "editor.formatOnPaste": false,
+    "editor.minimap.enabled": true,
     "editor.overviewRulerBorder": false,
     "editor.rulers": [
         80,
         120
     ],
+    "editor.semanticHighlighting.enabled": true,
     "editor.scrollbar.vertical": "visible",
     "editor.scrollbar.horizontal": "visible",
     "editor.scrollBeyondLastLine": false,
@@ -38,6 +42,9 @@
         "cSpell"
     ],
     "explorer.confirmDelete": false,
+    "files.associations": {
+        "renv.lock": "json"
+    },
     "files.exclude": {
         "**/__pycache__": true,
         "**/.git": true,
@@ -47,35 +54,18 @@
         "**/tmp*": true
     },
     "files.trimTrailingWhitespace": true,
-    "git.openRepositoryInParentFolders": "never",
-    "jupyter.askForKernelRestart": false,
-    "jupyter.interactiveWindow.textEditor.autoAddNewCell": false,
-    "jupyter.interactiveWindow.textEditor.executeSelection": true,
-    "jupyter.showVariableViewWhenDebugging": true,
+    "git.openRepositoryInParentFolders": "always",
     "path-intellisense.showHiddenFiles": true,
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.inlayHints.functionReturnTypes": true,
-    "python.analysis.inlayHints.variableTypes": true,
-    "python.languageServer": "Pylance",
-    "python.REPL.enableREPLSmartSend": true,
-    "python.terminal.launchArgs": [
-        "-m",
-        "IPython",
-        "--no-autoindent",
-    ],
-    "r.rpath.mac": "/opt/homebrew/bin/R",
-    "r.rterm.mac": "/opt/homebrew/bin/R",
-    "remote.SSH.enableAgentForwarding": true,
-    "remote.SSH.remotePlatform": {
-        "ccao-dsnow": "linux",
-        "ccao-shiny-server": "linux"
-    },
+    "python.enableAutoReload": false,
+    "quarto.cells.background.color": "useTheme",
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "always",
     "sqlfluff.dialect": "trino",
-    "sqlfluff.executablePath": ".venv/bin/sqlfluff",
-    "sqlfluff.suppressNotifications": true,
+    "sqltools.autoOpenSessionFiles": false,
     "sqltools.results.limit": 10000,
+    "sqltools.results.location": "current",
+    "sqltools.results.reuseTabs": "connection",
     "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.env.osx": {
@@ -85,6 +75,7 @@
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.gpuAcceleration": "on",
     "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.minimumContrastRatio": 1,
     "terminal.integrated.profiles.linux": {
         "bash": {
             "path": "bash",
@@ -125,7 +116,6 @@
     },
     "terminal.integrated.shellIntegration.decorationsEnabled": "overviewRuler",
     "terminal.integrated.shellIntegration.enabled": true,
-    "terminal.integrated.shellIntegration.suggestEnabled": true,
     "telemetry.telemetryLevel": "off",
     "vim.easymotion": true,
     "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
@@ -548,15 +538,11 @@
         }
     ],
     "window.commandCenter": false,
+    "window.titleBarStyle": "custom",
     "workbench.activityBar.location": "top",
     "workbench.colorTheme": "Catppuccin Mocha",
-    "workbench.editorAssociations": {
-        "*.copilotmd": "vscode.markdown.preview.editor",
-        "file:/**/*.parquet": "jupyter-data-wrangler"
-    },
     "workbench.layoutControl.enabled": false,
     "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
-    "workbench.sideBar.location": "right",
     "workbench.startupEditor": "none",
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
@@ -567,6 +553,6 @@
         }
     },
     "[sql]": {
-        "editor.defaultFormatter": "dorzey.vscode-sqlfluff"
+        "editor.defaultFormatter": "sqlfluff.vscode-sqlfluff"
     }
 }
