@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Alias common navigation commands
-alias c='clear'
+alias cl='clear'
 alias ld='du -h -d 1'
 
 # Proper color handling for coreutils ls
@@ -57,6 +57,12 @@ fi
 if type lazygit > /dev/null 2> /dev/null; then
     alias lg='lazygit'
     alias gg='lazygit'
+fi
+
+# Claude code aliases if installed
+if type claude > /dev/null 2> /dev/null; then
+    alias c='claude --ide'
+    alias cc='claude --ide -c'
 fi
 
 # Aliases for directory backtracking
