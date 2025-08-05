@@ -257,5 +257,10 @@
     {
         "key": "cmd+shift+c",
         "command": "workbench.action.positronConsole.open"
+    },
+    {
+        "key": "escape",
+        "command": "hideSuggestWidget",
+        "when": "suggestWidgetVisible && vim.mode == 'Insert'"
     }
 ]

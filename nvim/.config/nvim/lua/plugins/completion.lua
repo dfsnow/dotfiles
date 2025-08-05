@@ -3,18 +3,7 @@ return {
     "saghen/blink.cmp",
     version = "*",
     event = { "InsertEnter", "CmdlineEnter" },
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      "giuxtaposition/blink-cmp-copilot",
-      {
-        "zbirenbaum/copilot.lua",
-        version = "*",
-        opts = {
-          suggestion = { enabled = false },
-          panel = { enabled = false }
-        }
-      }
-    },
+    dependencies = { "rafamadriz/friendly-snippets" },
     opts = {
       keymap = {
         preset = "enter",
@@ -60,20 +49,7 @@ return {
       },
       appearance = { nerd_font_variant = "mono" },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "copilot", "markdown" },
-        providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-cmp-copilot",
-            score_offset = 100,
-            async = true
-          },
-          markdown = {
-            name = "RenderMarkdown",
-            module = "render-markdown.integ.blink",
-            fallbacks = { "lsp" }
-          }
-        }
+        default = { "lsp", "path", "snippets", "buffer" },
       }
     },
     opts_extend = { "sources.default" }
