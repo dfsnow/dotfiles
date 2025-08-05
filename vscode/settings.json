@@ -555,7 +555,16 @@
             "source.organizeImports": "always"
         }
     },
+    "[quarto]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "quarto.quarto"
+    },
+    "[r]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "Posit.air-vscode"
+    },
     "[sql]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "sqlfluff.vscode-sqlfluff"
     }
 }
