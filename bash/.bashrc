@@ -177,9 +177,9 @@ export EDITOR="$VISUAL"
 
 # For Debian systems add alias for fd, since fd is fdfind in apt
 if type fd >/dev/null 2>/dev/null; then
-    FZF_FIND=fd
+    export FZF_FIND=fd
 elif type fdfind >/dev/null 2>/dev/null; then
-    FZF_FIND=fdfind
+    export FZF_FIND=fdfind
     alias fd=fdfind
 fi
 
@@ -193,11 +193,25 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
     -g '!{node_modules,renv}/' \
     2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_FIND --type d --follow --hidden \
-    --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/.tldrc' \
-    --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.git' \
-    --exclude '**/.cache' --exclude '**/.local' --exclude '**/.vim' \
-    --exclude '**/Library' . $HOME"
+export FZF_ALT_C_COMMAND='__fzf_alt_c_command'
+
+# Search from home when not in git dir, else from git root
+__fzf_alt_c_command() {
+    local search_dir="$HOME"
+    if git rev-parse --git-dir &>/dev/null; then
+        search_dir="$(git rev-parse --show-toplevel)"
+        echo "$search_dir"; "$FZF_FIND" --type d --follow --hidden \
+            --exclude '**/.git' --exclude '**/.local' \
+            . "$search_dir"
+    else
+        echo "$search_dir"; "$FZF_FIND" --type d --follow --hidden \
+            --exclude '**/.npm' --exclude '**/.rustup' --exclude '**/.tldrc' \
+            --exclude '**/.tldr' --exclude '**/.cargo' --exclude '**/.git' \
+            --exclude '**/.cache' --exclude '**/.local' --exclude '**/.vim' \
+            --exclude '**/Library' . "$search_dir"
+    fi
+}
+export -f __fzf_alt_c_command
 
 # Remove bash deprecation warning message on Mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
