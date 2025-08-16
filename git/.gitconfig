@@ -16,21 +16,6 @@
 [core]
     autocrlf = false
 
-[includeIf "gitdir:C:/"]
-    path = ~/.ccao.gitconfig
-
-[includeIf "gitdir:/mnt/c/"]
-    path = ~/.ccao.gitconfig
-
-[includeIf "gitdir:/mnt/c/"]
-    path = ~/.ccao.gitconfig
-
-[includeIf "gitdir:/home/dsnow/"]
-    path = ~/.ccao.gitconfig
-
-[includeIf "gitdir:/home/shiny-server/"]
-    path = ~/.ccao.gitconfig
-
 [init]
     defaultBranch = main
 
