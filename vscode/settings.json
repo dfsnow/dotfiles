@@ -57,6 +57,7 @@
     "git.openRepositoryInParentFolders": "always",
     "llama-vscode.enabled": true,
     "llama-vscode.launch_completion": "llama-server --fim-qwen-3b-default",
+    "llama-vscode.show_info": false,
     "path-intellisense.showHiddenFiles": true,
     "positron.viewer.openLocalhostUrls": false,
     "python.analysis.autoImportCompletions": true,
