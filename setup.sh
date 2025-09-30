@@ -32,6 +32,7 @@ MACOS_PACKAGES=(
     "lazygit"
     "uv"
     "ruff"
+    "air"
 )
 
 # Linux build dependencies
