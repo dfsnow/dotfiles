@@ -192,7 +192,7 @@ export FZF_DEFAULT_OPTS=" --height 40% \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
     --layout=reverse --exit-0"
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
-    -g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' \
+    -g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git,.Rproj.user,.mypy_cache}/' \
     -g '!{node_modules,renv}/' \
     2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
