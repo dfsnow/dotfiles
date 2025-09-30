@@ -9,6 +9,7 @@ COMMON_PACKAGES=(
     "ripgrep"
     "zstd"
     "mosh"
+    "zoxide"
 )
 
 # Linux-specific packages
