@@ -84,12 +84,12 @@
         "command": "workbench.action.focusActiveEditorGroup"
     },
     {
-        "key": "cmd+shift+r",
-        "command": "workbench.view.remote"
+        "key": "cmd+r",
+        "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
-        "key": "ctrl+shift+r",
-        "command": "workbench.view.remote"
+        "key": "ctrl+r",
+        "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
         "key": "cmd+shift+t",
@@ -257,6 +257,10 @@
     {
         "key": "cmd+shift+c",
         "command": "workbench.action.positronConsole.open"
+    },
+    {
+        "key": "cmd+shift+r",
+        "command": "claude-vscode.sidebar.open"
     },
     {
         "key": "escape",

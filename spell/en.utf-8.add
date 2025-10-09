@@ -1,5 +1,4 @@
 ACS
-README
 api
 autocommand
 blog
@@ -14,9 +13,11 @@ covid
 ctrl
 cwd
 dfsnow
+dotenv
 evaluatee
 expr
 filetype
+fips
 foia
 formatters
 fzf
@@ -25,6 +26,7 @@ gitlab
 gitlab's
 gpg
 hn
+HRSA
 iaao
 jardine
 kaggle
@@ -45,6 +47,7 @@ neovim
 numpy
 nvim
 onboarding
+OPAIS
 osx
 pdb
 pdf
@@ -53,6 +56,7 @@ plugins
 pyplot
 quickstart
 quora
+README
 recurse
 regex
 relatable
