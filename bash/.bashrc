@@ -197,6 +197,22 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
     2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='zoxide query --list'
+export FZF_ALT_C_COMMAND='__fzf_alt_c_command'
+
+# Use zoxide for alt-C, but append local dirs when in a git directory
+__fzf_alt_c_command() {
+    local search_dir="$HOME"
+    local git_dirs=""
+    if git rev-parse --git-dir &>/dev/null; then
+        search_dir="$(git rev-parse --show-toplevel)"
+        git_dirs=$(echo "$search_dir"; "$FZF_FIND" --type d --follow --hidden \
+            --exclude '**/.git' --exclude '**/.local' \
+            . "$search_dir")
+    fi
+
+    echo "$(zoxide query --list)" "$git_dirs"
+}
+export -f __fzf_alt_c_command
 
 # Remove bash deprecation warning message on Mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
