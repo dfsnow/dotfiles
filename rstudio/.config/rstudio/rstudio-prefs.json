@@ -15,7 +15,7 @@
         "ok": 1,
         "secondary": ""
     },
-    "jobs_tab_visibility": "shown",
+    "jobs_tab_visibility": "closed",
     "default_project_location": "~",
     "source_with_echo": true,
     "rainbow_parentheses": true,
@@ -62,5 +62,8 @@
     "auto_detect_indentation": true,
     "packages_pane_enabled": false,
     "save_workspace": "never",
-    "copilot_enabled": true
+    "reformat_on_save": true,
+    "code_completion_delay": 150,
+    "code_formatter": "external",
+    "code_formatter_external_command": "/opt/homebrew/bin/air format"
 }
