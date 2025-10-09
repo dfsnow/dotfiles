@@ -348,6 +348,11 @@
                 "workbench.action.quickOpen"
             ]
         },
+        // Show hover
+        {
+            "before": ["K"],
+            "commands": ["editor.action.showDefinitionPreviewHover"]
+        },
         // Space starts easymotion movement
         {
             "before": [

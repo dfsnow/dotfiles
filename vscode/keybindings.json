@@ -248,6 +248,17 @@
         },
         "when": "terminalFocus"
     },
+    // Scroll hover with vim keys
+    {
+        "key": "k",
+        "command": "editor.action.scrollUpHover",
+        "when": "editorHoverFocused",
+    },
+    {
+        "key": "j",
+        "command": "editor.action.scrollDownHover",
+        "when": "editorHoverFocused",
+    },
     // Toggle specific panels
     {
         "key": "cmd+m",
