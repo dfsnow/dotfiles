@@ -196,7 +196,6 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
     -g '!{node_modules,renv}/' \
     2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='zoxide query --list'
 export FZF_ALT_C_COMMAND='__fzf_alt_c_command'
 
 # Use zoxide for alt-C, but append local dirs when in a git directory

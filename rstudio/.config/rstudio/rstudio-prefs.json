@@ -15,7 +15,7 @@
         "ok": 1,
         "secondary": ""
     },
-    "jobs_tab_visibility": "closed",
+    "jobs_tab_visibility": "shown",
     "default_project_location": "~",
     "source_with_echo": true,
     "rainbow_parentheses": true,
