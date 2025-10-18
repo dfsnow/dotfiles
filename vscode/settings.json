@@ -56,6 +56,10 @@
     "files.trimTrailingWhitespace": true,
     "git.openRepositoryInParentFolders": "always",
     "path-intellisense.showHiddenFiles": true,
+    "positron.assistant.enable": true,
+    "positron.assistant.inlineCompletions.enable": {
+        "*": true
+    },
     "positron.viewer.openLocalhostUrls": false,
     "python.analysis.autoImportCompletions": true,
     "python.enableAutoReload": false,
