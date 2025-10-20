@@ -277,5 +277,14 @@
         "key": "escape",
         "command": "hideSuggestWidget",
         "when": "suggestWidgetVisible && vim.mode == 'Insert'"
+    },
+    // Reset zoom
+    {
+        "key": "cmd+0",
+        "command": "workbench.action.zoomReset"
+    },
+    {
+        "key": "ctrl+0",
+        "command": "workbench.action.zoomReset"
     }
 ]
