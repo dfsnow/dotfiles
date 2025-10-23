@@ -209,7 +209,7 @@ __fzf_alt_c_command() {
             . "$search_dir")
     fi
 
-    echo "$(zoxide query --list)" "$git_dirs"
+    echo "$(zoxide query --list)"$'\n'"$git_dirs"
 }
 export -f __fzf_alt_c_command
 
