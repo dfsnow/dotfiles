@@ -128,6 +128,14 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         && . "$brew_prefix/etc/profile.d/bash_completion.sh"
 fi
 
+# Add Ghostty shell integration
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+fi
+
+# Add zoxide integration
+eval "$(zoxide init bash)"
+
 # Add third-party bash completion support
 __add_completion() {
     local cmd=$1
@@ -155,9 +163,6 @@ fi
 # Add alias definitions
 [ -f ~/dotfiles/bash/.bash_aliases ] \
     && . ~/dotfiles/bash/.bash_aliases
-
-# Add zoxide support
-eval "$(zoxide init bash)"
 
 
 ###############################################################
