@@ -60,20 +60,16 @@ if type lazygit > /dev/null 2> /dev/null; then
 fi
 
 # AI agent aliases if installed
-if type claude > /dev/null 2> /dev/null; then
-    alias cc='claude --ide -c'
-    alias cl='claude --ide -c'
-fi
-
-if type codex > /dev/null 2> /dev/null; then
-    alias co='codex'
-fi
+if type claude > /dev/null 2> /dev/null; then alias cl='claude --ide'; fi
+if type codex > /dev/null 2> /dev/null; then alias co='codex'; fi
+if type gemini > /dev/null 2> /dev/null; then alias cg='gemini'; fi
 
 # Aliases for directory backtracking
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 
 # Don't delete entire filesystems
 alias rm='rm -I'
