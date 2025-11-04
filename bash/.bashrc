@@ -153,16 +153,9 @@ else
     __add_completion fzf "--bash"
 fi
 
-[ -f ~/dotfiles/vendor/git-completion.bash ] \
-    && . ~/dotfiles/vendor/git-completion.bash
-[ -f ~/dotfiles/vendor/git-prompt.sh ] \
-    && . ~/dotfiles/vendor/git-prompt.sh __git_complete g __git_main
-[ -f ~/.cargo/env ] \
-    && . ~/.cargo/env
-
-# Add alias definitions
-[ -f ~/dotfiles/bash/.bash_aliases ] \
-    && . ~/dotfiles/bash/.bash_aliases
+# Other envs and aliases
+[ -f ~/.cargo/env ] && . ~/.cargo/env
+[ -f ~/dotfiles/bash/.bash_aliases ] && . ~/dotfiles/bash/.bash_aliases
 
 
 ###############################################################
