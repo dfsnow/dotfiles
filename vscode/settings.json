@@ -8,6 +8,8 @@
             "sqltools.currentQueryOutline": "surface0",
         }
     },
+    "claudeCode.selectedModel": "default",
+    "claudeCode.preferredLocation": "sidebar",
     "cSpell.customDictionaries": {
         "vim-dict": {
             "name": "vim-dict",
@@ -27,6 +29,7 @@
     "editor.formatOnSave": false,
     "editor.formatOnSaveMode": "file",
     "editor.formatOnPaste": false,
+    "editor.inlayHints.enabled": true,
     "editor.minimap.enabled": true,
     "editor.overviewRulerBorder": false,
     "editor.rulers": [
@@ -55,14 +58,16 @@
     },
     "files.trimTrailingWhitespace": true,
     "git.openRepositoryInParentFolders": "always",
+    "notebook.output.wordWrap": true,
     "path-intellisense.showHiddenFiles": true,
     "positron.assistant.enable": true,
     "positron.assistant.inlineCompletions.enable": {
         "*": true
     },
     "positron.viewer.openLocalhostUrls": false,
-    "python.analysis.autoImportCompletions": true,
+    "python.analysis.showHoverGoToLinks": false,
     "python.enableAutoReload": false,
+    "python.pyrefly.displayTypeErrors": "force-on",
     "quarto.cells.background.color": "useTheme",
     "security.promptForLocalFileProtocolHandling": false,
     "security.workspace.trust.startupPrompt": "always",
