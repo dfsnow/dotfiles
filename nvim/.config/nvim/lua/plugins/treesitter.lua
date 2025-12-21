@@ -3,13 +3,11 @@ return {
     "nvim-treesitter/nvim-treesitter",
     version = "*",
     build = ":TSUpdate",
-    ft = require("config.filetypes").treesitter_ft,
+    cond = not vim.g.vscode,
     config = function()
-      local filetypes = require("config.filetypes")
       local helpers = require("config.helpers")
       require("nvim-treesitter.configs").setup({
-        ensure_installed = filetypes.treesitter_parsers,
-        auto_install = false,
+        auto_install = true,
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = { "markdown" },

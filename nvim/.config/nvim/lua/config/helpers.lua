@@ -82,42 +82,4 @@ function M.is_big_file(_, buf)
   end
 end
 
--- Toggle diagnostics
-function M.toggle_buffer_diagnostics()
-  local diag_toggle_flag = vim.diagnostic.is_enabled({ ns_id = nil, bufnr = 0 })
-  if diag_toggle_flag then
-    print("Diagnostics off")
-    vim.diagnostic.enable(false, { ns_id = nil, bufnr = 0 })
-  else
-    print("Diagnostics on")
-    vim.diagnostic.enable(true, { ns_id = nil, bufnr = 0 })
-  end
-end
-
--- Toggle eol, space characters, scope markers, and autocomplete
-vim.b.zen_toggle_flag = false
-function M.toggle_zen_mode()
-  local next_zen_toggle_flag = not vim.b.zen_toggle_flag
-  local next_fold_flag = false
-  if next_zen_toggle_flag then
-    print("Zen mode on")
-    vim.opt_local.list = false
-    require("ibl").setup_buffer(0, { enabled = false })
-
-    local original_fold_flag = vim.opt_local.foldenable:get()
-    if original_fold_flag then
-      next_fold_flag = original_fold_flag
-      vim.opt_local.foldenable = false
-    end
-  else
-    print("Zen mode off")
-    vim.opt_local.list = true
-    require("ibl").setup_buffer(0, { enabled = true })
-    if next_fold_flag then
-      vim.opt_local.foldenable = true
-    end
-  end
-  vim.b.zen_toggle_flag = next_zen_toggle_flag
-end
-
 return M

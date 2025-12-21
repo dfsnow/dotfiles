@@ -41,6 +41,7 @@ return {
     version = "*",
     lazy = false,
     priority = 1000,
+    cond = not vim.g.vscode,
     opts = {
       options = {
         icons_enabled = false,
@@ -97,24 +98,12 @@ return {
   },
 
   {
-    "tzachar/local-highlight.nvim",
-    lazy = false,
-    config = function()
-      require("local-highlight").setup({
-        disable_file_types = { "csv", "txt", "log", "tex" },
-        hlgroup = "LocalHighlight",
-        cw_hlgroup = "LocalHighlight",
-        animate = { enabled = false }
-      })
-    end
-  },
-
-  {
     "lukas-reineke/indent-blankline.nvim",
     version = "*",
     lazy = false,
     main = "ibl",
     priority = 1000,
+    cond = not vim.g.vscode,
     config = function()
       vim.opt.list = true
       vim.opt.listchars:append "eol:↴"
@@ -129,20 +118,6 @@ return {
   },
 
   {
-    "folke/trouble.nvim",
-    version = "*",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      focus = true,
-      keys = {
-        ["<esc>"] = "close",
-        ["<tab>"] = "next",
-        ["<s-tab>"] = "prev"
-      }
-    }
-  },
-
-  {
     "tzachar/highlight-undo.nvim",
     version = "*",
     keys = { { "u" }, { "<c-r>" } },
@@ -152,18 +127,6 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
     version = "*",
-  },
-
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons"
-    },
-    opts = {
-      enabled = true,
-      file_types = { "markdown", "codecompanion" },
-      latex = { enabled = false }
-    }
+    cond = not vim.g.vscode,
   }
 }

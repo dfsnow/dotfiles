@@ -3,32 +3,43 @@ return {
     "stevearc/oil.nvim",
     version = "*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      default_file_explorer = true,
-      columns = {
-        "permissions",
-        "size",
-        "mtime",
-        "icon"
-      },
-      view_options = { show_hidden = true, },
-      buf_options = { bufhidden = "unload" },
-      win_options = { colorcolumn = "0" },
-      use_default_keymaps = false,
-      keymaps = {
-        ["-"] = "actions.parent",
-        ["?"] = "actions.show_help",
-        ["<CR>"] = "actions.select",
-        ["<BS>"] = "actions.parent",
-        ["<Esc>"] = "actions.close",
-        ["<Tab>"] = "actions.close",
-        ["<leader>-"] = "actions.select_vsplit",
-        ["<leader>_"] = "actions.select_split",
-        ["<leader><space>"] = "actions.preview",
-        ["."] = "actions.open_cwd",
-        ["<leader>."] = "actions.tcd",
-      }
-    }
+    cond = not vim.g.vscode,
+    config = function()
+      local oil = require("oil")
+      local wk = require("which-key")
+
+      oil.setup({
+        default_file_explorer = true,
+        columns = {
+          "permissions",
+          "size",
+          "mtime",
+          "icon"
+        },
+        view_options = { show_hidden = true, },
+        buf_options = { bufhidden = "unload" },
+        win_options = { colorcolumn = "0" },
+        use_default_keymaps = false,
+        keymaps = {
+          ["-"] = "actions.parent",
+          ["?"] = "actions.show_help",
+          ["<CR>"] = "actions.select",
+          ["<BS>"] = "actions.parent",
+          ["<Esc>"] = "actions.close",
+          ["<Tab>"] = "actions.close",
+          ["<leader>-"] = "actions.select_vsplit",
+          ["<leader>_"] = "actions.select_split",
+          ["<leader><space>"] = "actions.preview",
+          ["."] = "actions.open_cwd",
+          ["<leader>."] = "actions.tcd",
+        }
+      })
+
+      wk.add({
+        { "-", function() oil.open_float() end, desc = "Open parent directory" },
+        { "<leader>.", function() oil.open_float(".") end, desc = "Open working directory" }
+      })
+    end
   },
 
   {

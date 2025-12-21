@@ -27,26 +27,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
--- Activate wrapping and zen mode by default for certain filetypes
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "txt", "rmd", "qmd", "lazy" },
-  desc = "Start in zen mode for text files",
-  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  callback = function()
-    vim.opt_local.list = false
-    require("ibl").setup_buffer(0, { enabled = false })
-    vim.b.zen_toggle_flag = true
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end
-})
-
 -- Set the size and position of certain floating windows automatically
 -- Note that fzf-lua uses a separate callback function for its floating window
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   desc = "Resize plugin floating windows",
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  pattern = { "mason", "lazy", "oil", "codecompanion" },
+  pattern = { "lazy", "oil" },
   callback = function()
     local win_config = vim.api.nvim_win_get_config(0)
     if win_config.relative ~= "" then
@@ -83,13 +69,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end
 })
 
--- Automatically lint on save
-vim.api.nvim_create_autocmd("BufWritePost", {
-  callback = function()
-    require("lint").try_lint()
-  end
-})
-
 -- Disable conceal in certain markdown buffers and help files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "help", "markdown" },
@@ -98,54 +77,4 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.wo.conceallevel = 0
   end
-})
-
--- Setup ruff format and fix for Python files
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "python",
-  desc = "Enable ruff format and fix",
-  group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  callback = function()
-    local buf = vim.api.nvim_get_current_buf()
-    require("which-key").add({
-      {
-        {
-          "<leader>dF",
-          function()
-            vim.lsp.buf.code_action {
-              context = { only = { "source.fixAll" }, diagnostics = {} },
-              apply = true,
-            }
-            vim.lsp.buf.code_action {
-              context = { only = { "source.organizeImports" }, diagnostics = {} },
-              apply = true,
-            }
-            vim.lsp.buf.format { async = true }
-          end,
-          desc = "Format with ruff"
-        },
-        buffer = buf,
-        group = "leader",
-        mode = "n",
-        silent = true,
-        noremap = true
-      }
-    })
-  end
-})
-
--- Disable hover from ruff: https://docs.astral.sh/ruff/editors/setup/#neovim
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    if client == nil then
-      return
-    end
-    if client.name == "ruff" then
-      -- Disable hover in favor of Pyright
-      client.server_capabilities.hoverProvider = false
-    end
-  end,
-  desc = "LSP: Disable hover capability from Ruff",
 })

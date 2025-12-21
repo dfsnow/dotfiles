@@ -1,24 +1,14 @@
 [
-    // Use tab to cycle through tabs
+    // Use tab to cycle through editors in non-insert modes
     {
         "key": "tab",
         "command": "workbench.action.nextEditorInGroup",
-        "when": "(editorFocus && vim.mode != 'Insert' && vim.mode != 'Visual' && vim.mode != 'VisualLine') || (!inputFocus && !editorFocus)"
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
     },
     {
         "key": "shift+tab",
         "command": "workbench.action.previousEditorInGroup",
-        "when": "(editorFocus && vim.mode != 'Insert' && vim.mode != 'Visual' && vim.mode != 'VisualLine') || (!inputFocus && !editorFocus)"
-    },
-    {
-        "key": "tab",
-        "command": "editor.action.indentLines",
-        "when": "(editorFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine'))"
-    },
-    {
-        "key": "shift+tab",
-        "command": "editor.action.outdentLines",
-        "when": "(editorFocus && (vim.mode == 'Visual' || vim.mode == 'VisualLine'))"
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
     },
     // Ctrl + tab to cycle editor groups
     {
@@ -31,12 +21,24 @@
         "command": "workbench.action.focusPreviousGroup",
         "when": "editorFocus"
     },
-    // Open file and take focus
+    // Use tab to in/outdent in insert mode
+    {
+        "key": "tab",
+        "command": "editor.action.indentLines",
+        "when": "(editorFocus && (neovim.mode == 'visual' || neovim.mode == 'visualline'))"
+    },
+    {
+        "key": "shift+tab",
+        "command": "editor.action.outdentLines",
+        "when": "(editorFocus && (neovim.mode == 'visual' || neovim.mode == 'visualline'))"
+    },
+    // Open file from explorer
     {
         "key": "o",
         "command": "explorer.openAndPassFocus",
         "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
     },
+    // Open current working directory in system explorer
     {
         "key": "cmd+shift+o",
         "command": "workbench.action.files.openFolder",
@@ -72,36 +74,51 @@
     {
         "key": "-",
         "command": "workbench.view.explorer",
-        "when": "(vim.mode != 'Insert' && editorTextFocus) || !inputFocus"
+        "when": "(neovim.mode != 'insert' && editorTextFocus) || !inputFocus"
     },
     {
-        "key": "cmd+shift+e",
+        "key": "cmd+e",
         "command": "workbench.action.focusActiveEditorGroup",
-        "when": "!editorFocus"
     },
     {
-        "key": "home",
-        "command": "workbench.action.focusActiveEditorGroup"
+        "key": "ctrl+e",
+        "command": "workbench.action.focusActiveEditorGroup",
+    },
+    {
+        "key": "cmd+j",
+        "command": "workbench.action.positronConsole.open"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.positronConsole.open"
+    },
+    {
+        "key": "cmd+l",
+        "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
         "key": "cmd+r",
-        "command": "workbench.action.toggleAuxiliaryBar"
+        "command": "workbench.action.toggleSidebarVisibility"
     },
     {
         "key": "ctrl+r",
-        "command": "workbench.action.toggleAuxiliaryBar"
+        "command": "workbench.action.toggleSidebarVisibility"
     },
     {
-        "key": "cmd+shift+t",
+        "key": "cmd+t",
         "command": "workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
     },
     {
-        "key": "ctrl+shift+t",
+        "key": "ctrl+t",
         "command": "workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
     },
-    // Open lazygit
+    // Open lazygit in terminal pane
     {
         "key": "cmd+shift+g",
         "command": "workbench.action.tasks.runTask",
@@ -219,11 +236,6 @@
     },
     // SQLTools setup
     {
-        "key": "cmd+shift+enter",
-        "command": "sqltools.executeQueryFromFile",
-        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
-    },
-    {
         "key": "cmd+enter",
         "command": "sqltools.executeQuery",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql' && editorHasSelection"
@@ -231,6 +243,11 @@
     {
         "key": "cmd+enter",
         "command": "sqltools.executeCurrentQuery",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
+    },
+    {
+        "key": "cmd+shift+enter",
+        "command": "sqltools.executeQueryFromFile",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
     },
     // Close terminals with same chord as editor
@@ -259,24 +276,31 @@
         "command": "editor.action.scrollDownHover",
         "when": "editorHoverFocused",
     },
-    // Toggle specific panels
+    // Maximize current terminal or console
     {
         "key": "cmd+m",
         "command": "workbench.action.toggleMaximizedPanel",
         "when": "panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'"
     },
     {
-        "key": "cmd+shift+c",
-        "command": "workbench.action.positronConsole.open"
+        "key": "ctrl+m",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'"
     },
+    // Open Claude Code panel
     {
         "key": "cmd+shift+r",
         "command": "claude-vscode.sidebar.open"
     },
     {
+        "key": "ctrl+shift+r",
+        "command": "claude-vscode.sidebar.open"
+    },
+    // Close suggest widget with escape
+    {
         "key": "escape",
         "command": "hideSuggestWidget",
-        "when": "suggestWidgetVisible && vim.mode == 'Insert'"
+        "when": "suggestWidgetVisible && neovim.mode == 'insert'"
     },
     // Reset zoom
     {
@@ -287,6 +311,7 @@
         "key": "ctrl+0",
         "command": "workbench.action.zoomReset"
     },
+    // Cmd + enter to run notebook cells without moving to next cell
     {
         "key": "cmd+enter",
         "command": "notebook.cell.execute",
@@ -296,5 +321,36 @@
         "key": "ctrl+enter",
         "command": "-notebook.cell.execute",
         "when": "notebookCellListFocused && notebookMissingKernelExtension && !notebookCellExecuting && notebookCellType == 'code' || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelCount > 0 || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelSourceCount > 0"
+    },
+    {
+        "key": "i",
+        "command": "notebook.cell.edit",
+        "when": "notebookCellListFocused && !editorHoverFocused && !inputFocus && !notebookOutputInputFocused"
+    },
+    // Match VS Code options to neovim equivalents
+    {
+        "key": ", ,",
+        "command": "workbench.action.quickOpen",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": ", shift+l",
+        "command": "workbench.view.extensions",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": ", x",
+        "command": "workbench.action.closeActiveEditor",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": ", n",
+        "command": "editor.action.toggleWordWrap",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": ", w",
+        "command": "workbench.action.files.save",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
     }
 ]

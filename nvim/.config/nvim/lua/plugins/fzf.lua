@@ -4,10 +4,15 @@ return {
   lazy = false,
   cmd = "FzfLua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
+  cond = not vim.g.vscode,
   config = function()
     local fzf_lua = require("fzf-lua")
+    local wk = require("which-key")
     local helpers = require("config.helpers")
-    local trouble_actions = require("trouble.sources.fzf").actions
+
+    local function grep_cwd()
+      fzf_lua.grep_project({ cwd = helpers.cwd_or_git() })
+    end
 
     fzf_lua.setup({
       -- Callback function to resize the window when vim size changes
@@ -44,7 +49,6 @@ return {
       actions = {
         files = {
           ["default"] = fzf_lua.actions.file_edit,
-          ["ctrl-t"] = trouble_actions.open
         }
       },
       keymap = {
@@ -74,5 +78,43 @@ return {
       }
     })
     fzf_lua.register_ui_select()
+
+    wk.add({
+      { ";", fzf_lua.resume, desc = "Resume search" },
+      { "<c-r>", fzf_lua.command_history, desc = "Search command history" },
+      { "<c-t>", fzf_lua.files, desc = "Search files" },
+      { "<leader>/", grep_cwd, desc = "Grep in project" },
+      { "<leader><leader>", function() fzf_lua.files({ cwd = helpers.cwd_or_git() }) end, desc = "Search project files" },
+      { "<leader>;", helpers.fzf_dirs, desc = "Change cwd" },
+      { "<leader>*", fzf_lua.grep_cword, desc = "Grep current word" },
+      { "<leader>bf", fzf_lua.buffers, desc = "Search buffers" },
+    })
+
+    wk.add({
+      { "<leader>f",  group = "search" },
+      { "<leader>ff", fzf_lua.files, desc = "All files" },
+      { "<leader>fo", fzf_lua.oldfiles, desc = "Old files" },
+      { "<leader>fb", fzf_lua.buffers, desc = "Buffers" },
+      { "<leader>fw", fzf_lua.grep_cword, desc = "Grep current word" },
+      { "<leader>fm", fzf_lua.marks, desc = "Marks" },
+      { "<leader>fr", fzf_lua.command_history, desc = "Command history" },
+      { "<leader>fh", fzf_lua.helptags, desc = "Helptags" },
+      { "<leader>fs", fzf_lua.grep_curbuf, desc = "Grep in buffer" },
+      { "<leader>fS", grep_cwd, desc = "Grep in project" }
+    })
+
+    wk.add({
+      cond = helpers.get_git_exit(),
+      { "<leader>gf",  group = "search" },
+      { "<leader>gfc", fzf_lua.git_commits,  desc = "Commits" },
+      { "<leader>gfC", fzf_lua.git_bcommits, desc = "Buffer commits" },
+      { "<leader>gfb", fzf_lua.git_branches, desc = "Branches" },
+      { "<leader>gfd", fzf_lua.git_status,   desc = "Diff" },
+      { "<leader>gfS", fzf_lua.git_stash,    desc = "Stash" },
+      { "<leader>fg",  fzf_lua.git_files,    desc = "Git files" },
+      { "<leader>fd",  fzf_lua.git_status,   desc = "Git diff" },
+      { "<leader>fc",  fzf_lua.git_commits,  desc = "Git commits" },
+      { "<leader>gg",  fzf_lua.git_status,   desc = "Search git changes" }
+    })
   end
 }
