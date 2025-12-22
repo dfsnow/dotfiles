@@ -10,6 +10,7 @@
         "command": "workbench.action.previousEditorInGroup",
         "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
     },
+
     // Ctrl + tab to cycle editor groups
     {
         "key": "ctrl+tab",
@@ -21,6 +22,7 @@
         "command": "workbench.action.focusPreviousGroup",
         "when": "editorFocus"
     },
+
     // Use tab to in/outdent in insert mode
     {
         "key": "tab",
@@ -32,23 +34,7 @@
         "command": "editor.action.outdentLines",
         "when": "(editorFocus && (neovim.mode == 'visual' || neovim.mode == 'visualline'))"
     },
-    // Open file from explorer
-    {
-        "key": "o",
-        "command": "explorer.openAndPassFocus",
-        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
-    },
-    // Open current working directory in system explorer
-    {
-        "key": "cmd+shift+o",
-        "command": "workbench.action.files.openFolder",
-        "when": "openFolderWorkspaceSupport"
-    },
-    {
-        "key": "ctrl+shift+o",
-        "command": "workbench.action.files.openFolder",
-        "when": "openFolderWorkspaceSupport"
-    },
+
     // Use tab to select from suggestions
     {
         "key": "tab",
@@ -70,10 +56,30 @@
         "command": "selectPrevSuggestion",
         "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
     },
+
+    // Open file from explorer
+    {
+        "key": "o",
+        "command": "explorer.openAndPassFocus",
+        "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsFolder && !inputFocus"
+    },
+
+    // Open current working directory in system explorer
+    {
+        "key": "cmd+shift+o",
+        "command": "workbench.action.files.openFolder",
+        "when": "openFolderWorkspaceSupport"
+    },
+    {
+        "key": "ctrl+shift+o",
+        "command": "workbench.action.files.openFolder",
+        "when": "openFolderWorkspaceSupport"
+    },
+
     // Better shortcuts for workbench views
     {
         "key": "-",
-        "command": "workbench.view.explorer",
+        "command": "workbench.action.focusActiveEditorGroup",
         "when": "(neovim.mode != 'insert' && editorTextFocus) || !inputFocus"
     },
     {
@@ -118,7 +124,8 @@
         "command": "workbench.action.terminal.toggleTerminal",
         "when": "terminal.active"
     },
-    // Open lazygit in terminal pane
+
+    // Open lazygit in dedicated terminal pane
     {
         "key": "cmd+shift+g",
         "command": "workbench.action.tasks.runTask",
@@ -129,6 +136,7 @@
         "command": "workbench.action.tasks.runTask",
         "args": "editor_after_lazygit"
     },
+
     // Open tab at index
     {
         "key": "cmd+1",
@@ -202,6 +210,7 @@
         "key": "ctrl+9",
         "command": "workbench.action.openEditorAtIndex9"
     },
+
     // Insert cursor above and below using vim keys
     {
         "key": "cmd+shift+j",
@@ -223,6 +232,7 @@
         "command": "editor.action.insertCursorAbove",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed"
     },
+
     // Ctrl+D to multi-select
     {
         "key": "ctrl+d",
@@ -234,9 +244,15 @@
         "command": "editor.action.addSelectionToPreviousFindMatch",
         "when": "editorFocus"
     },
-    // SQLTools setup
+
+    // SQLTools execute query shortcuts
     {
         "key": "cmd+enter",
+        "command": "sqltools.executeQuery",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql' && editorHasSelection"
+    },
+    {
+        "key": "ctrl+enter",
         "command": "sqltools.executeQuery",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql' && editorHasSelection"
     },
@@ -246,16 +262,28 @@
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
     },
     {
+        "key": "ctrl+enter",
+        "command": "sqltools.executeCurrentQuery",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
+    },
+    {
         "key": "cmd+shift+enter",
         "command": "sqltools.executeQueryFromFile",
         "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
     },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "sqltools.executeQueryFromFile",
+        "when": "editorTextFocus && !findInputFocussed && !replaceInputFocussed && editorLangId == 'sql'"
+    },
+
     // Close terminals with same chord as editor
     {
         "key": "cmd+w",
         "command": "workbench.action.terminal.kill",
         "when": "terminalFocus && (terminalHasBeenCreated || terminalIsOpen || terminalProcessSupported)"
     },
+
     // Shift-enter for newlines in terminal
     {
         "key": "shift+enter",
@@ -265,6 +293,7 @@
         },
         "when": "terminalFocus"
     },
+
     // Scroll hover with vim keys
     {
         "key": "k",
@@ -276,6 +305,7 @@
         "command": "editor.action.scrollDownHover",
         "when": "editorHoverFocused",
     },
+
     // Maximize current terminal or console
     {
         "key": "cmd+m",
@@ -287,6 +317,7 @@
         "command": "workbench.action.toggleMaximizedPanel",
         "when": "panelAlignment == 'center' || panelPosition != 'bottom' && panelPosition != 'top'"
     },
+
     // Open Claude Code panel
     {
         "key": "cmd+shift+r",
@@ -296,12 +327,14 @@
         "key": "ctrl+shift+r",
         "command": "claude-vscode.sidebar.open"
     },
+
     // Close suggest widget with escape
     {
         "key": "escape",
         "command": "hideSuggestWidget",
         "when": "suggestWidgetVisible && neovim.mode == 'insert'"
     },
+
     // Reset zoom
     {
         "key": "cmd+0",
@@ -311,6 +344,7 @@
         "key": "ctrl+0",
         "command": "workbench.action.zoomReset"
     },
+
     // Cmd + enter to run notebook cells without moving to next cell
     {
         "key": "cmd+enter",
@@ -327,9 +361,27 @@
         "command": "notebook.cell.edit",
         "when": "notebookCellListFocused && !editorHoverFocused && !inputFocus && !notebookOutputInputFocused"
     },
-    // Match VS Code options to neovim equivalents
+
+    // Capital R for rename
+    {
+        "key": "shift+r",
+        "command": "editor.action.rename",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') && editorHasRenameProvider && editorTextFocus && !editorReadonly"
+    },
+
+    // Match VS Code options to neovim <leader> equivalents
+    {
+        "key": ", enter",
+        "command": "workbench.action.positronConsole.executeCode",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') && editorTextFocus && !notebookEditorFocused && !positronNotebookCellEditorFocused"
+    },
     {
         "key": ", ,",
+        "command": "workbench.action.quickOpen",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": ", f f",
         "command": "workbench.action.quickOpen",
         "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
     },
@@ -352,5 +404,128 @@
         "key": ", w",
         "command": "workbench.action.files.save",
         "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+
+    // Fix search results opening in neovim insert mode
+    {
+        "key": "enter",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.openResult",
+                "vscode-neovim.escape"
+            ]
+        },
+        "when": "fileMatchOrMatchFocus && searchViewletVisible && searchResultListFocused"
+    },
+    {
+        "key": "cmd+e",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.openResult",
+                "vscode-neovim.escape"
+            ]
+        },
+        "when": "fileMatchOrMatchFocus && searchViewletVisible && searchResultListFocused"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.openResult",
+                "vscode-neovim.escape"
+            ]
+        },
+        "when": "fileMatchOrMatchFocus && searchViewletVisible && searchResultListFocused"
+    },
+    {
+        "key": "-",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.openResult",
+                "vscode-neovim.escape"
+            ]
+        },
+        "when": "fileMatchOrMatchFocus && searchViewletVisible && searchResultListFocused"
+    },
+
+    // Clear search results with escape
+    {
+        "key": "escape",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.clearSearchResults",
+                "workbench.action.findInFiles",
+            ]
+        },
+        "when": "(searchResultListFocused || searchInputBoxFocus)"
+    },
+
+    // Cycle focus between search results, search input box, and editor
+    {
+        "key": "cmd+shift+f",
+        "command": "workbench.action.findInFiles",
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "workbench.action.findInFiles",
+    },
+    {
+        "key": ", f r",
+        "command": "workbench.action.findInFiles",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": ", /",
+        "command": "workbench.action.findInFiles",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+    },
+    {
+        "key": "cmd+shift+f",
+        "command": "search.action.focusSearchList",
+        "when": "hasSearchResult && !searchResultListFocused"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "search.action.focusSearchList",
+        "when": "hasSearchResult && !searchResultListFocused"
+    },
+    {
+        "key": ", f r",
+        "command": "search.action.focusSearchList",
+        "when": "hasSearchResult && !searchResultListFocused && ((editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus))"
+    },
+    {
+        "key": ", /",
+        "command": "search.action.focusSearchList",
+        "when": "hasSearchResult && !searchResultListFocused && ((editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus))"
+    },
+
+    // Focus search results list on enter (not the editor)
+    {
+        "key": "cmd+enter",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.focusNextSearchResult",
+                "search.action.focusSearchList",
+            ]
+        },
+        "when": "searchInputBoxFocus && hasSearchResult"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.focusNextSearchResult",
+                "search.action.focusSearchList",
+            ]
+        },
+        "when": "searchInputBoxFocus && hasSearchResult"
     }
 ]
