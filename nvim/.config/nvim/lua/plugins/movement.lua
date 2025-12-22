@@ -86,5 +86,24 @@ return {
         desc = "Cancel Flash Char"
       }
     }
+  },
+
+  {
+    "vscode-neovim/vscode-multi-cursor.nvim",
+    event = "VeryLazy",
+    cond = vim.g.vscode,
+    opts = {},
+    config = function()
+      mc = require("vscode-multi-cursor")
+      vim.keymap.set({ "n", "x", "i" }, "<C-d>", function()
+        mc.addSelectionToNextFindMatch()
+      end)
+      vim.keymap.set({ "n", "x", "i" }, "<C-f>", function()
+        mc.addSelectionToPreviousFindMatch()
+      end)
+      vim.keymap.set({ "n", "x", "i" }, "<C-l>", function()
+        mc.selectHighlights()
+      end)
+    end
   }
 }
