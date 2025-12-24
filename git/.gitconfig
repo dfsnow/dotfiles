@@ -32,6 +32,18 @@
 [diff "lfs"]
     textconv = cat
 
+[diff]
+    guitool = positron
+
+[difftool "positron"]
+    cmd = positron --wait --diff $LOCAL $REMOTE
+
+[merge]
+    guitool = positron
+
+[mergetool "positron"]
+    cmd = positron --wait $MERGED
+
 [alias]
     a = add
     r = reset

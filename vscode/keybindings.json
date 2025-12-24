@@ -72,17 +72,12 @@
     },
     // Better shortcuts for workbench views
     {
-        "key": "-",
-        "command": "workbench.action.focusActiveEditorGroup",
-        "when": "(neovim.mode != 'insert' && editorTextFocus) || !inputFocus"
-    },
-    {
         "key": "cmd+e",
-        "command": "workbench.action.focusActiveEditorGroup",
+        "command": "workbench.action.focusActiveEditorGroup"
     },
     {
         "key": "ctrl+e",
-        "command": "workbench.action.focusActiveEditorGroup",
+        "command": "workbench.action.focusActiveEditorGroup"
     },
     {
         "key": "cmd+j",
@@ -273,12 +268,12 @@
     {
         "key": "k",
         "command": "editor.action.scrollUpHover",
-        "when": "editorHoverFocused",
+        "when": "editorHoverFocused"
     },
     {
         "key": "j",
         "command": "editor.action.scrollDownHover",
-        "when": "editorHoverFocused",
+        "when": "editorHoverFocused"
     },
     // Maximize current terminal or console
     {
@@ -341,37 +336,37 @@
     {
         "key": ", enter",
         "command": "workbench.action.positronConsole.executeCode",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') && editorTextFocus && !notebookEditorFocused && !positronNotebookCellEditorFocused"
+        "when": "(editorFocus && neovim.mode != 'insert') && editorTextFocus && !notebookEditorFocused && !positronNotebookCellEditorFocused"
     },
     {
         "key": ", ,",
         "command": "workbench.action.quickOpen",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
         "key": ", f f",
         "command": "workbench.action.quickOpen",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
         "key": ", shift+l",
         "command": "workbench.view.extensions",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
         "key": ", x",
         "command": "workbench.action.closeActiveEditor",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
         "key": ", n",
         "command": "editor.action.toggleWordWrap",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
         "key": ", w",
         "command": "workbench.action.files.save",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     // Fix search results opening in neovim insert mode
     {
@@ -425,7 +420,7 @@
         "args": {
             "commands": [
                 "search.action.clearSearchResults",
-                "workbench.action.findInFiles",
+                "workbench.action.findInFiles"
             ]
         },
         "when": "(searchResultListFocused || searchInputBoxFocus)"
@@ -433,21 +428,21 @@
     // Cycle focus between search results, search input box, and editor
     {
         "key": "cmd+shift+f",
-        "command": "workbench.action.findInFiles",
+        "command": "workbench.action.findInFiles"
     },
     {
         "key": "ctrl+shift+f",
-        "command": "workbench.action.findInFiles",
+        "command": "workbench.action.findInFiles"
     },
     {
         "key": ", f r",
         "command": "workbench.action.findInFiles",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
         "key": ", /",
         "command": "workbench.action.findInFiles",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
         "key": "cmd+shift+f",
@@ -462,12 +457,12 @@
     {
         "key": ", f r",
         "command": "search.action.focusSearchList",
-        "when": "hasSearchResult && !searchResultListFocused && ((editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus))"
+        "when": "hasSearchResult && !searchResultListFocused && (editorFocus && neovim.mode != 'insert')"
     },
     {
         "key": ", /",
         "command": "search.action.focusSearchList",
-        "when": "hasSearchResult && !searchResultListFocused && ((editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus))"
+        "when": "hasSearchResult && !searchResultListFocused && (editorFocus && neovim.mode != 'insert')"
     },
     // Focus search results list on enter (not the editor)
     {
@@ -476,7 +471,7 @@
         "args": {
             "commands": [
                 "search.action.focusNextSearchResult",
-                "search.action.focusSearchList",
+                "search.action.focusSearchList"
             ]
         },
         "when": "searchInputBoxFocus && hasSearchResult"
@@ -487,7 +482,7 @@
         "args": {
             "commands": [
                 "search.action.focusNextSearchResult",
-                "search.action.focusSearchList",
+                "search.action.focusSearchList"
             ]
         },
         "when": "searchInputBoxFocus && hasSearchResult"
@@ -510,5 +505,36 @@
         "command": "vscode-neovim.send",
         "args": "<C-l>",
         "when": "editorFocus && neovim.init"
+    },
+    // Replicate gitsigns neovim keybinds
+    {
+        "key": ", g b",
+        "command": "gitlens.toggleLineBlame",
+        "when": "editorFocus && neovim.mode != 'insert'"
+    },
+    {
+        "key": ", g d",
+        "command": "editor.action.dirtydiff.next",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline')"
+    },
+    {
+        "key": ", g shift+d",
+        "command": "gitlens.externalDiff",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline')"
+    },
+    {
+        "key": ", g n",
+        "command": "workbench.action.editor.nextChange",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline')"
+    },
+    {
+        "key": ", g p",
+        "command": "workbench.action.editor.previousChange",
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline')"
+    },
+    {
+        "key": ", g u",
+        "command": "git.revertSelectedRanges",
+        "when": "editorFocus && neovim.mode != 'insert'"
     }
 ]
