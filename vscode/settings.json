@@ -8,6 +8,7 @@
             "sqltools.currentQueryOutline": "surface0",
         }
     },
+    "chat.disableAIFeatures": true,
     "claudeCode.selectedModel": "default",
     "claudeCode.preferredLocation": "sidebar",
     "claudeCode.useCtrlEnterToSend": true,
@@ -68,6 +69,7 @@
     },
     "files.trimTrailingWhitespace": true,
     "git.openRepositoryInParentFolders": "always",
+    "gitlens.telemetry.enabled": false,
     "notebook.output.wordWrap": true,
     "path-intellisense.showHiddenFiles": true,
     "positron.assistant.enable": false,
@@ -89,6 +91,8 @@
     "sqltools.results.limit": 10000,
     "sqltools.results.location": "current",
     "sqltools.results.reuseTabs": "connection",
+    "telemetry.editStats.enabled": false,
+    "telemetry.feedback.enabled": false,
     "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.env.osx": {
