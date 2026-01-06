@@ -21,7 +21,10 @@
                 "close": true
             },
             "options": {
-                "args": ["-c", "-l"]
+                "args": [
+                    "-c",
+                    "-l"
+                ]
             },
             "dependsOn": "maximize_terminal"
         },

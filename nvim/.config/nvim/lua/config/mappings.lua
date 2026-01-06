@@ -57,17 +57,17 @@ wk.add({
 
 -- Base leader
 wk.add({
-  { "<leader>",         group = "leader" },
-  { "<leader>L",        require("lazy").home,                                         desc = "Open Lazy" },
-  { "<leader>n",        "<cmd>setlocal wrap!<cr>",                                    desc = "Toggle word wrap" },
-  { "<leader>r",        "<cmd>silent !tmux send-keys -t {bottom} Up Enter<cr>",       desc = "Run last tmux command" },
-  { "<leader>Q",        desc = "Exit without saving" },
-  { "<leader>x",        desc = "Close buffer" },
-  { "<leader><space>",  desc = "Flash treesitter" },
-  { "<leader>-",        desc = "New vertical split" },
-  { "<leader>_",        desc = "New horizontal split" },
-  { "<leader><tab>",    desc = "Next window" },
-  { "<leader><s-tab>",  desc = "Previous window" },
+  { "<leader>",        group = "leader" },
+  { "<leader>L",       require("lazy").home,                                   desc = "Open Lazy" },
+  { "<leader>n",       "<cmd>setlocal wrap!<cr>",                              desc = "Toggle word wrap" },
+  { "<leader>r",       "<cmd>silent !tmux send-keys -t {bottom} Up Enter<cr>", desc = "Run last tmux command" },
+  { "<leader>Q",       desc = "Exit without saving" },
+  { "<leader>x",       desc = "Close buffer" },
+  { "<leader><space>", desc = "Flash treesitter" },
+  { "<leader>-",       desc = "New vertical split" },
+  { "<leader>_",       desc = "New horizontal split" },
+  { "<leader><tab>",   desc = "Next window" },
+  { "<leader><s-tab>", desc = "Previous window" },
   {
     mode = { "x", "n" },
     { "<leader>p",    desc = "Paste from clipboard" },

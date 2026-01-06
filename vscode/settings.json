@@ -5,7 +5,7 @@
             "editorOverviewRuler.background": "base",
             "notebook.selectedCellBackground": "#45475a50",
             "sqltools.currentQueryBg": "surface0",
-            "sqltools.currentQueryOutline": "surface0",
+            "sqltools.currentQueryOutline": "surface0"
         }
     },
     "chat.disableAIFeatures": true,

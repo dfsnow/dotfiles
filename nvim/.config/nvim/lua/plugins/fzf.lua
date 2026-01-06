@@ -80,27 +80,27 @@ return {
     fzf_lua.register_ui_select()
 
     wk.add({
-      { ";", fzf_lua.resume, desc = "Resume search" },
-      { "<c-r>", fzf_lua.command_history, desc = "Search command history" },
-      { "<c-t>", fzf_lua.files, desc = "Search files" },
-      { "<leader>/", grep_cwd, desc = "Grep in project" },
+      { ";",                fzf_lua.resume,                                               desc = "Resume search" },
+      { "<c-r>",            fzf_lua.command_history,                                      desc = "Search command history" },
+      { "<c-t>",            fzf_lua.files,                                                desc = "Search files" },
+      { "<leader>/",        grep_cwd,                                                     desc = "Grep in project" },
       { "<leader><leader>", function() fzf_lua.files({ cwd = helpers.cwd_or_git() }) end, desc = "Search project files" },
-      { "<leader>;", helpers.fzf_dirs, desc = "Change cwd" },
-      { "<leader>*", fzf_lua.grep_cword, desc = "Grep current word" },
-      { "<leader>bf", fzf_lua.buffers, desc = "Search buffers" },
+      { "<leader>;",        helpers.fzf_dirs,                                             desc = "Change cwd" },
+      { "<leader>*",        fzf_lua.grep_cword,                                           desc = "Grep current word" },
+      { "<leader>bf",       fzf_lua.buffers,                                              desc = "Search buffers" },
     })
 
     wk.add({
       { "<leader>f",  group = "search" },
-      { "<leader>ff", fzf_lua.files, desc = "All files" },
-      { "<leader>fo", fzf_lua.oldfiles, desc = "Old files" },
-      { "<leader>fb", fzf_lua.buffers, desc = "Buffers" },
-      { "<leader>fw", fzf_lua.grep_cword, desc = "Grep current word" },
-      { "<leader>fm", fzf_lua.marks, desc = "Marks" },
+      { "<leader>ff", fzf_lua.files,           desc = "All files" },
+      { "<leader>fo", fzf_lua.oldfiles,        desc = "Old files" },
+      { "<leader>fb", fzf_lua.buffers,         desc = "Buffers" },
+      { "<leader>fw", fzf_lua.grep_cword,      desc = "Grep current word" },
+      { "<leader>fm", fzf_lua.marks,           desc = "Marks" },
       { "<leader>fr", fzf_lua.command_history, desc = "Command history" },
-      { "<leader>fh", fzf_lua.helptags, desc = "Helptags" },
-      { "<leader>fs", fzf_lua.grep_curbuf, desc = "Grep in buffer" },
-      { "<leader>fS", grep_cwd, desc = "Grep in project" }
+      { "<leader>fh", fzf_lua.helptags,        desc = "Helptags" },
+      { "<leader>fs", fzf_lua.grep_curbuf,     desc = "Grep in buffer" },
+      { "<leader>fS", grep_cwd,                desc = "Grep in project" }
     })
 
     wk.add({

@@ -36,7 +36,7 @@ return {
       })
 
       wk.add({
-        { "-", function() oil.open_float() end, desc = "Open parent directory" },
+        { "-",         function() oil.open_float() end,    desc = "Open parent directory" },
         { "<leader>.", function() oil.open_float(".") end, desc = "Open working directory" }
       })
     end
@@ -73,7 +73,7 @@ return {
       },
       {
         -- Fix for not escaping in f/F mode:
-	-- https://github.com/folke/flash.nvim/issues/401#issuecomment-2676690290
+        -- https://github.com/folke/flash.nvim/issues/401#issuecomment-2676690290
         "<esc>",
         mode = { "n", "x", "o" },
         function()
