@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 # Common packages across platforms
 COMMON_PACKAGES=(
