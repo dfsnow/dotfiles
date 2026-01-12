@@ -1,6 +1,6 @@
 theme = catppuccin-mocha.conf
 font-family = JetBrains Mono Nerd Font Mono
-font-size = 20
+font-size = 16
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = true

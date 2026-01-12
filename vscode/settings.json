@@ -12,6 +12,9 @@
     "claudeCode.selectedModel": "default",
     "claudeCode.preferredLocation": "sidebar",
     "claudeCode.useCtrlEnterToSend": true,
+    "console.fontSize": 14,
+    "console.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', monospace",
+    "console.fontLigatures": true,
     "cSpell.customDictionaries": {
         "vim-dict": {
             "name": "vim-dict",
