@@ -2,10 +2,12 @@
   "permissions": {
     "deny": [
       "Read(./.env)",
+      "Read(./*.env)",
       "Read(./.env.*)",
       "Read(./secrets/**)",
       "Read(./config/credentials.json)",
-      "Read(./build)"
+      "Read(./build)",
+      "Read(./notes.md)"
     ]
   },
   "env": {
