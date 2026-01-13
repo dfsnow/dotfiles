@@ -37,3 +37,8 @@ require("lazy").setup(
 )
 require("config/mappings")
 require("config/autocmds")
+
+-- Set VS Code specific options
+if vim.g.vscode then
+  vim.opt.spell = false
+end

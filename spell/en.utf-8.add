@@ -10,10 +10,12 @@ cdo
 checkbox
 config
 covid
+csv
 ctrl
 cwd
 dfsnow
 dotenv
+dplyr
 evaluatee
 expr
 filetype
@@ -53,6 +55,7 @@ pdb
 pdf
 plugin
 plugins
+ptaxsim
 pyplot
 quickstart
 quora
@@ -71,6 +74,7 @@ statusline
 stdout
 subkey
 sudo
+tidyr
 tidyverse
 tmux
 toolchain

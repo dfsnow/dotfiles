@@ -344,6 +344,11 @@
         "when": "editorFocus && neovim.mode != 'insert'"
     },
     {
+        "key": ", .",
+        "command": "editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly && neovim.mode != 'insert'"
+    },
+    {
         "key": ", f f",
         "command": "workbench.action.quickOpen",
         "when": "editorFocus && neovim.mode != 'insert'"
