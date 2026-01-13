@@ -191,7 +191,7 @@ export FZF_DEFAULT_OPTS=" --height 40% \
     --layout=reverse --exit-0"
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
     -g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git,.Rproj.user,.mypy_cache}/' \
-    -g '!{node_modules,renv}/' \
+    -g '!{node_modules,renv,venv,.venv}/' \
     2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='__fzf_alt_c_command'

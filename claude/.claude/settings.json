@@ -1,4 +1,12 @@
 {
+  "env": {
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_TELEMETRY": "1"
+  },
+  "fileSuggestion": {
+    "type": "command",
+    "command": "~/.claude/file-suggestions.sh"
+  },
   "permissions": {
     "deny": [
       "Read(./.env)",
@@ -9,9 +17,5 @@
       "Read(./build)",
       "Read(./notes.md)"
     ]
-  },
-  "env": {
-    "DISABLE_ERROR_REPORTING": "1",
-    "DISABLE_TELEMETRY": "1"
   }
 }
