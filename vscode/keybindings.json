@@ -373,6 +373,11 @@
         "command": "workbench.action.files.save",
         "when": "editorFocus && neovim.mode != 'insert'"
     },
+    {
+      "key": ", c",
+      "command": "editor.action.commentLine",
+      "when": "editorTextFocus && !editorReadonly && neovim.mode != 'insert'"
+    },
     // Fix search results opening in neovim insert mode
     {
         "key": "enter",
