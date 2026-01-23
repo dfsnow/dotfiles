@@ -8,6 +8,16 @@
     "DISABLE_TELEMETRY": "1"
   },
   "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(git status:*)",
+      "Bash(ls:*)",
+      "Bash(pwd:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)"
+    ],
     "deny": [
       "Read(./.env)",
       "Read(./*.env)",
