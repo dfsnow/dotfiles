@@ -5,3 +5,4 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = true
 keybind = shift+enter=text:\n
+maximize = true
