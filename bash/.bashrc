@@ -154,7 +154,6 @@ else
 fi
 
 # Other envs and aliases
-[ -f ~/.cargo/env ] && . ~/.cargo/env
 [ -f ~/dotfiles/bash/.bash_aliases ] && . ~/dotfiles/bash/.bash_aliases
 
 
