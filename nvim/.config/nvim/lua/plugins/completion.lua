@@ -3,6 +3,7 @@ return {
     "saghen/blink.cmp",
     version = "*",
     event = { "InsertEnter", "CmdlineEnter" },
+    cond = not vim.g.vscode,
     opts = {
       keymap = {
         preset = "enter",
