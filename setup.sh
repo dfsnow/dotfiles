@@ -202,23 +202,26 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Create symlinks to all files and folders using GNU stow
+__stow_sentinel() {
+    case "$1" in
+        bash) echo "$HOME/.bashrc" ;;
+        git)  echo "$HOME/.gitconfig" ;;
+        *)    echo "$HOME/.$1" ;;
+    esac
+}
+
 stow_packages=(tmux bash git vim nvim lazygit)
 for pkg in "${stow_packages[@]}"; do
-    if [[ -d "$pkg" ]]; then
-        if ! dir_exists_and_not_empty "$HOME/.${pkg}" && [[ "$pkg" != "bash" ]] && [[ "$pkg" != "git" ]]; then
-            echo "Stowing $pkg..."
-            stow "$pkg"
-        elif [[ "$pkg" == "bash" ]] && [[ ! -L "$HOME/.bashrc" ]]; then
-            echo "Stowing $pkg..."
-            stow "$pkg"
-        elif [[ "$pkg" == "git" ]] && [[ ! -L "$HOME/.gitconfig" ]]; then
-            echo "Stowing $pkg..."
-            stow "$pkg"
-        else
-            echo "$pkg config already stowed or exists"
-        fi
-    else
+    if [[ ! -d "$pkg" ]]; then
         echo "Warning: $pkg directory not found, skipping stow"
+        continue
+    fi
+    sentinel=$(__stow_sentinel "$pkg")
+    if [[ -L "$sentinel" ]] || dir_exists_and_not_empty "$sentinel"; then
+        echo "$pkg config already stowed or exists"
+    else
+        echo "Stowing $pkg..."
+        stow "$pkg"
     fi
 done
 echo "Config files stowed"

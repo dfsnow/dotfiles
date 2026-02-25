@@ -1,6 +1,6 @@
 #!/bin/bash
 
-QUERY=$(cat | jq -r '.query')
+QUERY=$(jq -r '.query')
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-.}"
 cd "$PROJECT_DIR" || exit 1
 

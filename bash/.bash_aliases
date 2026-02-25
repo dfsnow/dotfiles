@@ -8,7 +8,7 @@ alias ld='du -h -d 1'
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     # Enable color support of ls and also add handy aliases
     if [ -x /usr/bin/dircolors ]; then
-        (test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)") \
+        test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" \
             || eval "$(dircolors -b)"
     fi
     alias ls='ls -hF --color=auto'
@@ -29,7 +29,6 @@ alias g='git'
 
 function_exists() {
     declare -f -F "$1" > /dev/null
-    return $?
 }
 
 BASH_ALIASES_CACHE="$HOME/.cache/bash/.bash_aliases_cache"
@@ -94,5 +93,5 @@ fi
 # Fix missing SSH keys on Mac and for SSH forwarding in tmux
 alias fixssh='\
     [[ "$OSTYPE" == "darwin"* ]] && ssh-add --apple-use-keychain -q; \
-    tmux ls &> /dev/null && eval $(tmux showenv -s SSH_AUTH_SOCK)\
+    tmux ls &> /dev/null && eval "$(tmux showenv -s SSH_AUTH_SOCK)"\
     '

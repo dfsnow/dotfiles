@@ -35,14 +35,6 @@ shopt -s checkwinsize
 # => TERM setup 
 ###############################################################
 
-# Determine OS platform
-UNAME=$(uname | tr "[:upper:]" "[:lower:]")
-
-# If Linux, try to determine if Debian-based 
-if [ "$UNAME" == "linux" ] && [ -f /etc/debian_version ]; then
-    export DISTRO="debian"
-fi
-
 # Set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -140,7 +132,7 @@ eval "$(zoxide init bash)"
 __add_completion() {
     local cmd=$1
     local completion_arg=$2
-    if type "$cmd" >/dev/null 2>/dev/null && "$cmd" "$completion_arg" >/dev/null 2>/dev/null; then
+    if type "$cmd" >/dev/null 2>&1 && "$cmd" "$completion_arg" >/dev/null 2>&1; then
         eval "$("$cmd" "$completion_arg")"
     fi
 }
@@ -216,5 +208,3 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Disable Homebrew analytics
 export HOMEBREW_NO_ANALYTICS=1
 
-# Unset setup variables
-unset UNAME DISTRO
