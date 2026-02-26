@@ -27,3 +27,6 @@ keybinding:
     redo: "U"
   status:
     checkForUpdate: "G"
+git:
+  pagers:
+    - pager: delta --dark --paging=never

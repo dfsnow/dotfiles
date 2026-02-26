@@ -8,8 +8,9 @@ COMMON_PACKAGES=(
     "git"
     "ripgrep"
     "zstd"
-    "mosh"
     "zoxide"
+    "bat"
+    "git-delta"
 )
 
 # Linux-specific packages
@@ -210,7 +211,7 @@ __stow_sentinel() {
     esac
 }
 
-stow_packages=(tmux bash git vim nvim lazygit)
+stow_packages=(tmux bash git vim nvim lazygit bat)
 for pkg in "${stow_packages[@]}"; do
     if [[ ! -d "$pkg" ]]; then
         echo "Warning: $pkg directory not found, skipping stow"
