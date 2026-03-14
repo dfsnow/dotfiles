@@ -46,8 +46,7 @@ return {
       options = {
         icons_enabled = false,
         section_separators = "",
-        component_separators = "",
-        theme = "catppuccin"
+        component_separators = ""
       },
       sections = {
         lualine_b = { require("config.helpers").fzf_cwd },
