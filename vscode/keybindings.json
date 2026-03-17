@@ -3,12 +3,12 @@
     {
         "key": "tab",
         "command": "workbench.action.nextEditorInGroup",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'replace' && neovim.mode != 'visual' && neovim.mode != 'visualline' && neovim.mode != 'visualblock') || (!inputFocus && !editorFocus)"
     },
     {
         "key": "shift+tab",
         "command": "workbench.action.previousEditorInGroup",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'visual' && neovim.mode != 'visualline') || (!inputFocus && !editorFocus)"
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'replace' && neovim.mode != 'visual' && neovim.mode != 'visualline' && neovim.mode != 'visualblock') || (!inputFocus && !editorFocus)"
     },
     // Ctrl + tab to cycle editor groups
     {
@@ -25,12 +25,12 @@
     {
         "key": "tab",
         "command": "editor.action.indentLines",
-        "when": "(editorFocus && (neovim.mode == 'visual' || neovim.mode == 'visualline'))"
+        "when": "(editorFocus && (neovim.mode == 'visual' || neovim.mode == 'visualline' || neovim.mode == 'visualblock'))"
     },
     {
         "key": "shift+tab",
         "command": "editor.action.outdentLines",
-        "when": "(editorFocus && (neovim.mode == 'visual' || neovim.mode == 'visualline'))"
+        "when": "(editorFocus && (neovim.mode == 'visual' || neovim.mode == 'visualline' || neovim.mode == 'visualblock'))"
     },
     // Use tab to select from suggestions
     {
