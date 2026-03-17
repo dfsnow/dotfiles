@@ -145,6 +145,10 @@ else
     __add_completion fzf "--bash"
 fi
 
+# Use esc+space to pick files
+bind -m vi-insert -x '"\e ": fzf-file-widget'
+bind -m vi-move  -x '"\e ": fzf-file-widget'
+
 # Other envs and aliases
 [ -f ~/dotfiles/bash/.bash_aliases ] && . ~/dotfiles/bash/.bash_aliases
 
