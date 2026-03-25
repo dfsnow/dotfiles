@@ -8,7 +8,7 @@
     {
         "key": "shift+tab",
         "command": "workbench.action.previousEditorInGroup",
-        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'replace' && neovim.mode != 'visual' && neovim.mode != 'visualline' && neovim.mode != 'visualblock') || (!inputFocus && !editorFocus)"
+        "when": "(editorFocus && neovim.mode != 'insert' && neovim.mode != 'replace' && neovim.mode != 'visual' && neovim.mode != 'visualline' && neovim.mode != 'visualblock') || (!inputFocus && !editorFocus && activeWebviewPanelId != 'claudeVSCodePanel' && !(claude-vscode.sideBarActive && !panelFocus))"
     },
     // Ctrl + tab to cycle editor groups
     {
@@ -88,19 +88,19 @@
         "command": "workbench.action.positronConsole.open"
     },
     {
-        "key": "cmd+l",
-        "command": "workbench.action.toggleAuxiliaryBar"
-    },
-    {
-        "key": "ctrl+l",
-        "command": "workbench.action.toggleAuxiliaryBar"
-    },
-    {
         "key": "cmd+r",
-        "command": "workbench.action.toggleSidebarVisibility"
+        "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
         "key": "ctrl+r",
+        "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    {
+        "key": "cmd+l",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+l",
         "command": "workbench.action.toggleSidebarVisibility"
     },
     {
@@ -372,6 +372,11 @@
         "key": ", w",
         "command": "workbench.action.files.save",
         "when": "editorFocus && neovim.mode != 'insert'"
+    },
+    {
+      "key": ", c",
+      "command": "editor.action.commentLine",
+      "when": "editorTextFocus && !editorReadonly && neovim.mode != 'insert'"
     },
     {
       "key": ", c",
