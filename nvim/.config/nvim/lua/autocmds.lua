@@ -1,11 +1,11 @@
-local helpers = require("config.helpers")
+local helpers = require("helpers")
 
 -- Disable performance hogs for large files
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable performance hogs for large files",
   group = vim.api.nvim_create_augroup("big_file_perf", { clear = false }),
   callback = function(opts)
-    if helpers.is_big_file(_, opts.buf) then
+    if helpers.is_big_file(opts.buf) then
       require("ibl").setup_buffer(0, { enabled = false })
       vim.opt_local.list = false
       vim.opt_local.foldenable = false
@@ -15,24 +15,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
--- Disable treesitter folding for large files
-vim.api.nvim_create_autocmd("BufEnter", {
-  desc = "Disable treesitter folding for large files",
-  group = vim.api.nvim_create_augroup("big_file_perf", { clear = false }),
-  callback = function(opts)
-    if not helpers.is_big_file(_, opts.buf) then
-      vim.opt_local.foldmethod = "expr"
-      vim.opt_local.foldexpr = "nvim_treesitter#foldexpr()"
-    end
-  end
-})
-
 -- Set the size and position of certain floating windows automatically
 -- Note that fzf-lua uses a separate callback function for its floating window
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   desc = "Resize plugin floating windows",
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  pattern = { "lazy", "oil" },
+  pattern = { "oil", "nvim-undotree" },
   callback = function()
     local win_config = vim.api.nvim_win_get_config(0)
     if win_config.relative ~= "" then

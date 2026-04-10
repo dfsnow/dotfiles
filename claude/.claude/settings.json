@@ -27,5 +27,6 @@
       "Read(./build)",
       "Read(./notes.md)"
     ]
-  }
+  },
+  "model": "opus"
 }

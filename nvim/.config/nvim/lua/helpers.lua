@@ -72,7 +72,7 @@ end
 
 -- Check if the buffer is absolutely huge then use it to toggle off
 -- heavy features (LSP, treesitter, etc.)
-function M.is_big_file(_, buf)
+function M.is_big_file(buf)
   local max_lines = 2000
   local max_filesize = 1024 * 1024 * 3
   local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))

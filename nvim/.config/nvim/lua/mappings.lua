@@ -1,5 +1,9 @@
+vim.pack.add({
+  gh("folke/which-key.nvim"),
+})
+
 local wk = require("which-key")
-local helpers = require("config.helpers")
+local helpers = require("helpers")
 
 -- Non-leader
 wk.add({
@@ -58,7 +62,7 @@ wk.add({
 -- Base leader
 wk.add({
   { "<leader>",        group = "leader" },
-  { "<leader>L",       require("lazy").home,                                   desc = "Open Lazy" },
+  { "<leader>L",       function() vim.pack.update() end,                       desc = "Update plugins" },
   { "<leader>n",       "<cmd>setlocal wrap!<cr>",                              desc = "Toggle word wrap" },
   { "<leader>r",       "<cmd>silent !tmux send-keys -t {bottom} Up Enter<cr>", desc = "Run last tmux command" },
   { "<leader>Q",       desc = "Exit without saving" },
@@ -141,4 +145,4 @@ vim.keymap.set({ "n", "v" }, "<c-j>", function()
     vim.cmd("undojoin | normal! hx")
   end
   vim.cmd("normal! `z")
-end)
+end, { desc = "Join lines" })
