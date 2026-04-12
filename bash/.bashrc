@@ -159,6 +159,24 @@ bind -m vi-move  -x '"\e ": fzf-file-widget'
 # => Exports env vars
 ###############################################################
 
+# Directories to ignore in fzf/rg/fd searches, shared across neovim and bash
+FZF_IGNORE=(
+    .git .npm .rustup .tldrc .tldr .cargo
+    .Rproj.user .mypy_cache .local .cache
+    node_modules renv venv .venv __pycache__
+    .terraform .docker .kube
+    target dist build _build
+)
+FZF_RG_IGNORES=""
+FZF_FD_IGNORES=""
+for __dir in "${FZF_IGNORE[@]}"; do
+    FZF_RG_IGNORES+=" -g '!${__dir}/'"
+    FZF_FD_IGNORES+=" -E ${__dir}"
+done
+unset __dir
+export FZF_RG_IGNORES
+export FZF_FD_IGNORES
+
 # GPG pinentry setup
 GPG_TTY=$(tty)
 export GPG_TTY
@@ -187,9 +205,7 @@ export FZF_DEFAULT_OPTS=" --height 40% \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
     --layout=reverse --exit-0"
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
-    -g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git,.Rproj.user,.mypy_cache}/' \
-    -g '!{node_modules,renv,venv,.venv}/' \
-    2> /dev/null"
+    ${FZF_RG_IGNORES} 2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='__fzf_alt_c_command'
 
@@ -200,8 +216,7 @@ __fzf_alt_c_command() {
     if git rev-parse --git-dir &>/dev/null; then
         search_dir="$(git rev-parse --show-toplevel)"
         git_dirs=$(echo "$search_dir"; "$FZF_FIND" --type d --follow --hidden \
-            --exclude '**/.git' --exclude '**/.local' \
-            . "$search_dir")
+            ${FZF_FD_IGNORES} . "$search_dir")
     fi
 
     echo "$(zoxide query --list)"$'\n'"$git_dirs"

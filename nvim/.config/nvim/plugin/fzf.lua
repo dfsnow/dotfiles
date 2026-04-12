@@ -58,14 +58,13 @@ if not vim.g.vscode then
       formatter = "path.filename_first",
       fd_opts =
           "--color=never --type f --hidden --follow " ..
-          "--exclude .git --exclude node_modules --exclude renv"
+          (vim.env.FZF_FD_IGNORES or "")
     },
     grep = {
       rg_opts =
-          "--hidden --column --line-number --no-heading " ..
+          "--hidden --follow --column --line-number --no-heading " ..
           "--color=always --smart-case --max-columns=4096 " ..
-          "-g '!{.npm,.rustup,.tldrc,.tldr,.cargo,.git}/' " ..
-          "-g '!{node_modules,renv}/' -e"
+          (vim.env.FZF_RG_IGNORES or "") .. " -e"
     },
     git = {
       files = {
