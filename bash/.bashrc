@@ -93,7 +93,7 @@ export GIT_PS1_SHOWSTASHSTATE=1
 # Fallback if git-prompt.sh is not available
 if [ "$(type -t __git_ps1)" != function ]; then
     function __git_ps1 {
-        :
+        PS1="$1$2"
     }
 fi
 
@@ -126,7 +126,9 @@ if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
 fi
 
 # Add zoxide integration
-eval "$(zoxide init bash)"
+if type zoxide >/dev/null 2>/dev/null; then
+    eval "$(zoxide init bash)"
+fi
 
 # Add third-party bash completion support
 __add_completion() {
