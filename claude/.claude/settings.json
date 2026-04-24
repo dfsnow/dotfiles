@@ -28,5 +28,6 @@
       "Read(./notes.md)"
     ]
   },
-  "model": "opus"
+  "model": "sonnet[1m]",
+  "effortLevel": "high"
 }
