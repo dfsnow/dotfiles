@@ -7,6 +7,8 @@ COMMON_PACKAGES=(
     "stow"
     "git"
     "ripgrep"
+    "fzf"
+    "htop"
     "zstd"
     "zoxide"
     "bat"
@@ -26,7 +28,6 @@ LINUX_PACKAGES=(
 MACOS_PACKAGES=(
     "neovim"
     "tmux"
-    "fzf"
     "fd"
     "bash"
     "bash-completion@2"
@@ -34,6 +35,12 @@ MACOS_PACKAGES=(
     "uv"
     "ruff"
     "air"
+    "tree-sitter"
+    "tree-sitter-cli"
+    "gnupg"
+    "pinentry-mac"
+    "prek"
+    "tree"
 )
 
 # Linux build dependencies
@@ -169,21 +176,28 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         exit 1
     fi
 
-    # Install brew package if not exists, else upgrade
-    __install_or_upgrade() {
-        if brew ls --versions "$1" >/dev/null; then
-            echo "Upgrading $1..."
-            HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "$1"
-        else
-            echo "Installing $1..."
-            HOMEBREW_NO_AUTO_UPDATE=1 brew install "$1"
-        fi
-    }
-
     all_macos_packages=("${COMMON_PACKAGES[@]}" "${MACOS_PACKAGES[@]}")
+    packages_to_install=()
+    packages_to_upgrade=()
+
+    installed=$(brew list --formula)
     for pkg in "${all_macos_packages[@]}"; do
-        __install_or_upgrade "$pkg"
+        if echo "$installed" | grep -qx "$pkg"; then
+            packages_to_upgrade+=("$pkg")
+        else
+            packages_to_install+=("$pkg")
+        fi
     done
+
+    if [[ ${#packages_to_install[@]} -gt 0 ]]; then
+        echo "Installing: ${packages_to_install[*]}"
+        HOMEBREW_NO_AUTO_UPDATE=1 brew install "${packages_to_install[@]}"
+    fi
+
+    if [[ ${#packages_to_upgrade[@]} -gt 0 ]]; then
+        echo "Upgrading: ${packages_to_upgrade[*]}"
+        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "${packages_to_upgrade[@]}"
+    fi
 
     # Install fzf key bindings if not already done
     if [[ ! -f ~/.fzf.bash ]]; then
@@ -211,20 +225,9 @@ __stow_sentinel() {
     esac
 }
 
-stow_packages=(tmux bash git vim nvim lazygit bat)
-for pkg in "${stow_packages[@]}"; do
-    if [[ ! -d "$pkg" ]]; then
-        echo "Warning: $pkg directory not found, skipping stow"
-        continue
-    fi
-    sentinel=$(__stow_sentinel "$pkg")
-    if [[ -L "$sentinel" ]] || dir_exists_and_not_empty "$sentinel"; then
-        echo "$pkg config already stowed or exists"
-    else
-        echo "Stowing $pkg..."
-        stow "$pkg"
-    fi
-done
+# Stow/symlink things to their expected locations
+stow_packages=(tmux bash git vim nvim lazygit bat rstudio htop ghostty claude gpg)
+stow "${stow_packages[@]}"
 echo "Config files stowed"
 
 # Reset inputrc and bashrc only if they exist
