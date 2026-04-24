@@ -29,5 +29,7 @@
     ]
   },
   "model": "sonnet[1m]",
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "preferredNotifChannel": "ghostty",
+  "editorMode": "vim"
 }
