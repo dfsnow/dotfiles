@@ -58,7 +58,7 @@ If SSH isn't working on macOS (no identities), use `ssh-add --apple-use-keychain
 
 ## GPG
 
-### Helpful Links
+### Helpful links
 
 - [GPG Quickstart](https://github.com/bfrg/gpg-guide)
 - [GnuPG forwarding setup](https://wiki.gnupg.org/AgentForwarding)
@@ -67,7 +67,7 @@ If SSH isn't working on macOS (no identities), use `ssh-add --apple-use-keychain
 - [YubiKey commit signing](https://github.com/YubicoLabs/sign-git-commits-yubikey)
 - [YubiKey big guide](https://github.com/drduh/YubiKey-Guide)
 
-### Useful Commands
+### Useful commands
 
 - `gpg --export -a 07F64768955B38A4A934E3D9C5389003AC500A4A | ssh $HOSTNAME 'gpg --import  -'` export public keys to remote
 - `gpgconf --kill gpg-agent` when remote isn't working
@@ -85,3 +85,18 @@ You can append `!` to get a specific GPG key
 > [!NOTE]
 > If the remote forwarding stops working for whatever reason. Use the following command:
 > `rm $(gpgconf --list-dir agent-socket)`, then reconnect the SSH session
+
+### Register on a new machine
+
+- `gpg --card-status` to create stub entries
+- `gpg --edit-key <YOUR_KEY_ID>` then: `trust → 5 → y → quit`
+- `gpgconf --kill gpg-agent`
+
+## Mac shell
+
+See [this SO answer for more details](https://stackoverflow.com/a/77052639):
+
+- Install desired bash: `brew install bash`
+- Confirm the path: `/opt/homebrew/bin/bash --version`
+- `sudo vi /etc/shells` and insert `/opt/homebrew/bin/bash` at the top of the list. This is so the next instruction will succeed.
+- Change default login shell: `chsh -s /opt/homebrew/bin/bash`
