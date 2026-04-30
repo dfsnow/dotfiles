@@ -30,6 +30,6 @@
   },
   "model": "sonnet[1m]",
   "effortLevel": "high",
-  "preferredNotifChannel": "ghostty",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "preferredNotifChannel": "ghostty"
 }
