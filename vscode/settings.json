@@ -29,6 +29,7 @@
         "json": false,
         "jsonc": false
     },
+    "dbt.beta.useQueryCache": true,
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
@@ -76,7 +77,7 @@
     "gitlens.telemetry.enabled": false,
     "notebook.output.wordWrap": true,
     "path-intellisense.showHiddenFiles": true,
-    "positron.assistant.enable": false,
+    "positron.quarto.inlineOutput.enabled": true,
     "positron.viewer.openLocalhostUrls": false,
     "python.analysis.showHoverGoToLinks": false,
     "python.enableAutoReload": false,
