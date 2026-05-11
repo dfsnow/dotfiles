@@ -14,7 +14,7 @@
     program = gpg
 
 [core]
-    pager = command -v delta >/dev/null 2>&1 && delta -s || less
+    pager = command -v delta >/dev/null 2>&1 && delta -s || command -v less >/dev/null 2>&1 && less || cat
     autocrlf = false
 
 [interactive]
