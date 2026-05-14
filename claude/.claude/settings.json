@@ -25,10 +25,10 @@
       "Read(./secrets/**)",
       "Read(./config/credentials.json)",
       "Read(./build)",
-      "Read(./notes.md)"
+      "Read(./notes.md)",
+      "Bash(terraform:*)"
     ]
   },
-  "model": "sonnet[1m]",
   "effortLevel": "high",
   "editorMode": "vim",
   "preferredNotifChannel": "ghostty"
