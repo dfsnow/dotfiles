@@ -1,7 +1,7 @@
 {
   "fileSuggestion": {
     "type": "command",
-    "command": "~/.claude/file-suggestions.sh"
+    "command": "~/.claude/bin/file-suggestions.sh"
   },
   "env": {
     "DISABLE_ERROR_REPORTING": "1",
@@ -31,5 +31,6 @@
   },
   "effortLevel": "high",
   "editorMode": "vim",
-  "preferredNotifChannel": "ghostty"
+  "preferredNotifChannel": "ghostty",
+  "apiKeyHelper": "~/.claude/bin/get-api-key.sh"
 }
