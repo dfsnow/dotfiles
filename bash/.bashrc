@@ -147,10 +147,6 @@ else
     __add_completion fzf "--bash"
 fi
 
-# Use esc+space to pick files
-bind -m vi-insert -x '"\e ": fzf-file-widget'
-bind -m vi-move  -x '"\e ": fzf-file-widget'
-
 # Other envs and aliases
 [ -f ~/dotfiles/bash/.bash_aliases ] && . ~/dotfiles/bash/.bash_aliases
 
@@ -203,11 +199,44 @@ export FZF_DEFAULT_OPTS=" --height 40% \
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
     --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
-    --layout=reverse --exit-0"
+    --layout=reverse --exit-0 \
+    --bind 'J:down,K:up'"
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore --hidden --follow \
     ${FZF_RG_IGNORES} 2> /dev/null"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='__fzf_alt_c_command'
+
+# Shared preview commands for fzf widgets, using the best tool available
+if type bat >/dev/null 2>/dev/null; then
+    FZF_FILE_PREVIEW='bat --color=always --style=numbers --line-range :500 {}'
+else
+    FZF_FILE_PREVIEW='head -n 500 {}'
+fi
+if type tree >/dev/null 2>/dev/null; then
+    FZF_DIR_PREVIEW='tree -C -L 2 {} | head -n 200'
+else
+    FZF_DIR_PREVIEW='ls -lAhp {} | head -n 200'
+fi
+
+# Preview file contents for the file widget (ctrl-t and esc+space) and the
+# directory contents for the dir widget (alt-c)
+export FZF_CTRL_T_OPTS="--preview '$FZF_FILE_PREVIEW'"
+export FZF_ALT_C_OPTS="--preview '$FZF_DIR_PREVIEW'"
+
+# Remove bash deprecation warning message on Mac
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Disable Homebrew analytics
+export HOMEBREW_NO_ANALYTICS=1
+
+
+###############################################################
+# => FZF functions and keybinds
+###############################################################
+
+# Use esc+space to pick files
+bind -m vi-insert -x '"\e ": fzf-file-widget'
+bind -m vi-move  -x '"\e ": fzf-file-widget'
 
 # Use zoxide for alt-C, but append local dirs when in a git directory
 __fzf_alt_c_command() {
@@ -223,9 +252,28 @@ __fzf_alt_c_command() {
 }
 export -f __fzf_alt_c_command
 
-# Remove bash deprecation warning message on Mac
-export BASH_SILENCE_DEPRECATION_WARNING=1
+# Use fzf to pick git-changed files and open them in (neo)vim
+vg() {
+    local files
+    files=$(git status --porcelain --untracked-files=all 2>/dev/null \
+        | fzf --multi --prompt 'git> ' \
+            --preview 'f=$(sed -e "s/^...//" -e "s/.* -> //" <<< {}); \
+                git diff --color=always -- "$f" 2>/dev/null | head -500' \
+        | sed -e 's/^...//' -e 's/.* -> //')
+    [ -n "$files" ] && ${VISUAL:-nvim} $files
+}
 
-# Disable Homebrew analytics
-export HOMEBREW_NO_ANALYTICS=1
+# Use esc+g to pick git-changed files
+bind -m vi-insert -x '"\eg": vg'
+bind -m vi-move  -x '"\eg": vg'
 
+# Search SSH config file
+fs () {
+  server=$(grep -E '^Host ' ~/.ssh/config | awk '{print $2}' \
+    | fzf --preview \
+      'ssh -G {} 2>/dev/null | grep -iE "^(hostname|user|port|identityfile|proxyjump) "')
+  if [[ -n $server ]]; then
+    ssh "$server"
+  fi
+}
+alias fssh='fs'

@@ -48,12 +48,6 @@ if not vim.g.vscode then
         ["default"] = fzf_lua.actions.file_edit,
       }
     },
-    keymap = {
-      builtin = {
-        ["<S-j>"] = "preview-page-down",
-        ["<S-k>"] = "preview-page-up"
-      }
-    },
     files = {
       formatter = "path.filename_first",
       fd_opts =
