@@ -267,6 +267,14 @@ vg() {
 bind -m vi-insert -x '"\eg": vg'
 bind -m vi-move  -x '"\eg": vg'
 
+# Use esc+f to pick a file and open it in (neo)vim
+bind -m vi-insert -x '"\ef": vf'
+bind -m vi-move  -x '"\ef": vf'
+
+# Use esc+b to pick a git branch and check it out
+bind -m vi-insert -x '"\eb": gbf'
+bind -m vi-move  -x '"\eb": gbf'
+
 # Search SSH config file
 fs () {
   server=$(grep -E '^Host ' ~/.ssh/config | awk '{print $2}' \

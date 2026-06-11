@@ -80,9 +80,13 @@ if type nvim > /dev/null 2> /dev/null; then
     alias v='nvim'
     # Open last file
     alias vv='nvim -c":e#<1"'
-    # Open file in (neo)vim with fzf
-    alias fv='nvim $(fzf)'
-    alias vf='nvim $(fzf)'
+    # Open an fzf-picked file in (neo)vim; on escape, close the picker
+    # without opening a blank buffer
+    vf() {
+        local file
+        file=$(fzf) && [ -n "$file" ] && nvim "$file"
+    }
+    alias fv='vf'
 elif type vim > /dev/null 2> /dev/null; then
     alias v='vim'
 fi
