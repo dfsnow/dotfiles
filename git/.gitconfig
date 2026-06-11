@@ -114,7 +114,7 @@
     bd = "!git for-each-ref --format '%(refname:short) %(upstream:track)' refs/heads | awk '$2 == \"[gone]\" { print $1 }' | xargs -I{} git branch -D {}"
 
     # Fuzzy find branches and tags
-    bf = "!git checkout $(( git branch -a --color=never --format='%(refname:short)' --sort=committerdate & git tag -l ) | grep -v '^head' | fzf --height 40% --reverse --ansi --multi --tac | sed 's#^remotes/[^/]*/##' | sed 's#^origin/##')"
+    bf = "!git checkout $(( git branch -a --color=never --format='%(refname:short)' --sort=committerdate & git tag -l ) | grep -v '^head' | fzf --height 40% --reverse --ansi --multi --tac --preview 'git log --oneline --decorate --color=always -200 {}' | sed 's#^remotes/[^/]*/##' | sed 's#^origin/##')"
 
     # List aliases
     la = "!git config -l | grep alias | cut -c 7-"
