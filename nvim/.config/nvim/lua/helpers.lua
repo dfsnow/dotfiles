@@ -22,7 +22,7 @@ end
 -- Check if there are words before the cursor
 -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 function M.has_words_before()
-  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+  if vim.bo[0].buftype == "prompt" then return false end
   ---@diagnostic disable-next-line: deprecated
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
@@ -30,7 +30,7 @@ end
 
 -- Helper used to display the cwd in the statusline via lualine
 function M.fzf_cwd()
-  local path = vim.loop.cwd()
+  local path = vim.loop.cwd() or ""
   local fzf_lua = require("fzf-lua")
   path = fzf_lua.path.HOME_to_tilde(path)
   path = fzf_lua.path.shorten(path)
@@ -47,7 +47,7 @@ function M.fzf_dirs(opts)
       vim.cmd("cd " .. selected[1])
     end
   }
-  require("fzf-lua").fzf_exec(os.getenv("FZF_ALT_C_COMMAND"), opts)
+  require("fzf-lua").fzf_exec(os.getenv("FZF_ALT_C_COMMAND") or "", opts)
 end
 
 -- Get window size/position for most floating windows

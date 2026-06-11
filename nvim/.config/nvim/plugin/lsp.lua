@@ -99,7 +99,7 @@ if not vim.g.vscode then
 
   -- LSP
   wk.add({
-    { "<leader>M",  "<cmd>Mason<cr>",                                                       desc = "Open Mason" },
+    { "<leader>M",  "<cmd>Mason<cr>",                                                        desc = "Open Mason" },
     { "<leader>d",  group = "lsp" },
     { "<leader>dp", function() vim.diagnostic.jump({ count = -1, float = true }) end,        desc = "Previous diagnostic" },
     { "<leader>dn", function() vim.diagnostic.jump({ count = 1, float = true }) end,         desc = "Next diagnostic" },
@@ -118,7 +118,7 @@ if not vim.g.vscode then
     { "<leader>dfr", fzf_lua.lsp_references,            desc = "References" },
     { "<leader>dfd", fzf_lua.lsp_definitions,           desc = "Definitions" },
     { "<leader>dfD", fzf_lua.lsp_declarations,          desc = "Declarations" },
-    { "<leader>dft", fzf_lua.lsp_type_definitions,      desc = "Type definitions" },
+    { "<leader>dft", fzf_lua.lsp_typedefs,              desc = "Type definitions" },
     { "<leader>dfi", fzf_lua.lsp_implementations,       desc = "Implementations" },
     { "<leader>dfs", fzf_lua.lsp_document_symbols,      desc = "Document symbols" },
     { "<leader>dfS", fzf_lua.lsp_workspace_symbols,     desc = "Workspace symbols" },

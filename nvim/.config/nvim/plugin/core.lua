@@ -19,12 +19,12 @@ if not vim.g.vscode then
     )
 
     local cmd_string = "call nvim_open_win(nvim_create_buf(v:true, v:true), v:true, "
-      .. "{'relative': 'editor', 'width': " .. w
-      .. ", 'height': " .. h
-      .. ", 'col': " .. c
-      .. ", 'row': " .. r
-      .. " })"
-    
+        .. "{'relative': 'editor', 'width': " .. w
+        .. ", 'height': " .. h
+        .. ", 'col': " .. c
+        .. ", 'row': " .. r
+        .. " })"
+
     require("undotree").open({ command = cmd_string, title = "undotree" })
   end, { desc = "Open undotree" })
 end

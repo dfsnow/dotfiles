@@ -13,6 +13,7 @@ if not vim.g.vscode then
   end
 
   fzf_lua.setup({
+    ---@diagnostic disable-next-line: assign-type-mismatch
     winopts = function()
       local w, h, c, r = helpers.get_float_size(
         float_width_pct,
@@ -36,6 +37,7 @@ if not vim.g.vscode then
       }
       return opts
     end,
+    ---@diagnostic disable-next-line: missing-fields
     previewers = {
       builtin = {
         syntax_limit_b = 1024 * 100, -- 100KB
