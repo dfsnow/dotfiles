@@ -82,4 +82,9 @@ function M.is_big_file(buf)
   end
 end
 
+-- Toggle LSP diagnostics for the current buffer
+function M.toggle_buffer_diagnostics()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+end
+
 return M

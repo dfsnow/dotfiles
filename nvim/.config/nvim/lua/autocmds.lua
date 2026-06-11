@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   desc = "Resize plugin floating windows",
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
-  pattern = { "oil", "nvim-undotree" },
+  pattern = { "mason", "oil", "nvim-undotree" },
   callback = function()
     local win_config = vim.api.nvim_win_get_config(0)
     if win_config.relative ~= "" then
