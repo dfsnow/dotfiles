@@ -23,7 +23,6 @@ require("catppuccin").setup({
       FzfLuaBorder = { fg = c.blue },
       FzfLuaTitle = { fg = c.overlay2 },
       HighlightUndo = { link = "IncSearch" },
-      LocalHighlight = { bg = c.surface1 },
       BlinkCmpMenu = { bg = c.base },
       BlinkCmpMenuBorder = { fg = c.blue },
       BlinkCmpDoc = { bg = c.base },
@@ -81,16 +80,13 @@ if not vim.g.vscode then
           filetype_names = {
             mason = "mason",
             oil = "oil",
-            fzf = "fzf",
-            trouble = "trouble"
+            fzf = "fzf"
           }
         }
       }
     }
   })
-end
 
-if not vim.g.vscode then
   vim.opt.list = true
   vim.opt.listchars:append "eol:↴"
   vim.opt.listchars:append "space:⋅"

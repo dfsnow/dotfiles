@@ -8,7 +8,7 @@ require("nvim-surround").setup({})
 
 -- Setup built-in undotree
 if not vim.g.vscode then
-  helpers = require("helpers")
+  local helpers = require("helpers")
   vim.opt.undofile = true
   vim.cmd("packadd nvim.undotree")
   vim.keymap.set("n", "<leader>u", function()
