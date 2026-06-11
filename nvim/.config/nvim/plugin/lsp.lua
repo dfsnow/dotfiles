@@ -31,7 +31,7 @@ if not vim.g.vscode then
       "eslint-lsp",
       "html",
       "lua_ls",
-      "pyright",
+      "pyrefly",
       "terraform-ls",
       "ruff",
       "rust_analyzer",
@@ -64,24 +64,6 @@ if not vim.g.vscode then
     }
   })
 
-  vim.lsp.config("pyright", {
-    settings = {
-      pyright = {
-        disableOrganizeImports = true,
-        disableTaggedHints = true
-      },
-      python = {
-        analysis = {
-          ignore = { "*" }, -- Using ruff
-          typeCheckingMode = "standard",
-          diagnosticSeverityOverrides = {
-            reportUndefinedVariable = "none"
-          }
-        }
-      }
-    }
-  })
-
   vim.lsp.enable({
     "bashls",
     "cssls",
@@ -90,7 +72,7 @@ if not vim.g.vscode then
     "eslint",
     "html",
     "lua_ls",
-    "pyright",
+    "pyrefly",
     "ruff",
     "rust_analyzer",
     "terraformls",
@@ -109,7 +91,7 @@ if not vim.g.vscode then
         return
       end
       if client.name == "ruff" then
-        -- Disable hover in favor of Pyright
+        -- Disable hover in favor of Pyrefly
         client.server_capabilities.hoverProvider = false
       end
     end
