@@ -81,10 +81,10 @@ if type nvim > /dev/null 2> /dev/null; then
     # Open last file
     alias vv='nvim -c":e#<1"'
     # Open an fzf-picked file in (neo)vim; on escape, close the picker
-    # without opening a blank buffer
+    # without opening a blank buffer. Previews file contents like ctrl-t
     vf() {
         local file
-        file=$(fzf) && [ -n "$file" ] && nvim "$file"
+        file=$(fzf --preview "$FZF_FILE_PREVIEW") && [ -n "$file" ] && nvim "$file"
     }
     alias fv='vf'
 elif type vim > /dev/null 2> /dev/null; then
