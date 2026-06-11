@@ -41,13 +41,20 @@ else
     # existing file first so we don't append to it forever
     rm -rf "$BASH_ALIASES_CACHE"
     touch "$BASH_ALIASES_CACHE"
+    # Git's completion helpers are missing on old git versions; only wire up
+    # completion when they exist, but always create the aliases
+    git_completion_avail=""
+    function_exists __git_aliased_command && function_exists __git_complete \
+        && git_completion_avail=1
     for al in $(git config --get-regexp '^alias\.' | cut -f 1 -d ' ' | cut -f 2 -d '.'); do
         echo "alias g${al}='git ${al}'" >> "$BASH_ALIASES_CACHE"
+        [ -z "$git_completion_avail" ] && continue
         complete_func=_git_"$(__git_aliased_command "${al}")"
         function_exists "${complete_func}" && \
-            echo "__git_complete g${al} ${complete_func}" \
+            echo "function_exists __git_complete && __git_complete g${al} ${complete_func}" \
             >> "$BASH_ALIASES_CACHE"
     done
+    unset git_completion_avail
     # shellcheck source=/dev/null
     . "$BASH_ALIASES_CACHE"
 fi
