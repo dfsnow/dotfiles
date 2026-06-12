@@ -23,5 +23,9 @@ require("which-key").setup({
     },
   },
   win = { no_overlap = false, border = "single" },
-  triggers = { "<auto>", mode = "nc" }
+  triggers = { "<auto>", mode = "nc" },
+  -- Ignore diffview bindings
+  filter = function(mapping)
+    return mapping.desc ~= "diffview_ignore"
+  end
 })

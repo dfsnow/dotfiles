@@ -5,6 +5,10 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": "1.0.0 - 2.0.0"
     },
+    "diffview-plus.nvim": {
+      "rev": "318a75a8899cdb0894ca432bf471b466adf785d2",
+      "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
+    },
     "flash.nvim": {
       "rev": "fcea7ff883235d9024dc41e638f164a450c14ca2",
       "src": "https://github.com/folke/flash.nvim"

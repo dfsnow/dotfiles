@@ -79,7 +79,10 @@ alias rm='rm -I'
 if type nvim > /dev/null 2> /dev/null; then
     alias v='nvim'
     # Open last file
-    alias vv='nvim -c":e#<1"'
+    alias v-='nvim -c":e#<1"'
+    # Open straight into diff view
+    alias vv='nvim -c"DiffviewOpen"'
+    alias vr='nvim -c"normal ,vr"'
     # Open an fzf-picked file in (neo)vim; on escape, close the picker
     # without opening a blank buffer. Previews file contents like ctrl-t
     vf() {

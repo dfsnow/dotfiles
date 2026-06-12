@@ -44,6 +44,9 @@ if not vim.g.vscode then
     group = vim.api.nvim_create_augroup("treesitter_fold_workaround", {}),
     desc = "Add treesitter folding + workaround",
     callback = function(args)
+      -- Skip setting foldmethod in diffview
+      local ok, lib = pcall(require, "diffview.lib")
+      if ok and lib.get_current_view() ~= nil then return end
       local big_file = helpers.is_big_file(args.buf)
       if not big_file then
         vim.opt.foldmethod = "expr"

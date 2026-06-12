@@ -24,7 +24,6 @@ if not vim.g.vscode then
     { "<leader>gb", gitsigns.blame_line,      desc = "View line blame" },
     { "<leader>gt", gitsigns.toggle_signs,    desc = "Toggle git signs" },
     { "<leader>gd", gitsigns.preview_hunk,    desc = "View diff preview" },
-    { "<leader>gD", gitsigns.diffthis,        desc = "View full diff" },
     { "<leader>gn", function() gitsigns.nav_hunk("next") end, desc = "Next hunk" },
     { "<leader>gp", function() gitsigns.nav_hunk("prev") end, desc = "Previous hunk" },
     { "<leader>gu", gitsigns.reset_hunk,      desc = "Undo hunk" },
