@@ -99,6 +99,7 @@ if not vim.g.vscode then
 
   -- LSP
   wk.add({
+    { "K",          function() vim.lsp.buf.hover({ border = "single" }) end,                 desc = "Show hover info" },
     { "<leader>M",  "<cmd>Mason<cr>",                                                        desc = "Open Mason" },
     { "<leader>d",  group = "lsp" },
     { "<leader>dp", function() vim.diagnostic.jump({ count = -1, float = true }) end,        desc = "Previous diagnostic" },
