@@ -17,7 +17,9 @@
       "Bash(pwd:*)",
       "Bash(rg:*)",
       "Bash(grep:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(terraform fmt:*)",
+      "Bash(terraform validate:*)"
     ],
     "deny": [
       "Read(./.env)",
@@ -27,8 +29,20 @@
       "Read(./config/credentials.json)",
       "Read(./build)",
       "Read(./notes.md)",
-      "Bash(terraform:*)"
+      "Bash(terraform plan:*)",
+      "Bash(terraform apply:*)"
     ]
+  },
+  "enabledPlugins": {
+    "github@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
   },
   "effortLevel": "high",
   "editorMode": "vim",
