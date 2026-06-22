@@ -64,6 +64,14 @@ if not vim.g.vscode then
     }
   })
 
+  -- Disable buggy semantic tokens for terraform
+  vim.lsp.config("terraformls", {
+    on_attach = function(client, bufnr)
+      client.server_capabilities.semanticTokensProvider = nil
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
+    end,
+  })
+
   vim.lsp.enable({
     "bashls",
     "cssls",
