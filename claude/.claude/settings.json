@@ -29,6 +29,13 @@
       "Read(./config/credentials.json)",
       "Read(./build)",
       "Read(./notes.md)",
+      "Read(./.terraform/**)",
+      "Read(./.venv/**)",
+      "Read(./build/**)",
+      "Read(./node_modules/**)",
+      "Read(./renv/**)",
+      "Read(./venv/**)",
+      "Read(./worktrees/**)",
       "Bash(terraform plan:*)",
       "Bash(terraform apply:*)"
     ]
