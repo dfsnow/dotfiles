@@ -6,7 +6,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "diffview-plus.nvim": {
-      "rev": "c65ddb4724cc772a77e9eca1478bff451867b2e2",
+      "rev": "b9f10d68116bd3f8d54197a067e11cebfb41b268",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "flash.nvim": {
@@ -14,11 +14,11 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "fzf-lua": {
-      "rev": "988416cc782dfe28bff3f0da9b8c943b236cd86a",
+      "rev": "774150bc05f774af1df614f55d156b3318c6decd",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
+      "rev": "eb60cc7b94c46005237fd34170d76f3a089a90aa",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "highlight-undo.nvim": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "21c5b3ebeaa0412e28096bb0701434c51c1fbf76",
+      "rev": "47059d71b42d74b0a1e9f61c1d99d301039c3b5b",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -46,11 +46,11 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "nvim": {
-      "rev": "49a926655a2f5579e9c276470fc300baaa49e524",
+      "rev": "e068ab5f8261f23f6f71ffd8791ae40315b77b9c",
       "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-lspconfig": {
-      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
+      "rev": "d224a1920728ba129880efc700d4a0180ac4ecbb",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
@@ -62,7 +62,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
-      "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
+      "rev": "dad71387de386a946b123079d0e53f23028f3abd",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {

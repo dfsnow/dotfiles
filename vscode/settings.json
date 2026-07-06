@@ -175,7 +175,7 @@
         "editor.defaultFormatter": "quarto.quarto"
     },
     "[r]": {
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": false,
         "editor.defaultFormatter": "Posit.air-vscode"
     },
     "[sql]": {
