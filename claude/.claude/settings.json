@@ -51,6 +51,21 @@
       }
     }
   },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/bin/prek-stop-hook.sh",
+            "asyncRewake": true,
+            "rewakeSummary": "prek hooks reported issues",
+            "statusMessage": "Running prek hooks"
+          }
+        ]
+      }
+    ]
+  },
   "effortLevel": "high",
   "editorMode": "vim",
   "preferredNotifChannel": "ghostty"
