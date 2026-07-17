@@ -10,16 +10,35 @@
   },
   "permissions": {
     "allow": [
-      "Bash(tree:*)",
-      "Bash(cat:*)",
-      "Bash(git status:*)",
-      "Bash(ls:*)",
-      "Bash(pwd:*)",
-      "Bash(rg:*)",
-      "Bash(grep:*)",
-      "Bash(find:*)",
-      "Bash(terraform fmt:*)",
-      "Bash(terraform validate:*)"
+      "Bash(tree *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(pwd *)",
+      "Bash(rg *)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Bash(jq *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git ls-files *)",
+      "Bash(git remote *)",
+      "Bash(terraform fmt *)",
+      "Bash(terraform validate *)",
+      "mcp__terraform__get_*",
+      "mcp__terraform__list_*",
+      "mcp__terraform__search_*",
+      "mcp__asana__get_*",
+      "mcp__asana__list_*",
+      "mcp__asana__search_*",
+      "mcp__github__get_*",
+      "mcp__github__list_*",
+      "mcp__github__search_*",
+      "mcp__github__actions_get_*",
+      "mcp__github__actions_list_*",
+      "mcp__dbt__get_*",
+      "mcp__dbt__list_*",
+      "mcp__dbt__search_*"
     ],
     "deny": [
       "Read(./.env)",
@@ -35,21 +54,13 @@
       "Read(./node_modules/**)",
       "Read(./renv/**)",
       "Read(./venv/**)",
-      "Read(./worktrees/**)",
-      "Bash(terraform plan:*)",
-      "Bash(terraform apply:*)"
+      "Bash(terraform plan *)",
+      "Bash(terraform apply *)"
     ]
   },
-  "enabledPlugins": {
-    "github@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      }
-    }
+  "skillOverrides": {
+    "claude-api": "off",
+    "dataviz": "off"
   },
   "hooks": {
     "Stop": [
@@ -58,9 +69,9 @@
           {
             "type": "command",
             "command": "~/.claude/bin/prek-stop-hook.sh",
+            "statusMessage": "Running prek hooks",
             "asyncRewake": true,
-            "rewakeSummary": "prek hooks reported issues",
-            "statusMessage": "Running prek hooks"
+            "rewakeSummary": "prek hooks reported issues"
           }
         ]
       }

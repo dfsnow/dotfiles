@@ -1,0 +1,3 @@
+- Use the GitHub MCP over the gh CLI whenever possible
+- Prefer built-in tools (Read, Write) to bash alternatives (cat)
+- NEVER commit locally or modify any GitHub objects yourself
