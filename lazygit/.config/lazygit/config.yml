@@ -28,6 +28,6 @@ keybinding:
   status:
     checkForUpdate: "G"
 git:
-  pagers:
-    - pager: delta --dark --paging=never
+  diffRenderers:
+    - command: delta --dark --paging=never
   overrideGpg: true
