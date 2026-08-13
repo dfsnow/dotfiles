@@ -26,7 +26,6 @@
       "Bash(terraform fmt *)",
       "Bash(terraform validate *)",
       "mcp__terraform__get_*",
-      "mcp__terraform__list_*",
       "mcp__terraform__search_*",
       "mcp__asana__get_*",
       "mcp__asana__list_*",
@@ -34,11 +33,14 @@
       "mcp__github__get_*",
       "mcp__github__list_*",
       "mcp__github__search_*",
-      "mcp__github__actions_get_*",
-      "mcp__github__actions_list_*",
+      "mcp__github__actions_get",
+      "mcp__github__actions_list",
+      "mcp__github__issue_read",
+      "mcp__github__pull_request_read",
       "mcp__dbt__get_*",
       "mcp__dbt__list_*",
-      "mcp__dbt__search_*"
+      "mcp__dbt__search_*",
+      "mcp__dbt__query_metrics"
     ],
     "deny": [
       "Read(./.env)",
