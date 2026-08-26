@@ -24,18 +24,23 @@ if not vim.g.vscode then
   require("mason-tool-installer").setup({
     run_on_start = false,
     ensure_installed = {
+      "actionlint",
       "bashls",
       "cssls",
       "dockerls",
       "docker_compose_language_service",
       "eslint-lsp",
+      "hadolint",
       "html",
       "lua_ls",
+      "markdownlint-cli2",
       "pyrefly",
       "terraform-ls",
+      "tflint",
       "ruff",
       "rust_analyzer",
       "typescript-language-server",
+      "yamllint",
       "yamlls"
     }
   })
@@ -61,6 +66,16 @@ if not vim.g.vscode then
         workspace = { library = { vim.env.VIMRUNTIME } },
         telemetry = { enable = false }
       }
+    }
+  })
+
+  vim.lsp.config("yamlls", {
+    filetypes = {
+      "yaml",
+      "yaml.docker-compose",
+      "yaml.ghaction",
+      "yaml.gitlab",
+      "yaml.helm-values",
     }
   })
 

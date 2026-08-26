@@ -6,7 +6,7 @@
       "version": "1.0.0 - 2.0.0"
     },
     "diffview-plus.nvim": {
-      "rev": "30afab604a0abe02dfd19e6fbb9153fd26fd2eb3",
+      "rev": "43e60bca414e4991ed10118e59f809fb03bbeddd",
       "src": "https://github.com/dlyongemallo/diffview-plus.nvim"
     },
     "flash.nvim": {
@@ -34,7 +34,7 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "24d4ab0838b250753b307a8747ade06dc99aed9d",
+      "rev": "1b621470c01bd8190bb32a290d21575d3e6470c5",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason-tool-installer.nvim": {
@@ -48,6 +48,10 @@
     "nvim": {
       "rev": "edefef779ab08ce1a4a404713e3012b0d202bd35",
       "src": "https://github.com/catppuccin/nvim"
+    },
+    "nvim-lint": {
+      "rev": "3d55c8f67c6ae5c15e1042571e107c7a3d5c5f4e",
+      "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
       "rev": "af9adce488c75ca0a81017945c2b7fa7b461bc23",
