@@ -76,13 +76,23 @@ vim.lsp.config("lua_ls", {
   }
 })
 
+-- Compound YAML filetypes for yamlls and docker_compose_language_service
+vim.filetype.add({
+  filename = {
+    ["compose.yaml"] = "yaml.docker-compose",
+    ["compose.yml"] = "yaml.docker-compose",
+    ["docker-compose.yaml"] = "yaml.docker-compose",
+    ["docker-compose.yml"] = "yaml.docker-compose",
+    [".gitlab-ci.yml"] = "yaml.gitlab",
+  }
+})
+
 vim.lsp.config("yamlls", {
   filetypes = {
     "yaml",
     "yaml.docker-compose",
     "yaml.ghaction",
     "yaml.gitlab",
-    "yaml.helm-values",
   }
 })
 
@@ -95,7 +105,9 @@ vim.lsp.config("ruff", {
 })
 
 -- Disable buggy semantic tokens for terraform
+-- Send server logs to /dev/null, because Neovim logs all server stderr to lsp.log
 vim.lsp.config("terraformls", {
+  cmd = { "terraform-ls", "serve", "-log-file=/dev/null" },
   on_attach = function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil
     vim.lsp.codelens.enable(true, { bufnr = bufnr })
