@@ -1,7 +1,6 @@
 local helpers = require("helpers")
 
 -- Disable performance hogs for large files
--- Note that indent-blankline uses a separate hook in plugin/ui.lua
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable performance hogs for large files",
   group = vim.api.nvim_create_augroup("big_file_perf", { clear = false }),

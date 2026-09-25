@@ -6,7 +6,6 @@ vim.pack.add({
   gh("tzachar/highlight-undo.nvim"),
 })
 
--- catppuccin enables integrations for installed plugins automatically
 require("catppuccin").setup({
   custom_highlights = function(c)
     return {

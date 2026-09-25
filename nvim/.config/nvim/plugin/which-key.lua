@@ -17,7 +17,6 @@ require("which-key").setup({
       nav = false,
     },
   },
-  -- The "modern" preset uses a rounded border, so set it here
   win = { no_overlap = false, border = "single" },
   triggers = { "<auto>", mode = "nc" },
   -- Ignore diffview bindings
