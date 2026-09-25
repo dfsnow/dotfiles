@@ -1,3 +1,5 @@
+if vim.g.vscode then return end
+
 -- PackChanged hooks (must be defined BEFORE vim.pack.add)
 vim.api.nvim_create_autocmd("PackChanged", {
   callback = function(ev)
@@ -13,45 +15,51 @@ vim.pack.add({
   gh("nvim-treesitter/nvim-treesitter"),
 })
 
-if not vim.g.vscode then
-  local helpers = require("helpers")
+local helpers = require("helpers")
+local ts = require("nvim-treesitter")
 
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "*" },
-    desc = "Start treesitter by filetype",
-    callback = function(args)
-      local ft = vim.bo[args.buf].filetype
-      local lang = vim.treesitter.language.get_lang(ft)
-      if not lang then return end
-      local big_file = helpers.is_big_file(args.buf)
-      if not vim.treesitter.language.add(lang) then
-        local available = vim.g.ts_available or require("nvim-treesitter").get_available()
-        if not vim.g.ts_available then
-          vim.g.ts_available = available
-        end
-        if vim.tbl_contains(available, lang) then
-          require("nvim-treesitter").install(lang)
-        end
-      end
-      if vim.treesitter.language.add(lang) and not big_file then
-        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        vim.treesitter.start(args.buf, lang)
-      end
-    end,
-  })
+-- Parsers that nvim-treesitter can install, loaded on first use
+local available
 
-  vim.api.nvim_create_autocmd({ "BufEnter", "BufAdd", "BufNew", "BufNewFile", "BufWinEnter" }, {
-    group = vim.api.nvim_create_augroup("treesitter_fold_workaround", {}),
-    desc = "Add treesitter folding + workaround",
-    callback = function(args)
-      -- Skip setting foldmethod in diffview
-      local ok, lib = pcall(require, "diffview.lib")
-      if ok and lib.get_current_view() ~= nil then return end
-      local big_file = helpers.is_big_file(args.buf)
-      if not big_file then
-        vim.opt.foldmethod = "expr"
-        vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-      end
-    end,
-  })
+local function start(buf, lang)
+  if not vim.api.nvim_buf_is_valid(buf) or helpers.is_big_file(buf) then return end
+  vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  vim.treesitter.start(buf, lang)
 end
+
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Start treesitter by filetype",
+  callback = function(args)
+    local lang = vim.treesitter.language.get_lang(args.match)
+    if not lang then return end
+    if vim.treesitter.language.add(lang) then
+      start(args.buf, lang)
+      return
+    end
+
+    -- Install a missing parser, then start treesitter when it is ready
+    available = available or ts.get_available()
+    if vim.tbl_contains(available, lang) then
+      ts.install(lang):await(vim.schedule_wrap(function(err)
+        if not err and vim.treesitter.language.add(lang) then
+          start(args.buf, lang)
+        end
+      end))
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufAdd", "BufNew", "BufNewFile", "BufWinEnter" }, {
+  group = vim.api.nvim_create_augroup("treesitter_fold_workaround", {}),
+  desc = "Add treesitter folding + workaround",
+  callback = function(args)
+    -- Skip setting foldmethod in diffview
+    local ok, lib = pcall(require, "diffview.lib")
+    if ok and lib.get_current_view() ~= nil then return end
+    local big_file = helpers.is_big_file(args.buf)
+    if not big_file then
+      vim.opt.foldmethod = "expr"
+      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    end
+  end,
+})

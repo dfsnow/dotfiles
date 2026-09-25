@@ -8,6 +8,7 @@ if not vim.g.vscode then
   local oil = require("oil")
   local wk = require("which-key")
 
+  -- <Esc> and <Tab> are set for all plugin floats in lua/autocmds.lua
   oil.setup({
     default_file_explorer = true,
     columns = {
@@ -25,8 +26,6 @@ if not vim.g.vscode then
       ["?"] = "actions.show_help",
       ["<CR>"] = "actions.select",
       ["<BS>"] = "actions.parent",
-      ["<Esc>"] = "actions.close",
-      ["<Tab>"] = "actions.close",
       ["<leader>-"] = "actions.select_vsplit",
       ["<leader>_"] = "actions.select_split",
       ["<leader><space>"] = "actions.preview",
@@ -49,21 +48,25 @@ flash.setup({
       "blink-cmp-documentation",
       "blink-cmp-signature"
     }
-  },
-  modes = { char = { enabled = true } }
+  }
 })
 
 vim.keymap.set({ "n", "x", "o" }, "<space>", function() flash.jump() end, { desc = "Flash" })
 vim.keymap.set({ "n", "x", "o" }, "<leader><space>", function() flash.treesitter() end, { desc = "Flash Treesitter" })
--- Fix for not escaping f/F
+
+-- Hide Flash labels after f/F/t/T, then close floats (normal mode) or
+-- pass <Esc> through (other modes)
 -- https://github.com/folke/flash.nvim/issues/401#issuecomment-2676690290
 vim.keymap.set({ "n", "x", "o" }, "<esc>", function()
   local char = require("flash.plugins.char")
   if char.state then
     char.state:hide()
   end
+  if vim.fn.mode() == "n" then
+    require("helpers").close_floating_windows()
+  end
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", true)
-end, { desc = "Cancel Flash Char" })
+end, { desc = "Cancel Flash and close floating windows" })
 
 if vim.g.vscode then
   local mc = require("vscode-multi-cursor")

@@ -1,12 +1,12 @@
 local helpers = require("helpers")
 
 -- Disable performance hogs for large files
+-- Note that indent-blankline uses a separate hook in plugin/ui.lua
 vim.api.nvim_create_autocmd("BufEnter", {
   desc = "Disable performance hogs for large files",
   group = vim.api.nvim_create_augroup("big_file_perf", { clear = false }),
   callback = function(opts)
     if helpers.is_big_file(opts.buf) then
-      require("ibl").setup_buffer(0, { enabled = false })
       vim.opt_local.list = false
       vim.opt_local.foldenable = false
       vim.opt_local.wrap = false
@@ -22,23 +22,16 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   group = vim.api.nvim_create_augroup("mod_buffer", { clear = false }),
   pattern = { "mason", "oil", "nvim-undotree" },
   callback = function()
-    local win_config = vim.api.nvim_win_get_config(0)
-    if win_config.relative ~= "" then
-      if win_config.relative == "editor" then
-        local w, h, c, r = helpers.get_float_size(
-          float_width_pct,
-          float_height_pct,
-          vim.o.columns
-        )
-        vim.api.nvim_win_set_config(0, {
-          relative = "editor",
-          border = "single",
-          width = w,
-          height = h,
-          row = r,
-          col = c
-        })
-      end
+    if vim.api.nvim_win_get_config(0).relative == "editor" then
+      local w, h, c, r = helpers.get_float_size()
+      vim.api.nvim_win_set_config(0, {
+        relative = "editor",
+        border = "single",
+        width = w,
+        height = h,
+        row = r,
+        col = c
+      })
     end
 
     -- Remap table to prevent buffer switching in floating windows
@@ -52,8 +45,10 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
 
 -- Automatically highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight yanked text",
+  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
   callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 700, priority = 10000 })
+    vim.hl.on_yank({ higroup = "IncSearch", timeout = 700, priority = 10000 })
   end
 })
 

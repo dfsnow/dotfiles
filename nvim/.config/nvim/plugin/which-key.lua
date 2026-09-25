@@ -6,8 +6,6 @@ require("which-key").setup({
   preset = "modern",
   icons = { mappings = false },
   plugins = {
-    marks = true,
-    registers = true,
     spelling = {
       enabled = true,
       suggestions = 10,
@@ -16,12 +14,10 @@ require("which-key").setup({
       operators = false,
       motions = false,
       text_objects = false,
-      windows = true,
       nav = false,
-      z = true,
-      g = true,
     },
   },
+  -- The "modern" preset uses a rounded border, so set it here
   win = { no_overlap = false, border = "single" },
   triggers = { "<auto>", mode = "nc" },
   -- Ignore diffview bindings

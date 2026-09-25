@@ -6,14 +6,8 @@ vim.pack.add({
   gh("tzachar/highlight-undo.nvim"),
 })
 
+-- catppuccin enables integrations for installed plugins automatically
 require("catppuccin").setup({
-  integrations = {
-    which_key = true,
-    gitsigns = true,
-    flash = true,
-    mason = true,
-    blink_cmp = true
-  },
   custom_highlights = function(c)
     return {
       NonText = { fg = c.surface1 },
@@ -36,6 +30,8 @@ require("catppuccin").setup({
 vim.cmd("colorscheme catppuccin")
 
 if not vim.g.vscode then
+  local helpers = require("helpers")
+
   require("lualine").setup({
     options = {
       icons_enabled = false,
@@ -43,7 +39,7 @@ if not vim.g.vscode then
       component_separators = ""
     },
     sections = {
-      lualine_b = { require("helpers").fzf_cwd },
+      lualine_b = { helpers.fzf_cwd },
       lualine_c = {
         { "filename", path = 4 },
         {
@@ -88,8 +84,13 @@ if not vim.g.vscode then
   })
 
   vim.opt.list = true
-  vim.opt.listchars:append "eol:↴"
-  vim.opt.listchars:append "space:⋅"
+  vim.opt.listchars:append({ eol = "↴", space = "⋅" })
+
+  -- Disable indent guides for large files
+  local hooks = require("ibl.hooks")
+  hooks.register(hooks.type.ACTIVE, function(bufnr)
+    return not helpers.is_big_file(bufnr)
+  end)
   require("ibl").setup({
     scope = {
       enabled = true,

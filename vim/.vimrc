@@ -109,7 +109,7 @@ xnoremap <CR> }
 
 " Replace word with last yank
 nnoremap R diw"0P
-xnoremap R "_d"0P"
+xnoremap R "0P
 
 " Keep text selected on indent
 xnoremap < <gv

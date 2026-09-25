@@ -3,13 +3,11 @@ vim.pack.add({
 })
 
 local wk = require("which-key")
-local helpers = require("helpers")
 
 -- Non-leader
 wk.add({
   { "g",       group = "misc" },
   { "z",       group = "folding" },
-  { "<esc>",   helpers.close_floating_windows,     desc = "Close floating windows" },
   { "<c-A>",   desc = "Increment up" },
   { "<c-X>",   desc = "Increment down" },
   { "J",       desc = "Join lines" },
