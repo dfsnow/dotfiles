@@ -51,22 +51,53 @@ flash.setup({
   }
 })
 
-vim.keymap.set({ "n", "x", "o" }, "<space>", function() flash.jump() end, { desc = "Flash" })
-vim.keymap.set({ "n", "x", "o" }, "<leader><space>", function() flash.treesitter() end, { desc = "Flash Treesitter" })
+-- True while flash.jump() or flash.treesitter() reads keys
+local flash_active = false
 
--- Hide Flash labels after f/F/t/T, then close floats (normal mode) or
--- pass <Esc> through (other modes)
+local function track_flash(fn)
+  return function()
+    flash_active = true
+    local ok, err = pcall(fn)
+    flash_active = false
+    if not ok then error(err, 0) end
+  end
+end
+
+vim.keymap.set({ "n", "x", "o" }, "<space>", track_flash(flash.jump), { desc = "Flash" })
+vim.keymap.set({ "n", "x", "o" }, "<leader><space>", track_flash(flash.treesitter), { desc = "Flash Treesitter" })
+
+-- Make <Esc> cancel only Flash, even in a floating window. The next <Esc>
+-- then works as usual, for example to close the window.
+-- - Flash jumps read <Esc> themselves, then send another <Esc>. Discard it.
+-- - Flash labels after f/F/t/T stay visible. Hide them and discard the <Esc>.
+-- Only discard <Esc> in normal mode, so that one <Esc> still leaves visual
+-- mode and cancels an operator.
+-- vim.on_key gets the typed key even when a buffer mapping replaces it.
 -- https://github.com/folke/flash.nvim/issues/401#issuecomment-2676690290
-vim.keymap.set({ "n", "x", "o" }, "<esc>", function()
-  local char = require("flash.plugins.char")
-  if char.state then
-    char.state:hide()
+local flash_char = require("flash.plugins.char")
+local esc = vim.keycode("<esc>")
+local discard_next_esc = false
+vim.on_key(function(_, typed)
+  -- Ignore keys that you did not type, such as keys sent by a jump
+  if typed == "" then return end
+  if typed ~= esc then
+    discard_next_esc = false
+    return
   end
-  if vim.fn.mode() == "n" then
-    require("helpers").close_floating_windows()
+  if flash_active then
+    discard_next_esc = true
+    return
   end
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "n", true)
-end, { desc = "Cancel Flash and close floating windows" })
+
+  local discard = discard_next_esc
+  discard_next_esc = false
+  -- Skip while f/F/t/T waits for a target, so that <Esc> cancels it
+  if flash_char.visible() and not flash_char.jumping then
+    flash_char.state:hide()
+    discard = true
+  end
+  if discard and vim.fn.mode(1) == "n" then return "" end
+end, vim.api.nvim_create_namespace("flash_esc"))
 
 if vim.g.vscode then
   local mc = require("vscode-multi-cursor")
