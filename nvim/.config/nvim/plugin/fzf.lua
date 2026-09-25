@@ -17,9 +17,11 @@ fzf_lua.setup({
   ---@diagnostic disable-next-line: assign-type-mismatch
   winopts = function()
     local w, h, c, r = helpers.get_float_size()
+    -- fzf-lua sizes include the border, but Neovim window sizes do not.
+    -- Add the border so that fzf-lua matches the other floating windows.
     return {
-      width = w,
-      height = h,
+      width = w + 2,
+      height = h + 2,
       row = r,
       col = c,
       border = "single",
