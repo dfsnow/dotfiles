@@ -8,11 +8,34 @@ if not vim.g.vscode then
   local actions = require("diffview.actions")
   local scroll_amount = 0.10
 
+  -- Sum the per-file line stats of the current view for the file panel winbar
+  function _G.DiffviewPanelStats()
+    local view = require("diffview.lib").get_current_view()
+    if not (view and view.files and view.files.iter) then return "" end
+
+    local files, additions, deletions = 0, 0, 0
+    for _, file in view.files:iter() do
+      files = files + 1
+      if file.stats and file.stats.additions then
+        additions = additions + file.stats.additions
+        deletions = deletions + file.stats.deletions
+      end
+    end
+
+    return string.format(
+      "  %d files %%#DiffviewFilePanelInsertions#+%d %%#DiffviewFilePanelDeletions#-%d",
+      files, additions, deletions
+    )
+  end
+
   require("diffview").setup({
     enhanced_diff_hl = true,
     file_panel = {
       show_branch_name = true,
       always_show_sections = true,
+      win_config = {
+        win_opts = { winbar = "%{%v:lua.DiffviewPanelStats()%}" },
+      },
     },
     keymaps = {
       view = {
@@ -52,16 +75,31 @@ if not vim.g.vscode then
       return vim.v.shell_error == 0
     end
 
-    local base
-    local pr = vim.fn.systemlist({ "gh", "pr", "view", "--json", "baseRefName", "--jq", ".baseRefName" })
-    if vim.v.shell_error == 0 and pr[1] ~= nil and pr[1] ~= "" then
-      base = pr[1]
-    else
-      base = ref_exists("main") and "main" or "master"
+    local function first_existing(refs)
+      for _, ref in ipairs(refs) do
+        if ref_exists(ref) then return ref end
+      end
     end
 
-    -- Compare against the remote base if it's tracked, else the local branch
-    local ref = ref_exists("origin/" .. base) and ("origin/" .. base) or base
+    local ref
+    local pr = vim.fn.systemlist({ "gh", "pr", "view", "--json", "baseRefName", "--jq", ".baseRefName" })
+    if vim.v.shell_error == 0 and pr[1] ~= nil and pr[1] ~= "" then
+      -- Prefer the remote copy of the PR target, else the local branch
+      ref = first_existing({ "origin/" .. pr[1], pr[1] })
+    else
+      -- No PR, so use the remote's default branch (e.g. "origin/main")
+      local head = vim.fn.systemlist({ "git", "symbolic-ref", "--quiet", "--short", "refs/remotes/origin/HEAD" })
+      if vim.v.shell_error == 0 and head[1] ~= nil and head[1] ~= "" then
+        ref = head[1]
+      else
+        ref = first_existing({ "origin/main", "origin/master", "main", "master" })
+      end
+    end
+
+    if not ref then
+      vim.notify("No PR target or base branch found", vim.log.levels.ERROR)
+      return
+    end
     vim.cmd("DiffviewOpen " .. ref .. "...HEAD --merge-base")
   end, { desc = "Open PR diff" })
 
