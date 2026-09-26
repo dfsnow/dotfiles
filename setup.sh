@@ -46,7 +46,7 @@ MACOS_PACKAGES=(
 # Linux build dependencies
 BUILD_DEPS=(
     "libevent-dev"
-    "libncurses5-dev"
+    "libncurses-dev"
     "byacc"
     "ninja-build"
     "gettext"
@@ -60,20 +60,26 @@ BUILD_DEPS=(
     "unzip"
 )
 
+# Run from the repository, so that stow and the source builds work from any dir
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$DOTFILES_DIR"
+
 # Check if command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Check if directory exists and is not empty
-dir_exists_and_not_empty() {
-    [[ -d "$1" && -n "$(ls -A "$1" 2>/dev/null)" ]]
+# Check if a Debian package is installed. `dpkg -l` also succeeds for
+# packages that were removed but still have configuration files
+deb_installed() {
+    [[ "$(dpkg-query -W -f='${db:Status-Status}' "$1" 2>/dev/null)" == "installed" ]]
 }
 
 # Install script for linux-based systems
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [[ "$OSTYPE" == "linux"* ]]; then
 
-    # Only prompt if tmux/neovim aren't already installed from source
+    # Offer a source build of tmux if it is missing or is already a source
+    # build (source builds report their version as "tmux next-X.Y")
     if ! command_exists tmux || [[ "$(tmux -V)" == *"tmux next"* ]]; then
         read -p "Install tmux from source? [yn] " -n 1 -r source_answer_tmux
         echo
@@ -102,7 +108,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     # Check which packages need to be installed
     packages_to_install=()
     for pkg in "${all_linux_packages[@]}"; do
-        if ! dpkg -l "$pkg" >/dev/null 2>&1; then
+        if ! deb_installed "$pkg"; then
             packages_to_install+=("$pkg")
         fi
     done
@@ -118,7 +124,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     if [[ "$source_answer_tmux" =~ ^[Yy]$ ]] || [[ "$source_answer_neovim" =~ ^[Yy]$ ]]; then
         build_deps_to_install=()
         for pkg in "${BUILD_DEPS[@]}"; do
-            if ! dpkg -l "$pkg" >/dev/null 2>&1; then
+            if ! deb_installed "$pkg"; then
                 build_deps_to_install+=("$pkg")
             fi
         done
@@ -142,7 +148,9 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
         git clone https://github.com/tmux/tmux.git build_tmux
         cd build_tmux || exit
         sh autogen.sh
-        ./configure && make && sudo make install
+        ./configure
+        make
+        sudo make install
         cd ..
         rm -rf build_tmux
     elif ! command_exists tmux; then
@@ -180,9 +188,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     packages_to_install=()
     packages_to_upgrade=()
 
-    installed=$(brew list --formula)
+    installed=$'\n'"$(brew list --formula)"$'\n'
     for pkg in "${all_macos_packages[@]}"; do
-        if echo "$installed" | grep -qx "$pkg"; then
+        if [[ "$installed" == *$'\n'"$pkg"$'\n'* ]]; then
             packages_to_upgrade+=("$pkg")
         else
             packages_to_install+=("$pkg")
@@ -199,14 +207,6 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade "${packages_to_upgrade[@]}"
     fi
 
-    # Install fzf key bindings if not already done
-    if [[ ! -f ~/.fzf.bash ]]; then
-        echo "Installing fzf key bindings..."
-        "$(brew --prefix)"/opt/fzf/install --key-bindings --completion --no-update-rc
-    else
-        echo "fzf key bindings already installed"
-    fi
-
     # Hush login message
     if [[ ! -f ~/.hushlogin ]]; then
         echo "Creating ~/.hushlogin..."
@@ -216,29 +216,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     fi
 fi
 
-# Create symlinks to all files and folders using GNU stow
-__stow_sentinel() {
-    case "$1" in
-        bash) echo "$HOME/.bashrc" ;;
-        git)  echo "$HOME/.gitconfig" ;;
-        *)    echo "$HOME/.$1" ;;
-    esac
-}
-
-# Stow/symlink things to their expected locations
+# Symlink the config files into the home directory with GNU stow
 stow_packages=(tmux bash git vim nvim lazygit bat rstudio htop ghostty claude gpg)
-stow "${stow_packages[@]}"
+stow --dir="$DOTFILES_DIR" --target="$HOME" "${stow_packages[@]}"
 echo "Config files stowed"
-
-# Reset inputrc and bashrc only if they exist
-if [[ -f ~/.inputrc ]]; then
-    echo "Reloading inputrc..."
-    bind -f ~/.inputrc
-fi
-
-if [[ -f ~/.bashrc ]]; then
-    echo "Sourcing bashrc..."
-    source "$HOME/.bashrc"
-fi
-
 echo "Setup completed successfully!"
