@@ -90,65 +90,82 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 
-# Fallback if git-prompt.sh is not available
-if [ "$(type -t __git_ps1)" != function ]; then
-    function __git_ps1 {
-        PS1="$1$2"
-    }
-fi
-
 
 ###############################################################
 # => Source additional scripts
 ###############################################################
 
-# Enable programmable completion features (linux)
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    if ! shopt -oq posix; then
-        if [ -f /usr/share/bash-completion/bash_completion ]; then
-            . /usr/share/bash-completion/bash_completion
-        elif [ -f /etc/bash_completion ]; then
-            . /etc/bash_completion
-        fi
+# Save the output of a command to a file, so that new shells can source the
+# file instead of running the command. Remake the file when the command or
+# its directory is newer. Homebrew keeps the build date on binaries but
+# updates bin/ when it relinks an upgrade
+__cache() {
+    local file=$1 bin
+    shift
+    hash "$1" 2>/dev/null || return 1
+    bin=${BASH_CMDS[$1]}
+    if [[ ! -s $file || $bin -nt $file || ${bin%/*} -nt $file ]]; then
+        mkdir -p "${file%/*}"
+        "$@" > "$file" 2>/dev/null || { rm -f "$file"; return 1; }
     fi
+}
+__cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/bash"
+__comp_dir="${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion"
 
-# Enable homebrew and programmable completion features (Mac)
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    brew_prefix=/opt/homebrew/
-    export PATH="$brew_prefix/opt/python/libexec/bin:$PATH"
-    [[ -r "$brew_prefix/etc/profile.d/bash_completion.sh" ]] \
-        && . "$brew_prefix/etc/profile.d/bash_completion.sh"
+# Find Homebrew on Apple silicon, Intel Macs, and Linux
+for __dir in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
+    [[ -x $__dir/bin/brew ]] && HOMEBREW_PREFIX=$__dir && break
+done
+unset __dir
+
+if [[ -n ${HOMEBREW_PREFIX-} ]]; then
+    # Use Homebrew's unversioned python. Add it only once, for nested shells
+    [[ :$PATH: == *:$HOMEBREW_PREFIX/opt/python/libexec/bin:* ]] \
+        || export PATH="$HOMEBREW_PREFIX/opt/python/libexec/bin:$PATH"
+
+    # bash-completion sources every script in etc/bash_completion.d at
+    # startup, which takes about 0.5 seconds with Homebrew. Turn that off
+    # and link the directory as a user directory instead, so that each
+    # script loads on the first tab press for its command
+    [[ -e $__cache_dir/brew/completions ]] || { mkdir -p "$__cache_dir/brew" \
+        && ln -s "$HOMEBREW_PREFIX/etc/bash_completion.d" "$__cache_dir/brew/completions"; }
+    BASH_COMPLETION_COMPAT_DIR=/dev/null
+    BASH_COMPLETION_USER_DIR="$__comp_dir:$__cache_dir/brew"
 fi
+
+# Enable programmable completion
+if ! shopt -oq posix; then
+    for __file in "${HOMEBREW_PREFIX-}/etc/profile.d/bash_completion.sh" \
+        /usr/share/bash-completion/bash_completion /etc/bash_completion; do
+        [[ -r $__file ]] && . "$__file" && break
+    done
+    unset __file
+fi
+
+# Load the git prompt from Homebrew, since it is no longer sourced at
+# startup. Use a prompt without git information if it is missing
+[[ -r ${HOMEBREW_PREFIX-}/etc/bash_completion.d/git-prompt.sh ]] \
+    && . "$HOMEBREW_PREFIX/etc/bash_completion.d/git-prompt.sh"
+declare -F __git_ps1 >/dev/null || __git_ps1() { PS1="$1$2"; }
 
 # Add Ghostty shell integration
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
 fi
 
-# Add zoxide integration
-if type zoxide >/dev/null 2>/dev/null; then
-    eval "$(zoxide init bash)"
-fi
+# Add zoxide and fzf integration
+__cache "$__cache_dir/zoxide.bash" zoxide init bash && . "$__cache_dir/zoxide.bash"
+__cache "$__cache_dir/fzf.bash" fzf --bash && . "$__cache_dir/fzf.bash"
 
-# Add third-party bash completion support
-__add_completion() {
-    local cmd=$1
-    local completion_arg=$2
-    if type "$cmd" >/dev/null 2>&1 && "$cmd" "$completion_arg" >/dev/null 2>&1; then
-        eval "$("$cmd" "$completion_arg")"
-    fi
-}
-__add_completion uv "--generate-shell-completion bash"
-__add_completion ruff "--generate-shell-completion bash"
-__add_completion rg "--generate complete-bash"
-if [ -f ~/.fzf.bash ]; then
-    . ~/.fzf.bash
-else
-    __add_completion fzf "--bash"
-fi
+# Save completion scripts that tools print into the bash-completion user
+# directory, so that they load on the first tab press
+__cache "$__comp_dir/completions/uv" uv generate-shell-completion bash
+__cache "$__comp_dir/completions/ruff" ruff generate-shell-completion bash
+__cache "$__comp_dir/completions/rg" rg --generate complete-bash
+unset __comp_dir
 
 # Other envs and aliases
-[ -f ~/dotfiles/bash/.bash_aliases ] && . ~/dotfiles/bash/.bash_aliases
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
 
 
 ###############################################################
