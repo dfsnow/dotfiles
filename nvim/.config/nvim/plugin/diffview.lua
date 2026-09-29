@@ -39,14 +39,14 @@ require("diffview").setup({
   },
   keymaps = {
     view = {
-      ["<leader>gp"] = "[c",
-      ["<leader>gn"] = "]c",
-      ["K"] = actions.scroll_view(-scroll_amount),
-      ["J"] = actions.scroll_view(scroll_amount)
+      { "n", "<leader>gn", "]c",                                { desc = "Jump to the next hunk" } },
+      { "n", "<leader>gp", "[c",                                { desc = "Jump to the previous hunk" } },
+      { "n", "K",          actions.scroll_view(-scroll_amount), { desc = "Scroll the view up" } },
+      { "n", "J",          actions.scroll_view(scroll_amount),  { desc = "Scroll the view down" } },
     },
     file_panel = {
-      ["K"] = actions.scroll_view(-scroll_amount),
-      ["J"] = actions.scroll_view(scroll_amount)
+      { "n", "K", actions.scroll_view(-scroll_amount), { desc = "Scroll the view up" } },
+      { "n", "J", actions.scroll_view(scroll_amount),  { desc = "Scroll the view down" } },
     }
   }
 })
