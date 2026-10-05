@@ -215,7 +215,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Symlink the config files into the home directory with GNU stow
-stow_packages=(tmux bash git vim nvim lazygit bat rstudio htop ghostty claude gpg)
+stow_packages=(tmux bash git vim nvim lazygit bat htop ghostty claude gpg)
 stow --dir="$DOTFILES_DIR" --target="$HOME" "${stow_packages[@]}"
 echo "Config files stowed"
 echo "Setup completed successfully!"
