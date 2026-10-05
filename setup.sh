@@ -11,7 +11,6 @@ COMMON_PACKAGES=(
     "htop"
     "zstd"
     "zoxide"
-    "bat"
     "git-delta"
 )
 
@@ -34,7 +33,6 @@ MACOS_PACKAGES=(
     "lazygit"
     "uv"
     "ruff"
-    "air"
     "tree-sitter"
     "tree-sitter-cli"
     "gnupg"
