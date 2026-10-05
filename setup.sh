@@ -3,7 +3,7 @@
 set -euo pipefail
 
 COMMON_PACKAGES=(
-    stow git ripgrep fzf htop zstd zoxide git-delta
+    stow bat git ripgrep fzf htop zstd zoxide git-delta
 )
 
 LINUX_PACKAGES=(
