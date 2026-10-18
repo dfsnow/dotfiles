@@ -182,13 +182,16 @@ FZF_IGNORE=(
 )
 FZF_RG_IGNORES=""
 FZF_FD_IGNORES=""
+FZF_EZA_IGNORES=""
 for __dir in "${FZF_IGNORE[@]}"; do
     FZF_RG_IGNORES+=" -g '!${__dir}/'"
     FZF_FD_IGNORES+=" -E ${__dir}"
+    FZF_EZA_IGNORES+="${FZF_EZA_IGNORES:+|}${__dir}"
 done
 unset __dir
 export FZF_RG_IGNORES
 export FZF_FD_IGNORES
+export FZF_EZA_IGNORES
 
 # GPG pinentry setup
 GPG_TTY=$(tty)
@@ -229,7 +232,9 @@ if type bat >/dev/null 2>/dev/null; then
 else
     FZF_FILE_PREVIEW='head -n 500 {}'
 fi
-if type tree >/dev/null 2>/dev/null; then
+if type eza >/dev/null 2>/dev/null; then
+    FZF_DIR_PREVIEW='eza --tree --level 2 --color=always {} | head -n 200'
+elif type tree >/dev/null 2>/dev/null; then
     FZF_DIR_PREVIEW='tree -C -L 2 {} | head -n 200'
 else
     FZF_DIR_PREVIEW='ls -lAhp {} | head -n 200'

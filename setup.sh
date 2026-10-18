@@ -12,7 +12,7 @@ LINUX_PACKAGES=(
 
 MACOS_PACKAGES=(
     neovim tmux fd bash bash-completion@2 lazygit uv ruff
-    tree-sitter tree-sitter-cli gnupg pinentry-mac prek tree
+    tree-sitter tree-sitter-cli gnupg pinentry-mac prek tree eza
 )
 
 BUILD_DEPS=(
@@ -152,7 +152,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Symlink the config files into the home directory with GNU stow
-stow_packages=(tmux bash git vim nvim lazygit bat htop ghostty claude gpg)
+stow_packages=(tmux bash git vim nvim lazygit bat htop ghostty claude gpg eza)
 stow --dir="$DOTFILES_DIR" --target="$HOME" "${stow_packages[@]}"
 echo "Config files stowed"
 echo "Setup completed successfully!"

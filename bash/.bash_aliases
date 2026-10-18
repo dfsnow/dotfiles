@@ -23,6 +23,15 @@ fi
 LS_COLORS=$LS_COLORS:'ow=1;34:'
 export LS_COLORS
 
+# Replace ls and tree with eza if installed
+if type eza > /dev/null 2> /dev/null; then
+    export EZA_CONFIG_DIR="$HOME/.config/eza"
+    alias ls='eza -F'
+    alias ll='eza -laF --icons --group --git --time-style "+%Y-%m-%d %H:%M:%S"'
+    alias lt='eza -a --tree --icons --level 4 --ignore-glob "$FZF_EZA_IGNORES"'
+    alias tree='eza -a --tree'
+fi
+
 # Add a g<alias> shell alias for each git alias in .gitconfig. Cache them,
 # and make them again only when .gitconfig or this file changes
 alias g='git'
