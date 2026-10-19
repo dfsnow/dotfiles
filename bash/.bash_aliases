@@ -68,6 +68,7 @@ __git_alias_complete() {
 if type lazygit > /dev/null 2> /dev/null; then
     alias lg='lazygit'
     alias gg='lazygit'
+    alias G='lazygit'
 fi
 
 # Aliases for directory backtracking

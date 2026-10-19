@@ -55,7 +55,20 @@ local float_term = Terminal:new({
       { buffer = term.bufnr, desc = "Hide floating terminal" })
   end
 })
+
+-- Open lazygit in the git root of the working directory. A new terminal
+-- is made each time so that lazygit always opens in the current directory
+local function lazygit()
+  Terminal:new({
+    cmd = "lazygit",
+    dir = helpers.cwd_or_git(),
+    direction = "float",
+    close_on_exit = true,
+  }):toggle()
+end
+
 wk.add({
+  { "<leader>G",  lazygit,                              desc = "Open lazygit" },
   { "<leader>.",  function() float_term:toggle() end,   desc = "Toggle floating terminal" },
   { "<leader>t",  group = "terminal" },
   { "<leader>tt", function() float_term:toggle() end,   desc = "Toggle floating terminal" },
