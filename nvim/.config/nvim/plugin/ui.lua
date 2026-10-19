@@ -7,19 +7,18 @@ vim.pack.add({
 })
 
 require("catppuccin").setup({
+  float = { transparent = true },
   custom_highlights = function(c)
     return {
       NonText = { fg = c.surface1 },
-      NormalFloat = { bg = c.none },
       FlashBackdrop = { fg = c.overlay0 },
       FlashLabel = { fg = c.base, bg = c.red },
-      FzfLuaBorder = { fg = c.blue },
       FzfLuaTitle = { fg = c.overlay2 },
       HighlightUndo = { link = "IncSearch" },
       BlinkCmpMenu = { bg = c.base },
-      BlinkCmpMenuBorder = { fg = c.blue },
+      BlinkCmpMenuBorder = { fg = c.blue, bg = c.base },
       BlinkCmpDoc = { bg = c.base },
-      BlinkCmpDocBorder = { fg = c.blue },
+      BlinkCmpDocBorder = { fg = c.blue, bg = c.base },
       BlinkCmpLabel = { fg = c.text },
       BlinkCmpLabelMatch = { fg = c.red },
       BlinkCmpGhostText = { fg = c.overlay0 }
