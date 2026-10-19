@@ -3,7 +3,7 @@ colourful: true
 
 filekinds:
   normal: {foreground: "#cdd6f4"}
-  directory: {foreground: "#cba6f7"}
+  directory: {foreground: "#89b4fa"}
   symlink: {foreground: "#89b4fa"}
   pipe: {foreground: "#bac2de"}
   block_device: {foreground: "#eba0ac"}
@@ -89,7 +89,7 @@ file_type:
   source: {foreground: "#89b4fa"}
 
 punctuation: {foreground: "#6c7086"}
-date: {foreground: "#f9e2af"}
+date: {foreground: "#9399b2"}
 inode: {foreground: "#a6adc8"}
 blocks: {foreground: "#6c7086"}
 header: {foreground: "#cdd6f4"}
