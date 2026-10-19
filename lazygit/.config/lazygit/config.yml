@@ -31,3 +31,4 @@ git:
   diffRenderers:
     - command: delta --dark --paging=never
   overrideGpg: true
+quitOnTopLevelReturn: true

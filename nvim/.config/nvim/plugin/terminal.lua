@@ -64,6 +64,9 @@ local function lazygit()
     dir = helpers.cwd_or_git(),
     direction = "float",
     close_on_exit = true,
+    on_open = function(term)
+      vim.keymap.set("t", "<esc>", "<esc>", { buffer = term.bufnr, nowait = true })
+    end
   }):toggle()
 end
 
