@@ -1,8 +1,8 @@
 local M = {}
 
--- Size of most floating windows, as a fraction of the editor size
+-- Width of most floating windows, as a fraction of the editor width.
+-- The height is always the area between the tabline and the statusline
 M.float_width_pct = 0.88
-M.float_height_pct = 0.83
 
 -- Close all floating windows
 function M.close_floating_windows()
@@ -41,14 +41,16 @@ function M.fzf_dirs(opts)
   require("fzf-lua").fzf_exec(os.getenv("FZF_ALT_C_COMMAND") or "", opts)
 end
 
--- Get window size/position for most floating windows. On wide screens,
--- use a narrower window on the right half of the editor.
+-- Get window size/position for most floating windows
 function M.get_float_size()
   local columns = vim.o.columns
+  local tabline = (vim.o.showtabline == 2
+    or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)) and 1 or 0
+  local statusline = vim.o.laststatus > 0 and 1 or 0
   local w = math.ceil(columns * M.float_width_pct)
-  local h = math.ceil(vim.o.lines * M.float_height_pct) + 2
+  local h = vim.o.lines - tabline - statusline - vim.o.cmdheight - 2
   local c = math.floor((columns - w) / 2)
-  local r = math.floor((vim.o.lines - h) / 2)
+  local r = tabline
 
   if columns > 100 then
     w = math.min(math.floor(w * 0.6), 108)
