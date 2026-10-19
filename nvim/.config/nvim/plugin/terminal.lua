@@ -47,7 +47,14 @@ local function new_term(direction)
   end
 end
 
-local float_term = Terminal:new({ direction = "float" })
+-- Two <esc> exit to normal mode. A third <esc> hides the float
+local float_term = Terminal:new({
+  direction = "float",
+  on_open = function(term)
+    vim.keymap.set("n", "<esc>", function() term:close() end,
+      { buffer = term.bufnr, desc = "Hide floating terminal" })
+  end
+})
 wk.add({
   { "<leader>t",  group = "terminal" },
   { "<leader>tt", function() float_term:toggle() end,   desc = "Toggle floating terminal" },
