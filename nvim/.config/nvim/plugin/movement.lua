@@ -35,8 +35,7 @@ if not vim.g.vscode then
   })
 
   wk.add({
-    { "-",         function() oil.open_float() end,    desc = "Open parent directory" },
-    { "<leader>.", function() oil.open_float(".") end, desc = "Open working directory" }
+    { "-", function() oil.open_float() end, desc = "Open parent directory" },
   })
 end
 

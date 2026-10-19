@@ -56,6 +56,7 @@ local float_term = Terminal:new({
   end
 })
 wk.add({
+  { "<leader>.",  function() float_term:toggle() end,   desc = "Toggle floating terminal" },
   { "<leader>t",  group = "terminal" },
   { "<leader>tt", function() float_term:toggle() end,   desc = "Toggle floating terminal" },
   { "<leader>tn", new_term("tab"),                      desc = "New terminal tab" },
