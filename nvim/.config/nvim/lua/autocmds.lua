@@ -60,3 +60,18 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.wo.conceallevel = 0
   end
 })
+
+-- Disable diagnostics in markdown buffers by default
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  desc = "Disable diagnostics in markdown files",
+  group = vim.api.nvim_create_augroup("markdown_diagnostics", { clear = true }),
+  callback = function(args)
+    vim.diagnostic.enable(false, { bufnr = args.buf })
+  end
+})
+for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+  if vim.bo[bufnr].filetype == "markdown" then
+    vim.diagnostic.enable(false, { bufnr = bufnr })
+  end
+end
