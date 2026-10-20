@@ -1,7 +1,8 @@
 #!/bin/bash
+QUERY=$(jq -r '.query // ""')
+cd "${CLAUDE_PROJECT_DIR:-.}" || exit 1
 
-QUERY=$(jq -r '.query')
-PROJECT_DIR="${CLAUDE_PROJECT_DIR:-.}"
-cd "$PROJECT_DIR" || exit 1
-
-eval rg --files --follow --hidden --no-ignore $FZF_RG_IGNORES . 2>/dev/null | sort -u | fzf --filter "$QUERY" | head -15
+# Search without a path argument, so rg prints paths without a "./" prefix
+eval rg --files --follow --hidden --no-ignore "$FZF_RG_IGNORES" 2>/dev/null \
+    | fzf --filter "$QUERY" --scheme=path \
+    | head -15

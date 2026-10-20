@@ -253,6 +253,22 @@ export HOMEBREW_NO_ANALYTICS=1
 
 
 ###############################################################
+# => Claude Code
+###############################################################
+
+# settings.json sets apiKeyHelper, which outranks a subscription login. When
+# a subscription (or other) login is active without the helper, turn it off
+claude() {
+    local no_helper='{"apiKeyHelper": ""}'
+    if command claude --settings "$no_helper" auth status &>/dev/null; then
+        command claude --settings "$no_helper" "$@"
+    else
+        command claude "$@"
+    fi
+}
+
+
+###############################################################
 # => FZF functions and keybinds
 ###############################################################
 
