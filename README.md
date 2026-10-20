@@ -92,6 +92,14 @@ You can append `!` to get a specific GPG key
 - `gpg --edit-key <YOUR_KEY_ID>` then: `trust → 5 → y → quit`
 - `gpgconf --kill gpg-agent`
 
+Turn off the macOS PIV driver with:
+
+```bash
+sudo defaults write /Library/Preferences/com.apple.security.smartcard DisabledTokens -array com.apple.CryptoTokenKit.pivtoken
+```
+
+Then restart the GPG agent with `gpgconf --kill gpg-agent` and unplug and replug the security key.
+
 ## Mac shell
 
 See [this SO answer for more details](https://stackoverflow.com/a/77052639):
