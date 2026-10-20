@@ -61,6 +61,7 @@ local float_term = Terminal:new({
 local function lazygit()
   Terminal:new({
     cmd = "lazygit",
+    display_name = "lazygit",
     dir = helpers.cwd_or_git(),
     direction = "float",
     close_on_exit = true,

@@ -28,6 +28,154 @@ function _G.DiffviewPanelStats()
   )
 end
 
+-- Diffview always runs in a nested nvim inside a float that is nearly the
+-- full width of the editor. This is true when this nvim is the nested one
+local in_float = vim.env.NVIM_DIFFVIEW_FLOAT == "1" and vim.env.NVIM ~= nil
+
+-- Run some Lua in the parent nvim
+local function call_parent(code, args)
+  local chan = vim.fn.sockconnect("pipe", vim.env.NVIM, { rpc = true })
+  vim.rpcrequest(chan, "nvim_exec_lua", code, args or {})
+  vim.fn.chanclose(chan)
+end
+
+-- Open the file under the cursor in the parent nvim, behind the float
+local function edit_in_parent()
+  local file = require("diffview.lib").get_current_view():infer_cur_file()
+  if file and file.absolute_path then
+    call_parent("DiffviewFloatEdit(...)", { file.absolute_path })
+  end
+end
+
+-- Like other floats, <esc> closes Diffview (and so the float)
+local float_esc = in_float
+    and { "n", "<esc>", "<cmd>DiffviewClose<cr>", { desc = "Close the diff view" } } or nil
+local float_edit = in_float
+    and { "n", "o", edit_in_parent, { desc = "Open the file in the parent nvim" } } or nil
+
+if in_float then
+  -- Do not let nvims started from this one think they are in the float
+  vim.env.NVIM_DIFFVIEW_FLOAT = nil
+
+  -- Hide lualine (the statusline and the buffer bar) and the ruler
+  vim.api.nvim_create_autocmd("VimEnter", {
+    group = vim.api.nvim_create_augroup("diffview_float_lualine", { clear = true }),
+    desc = "Hide lualine and the ruler in the Diffview float",
+    callback = function()
+      require("lualine").hide({ place = { "statusline", "tabline" } })
+      vim.o.laststatus = 0
+      vim.o.showtabline = 0
+      vim.o.ruler = false
+    end
+  })
+
+  -- Closing Diffview also quits this nvim and the float
+  vim.api.nvim_create_autocmd("User", {
+    group = vim.api.nvim_create_augroup("diffview_float_quit", { clear = true }),
+    pattern = "DiffviewViewClosed",
+    desc = "Quit the nested nvim when Diffview closes",
+    callback = function() vim.schedule(function() vim.cmd("qa!") end) end
+  })
+
+  vim.api.nvim_create_user_command("DiffviewToggle", function() call_parent("DiffviewFloatHide()") end, { nargs = "*" })
+else
+  -- The float and the Diffview command that it runs. Both are cleared when
+  -- the nested nvim quits
+  local float_term, float_cmd
+
+  function _G.DiffviewFloatHide()
+    vim.schedule(function()
+      if float_term then float_term:close() end
+    end)
+  end
+
+  -- Open a file in the window that was current before the float opened.
+  -- The float stays open and keeps the focus
+  function _G.DiffviewFloatEdit(path)
+    vim.schedule(function()
+      local win = require("toggleterm.ui").get_origin_window()
+      if not (win and vim.api.nvim_win_is_valid(win)
+            and vim.api.nvim_win_get_config(win).relative == "") then
+        win = vim.fn.win_getid(vim.fn.winnr("#"))
+      end
+      vim.api.nvim_win_call(win, function() vim.cmd.edit(vim.fn.fnameescape(path)) end)
+    end)
+  end
+
+  -- Run a Diffview command in the nested nvim. If the same command is
+  -- already running, show its float again. The current file is opened in
+  -- the nested nvim, so "%" and line ranges refer to the same file. It is
+  -- opened with no swap file, so that it does not conflict with this nvim
+  local function float_open(cmd)
+    if float_term and cmd == float_cmd then
+      if not float_term:is_open() then float_term:open() end
+      return
+    end
+    if float_term then float_term:shutdown() end
+
+    local shell_cmd = "nvim -n -c " .. vim.fn.shellescape(cmd)
+    local file = vim.api.nvim_buf_get_name(0)
+    if vim.bo.buftype == "" and vim.fn.filereadable(file) == 1 then
+      shell_cmd = shell_cmd .. " -- " .. vim.fn.shellescape(file)
+    end
+
+    local helpers = require("helpers")
+    float_cmd = cmd
+    float_term = require("toggleterm.terminal").Terminal:new({
+      cmd = shell_cmd,
+      display_name = "diffview",
+      direction = "float",
+      close_on_exit = true,
+      env = { NVIM_DIFFVIEW_FLOAT = "1" },
+      float_opts = {
+        width = function() return vim.o.columns - 4 end,
+        height = function() return select(2, helpers.get_float_size()) end,
+        col = function() return 1 end,
+        row = function() return select(4, helpers.get_float_size()) end,
+      },
+      on_open = function(term)
+        vim.keymap.set("t", "<esc>", "<esc>", { buffer = term.bufnr, nowait = true })
+      end,
+      on_exit = function(term)
+        if term == float_term then float_term, float_cmd = nil, nil end
+      end,
+    })
+    float_term:open()
+  end
+
+  -- Replace the commands that open a Diffview with ones that open it in
+  -- the float
+  for name, opts in pairs({
+    DiffviewOpen = {},
+    DiffviewFileHistory = { range = true },
+    DiffviewDiffFiles = { nargs = "+" },
+    DiffviewMergeFiles = { nargs = "+" },
+    DiffviewDiffDirs = { nargs = "+" },
+  }) do
+    vim.api.nvim_create_user_command(name, function(ctx)
+      local range = ctx.range > 0 and (ctx.line1 .. "," .. ctx.line2) or ""
+      float_open(vim.trim(range .. name .. " " .. ctx.args))
+    end, vim.tbl_extend("keep", opts, { nargs = "*", complete = require("diffview").completion }))
+  end
+
+  vim.api.nvim_create_user_command("DiffviewWorktreeOverview", function()
+    float_open("DiffviewWorktreeOverview")
+  end, { nargs = 0 })
+
+  -- Show or hide the float if it is running, else open a new Diffview
+  vim.api.nvim_create_user_command("DiffviewToggle", function(ctx)
+    if not float_term then
+      float_open(vim.trim("DiffviewOpen " .. ctx.args))
+    else
+      float_term:toggle()
+    end
+  end, { nargs = "*", complete = require("diffview").completion })
+
+  vim.api.nvim_create_user_command("DiffviewClose", function()
+    if float_term then float_term:shutdown() end
+  end, { nargs = 0, bang = true })
+end
+
 require("diffview").setup({
   enhanced_diff_hl = true,
   file_panel = {
@@ -43,11 +191,15 @@ require("diffview").setup({
       { "n", "<leader>gp", "[c",                                { desc = "Jump to the previous hunk" } },
       { "n", "K",          actions.scroll_view(-scroll_amount), { desc = "Scroll the view up" } },
       { "n", "J",          actions.scroll_view(scroll_amount),  { desc = "Scroll the view down" } },
+      float_esc,
     },
     file_panel = {
       { "n", "K", actions.scroll_view(-scroll_amount), { desc = "Scroll the view up" } },
       { "n", "J", actions.scroll_view(scroll_amount),  { desc = "Scroll the view down" } },
-    }
+      float_esc,
+      float_edit,
+    },
+    file_history_panel = { float_esc, float_edit },
   }
 })
 
