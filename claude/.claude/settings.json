@@ -1,5 +1,4 @@
 {
-  "apiKeyHelper": "~/.claude/bin/get-api-key.sh",
   "fileSuggestion": {
     "type": "command",
     "command": "~/.claude/bin/file-suggestions.sh"

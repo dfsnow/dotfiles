@@ -256,12 +256,12 @@ export HOMEBREW_NO_ANALYTICS=1
 # => Claude Code
 ###############################################################
 
-# settings.json sets apiKeyHelper, which outranks a subscription login. When
-# a subscription (or other) login is active without the helper, turn it off
+# apiKeyHelper outranks a subscription login, so settings.json omits it. Add
+# the helper only on machines that store an API key in the Keychain (work).
+# Other machines (home) fall through to the subscription login
 claude() {
-    local no_helper='{"apiKeyHelper": ""}'
-    if command claude --settings "$no_helper" auth status &>/dev/null; then
-        command claude --settings "$no_helper" "$@"
+    if security find-generic-password -s "claude-code" -a "$USER" &>/dev/null; then
+        command claude --settings '{"apiKeyHelper": "~/.claude/bin/get-api-key.sh"}' "$@"
     else
         command claude "$@"
     fi
