@@ -57,7 +57,8 @@ local float_term = Terminal:new({
 })
 
 -- Open lazygit in the git root of the working directory. A new terminal
--- is made each time so that lazygit always opens in the current directory
+-- is made each time so that lazygit always opens in the current directory.
+-- Like the Diffview float, it is nearly the full width of the editor
 local function lazygit()
   Terminal:new({
     cmd = "lazygit",
@@ -65,6 +66,12 @@ local function lazygit()
     dir = helpers.cwd_or_git(),
     direction = "float",
     close_on_exit = true,
+    float_opts = {
+      width = function() return vim.o.columns - 4 end,
+      height = function() return select(2, helpers.get_float_size()) end,
+      col = function() return 1 end,
+      row = function() return select(4, helpers.get_float_size()) end,
+    },
     on_open = function(term)
       vim.keymap.set("t", "<esc>", "<esc>", { buffer = term.bufnr, nowait = true })
     end
