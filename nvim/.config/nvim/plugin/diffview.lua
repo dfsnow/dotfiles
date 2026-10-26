@@ -127,12 +127,7 @@ else
       direction = "float",
       close_on_exit = true,
       env = { NVIM_DIFFVIEW_FLOAT = "1" },
-      float_opts = {
-        width = function() return vim.o.columns - 4 end,
-        height = function() return select(2, helpers.get_float_size()) end,
-        col = function() return 1 end,
-        row = function() return select(4, helpers.get_float_size()) end,
-      },
+      float_opts = helpers.term_float_opts(true),
       on_open = function(term)
         vim.keymap.set("t", "<esc>", "<esc>", { buffer = term.bufnr, nowait = true })
       end,

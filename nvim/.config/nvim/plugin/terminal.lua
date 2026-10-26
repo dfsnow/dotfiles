@@ -23,21 +23,14 @@ local helpers = require("helpers")
 local Terminal = require("toggleterm.terminal").Terminal
 local wk = require("which-key")
 
--- Size the float the same as the other plugin floats. Functions are
--- used so that the size is calculated again each time the float opens
+-- Size the float the same as the other plugin floats
 require("toggleterm").setup({
   shade_terminals = false,
   highlights = {
     NormalFloat = { link = "NormalFloat" },
     FloatBorder = { link = "FloatBorder" },
   },
-  float_opts = {
-    border = "single",
-    width = function() return select(1, helpers.get_float_size()) end,
-    height = function() return select(2, helpers.get_float_size()) end,
-    col = function() return select(3, helpers.get_float_size()) end,
-    row = function() return select(4, helpers.get_float_size()) end,
-  }
+  float_opts = helpers.term_float_opts(false, { border = "single" }),
 })
 
 -- Each of these opens a new terminal, so more than one can be open at a time
@@ -66,12 +59,7 @@ local function lazygit()
     dir = helpers.cwd_or_git(),
     direction = "float",
     close_on_exit = true,
-    float_opts = {
-      width = function() return vim.o.columns - 4 end,
-      height = function() return select(2, helpers.get_float_size()) end,
-      col = function() return 1 end,
-      row = function() return select(4, helpers.get_float_size()) end,
-    },
+    float_opts = helpers.term_float_opts(true),
     on_open = function(term)
       vim.keymap.set("t", "<esc>", "<esc>", { buffer = term.bufnr, nowait = true })
     end

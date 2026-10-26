@@ -41,8 +41,9 @@ function M.fzf_dirs(opts)
   require("fzf-lua").fzf_exec(os.getenv("FZF_ALT_C_COMMAND") or "", opts)
 end
 
--- Get window size/position for most floating windows
-function M.get_float_size()
+-- Get window size/position for most floating windows. If full is true,
+-- the float is nearly the full width of the editor (for Diffview and lazygit)
+function M.get_float_size(full)
   local columns = vim.o.columns
   local tabline = (vim.o.showtabline == 2
     or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)) and 1 or 0
@@ -52,12 +53,35 @@ function M.get_float_size()
   local c = math.floor((columns - w) / 2)
   local r = tabline
 
-  if columns > 100 then
+  if full then
+    w = columns - 4
+    c = 1
+  elseif columns > 100 then
     w = math.min(math.floor(w * 0.6), 108)
     c = math.floor(columns / 2) + math.floor(c / 2)
   end
 
   return w, h, c, r
+end
+
+-- Get a window config for nvim_open_win or nvim_win_set_config that uses
+-- the size from get_float_size. Keys in extra are added to the config
+function M.float_win_config(full, extra)
+  local w, h, c, r = M.get_float_size(full)
+  return vim.tbl_extend("force",
+    { relative = "editor", width = w, height = h, col = c, row = r }, extra or {})
+end
+
+-- Get toggleterm float_opts that use the size from get_float_size. Functions
+-- are used so that the size is calculated again each time the float opens.
+-- Keys in extra are added to the options
+function M.term_float_opts(full, extra)
+  return vim.tbl_extend("force", {
+    width = function() return select(1, M.get_float_size(full)) end,
+    height = function() return select(2, M.get_float_size(full)) end,
+    col = function() return select(3, M.get_float_size(full)) end,
+    row = function() return select(4, M.get_float_size(full)) end,
+  }, extra or {})
 end
 
 -- Check if the buffer is absolutely huge then use it to toggle off

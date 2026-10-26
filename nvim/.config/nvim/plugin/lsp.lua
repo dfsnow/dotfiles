@@ -33,6 +33,7 @@ local linters = {
   "actionlint",
   "hadolint",
   "markdownlint-cli2",
+  "shellcheck",
   "tflint",
   "yamllint"
 }

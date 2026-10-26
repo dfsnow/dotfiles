@@ -12,12 +12,8 @@ if not vim.g.vscode then
   vim.opt.undofile = true
   vim.cmd("packadd nvim.undotree")
   vim.keymap.set("n", "<leader>u", function()
-    local w, h, c, r = helpers.get_float_size()
-    local cmd_string = string.format(
-      "call nvim_open_win(nvim_create_buf(v:true, v:true), v:true, "
-      .. "{'relative': 'editor', 'width': %d, 'height': %d, 'col': %d, 'row': %d})",
-      w, h, c, r
-    )
+    local cmd_string = "call nvim_open_win(nvim_create_buf(v:true, v:true), v:true, "
+      .. vim.fn.string(helpers.float_win_config()) .. ")"
     require("undotree").open({ command = cmd_string, title = "undotree" })
   end, { desc = "Open undotree" })
 end

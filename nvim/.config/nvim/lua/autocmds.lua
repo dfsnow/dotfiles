@@ -22,15 +22,7 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
   pattern = { "mason", "oil", "nvim-undotree" },
   callback = function()
     if vim.api.nvim_win_get_config(0).relative == "editor" then
-      local w, h, c, r = helpers.get_float_size()
-      vim.api.nvim_win_set_config(0, {
-        relative = "editor",
-        border = "single",
-        width = w,
-        height = h,
-        row = r,
-        col = c
-      })
+      vim.api.nvim_win_set_config(0, helpers.float_win_config(false, { border = "single" }))
     end
 
     -- Remap table to prevent buffer switching in floating windows
