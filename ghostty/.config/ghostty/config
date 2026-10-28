@@ -6,3 +6,4 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 keybind = shift+enter=text:\n
 maximize = true
+macos-titlebar-style = tabs
