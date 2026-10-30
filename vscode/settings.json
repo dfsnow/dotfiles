@@ -1,5 +1,4 @@
 {
-    "authentication.anthropic.baseUrl": "https://llm.cloud.sf.gov",
     "breadcrumbs.enabled": false,
     "catppuccin.customUIColors": {
         "all": {
@@ -10,9 +9,6 @@
         }
     },
     "chat.disableAIFeatures": true,
-    "claudeCode.selectedModel": "default",
-    "claudeCode.preferredLocation": "sidebar",
-    "claudeCode.useCtrlEnterToSend": true,
     "console.fontSize": 14,
     "console.fontFamily": "'JetBrainsMono Nerd Font', 'JetBrainsMono NF', monospace",
     "console.fontLigatures": true,
@@ -29,7 +25,6 @@
         "json": false,
         "jsonc": false
     },
-    "dbt.beta.useQueryCache": true,
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
@@ -94,7 +89,7 @@
     "snowflake.connectionsConfigFile": "~/.snowflake/connections.toml",
     "snowflake.queryResults.maxRows": 1000,
     "sqlfluff.dialect": "snowflake",
-    "sqlfluff.executablePath": ".venv/bin/sqlfluff",
+    "sqlfluff.executablePath": "./.venv/bin/sqlfluff",
     "sqlfluff.experimental.format.executeInTerminal": true,
     "sqlfluff.linter.run": "onSave",
     "telemetry.editStats.enabled": false,
