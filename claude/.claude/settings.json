@@ -12,6 +12,7 @@
       "Bash(tree *)",
       "Bash(cat *)",
       "Bash(ls *)",
+      "Bash(ll *)",
       "Bash(pwd *)",
       "Bash(rg *)",
       "Bash(grep *)",
@@ -41,6 +42,14 @@
       "mcp__dbt__search_*",
       "mcp__dbt__query_metrics"
     ],
+    "ask": [
+      "Bash(terraform plan *)",
+      "mcp__slack__slack_read_*",
+      "mcp__slack__slack_search_*",
+      "mcp__slack__slack_list_*",
+      "mcp__slack__slack_get_reactions",
+      "mcp__dbt__execute_sql"
+    ],
     "deny": [
       "Read(./.env)",
       "Read(./*.env)",
@@ -55,8 +64,13 @@
       "Read(./node_modules/**)",
       "Read(./renv/**)",
       "Read(./venv/**)",
-      "Bash(terraform plan *)",
-      "Bash(terraform apply *)"
+      "Bash(terraform apply *)",
+      "mcp__slack__slack_send_*",
+      "mcp__slack__slack_schedule_*",
+      "mcp__slack__slack_create_*",
+      "mcp__slack__slack_update_*",
+      "mcp__slack__slack_add_*",
+      "mcp__slack__slack_delete_*"
     ]
   },
   "skillOverrides": {
