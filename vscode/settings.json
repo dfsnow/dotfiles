@@ -176,5 +176,6 @@
     "[sql]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "sqlfluff.vscode-sqlfluff"
-    }
+    },
+    "ai.mcp.enabled": true
 }
