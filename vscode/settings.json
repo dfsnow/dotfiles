@@ -89,7 +89,7 @@
     "snowflake.connectionsConfigFile": "~/.snowflake/connections.toml",
     "snowflake.queryResults.maxRows": 1000,
     "sqlfluff.dialect": "snowflake",
-    "sqlfluff.executablePath": "./.venv/bin/sqlfluff",
+    "sqlfluff.executablePath": "${workspaceFolder}/.venv/bin/sqlfluff",
     "sqlfluff.experimental.format.executeInTerminal": true,
     "sqlfluff.linter.run": "onSave",
     "telemetry.editStats.enabled": false,
