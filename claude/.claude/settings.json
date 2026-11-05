@@ -42,14 +42,6 @@
       "mcp__dbt__search_*",
       "mcp__dbt__query_metrics"
     ],
-    "ask": [
-      "Bash(terraform plan *)",
-      "mcp__slack__slack_read_*",
-      "mcp__slack__slack_search_*",
-      "mcp__slack__slack_list_*",
-      "mcp__slack__slack_get_reactions",
-      "mcp__dbt__execute_sql"
-    ],
     "deny": [
       "Read(./.env)",
       "Read(./*.env)",
@@ -71,6 +63,14 @@
       "mcp__slack__slack_update_*",
       "mcp__slack__slack_add_*",
       "mcp__slack__slack_delete_*"
+    ],
+    "ask": [
+      "Bash(terraform plan *)",
+      "mcp__slack__slack_read_*",
+      "mcp__slack__slack_search_*",
+      "mcp__slack__slack_list_*",
+      "mcp__slack__slack_get_reactions",
+      "mcp__dbt__execute_sql"
     ]
   },
   "skillOverrides": {
@@ -105,5 +105,10 @@
   },
   "effortLevel": "high",
   "editorMode": "vim",
-  "preferredNotifChannel": "ghostty"
+  "preferredNotifChannel": "ghostty",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  }
 }
