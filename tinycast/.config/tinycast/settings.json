@@ -390,7 +390,146 @@
     },
     "aliases": {},
     "customSizes": [],
-    "layouts": [],
+    "layouts": [
+      {
+        "id": "510f6984-fbe7-4a6e-9163-bda5aa01ecee",
+        "name": "CCSF (Home)",
+        "icon": "rectangle.3.group",
+        "usesGap": false,
+        "shortcut": null,
+        "alias": null,
+        "apps": [
+          {
+            "app": "com.tinyspeck.slackmacgap",
+            "open": null,
+            "display": {
+              "id": "a4d4b6d9-16dc-4e3c-a72d-9b640f01152d",
+              "name": "DELL U2415"
+            },
+            "width": 1,
+            "height": 0.5,
+            "position": "bottom",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.todoist.mac.Todoist",
+            "open": null,
+            "display": {
+              "id": "f95608dd-7d89-4c24-aa2c-9f159cc19d09",
+              "name": "DELL S2721DGF"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.bitwarden.desktop",
+            "open": null,
+            "display": {
+              "id": "f95608dd-7d89-4c24-aa2c-9f159cc19d09",
+              "name": "DELL S2721DGF"
+            },
+            "width": 0.44642857142857145,
+            "height": 0.676949443016281,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": -9.5
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.microsoft.teams2",
+            "open": null,
+            "display": {
+              "id": "a4d4b6d9-16dc-4e3c-a72d-9b640f01152d",
+              "name": "DELL U2415"
+            },
+            "width": 1,
+            "height": 0.5,
+            "position": "top",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.microsoft.Outlook",
+            "open": null,
+            "display": {
+              "id": "a4d4b6d9-16dc-4e3c-a72d-9b640f01152d",
+              "name": "DELL U2415"
+            },
+            "width": 1,
+            "height": 0.5,
+            "position": "top",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.electron.asana",
+            "open": null,
+            "display": {
+              "id": "f95608dd-7d89-4c24-aa2c-9f159cc19d09",
+              "name": "DELL S2721DGF"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.google.Chrome",
+            "open": null,
+            "display": {
+              "id": "f95608dd-7d89-4c24-aa2c-9f159cc19d09",
+              "name": "DELL S2721DGF"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.superlogical.rex",
+            "open": null,
+            "display": {
+              "id": "f95608dd-7d89-4c24-aa2c-9f159cc19d09",
+              "name": "DELL S2721DGF"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": true
+          }
+        ]
+      }
+    ],
     "rooms": [],
     "commands": {}
   },
