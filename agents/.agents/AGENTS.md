@@ -1,0 +1,3 @@
+- For tools that require auth (gh, slack), use MCP over CLI whenever possible
+- Prefer built-in tools to bash alternatives (cat)
+- NEVER commit locally or modify any GitHub objects yourself

@@ -103,12 +103,13 @@
       }
     ]
   },
+  "workflowKeywordTriggerEnabled": false,
   "effortLevel": "high",
-  "editorMode": "vim",
-  "preferredNotifChannel": "ghostty",
   "modelSettings": {
     "claude-opus-5-5": {
       "effortLevel": "medium"
     }
-  }
+  },
+  "editorMode": "vim",
+  "preferredNotifChannel": "ghostty"
 }
