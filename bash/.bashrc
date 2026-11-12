@@ -148,11 +148,6 @@ fi
     && . "$HOMEBREW_PREFIX/etc/bash_completion.d/git-prompt.sh"
 declare -F __git_ps1 >/dev/null || __git_ps1() { PS1="$1$2"; }
 
-# Add Ghostty shell integration
-if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
-    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
-fi
-
 # Add zoxide and fzf integration
 __cache "$__cache_dir/zoxide.bash" zoxide init bash && . "$__cache_dir/zoxide.bash"
 __cache "$__cache_dir/fzf.bash" fzf --bash && . "$__cache_dir/fzf.bash"
