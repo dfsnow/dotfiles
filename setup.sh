@@ -3,7 +3,7 @@
 set -euo pipefail
 
 COMMON_PACKAGES=(
-    stow bat git ripgrep fzf htop zstd zoxide git-delta
+    stow bat git ripgrep fzf htop zstd zoxide
 )
 
 LINUX_PACKAGES=(
@@ -12,7 +12,7 @@ LINUX_PACKAGES=(
 
 MACOS_PACKAGES=(
     neovim tmux fd bash bash-completion@2 lazygit uv ruff
-    tree-sitter tree-sitter-cli gnupg pinentry-mac prek tree eza
+    tree-sitter tree-sitter-cli gnupg pinentry-mac prek tree eza hunk
 )
 
 BUILD_DEPS=(
@@ -114,6 +114,13 @@ if [[ "$OSTYPE" == "linux"* ]]; then
         build_from_source neovim
     fi
 
+    # hunk is not in apt. Its install script puts it in ~/.hunk/bin, which
+    # .bashrc adds to PATH
+    if ! command_exists hunk && [[ ! -x ~/.hunk/bin/hunk ]]; then
+        echo "Installing hunk..."
+        curl -fsSL https://hunk.dev/install.sh | sh -s -- --no-modify-path
+    fi
+
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     if ! command_exists brew; then
         echo "Homebrew not found. Please install Homebrew first."
@@ -152,7 +159,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Symlink the config files into the home directory with GNU stow
-stow_packages=(tmux bash git vim nvim lazygit bat htop gpg eza claude agents)
+stow_packages=(tmux bash git vim nvim lazygit bat htop gpg eza hunk claude agents)
 stow --dir="$DOTFILES_DIR" --target="$HOME" "${stow_packages[@]}"
 echo "Config files stowed"
 echo "Setup completed successfully!"

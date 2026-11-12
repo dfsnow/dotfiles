@@ -51,7 +51,7 @@ local float_term = Terminal:new({
 
 -- Open lazygit in the git root of the working directory. A new terminal
 -- is made each time so that lazygit always opens in the current directory.
--- Like the Diffview float, it is nearly the full width of the editor
+-- Like the hunk float, it is nearly the full width of the editor
 local function lazygit()
   Terminal:new({
     cmd = "lazygit",

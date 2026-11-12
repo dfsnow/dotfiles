@@ -42,7 +42,7 @@ function M.fzf_dirs(opts)
 end
 
 -- Get window size/position for most floating windows. If full is true,
--- the float is nearly the full width of the editor (for Diffview and lazygit)
+-- the float is nearly the full width of the editor (for hunk and lazygit)
 function M.get_float_size(full)
   local columns = vim.o.columns
   local tabline = (vim.o.showtabline == 2

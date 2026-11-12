@@ -1,0 +1,36 @@
+theme = "mocha"
+mode = "auto"
+line_numbers = true
+wrap_lines = false
+
+[feedback]
+enabled = false
+
+[vcs]
+watch = true
+
+[themes.mocha]
+base = "catppuccin-mocha"
+label = "Catppuccin Mocha (nvim)"
+background = "#1e1e2e"        # Normal
+panel = "#1e1e2e"             # Normal (files pane, menus)
+panelAlt = "#181825"          # StatusLine (file headers, status line)
+border = "#313244"            # surface0
+accent = "#89b4fa"            # FloatBorder
+accentMuted = "#313244"       # PmenuSel
+text = "#cdd6f4"
+muted = "#a6adc8"
+contextBg = "#1e1e2e"
+contextContentBg = "#1e1e2e"
+lineNumberBg = "#1e1e2e"
+lineNumberFg = "#6c7086"      # overlay0 (nvim LineNr #45475a is too dim here)
+selectedHunk = "#2a2b3c"      # CursorLine
+addedBg = "#364143"           # DiffAdd
+removedBg = "#443244"         # DiffDelete
+addedContentBg = "#475950"    # green over base at 30%, DiffAdd is 18%
+removedContentBg = "#5e3f53"  # red over base at 30%, DiffDelete is 18%
+addedSignColor = "#a6e3a1"
+removedSignColor = "#f38ba8"
+noteBackground = "#181825"
+noteTitleBackground = "#313244"
+noteBorder = "#cba6f7"

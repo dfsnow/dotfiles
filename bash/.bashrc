@@ -133,6 +133,9 @@ if [[ -n ${HOMEBREW_PREFIX-} ]]; then
     BASH_COMPLETION_USER_DIR="$__comp_dir:$__cache_dir/brew"
 fi
 
+# hunk's install script (used on Linux) puts it in ~/.hunk/bin
+[[ -d $HOME/.hunk/bin && :$PATH: != *:$HOME/.hunk/bin:* ]] && export PATH="$HOME/.hunk/bin:$PATH"
+
 # Enable programmable completion
 if ! shopt -oq posix; then
     for __file in "${HOMEBREW_PREFIX-}/etc/profile.d/bash_completion.sh" \
