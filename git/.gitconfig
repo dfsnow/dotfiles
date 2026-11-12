@@ -29,8 +29,8 @@
     blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a"
     commit-decoration-style = "#6c7086" bold box ul
     dark = true
-    file-decoration-style = "#6c7086"
-    file-style = "#cdd6f4"
+    file-decoration-style = none
+    file-style = omit
     hunk-header-decoration-style = "#6c7086" box ul
     hunk-header-file-style = bold
     hunk-header-line-number-style = bold "#a6adc8"

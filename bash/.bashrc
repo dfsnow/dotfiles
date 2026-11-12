@@ -235,6 +235,13 @@ else
     FZF_DIR_PREVIEW='ls -lAhp {} | head -n 200'
 fi
 
+# Size delta to the preview pane. It reads [delta] settings from gitconfig
+if type delta >/dev/null 2>/dev/null; then
+    FZF_GIT_PAGER='delta --paging=never --width="$FZF_PREVIEW_COLUMNS"'
+else
+    FZF_GIT_PAGER='cat'
+fi
+
 # Preview file contents for the file widget (ctrl-t and esc+space) and the
 # directory contents for the dir widget (alt-c)
 export FZF_CTRL_T_OPTS="--preview '$FZF_FILE_PREVIEW'"
@@ -291,7 +298,8 @@ vg() {
     files=$(git status --porcelain --untracked-files=all 2>/dev/null \
         | fzf --multi --prompt 'git> ' \
             --preview 'f=$(sed -e "s/^...//" -e "s/.* -> //" <<< {}); \
-                git diff --color=always -- "$f" 2>/dev/null | head -500' \
+                git diff --color=always -- "$f" 2>/dev/null \
+                | '"$FZF_GIT_PAGER"' | head -500' \
         | sed -e 's/^...//' -e 's/.* -> //')
     [ -n "$files" ] && ${VISUAL:-nvim} $files
 }
