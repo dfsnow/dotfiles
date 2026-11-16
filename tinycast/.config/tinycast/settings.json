@@ -330,6 +330,7 @@
   "snippets": {
     "showInLauncher": true,
     "folder": null,
+    "defaultAction": "paste",
     "commands": {}
   },
   "navigation": {
@@ -391,6 +392,144 @@
     "aliases": {},
     "customSizes": [],
     "layouts": [
+      {
+        "id": "f71a0310-aefd-4a3e-978e-29ad8142eb6b",
+        "name": "CCSF (1SVN)",
+        "icon": null,
+        "usesGap": false,
+        "shortcut": null,
+        "alias": null,
+        "apps": [
+          {
+            "app": "com.bitwarden.desktop",
+            "open": null,
+            "display": {
+              "id": "37d8832a-2d66-02ca-b9f7-8f30a301b230",
+              "name": "Built-in Retina Display"
+            },
+            "width": 0.6283068783068783,
+            "height": 0.8324552160168599,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": -4.5
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.google.Chrome",
+            "open": null,
+            "display": {
+              "id": "f0f900b0-f842-4ece-a8e5-9e62dd77417e",
+              "name": "HP E273q (2)"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.microsoft.Outlook",
+            "open": null,
+            "display": {
+              "id": "37d8832a-2d66-02ca-b9f7-8f30a301b230",
+              "name": "Built-in Retina Display"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.electron.asana",
+            "open": null,
+            "display": {
+              "id": "37d8832a-2d66-02ca-b9f7-8f30a301b230",
+              "name": "Built-in Retina Display"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.microsoft.teams2",
+            "open": null,
+            "display": {
+              "id": "37d8832a-2d66-02ca-b9f7-8f30a301b230",
+              "name": "Built-in Retina Display"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.todoist.mac.Todoist",
+            "open": null,
+            "display": {
+              "id": "37d8832a-2d66-02ca-b9f7-8f30a301b230",
+              "name": "Built-in Retina Display"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          },
+          {
+            "app": "com.tinyspeck.slackmacgap",
+            "open": null,
+            "display": {
+              "id": "37d8832a-2d66-02ca-b9f7-8f30a301b230",
+              "name": "Built-in Retina Display"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": true
+          },
+          {
+            "app": "com.superlogical.rex",
+            "open": null,
+            "display": {
+              "id": "86f4c161-c415-4aeb-b884-67b2edd67b9f",
+              "name": "HP E273q (1)"
+            },
+            "width": 1,
+            "height": 1,
+            "position": "center",
+            "offset": {
+              "x": 0,
+              "y": 0
+            },
+            "frontmost": false
+          }
+        ]
+      },
       {
         "id": "510f6984-fbe7-4a6e-9163-bda5aa01ecee",
         "name": "CCSF (Home)",
